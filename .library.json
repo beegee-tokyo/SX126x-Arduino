@@ -19,7 +19,7 @@
     "authors": [
         {
             "email": "beegee@giesecke.tk", 
-            "url": "https://www.desire.giesecke.tk"
+            "url": "https://www.desire.giesecke.tk",
             "maintainer": true, 
             "name": "Bernd Giesecke"
         }
