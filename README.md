@@ -63,29 +63,27 @@ Features
 Functions
 -----
 WORK IN PROGRESS    
-__**Check out the example provided with this library to learn the basic functions.**__
+**_Check out the example provided with this library to learn the basic functions._**
 
 Module specific setup    
 --------
 To adapt the library to different modules and region specific ISM frequencies some defines are used. The following list is not complete yet and will be extended    
 
-Chip selection    
------
+**_Chip selection_**    
 ```
 #define SX1261_CHIP // if your module has a SX1261 chip    
 #define SX1262_CHIP // if your module has a SX1262 or SX1268 chip    
 ```
-LoRa parameters    
------
+**_LoRa parameters_**    
 ```
 #define RF_FREQUENCY 915000000  // Hz
-#define TX_OUTPUT_POWER 14		  // dBm
-#define LORA_BANDWIDTH 0		    // [0: 125 kHz, \
+#define TX_OUTPUT_POWER 14      // dBm
+#define LORA_BANDWIDTH 0        // [0: 125 kHz, \
                                 //  1: 250 kHz, \
                                 //  2: 500 kHz, \
                                 //  3: Reserved]
 #define LORA_SPREADING_FACTOR 7 // [SF7..SF12] was 7
-#define LORA_CODINGRATE 1		    // [1: 4/5,       \
+#define LORA_CODINGRATE 1       // [1: 4/5,       \
                                 //  2: 4/6, was 1 \
                                 //  3: 4/7,       \
                                 //  4: 4/8]
@@ -96,19 +94,18 @@ LoRa parameters
 #define RX_TIMEOUT_VALUE 3000
 #define TX_TIMEOUT_VALUE 3000
 ```
-ESP32 to SX126x SPI definition   
------
+**_ESP32 to SX126x SPI definition_**   
 ```
 #define PIN_LORA_RESET 4  // LORA RESET
-#define PIN_LORA_NSS 5	  // LORA SPI CS
+#define PIN_LORA_NSS 5    // LORA SPI CS
 #define PIN_LORA_SCLK 18  // LORA SPI CLK
 #define PIN_LORA_MISO 19  // LORA SPI MISO
 #define PIN_LORA_DIO_1 21 // LORA DIO_1
 #define PIN_LORA_BUSY 22  // LORA SPI BUSY
 #define PIN_LORA_MOSI 23  // LORA SPI MOSI
-#define RADIO_TXEN 26	    // LORA ANTENNA TX ENABLE (eByte E22 module)
-#define RADIO_RXEN 27	    // LORA ANTENNA RX ENABLE (eByte E22 module)
-#define BUFFER_SIZE 64	  // Define the payload size here
+#define RADIO_TXEN 26     // LORA ANTENNA TX ENABLE (eByte E22 module)
+#define RADIO_RXEN 27     // LORA ANTENNA RX ENABLE (eByte E22 module)
+#define BUFFER_SIZE 64    // Define the payload size here
 ```
 
 Usage
@@ -118,7 +115,7 @@ See [examples](https://github.com/beegee-tokyo/SX126x-ESP32/examples).
 Installation
 ------------
 
-__**Library is not yet published for Arduino IDE nor PlatformIO**__    
+**_Library is not yet published for Arduino IDE nor PlatformIO_**    
 In Arduino IDE open Sketch->Include Library->Manage Libraries then search for _**SX126x-ESP32**_    
 In PlatformIO open PlatformIO Home, switch to libraries and search for _**SX126x-ESP32**_. Or install the library in the terminal with _**`platformio lib install xxxx`**_    
 
