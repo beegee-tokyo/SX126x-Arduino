@@ -4,3 +4,15 @@
 .vscode/launch.json
 .vscode/ipch
 .vscode/settings.json
+
+examples/PingPongPio/test/
+
+examples/PingPongPio/lib/
+
+examples/PingPongPio/\.vscode/settings\.json
+
+examples/PingPongPio/\.vscode/extensions\.json
+
+examples/PingPongPio/\.vscode/arduino\.json
+
+*.DB
