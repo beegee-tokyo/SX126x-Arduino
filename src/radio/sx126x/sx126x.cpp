@@ -22,9 +22,9 @@
  */
 #include <math.h>
 #include <string.h>
-#include "boards/esp32/board.h"
+#include "boards/mcu/board.h"
 #include "sx126x.h"
-#include "boards/esp32/sx126x-board.h"
+#include "boards/sx126x/sx126x-board.h"
 
 extern "C"
 {
@@ -90,17 +90,19 @@ extern "C"
 		SX126xWakeup();
 		SX126xSetStandby(STDBY_RC);
 
-#ifdef USE_TCXO
-		CalibrationParams_t calibParam;
+		if (_hwConfig.USE_DIO3_TCXO)
+		{
+			CalibrationParams_t calibParam;
 
-		// SX126xSetDio3AsTcxoCtrl( TCXO_CTRL_1_8V, RADIO_TCXO_SETUP_TIME << 6 ); // convert from ms to SX126x time base
-		SX126xSetDio3AsTcxoCtrl(TCXO_CTRL_2_4V, RADIO_TCXO_SETUP_TIME << 6);
-		calibParam.Value = 0x7F;
-		SX126xCalibrate(calibParam);
-#endif
-#ifdef DSP4520
-		SX126xSetDio2AsRfSwitchCtrl(true);
-#endif
+			SX126xSetDio3AsTcxoCtrl(TCXO_CTRL_2_4V, RADIO_TCXO_SETUP_TIME << 6);
+			calibParam.Value = 0x7F;
+			SX126xCalibrate(calibParam);
+		}
+		if (_hwConfig.USE_DIO2_ANT_SWITCH)
+		{
+			SX126xSetDio2AsRfSwitchCtrl(true);
+		}
+
 		OperatingMode = MODE_STDBY_RC;
 	}
 

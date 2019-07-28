@@ -33,48 +33,26 @@ Maintainer: Miguel Luis and Gregory Cristian
  *	OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  *****************************************************************************/
-#include "board.h"
+#ifdef ESP32
+#include "boards/mcu/board.h"
 extern "C"
 {
-
-/**@brief Unique Devices IDs register set (nRF52)
- */
-#define ID1 (0x10000060)
-#define ID2 (0x10000064)
-
-	uint32_t lora_hardware_init(void)
-	{
-		TimerConfig();
-
-		SPI.begin(PIN_LORA_SCLK, PIN_LORA_MISO, PIN_LORA_MOSI, PIN_LORA_NSS);
-		// SpiInit(&SX126x.Spi, PIN_LORA_MOSI, PIN_LORA_MISO, PIN_LORA_SCLK, PIN_LORA_NSS);
-		SX126xIoInit();
-
-		return ESP_OK;
-	}
-
-	void lora_hardware_uninit(void)
-	{
-		// SpiDeInit(&SX126x.Spi);
-		SX126xIoDeInit();
-	}
-
 	uint32_t BoardGetRandomSeed(void)
 	{
-		return ((*(uint32_t *)ID1) ^ (*(uint32_t *)ID2));
-		return ((*(uint32_t *)ID1) ^ (*(uint32_t *)ID2));
+		return random(255);
 	}
 
 	void BoardGetUniqueId(uint8_t *id)
 	{
-		id[7] = ((*(uint32_t *)ID1));
-		id[6] = ((*(uint32_t *)ID1)) >> 8;
-		id[5] = ((*(uint32_t *)ID1)) >> 16;
-		id[4] = ((*(uint32_t *)ID1)) >> 24;
-		id[3] = ((*(uint32_t *)ID2));
-		id[2] = ((*(uint32_t *)ID2)) >> 8;
-		id[1] = ((*(uint32_t *)ID2)) >> 16;
-		id[0] = ((*(uint32_t *)ID2)) >> 24;
+		//TO BE IMPLEMENTED
+		id[7] = 8;
+		id[6] = 7;
+		id[5] = 6;
+		id[4] = 5;
+		id[3] = 4;
+		id[2] = 3;
+		id[1] = 2;
+		id[0] = 1;
 	}
 
 	uint8_t BoardGetBatteryLevel(void)
@@ -98,3 +76,4 @@ extern "C"
 		portEXIT_CRITICAL(&mux);
 	}
 };
+#endif

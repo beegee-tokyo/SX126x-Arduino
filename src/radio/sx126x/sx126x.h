@@ -28,17 +28,10 @@ extern "C"
 #define SX1261 1
 #define SX1262 2
 
-#ifdef USE_TCXO
 /*!
      * Radio complete Wake-up Time with TCXO stabilisation time
      */
 #define RADIO_TCXO_SETUP_TIME 5 // [ms]
-#else
-/*!
-     * Radio complete Wake-up Time with TCXO stabilisation time
-     */
-#define RADIO_TCXO_SETUP_TIME 0 // No Used
-#endif
 
 /*!
  * Radio complete Wake-up Time with margin for temperature compensation

@@ -33,19 +33,19 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
  *	OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  *****************************************************************************/
-
-#include "timer.h"
-#include "boards/esp32/board.h"
+#ifdef ESP32
+#include "boards/mcu/timer.h"
+#include "boards/mcu/board.h"
 
 extern "C"
 {
 
-	// External functions
+	Ticker txTimeoutTick;
+	Ticker rxTimeoutTick;
+	uint32_t txTimeOutTime;
+	uint32_t rxTimeOutTime;
 
-	Ticker timeout1;
-	Ticker timeout2;
-	bool timeout1InUse = false;
-	bool timeout2InUse = false;
+	// External functions
 
 	void TimerConfig(void)
 	{
@@ -54,72 +54,71 @@ extern "C"
 
 	void TimerInit(TimerEvent_t *obj, void (*callback)(void))
 	{
-		obj->Timestamp = millis();
-		obj->ReloadValue = 0;
-		obj->IsRunning = false;
 		obj->Callback = callback;
-		obj->Next = NULL;
-		if (timeout1InUse == false)
-		{
-			obj->evtTicker = timeout1;
-		}
-		else if (timeout2InUse == false)
-		{
-			obj->evtTicker = timeout2;
-		}
-		else
-		{
-			/// \todo Check if how many timeouts we need. Only two TimerEvent_t objects are defined
-		}
+		// Nothing to do here for the ESP32
 	}
 
 	void timerCallback(TimerEvent_t *obj)
 	{
-		obj->IsRunning = false;
-		obj->Callback();
+		// Nothing to do here for the ESP32
 	}
 
 	void TimerStart(TimerEvent_t *obj)
 	{
-		// if (obj == NULL)
-		// {
-		//     return;
-		// }
-		// // if (obj->IsRunning)
-		// // {
-		// //     Serial.println("Stop Timer before Start Timer");
-		// //     obj->evtTicker.detach();
-		// // }
-		// Serial.println("Start Timer with:");
-		// Serial.printf("Timestamp %ld Reload %ld\nIsRunning %d\nCallback %ld, Ticker %ld", obj->Timestamp, obj->ReloadValue, obj->IsRunning, obj->Callback, obj->evtTicker);
-		// obj->IsRunning = true;
-		// obj->evtTicker.once_ms(obj->ReloadValue, obj->Callback);
+		if (obj->timerNum == 1)
+		{
+			// TX timer
+			txTimeoutTick.once_ms(txTimeOutTime, obj->Callback);
+		}
+		else if (obj->timerNum == 2)
+		{
+			// RX timer
+			rxTimeoutTick.once_ms(rxTimeOutTime, obj->Callback);
+		}
 	}
 
 	void TimerStop(TimerEvent_t *obj)
 	{
-		// if (obj == NULL)
-		// {
-		//     return;
-		// }
-		// if (obj->IsRunning)
-		// {
-		//     obj->IsRunning = false;
-		//     obj->evtTicker.detach();
-		// }
+		if (obj->timerNum == 1)
+		{
+			// TX timer
+			txTimeoutTick.detach();
+		}
+		else if (obj->timerNum == 2)
+		{
+			// RX timer
+			rxTimeoutTick.detach();
+		}
 	}
 
 	void TimerReset(TimerEvent_t *obj)
 	{
-		obj->evtTicker.detach();
-		obj->evtTicker.once_ms(obj->ReloadValue, obj->Callback);
+		if (obj->timerNum == 1)
+		{
+			// TX timer
+			txTimeoutTick.detach();
+			txTimeoutTick.once_ms(txTimeOutTime, obj->Callback);
+		}
+		else if (obj->timerNum == 2)
+		{
+			// RX timer
+			rxTimeoutTick.detach();
+			rxTimeoutTick.once_ms(rxTimeOutTime, obj->Callback);
+		}
 	}
 
 	void TimerSetValue(TimerEvent_t *obj, uint32_t value)
 	{
-		obj->ReloadValue = value;
-		// obj->evtTicker.detach();
-		// obj->evtTicker.attach(value, obj->Callback);
+		if (obj->timerNum == 1)
+		{
+			// TX timer value
+			txTimeOutTime = value;
+		}
+		else if (obj->timerNum == 2)
+		{
+			// RX timer value
+			rxTimeOutTime = value;
+		}
 	}
 
 	TimerTime_t TimerGetCurrentTime(void)
@@ -136,3 +135,4 @@ extern "C"
 		return diff;
 	}
 };
+#endif

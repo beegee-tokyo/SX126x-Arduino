@@ -63,7 +63,8 @@ Features
 Functions
 -----
 WORK IN PROGRESS    
-**_Check out the example provided with this library to learn the basic functions._**
+**_Check out the example provided with this library to learn the basic functions._**    
+There is a [PingPong example](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples) available that simple interchange messages between two LoRa chips. It shows the main functions needed to setup the SX126x chips and send and receive packages.    
 
 Module specific setup    
 --------
@@ -75,18 +76,13 @@ To adapt the library to different modules and region specific ISM frequencies so
 #define SX1262_CHIP // if your module has a SX1262 or SX1268 chip    
 ```
 **_LoRa parameters_**    
+Check the SX126x datasheets for the meanings 
 ```
-#define RF_FREQUENCY 915000000  // Hz
-#define TX_OUTPUT_POWER 14      // dBm
-#define LORA_BANDWIDTH 0        // [0: 125 kHz, \
-                                //  1: 250 kHz, \
-                                //  2: 500 kHz, \
-                                //  3: Reserved]
+#define RF_FREQUENCY 915000000  // 915 MHz for US, 868MHz for EU
+#define TX_OUTPUT_POWER 14      // max 22dBm for US, max 14dBm for EU
+#define LORA_BANDWIDTH 0        // [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved]
 #define LORA_SPREADING_FACTOR 7 // [SF7..SF12] was 7
-#define LORA_CODINGRATE 1       // [1: 4/5,       \
-                                //  2: 4/6, was 1 \
-                                //  3: 4/7,       \
-                                //  4: 4/8]
+#define LORA_CODINGRATE 1       // [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8]
 #define LORA_PREAMBLE_LENGTH 8  // Same for Tx and Rx
 #define LORA_SYMBOL_TIMEOUT 0   // Symbols
 #define LORA_FIX_LENGTH_PAYLOAD_ON false
@@ -94,23 +90,33 @@ To adapt the library to different modules and region specific ISM frequencies so
 #define RX_TIMEOUT_VALUE 3000
 #define TX_TIMEOUT_VALUE 3000
 ```
-**_ESP32 to SX126x SPI definition_**   
+**_MCU to SX126x SPI definition_**   
+The hardware configuration is given to the library by a structure with the following elements
 ```
-#define PIN_LORA_RESET 4  // LORA RESET
-#define PIN_LORA_NSS 5    // LORA SPI CS
-#define PIN_LORA_SCLK 18  // LORA SPI CLK
-#define PIN_LORA_MISO 19  // LORA SPI MISO
-#define PIN_LORA_DIO_1 21 // LORA DIO_1
-#define PIN_LORA_BUSY 22  // LORA SPI BUSY
-#define PIN_LORA_MOSI 23  // LORA SPI MOSI
-#define RADIO_TXEN 26     // LORA ANTENNA TX ENABLE (eByte E22 module)
-#define RADIO_RXEN 27     // LORA ANTENNA RX ENABLE (eByte E22 module)
-#define BUFFER_SIZE 64    // Define the payload size here
-```
+  hwConfig.CHIP_TYPE = SX1262_CHIP;         // SX1261_CHIP for Semtech SX1261 SX1262_CHIP for Semtech SX1262/1268
+  hwConfig.PIN_LORA_RESET = PIN_LORA_RESET; // GPIO pin connected to NRESET of the SX126x    
+  hwConfig.PIN_LORA_NSS = PIN_LORA_NSS;     // GPIO pin connected to NSS of the SX126x    
+  hwConfig.PIN_LORA_SCLK = PIN_LORA_SCLK;   // GPIO pin connected to SCK of the SX126x    
+  hwConfig.PIN_LORA_MISO = PIN_LORA_MISO;   // GPIO pin connected to MISO of the SX126x    
+  hwConfig.PIN_LORA_DIO_1 = PIN_LORA_DIO_1; // GPIO pin connected to DIO 1 of the SX126x    
+  hwConfig.PIN_LORA_BUSY = PIN_LORA_BUSY;   // GPIO pin connected to BUSY of the SX126x    
+  hwConfig.PIN_LORA_MOSI = PIN_LORA_MOSI;   // GPIO pin connected to MOSI of the SX126x    
+  hwConfig.RADIO_TXEN = RADIO_TXEN;         // GPIO pin used to enable the RX antenna of the SX126x    
+  hwConfig.RADIO_RXEN = RADIO_RXEN;         // GPIO pin used to enable the TX antenna of the SX126x    
+  hwConfig.USE_DIO2_ANT_SWITCH = false;     // True if DIO2 is used to switch the antenna from RX to TX
+  hwConfig.USE_DIO3_TCXO = true;            // True if DIO3 is used to control the voltage of the TXCO oscillator
+  hwConfig.USE_DIO3_ANT_SWITCH = false;     // True if DIO3 is used to enable/disable the antenna
+```    
+Explanation:    
+RADIO_TXEN and RADIO_TXEN are used on [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module to switch the antenna between RX and TX    
+DIO2 as antenna switch is from the default Semtech design and might be used by many modules   
+DIO3 as antenna switch is used by e.g. [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) module which integrates a nRF52832 and a SX126x chip  
 
 Usage
 -----
 See [examples](https://github.com/beegee-tokyo/SX126x-ESP32/examples).    
+There is one example for [ArduinoIDE](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples/PingPong) and one example for [PlatformIO](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples/PingPongPio) available.    
+The PingPong examples show how to define the HW connection between the MCU and the SX126x chip/module.     
 
 Installation
 ------------

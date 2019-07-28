@@ -42,12 +42,10 @@ extern "C"
 	void DelayMs(uint32_t ms)
 	{
 		delay(ms);
-		// nrf_delay_ms(ms);
 	}
 
-	void Delay(float s)
+	void Delay(uint32_t s)
 	{
-		delay(s * 1000.0f);
-		// DelayMs(s * 1000.0f);
+		delay(s * 1000);
 	}
 };

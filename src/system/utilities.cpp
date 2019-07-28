@@ -12,9 +12,10 @@ License: Revised BSD License, see LICENSE.TXT file include in the project
 
 Maintainer: Miguel Luis and Gregory Cristian
 */
+#ifdef ESP32
 #include <stdlib.h>
 #include <stdio.h>
-#include "boards/esp32/board.h"
+#include "boards/mcu/board.h"
 #include "utilities.h"
 
 extern "C"
@@ -86,3 +87,4 @@ extern "C"
 		}
 	}
 };
+#endif

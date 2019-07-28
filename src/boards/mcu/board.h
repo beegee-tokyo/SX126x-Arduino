@@ -38,7 +38,6 @@ Maintainer: Miguel Luis and Gregory Cristian
 #define __BOARD_H__
 
 #include <Arduino.h>
-#include <SPI.h>
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -47,38 +46,42 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include <stdint.h>
 
 #include "system/delay.h"
-// #include "gpio-board.h"
-// #include "spi-board.h"
 
 #include "radio/radio.h"
 #include "radio/sx126x/sx126x.h"
-#include "sx126x-board.h"
-#include "system/timer.h"
+#include "boards/sx126x/sx126x-board.h"
+#include "timer.h"
 
-// #define LORA_RESET 	PIN_LORA_RESET
-// #define SPI_INSTANCE 	0
+// SX126x chip type
+#define SX1261_CHIP 1
+#define SX1262_CHIP 2
+#define SX1268_CHIP 2
 
-#define SX1262_CHIP
-#define REGION_EU868
-#define USE_TCXO 1
-
-// ESP32 - SX126x pin configuration
-#define PIN_LORA_RESET 4  // LORA RESET
-#define PIN_LORA_NSS 5	// LORA SPI CS
-#define PIN_LORA_SCLK 18  // LORA SPI CLK
-#define PIN_LORA_MISO 19  // LORA SPI MISO
-#define PIN_LORA_DIO_1 21 // LORA DIO_1
-#define PIN_LORA_BUSY 22  // LORA SPI BUSY
-#define PIN_LORA_MOSI 23  // LORA SPI MOSI
-#define RADIO_TXEN 26	 // LORA ANTENNA TX ENABLE
-#define RADIO_RXEN 27	 // LORA ANTENNA RX ENABLE
+// Microcontroller - SX126x pin configuration
+struct hw_config {
+	int CHIP_TYPE = SX1262_CHIP; // Module type, see defines above
+	int PIN_LORA_RESET;  // LORA RESET
+	int PIN_LORA_NSS;	// LORA SPI CS
+	int PIN_LORA_SCLK;  // LORA SPI CLK
+	int PIN_LORA_MISO;  // LORA SPI MISO
+	int PIN_LORA_DIO_1; // LORA DIO_1
+	int PIN_LORA_BUSY;  // LORA SPI BUSY
+	int PIN_LORA_MOSI;  // LORA SPI MOSI
+	int RADIO_TXEN = -1;	 // LORA ANTENNA TX ENABLE (eByte E22 module only)
+	int RADIO_RXEN = -1;	 // LORA ANTENNA RX ENABLE (eByte E22 module only)
+	bool USE_DIO2_ANT_SWITCH = false; // Whether DIO2 is used to control the antenna
+	bool USE_DIO3_TCXO = false; // Whether DIO3 is used to control the oscillator
+	bool USE_DIO3_ANT_SWITCH = false; // Whether DIO2 is used to control the antenna
+};
 
 extern "C"
 {
 
+extern hw_config _hwConfig;
+
 	/**@brief Initializes the target board peripherals.
  */
-	uint32_t lora_hardware_init(void);
+	uint32_t lora_hardware_init(hw_config hwConfig);
 
 	/**@brief De-initializes the target board peripherals to decrease power
  *        consumption.
