@@ -6,7 +6,7 @@ General info
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32 and nRF52832. It will not work with other uC's like AVR or Espressif 8266 (yet).    
 
 I stumbled over the [SX126x LoRa family](https://www.semtech.com/products/wireless-rf/lora-transceivers) in a customer project. The existing Arduino libraries for Semtech's SX127x family are unfortunately not working with this new generation LoRa chip. I found a usefull base library from Insight SIP which is based on the original Semtech SX126x library and changed it to work with the ESP32.   
-For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module    
+For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module connected to an ESP32 and an [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) which combines a Nordic nRF52832 and a Semtech SX1262 in one module    
 
 __**Check out the example provided with this library to learn the basic functions.**__
 
@@ -53,6 +53,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Changelog
 --------
+- 2019-07-31: Added LoRaWan support
 - 2019-07-28: Restructure of folders, added nRF52832 support    
 - 2019-07-26: First commit.    
 
@@ -61,12 +62,13 @@ Features
   - Support SX1261, SX1262 and SX1268 chips    
   - Support of LoRa protocol and FSK protocol (theoretical, I did not test FSK at all)    
   - Flexible setup for different modules (antenna control, TXCO control)    
+  - Support LoRaWan node class A, B and C (theoretical, I have no LoRaWan gateway to test it at all)    
 
 Functions
 -----
 WORK IN PROGRESS    
 **_Check out the example provided with this library to learn the basic functions._**    
-There is a [PingPong example](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples) available that simple interchange messages between two LoRa chips. It shows the main functions needed to setup the SX126x chips and send and receive packages.    
+See [examples](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples)    
 
 Module specific setup    
 --------
@@ -109,9 +111,9 @@ The hardware configuration is given to the library by a structure with the follo
   hwConfig.USE_DIO3_TCXO = true;            // True if DIO3 is used to control the voltage of the TXCO oscillator
   hwConfig.USE_DIO3_ANT_SWITCH = false;     // True if DIO3 is used to enable/disable the antenna
 ```    
-Explanation:    
+**Explanation for TXCO and antenna control:**    
 RADIO_TXEN and RADIO_TXEN are used on [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module to switch the antenna between RX and TX    
-DIO2 as antenna switch is used in the example Semtech design and might be used by many modules   
+DIO2 as antenna switch is used in the example Semtech design as default and might be used by many modules   
 DIO3 as antenna switch is used by e.g. [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) module which integrates a nRF52832 and a SX126x chip  
 
 Usage
