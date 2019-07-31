@@ -28,17 +28,5 @@
         "type": "git", 
         "url": "https://github.com/beegee-tokyo/SX126x-ESP32"
     }, 
-    "homepage": "https://github.com/beegee-tokyo/SX126x-ESP32", 
-    "export": {
-        "include": null, 
-        "exclude": [
-            "extras", 
-            "docs", 
-            "tests", 
-            "test", 
-            "*.doxyfile", 
-            "*.pdf"
-        ]
-    }, 
-    "id": 0
+    "homepage": "https://github.com/beegee-tokyo/SX126x-ESP32"
 }

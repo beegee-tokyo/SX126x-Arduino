@@ -110,7 +110,6 @@ extern "C"
 #ifdef NRF52
 				LOG_LV2("LORA", "[SX126xWaitOnBusy] Timeout waiting for BUSY low");
 #endif
-				//Serial.println("Timeout waiting for BUSY low");
 				return;
 			}
 		}

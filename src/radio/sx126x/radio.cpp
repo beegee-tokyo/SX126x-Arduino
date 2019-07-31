@@ -507,8 +507,8 @@ extern "C"
 		SX126xSetDioIrqParams(IRQ_RADIO_ALL, IRQ_RADIO_ALL, IRQ_RADIO_NONE, IRQ_RADIO_NONE);
 
 		// Initialize driver timeout timers
-		TxTimeoutTimer.timerNum = 1;
-		RxTimeoutTimer.timerNum = 2;
+		TxTimeoutTimer.oneShot = true;
+		RxTimeoutTimer.oneShot = true;
 		TimerInit(&TxTimeoutTimer, RadioOnTxTimeoutIrq);
 		TimerInit(&RxTimeoutTimer, RadioOnRxTimeoutIrq);
 

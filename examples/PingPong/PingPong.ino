@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include <SX126x-ESP32.h>
+#include <SX126x-Arduino.h>
 #include <SPI.h>
 
 hw_config hwConfig;

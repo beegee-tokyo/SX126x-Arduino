@@ -81,5 +81,12 @@ extern "C"
  * \retval hexChar Converted hexadecimal character
  */
 	int8_t Nibble2HexChar(uint8_t a);
+
+/** Leaves the minimum of the two 32-bit arguments */
+/*lint -emacro(506, MIN) */ /* Suppress "Constant value Boolean */
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+/** Leaves the maximum of the two 32-bit arguments */
+/*lint -emacro(506, MAX) */ /* Suppress "Constant value Boolean */
+#define MAX(a, b) ((a) < (b) ? (b) : (a))
 };
 #endif // __UTILITIES_H__

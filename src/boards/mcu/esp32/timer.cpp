@@ -40,10 +40,10 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
 extern "C"
 {
 
-	Ticker txTimeoutTick;
-	Ticker rxTimeoutTick;
-	uint32_t txTimeOutTime;
-	uint32_t rxTimeOutTime;
+	Ticker timerTickers[10];
+	uint32_t timerTimes[10];
+	bool timerInUse[10] = {false, false, false, false, false, false, false, false, false, false};
+
 
 	// External functions
 
@@ -54,8 +54,18 @@ extern "C"
 
 	void TimerInit(TimerEvent_t *obj, void (*callback)(void))
 	{
+		// Look for an available Ticker
+		for (int idx = 0; idx < 10; idx++)
+		{
+			if (timerInUse[idx] == false)
+			{
+				timerInUse[idx] = true;
+				obj->timerNum = idx;
 		obj->Callback = callback;
-		// Nothing to do here for the ESP32
+				return;
+			}
+		}
+		/// \todo We run out of tickers, what do we do now???
 	}
 
 	void timerCallback(TimerEvent_t *obj)
@@ -65,60 +75,41 @@ extern "C"
 
 	void TimerStart(TimerEvent_t *obj)
 	{
-		if (obj->timerNum == 1)
-		{
-			// TX timer
-			txTimeoutTick.once_ms(txTimeOutTime, obj->Callback);
+		int idx = obj->timerNum;
+		if (obj->oneShot){
+			timerTickers[idx].once_ms(timerTimes[idx], obj->Callback);
 		}
-		else if (obj->timerNum == 2)
+		else
 		{
-			// RX timer
-			rxTimeoutTick.once_ms(rxTimeOutTime, obj->Callback);
+			timerTickers[idx].attach_ms(timerTimes[idx], obj->Callback);
 		}
 	}
 
 	void TimerStop(TimerEvent_t *obj)
 	{
-		if (obj->timerNum == 1)
-		{
-			// TX timer
-			txTimeoutTick.detach();
-		}
-		else if (obj->timerNum == 2)
-		{
-			// RX timer
-			rxTimeoutTick.detach();
-		}
+		int idx = obj->timerNum;
+		timerTickers[idx].detach();
+
 	}
 
 	void TimerReset(TimerEvent_t *obj)
 	{
-		if (obj->timerNum == 1)
-		{
-			// TX timer
-			txTimeoutTick.detach();
-			txTimeoutTick.once_ms(txTimeOutTime, obj->Callback);
+		int idx = obj->timerNum;
+		timerTickers[idx].detach();
+		if (obj->oneShot){
+			timerTickers[idx].once_ms(timerTimes[idx], obj->Callback);
 		}
-		else if (obj->timerNum == 2)
+		else
 		{
-			// RX timer
-			rxTimeoutTick.detach();
-			rxTimeoutTick.once_ms(rxTimeOutTime, obj->Callback);
+			timerTickers[idx].attach_ms(timerTimes[idx], obj->Callback);
 		}
+
 	}
 
 	void TimerSetValue(TimerEvent_t *obj, uint32_t value)
 	{
-		if (obj->timerNum == 1)
-		{
-			// TX timer value
-			txTimeOutTime = value;
-		}
-		else if (obj->timerNum == 2)
-		{
-			// RX timer value
-			rxTimeOutTime = value;
-		}
+		int idx = obj->timerNum;
+		timerTimes[idx] = value;
 	}
 
 	TimerTime_t TimerGetCurrentTime(void)

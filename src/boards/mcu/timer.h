@@ -43,17 +43,18 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include <Ticker.h>
 #endif
 
-extern "C" { 
+extern "C"
+{
 #define ROUNDED_DIV(A, B) (((A) + ((B) / 2)) / (B))
 
 typedef void (*callbackType)(void);
-
 
 /**@brief Timer object description
  */
 typedef struct TimerEvent_s
 {
 	uint8_t timerNum;			/**< Used with ESP32 MCU 1 for TX, 2 for RX*/
+        bool oneShot = false;      /**< True if it is a one shot timer */
     uint32_t Timestamp;         /**< Current timer value */
     uint32_t ReloadValue;       /**< Timer delay value	*/
     bool IsRunning;             /**< Is the timer currently running	*/
