@@ -77,9 +77,6 @@ SX126xGetDeviceErrors	KEYWORD1
 SX126xClearDeviceErrors	KEYWORD1
 SX126xClearIrqStatus	KEYWORD1
 
-Delay	KEYWORD1
-DelayMs	KEYWORD1
-
 #######################################
 # Methods and Functions (KEYWORD2) Radio
 #######################################

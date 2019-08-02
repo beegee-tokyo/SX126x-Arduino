@@ -3,7 +3,7 @@ SX126x-Arduino
 
 General info
 --------
-Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32 and nRF52832. It will not work with other uC's like AVR or Espressif 8266 (yet).    
+Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32. ESP8266 and nRF52832. It will not work with other uC's like AVR.    
 
 I stumbled over the [SX126x LoRa family](https://www.semtech.com/products/wireless-rf/lora-transceivers) in a customer project. The existing Arduino libraries for Semtech's SX127x family are unfortunately not working with this new generation LoRa chip. I found a usefull base library from Insight SIP which is based on the original Semtech SX126x library and changed it to work with the ESP32.   
 For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module connected to an ESP32 and an [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) which combines a Nordic nRF52832 and a Semtech SX1262 in one module    
@@ -22,7 +22,7 @@ Licenses
 --------
 Library published under MIT license    
 
-Semtech revised BSD license    
+Semtech revised BSD license for codeparts used from Semtech S.A.   
 ```
 --- Revised BSD License ---
 Copyright (c) 2013, SEMTECH S.A.
@@ -53,7 +53,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Changelog
 --------
-- 2019-07-31: Added LoRaWan support
+- 2019-08-01: Added Espressif ESP8266 support
+- 2019-07-31: Added LoRaWan support (only partly tested)
 - 2019-07-28: Restructure of folders, added nRF52832 support    
 - 2019-07-26: First commit.    
 
@@ -68,7 +69,7 @@ Functions
 -----
 WORK IN PROGRESS    
 **_Check out the example provided with this library to learn the basic functions._**    
-See [examples](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples)    
+See [examples](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples)    
 
 Module specific setup    
 --------
@@ -118,10 +119,10 @@ DIO3 as antenna switch is used by e.g. [Insight SIP ISP4520](https://www.insight
 
 Usage
 -----
-See [examples](https://github.com/beegee-tokyo/SX126x-ESP32/examples).    
-There is one example for [ArduinoIDE](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples/PingPong) and one example for [PlatformIO](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples/PingPongPio) available.    
+See [examples](https://github.com/beegee-tokyo/SX126x-Android/examples).    
+There is one example for [ArduinoIDE](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/PingPong) and one example for [PlatformIO](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/PingPongPio) available.    
 The PingPong examples show how to define the HW connection between the MCU and the SX126x chip/module.     
-Another example is only partly tested. It is for LoRaWan and I could only test it as far as I know the application is sending out packages. But as I don't own a LoRaWan gateway I cannot test the functionality. Theoretically it should support Class A, B and C nodes. The examples can be found here: [ArduinoIDE](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples/LoRaWan) and one example for [PlatformIO](https://github.com/beegee-tokyo/SX126x-ESP32/tree/master/examples/LoRaWanPio)    
+Another example is only partly tested. It is for LoRaWan and I could only test it as far as I know the application is sending out packages. But as I don't own a LoRaWan gateway I cannot test the functionality. Theoretically it should support Class A, B and C nodes. The examples can be found here: [ArduinoIDE](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/LoRaWan) and one example for [PlatformIO](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/LoRaWanPio)    
 To use these examples you need to edit the header file ```Commissioning.h``` in the library folder ```src/mac```    
 
 Structure to define the connection between the MCU and the SX126x 
@@ -325,6 +326,6 @@ Installation
 In Arduino IDE open Sketch->Include Library->Manage Libraries then search for _**SX126x-Arduino**_    
 In PlatformIO open PlatformIO Home, switch to libraries and search for _**SX126x-Arduino**_. Or install the library in the terminal with _**`platformio lib install SX126x-Arduino`**_    
 
-For manual installation [download](https://github.com/beegee-tokyo/SX126x-Arduino) the archive, unzip it and place the SX126x-ESP32 folder into the library directory.    
+For manual installation [download](https://github.com/beegee-tokyo/SX126x-Arduino) the archive, unzip it and place the SX126x-Android folder into the library directory.    
 In Arduino IDE this is usually _**`<arduinosketchfolder>/libraries/`**_    
 In PlatformIO this is usually _**`<user/.platformio/lib>`**_    

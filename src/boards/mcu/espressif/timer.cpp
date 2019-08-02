@@ -33,7 +33,7 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
  *	OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  *****************************************************************************/
-#ifdef ESP32
+#if defined ESP8266 || defined ESP32
 #include "boards/mcu/timer.h"
 #include "boards/mcu/board.h"
 
@@ -43,7 +43,6 @@ extern "C"
 	Ticker timerTickers[10];
 	uint32_t timerTimes[10];
 	bool timerInUse[10] = {false, false, false, false, false, false, false, false, false, false};
-
 
 	// External functions
 
@@ -61,7 +60,7 @@ extern "C"
 			{
 				timerInUse[idx] = true;
 				obj->timerNum = idx;
-		obj->Callback = callback;
+				obj->Callback = callback;
 				return;
 			}
 		}
@@ -76,7 +75,8 @@ extern "C"
 	void TimerStart(TimerEvent_t *obj)
 	{
 		int idx = obj->timerNum;
-		if (obj->oneShot){
+		if (obj->oneShot)
+		{
 			timerTickers[idx].once_ms(timerTimes[idx], obj->Callback);
 		}
 		else
@@ -89,21 +89,20 @@ extern "C"
 	{
 		int idx = obj->timerNum;
 		timerTickers[idx].detach();
-
 	}
 
 	void TimerReset(TimerEvent_t *obj)
 	{
 		int idx = obj->timerNum;
 		timerTickers[idx].detach();
-		if (obj->oneShot){
+		if (obj->oneShot)
+		{
 			timerTickers[idx].once_ms(timerTimes[idx], obj->Callback);
 		}
 		else
 		{
 			timerTickers[idx].attach_ms(timerTimes[idx], obj->Callback);
 		}
-
 	}
 
 	void TimerSetValue(TimerEvent_t *obj, uint32_t value)

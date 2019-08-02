@@ -33,7 +33,7 @@ Maintainer: Miguel Luis and Gregory Cristian
  *	OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  *****************************************************************************/
-#ifdef ESP32
+#if defined ESP32 || defined ESP8266
 #include "boards/mcu/board.h"
 extern "C"
 {
@@ -44,15 +44,29 @@ extern "C"
 
 	void BoardGetUniqueId(uint8_t *id)
 	{
-		//TO BE IMPLEMENTED
-		id[7] = 8;
-		id[6] = 7;
-		id[5] = 6;
-		id[4] = 5;
-		id[3] = 4;
-		id[2] = 3;
-		id[1] = 2;
-		id[0] = 1;
+#ifdef ESP8266
+		uint32_t uniqueId = ESP.getChipId();
+		// Using ESP8266 chip ID (32 bytes only, so we use it twice
+		id[7] = (uint8_t)(uniqueId >> 24);
+		id[6] = (uint8_t)(uniqueId >> 16);
+		id[5] = (uint8_t)(uniqueId >> 8);
+		id[4] = (uint8_t)(uniqueId);
+		id[3] = (uint8_t)(uniqueId >> 24);
+		id[2] = (uint8_t)(uniqueId >> 16);
+		id[1] = (uint8_t)(uniqueId >> 8);
+		id[0] = (uint8_t)(uniqueId);
+#else
+		uint64_t uniqueId = ESP.getEfuseMac();
+		// Using ESP32 MAC (48 bytes only, so upper 2 bytes will be 0)
+		id[7] = (uint8_t)(uniqueId >> 56);
+		id[6] = (uint8_t)(uniqueId >> 48);
+		id[5] = (uint8_t)(uniqueId >> 40);
+		id[4] = (uint8_t)(uniqueId >> 32);
+		id[3] = (uint8_t)(uniqueId >> 24);
+		id[2] = (uint8_t)(uniqueId >> 16);
+		id[1] = (uint8_t)(uniqueId >> 8);
+		id[0] = (uint8_t)(uniqueId);
+#endif
 	}
 
 	uint8_t BoardGetBatteryLevel(void)
@@ -64,16 +78,21 @@ extern "C"
 		return batteryLevel;
 	}
 
+#ifdef ESP32
 	portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
-
+#endif
 	void BoardDisableIrq(void)
 	{
+#ifdef ESP32
 		portENTER_CRITICAL(&mux);
+#endif
 	}
 
 	void BoardEnableIrq(void)
 	{
+#ifdef ESP32
 		portEXIT_CRITICAL(&mux);
+#endif
 	}
 };
 #endif

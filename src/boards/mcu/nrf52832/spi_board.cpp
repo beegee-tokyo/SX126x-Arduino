@@ -10,7 +10,7 @@ extern SPIClass SPI_LORA;
 
 void initSPI(void)
 {
-    // SPI_LORA.begin(NRF_SPI2, _hwConfig.PIN_LORA_MISO, _hwConfig.PIN_LORA_SCLK, _hwConfig.PIN_LORA_MOSI);
-    SPI_LORA.begin();
+	// SPI_LORA.begin(NRF_SPI2, _hwConfig.PIN_LORA_MISO, _hwConfig.PIN_LORA_SCLK, _hwConfig.PIN_LORA_MOSI);
+	SPI_LORA.begin();
 }
 #endif

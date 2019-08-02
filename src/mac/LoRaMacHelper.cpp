@@ -20,7 +20,6 @@
  *****************************************************************************/
 
 #include "LoRaMacHelper.h"
-#include "system/delay.h"
 #include "system/utilities.h"
 
 extern "C"

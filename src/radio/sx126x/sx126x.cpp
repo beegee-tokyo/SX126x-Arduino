@@ -213,7 +213,7 @@ extern "C"
 		// Set radio in continuous reception
 		SX126xSetRx(0);
 
-		DelayMs(1);
+		delay(1);
 
 		SX126xReadRegisters(RANDOM_NUMBER_GENERATORBASEADDR, buf, 4);
 

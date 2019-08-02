@@ -420,6 +420,11 @@ extern "C"
 
 	bool IrqFired = false;
 
+	bool TimerRxTimeout = false;
+	bool TimerTxTimeout = false;
+
+	RadioModems_t _modem;
+
 	/*
  * SX126x DIO IRQ callback functions prototype
  */
@@ -540,6 +545,7 @@ extern "C"
 			// When switching to GFSK mode the LoRa SyncWord register value is reset
 			// Thus, we also reset the RadioPublicNetwork variable
 			RadioPublicNetwork.Current = false;
+			_modem = modem;
 			break;
 		case MODEM_LORA:
 			SX126xSetPacketType(PACKET_TYPE_LORA);
@@ -549,6 +555,7 @@ extern "C"
 				RadioPublicNetwork.Current = RadioPublicNetwork.Previous;
 				RadioSetPublicNetwork(RadioPublicNetwork.Current);
 			}
+			_modem = modem;
 			break;
 		}
 	}
@@ -570,7 +577,7 @@ extern "C"
 
 		RadioRx(0);
 
-		DelayMs(1);
+		delay(1);
 
 		carrierSenseTime = TimerGetCurrentTime();
 
@@ -605,7 +612,7 @@ extern "C"
 
 		for (i = 0; i < 32; i++)
 		{
-			DelayMs(1);
+			delay(1);
 			// Unfiltered RSSI value reading. Only takes the LSB value
 			rnd |= ((uint32_t)SX126xGetRssiInst() & 0x01) << i;
 		}
@@ -912,7 +919,7 @@ extern "C"
 		params.Fields.WarmStart = 1;
 		SX126xSetSleep(params);
 
-		DelayMs(2);
+		delay(2);
 	}
 
 	void RadioStandby(void)
@@ -928,19 +935,26 @@ extern "C"
 							  IRQ_RADIO_NONE,
 							  IRQ_RADIO_NONE);
 
-		if (timeout != 0)
-		{
-			TimerSetValue(&RxTimeoutTimer, timeout);
-			TimerStart(&RxTimeoutTimer);
-		}
-
 		if (RxContinuous == true)
 		{
+			// Even Continous mode is selected, put a timeout here
+			if (timeout != 0)
+			{
+				TimerSetValue(&RxTimeoutTimer, timeout);
+				TimerStart(&RxTimeoutTimer);
+			}
 			SX126xSetRx(0xFFFFFF); // Rx Continuous
 		}
 		else
 		{
-			SX126xSetRx(RxTimeout << 6);
+			if (_modem == MODEM_FSK)
+			{
+				SX126xSetRx(RxTimeout << 6);
+			}
+			else
+			{
+				SX126xSetRx(timeout << 6);
+			}
 		}
 	}
 
@@ -951,19 +965,26 @@ extern "C"
 							  IRQ_RADIO_NONE,
 							  IRQ_RADIO_NONE);
 
-		if (timeout != 0)
-		{
-			TimerSetValue(&RxTimeoutTimer, timeout);
-			TimerStart(&RxTimeoutTimer);
-		}
-
 		if (RxContinuous == true)
 		{
+			// Even Continous mode is selected, put a timeout here
+			if (timeout != 0)
+			{
+				TimerSetValue(&RxTimeoutTimer, timeout);
+				TimerStart(&RxTimeoutTimer);
+			}
 			SX126xSetRxBoosted(0xFFFFFF); // Rx Continuous
 		}
 		else
 		{
-			SX126xSetRxBoosted(RxTimeout << 6);
+			if (_modem == MODEM_FSK)
+			{
+				SX126xSetRxBoosted(RxTimeout << 6);
+			}
+			else
+			{
+				SX126xSetRxBoosted(timeout << 6);
+			}
 		}
 	}
 
@@ -1079,21 +1100,31 @@ extern "C"
 
 	void RadioOnTxTimeoutIrq(void)
 	{
-		if ((RadioEvents != NULL) && (RadioEvents->TxTimeout != NULL))
-		{
-			RadioEvents->TxTimeout();
-		}
+		// if ((RadioEvents != NULL) && (RadioEvents->TxTimeout != NULL))
+		// {
+		// 	RadioEvents->TxTimeout();
+		// }
+		BoardDisableIrq();
+		TimerTxTimeout = true;
+		BoardEnableIrq();
 	}
 
 	void RadioOnRxTimeoutIrq(void)
 	{
-		if ((RadioEvents != NULL) && (RadioEvents->RxTimeout != NULL))
-		{
-			RadioEvents->RxTimeout();
-		}
+		// if ((RadioEvents != NULL) && (RadioEvents->RxTimeout != NULL))
+		// {
+		// 	RadioEvents->RxTimeout();
+		// }
+		BoardDisableIrq();
+		TimerRxTimeout = true;
+		BoardEnableIrq();
 	}
 
+#ifdef ESP8266
+	void ICACHE_RAM_ATTR RadioOnDioIrq(void)
+#else
 	void RadioOnDioIrq(void)
+#endif
 	{
 		BoardDisableIrq();
 		IrqFired = true;
@@ -1191,6 +1222,24 @@ extern "C"
 				{
 					RadioEvents->RxTimeout();
 				}
+			}
+		}
+		if (TimerRxTimeout)
+		{
+			TimerRxTimeout = false;
+			TimerStop(&RxTimeoutTimer);
+			if ((RadioEvents != NULL) && (RadioEvents->RxTimeout != NULL))
+			{
+				RadioEvents->RxTimeout();
+			}
+		}
+		if (TimerTxTimeout)
+		{
+			TimerTxTimeout = false;
+			TimerStop(&TxTimeoutTimer);
+			if ((RadioEvents != NULL) && (RadioEvents->TxTimeout != NULL))
+			{
+				RadioEvents->TxTimeout();
 			}
 		}
 	}

@@ -86,11 +86,11 @@ extern "C"
 
 	void SX126xReset(void)
 	{
-		DelayMs(10);
+		delay(10);
 		digitalWrite(_hwConfig.PIN_LORA_RESET, LOW);
-		DelayMs(20);
+		delay(20);
 		digitalWrite(_hwConfig.PIN_LORA_RESET, HIGH);
-		DelayMs(10);
+		delay(10);
 		dio3IsOutput = false;
 	}
 
@@ -99,7 +99,7 @@ extern "C"
 		int timeout = 1000;
 		while (digitalRead(_hwConfig.PIN_LORA_BUSY) == HIGH)
 		{
-			DelayMs(1);
+			delay(1);
 			timeout -= 1;
 			if (timeout < 0)
 			{
