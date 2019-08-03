@@ -11,7 +11,7 @@
 		"arduino"
 	],
 	"platforms": [
-		"espressif32, nrf52, esp8266"
+		"espressif32, nordicnrf52, esp8266"
 	],
 	"license": [
 		"MIT License"
