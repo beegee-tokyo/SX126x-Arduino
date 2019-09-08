@@ -32,7 +32,7 @@ before_install:
 # create directory to save the library and create symbolic link
 install:
   - mkdir -p $HOME/Arduino/libraries
-  - ln -s $PWD $HOME/Arduino/libraries/RadioLib
+  - ln -s $PWD $HOME/Arduino/libraries/SX1272-Arduino
 
 # only build the master branch
 branches:
