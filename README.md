@@ -61,9 +61,9 @@ Changelog
 Features
 --------
   - Support SX1261, SX1262 and SX1268 chips    
-  - Support of LoRa protocol and FSK protocol (theoretical, I did not test FSK at all)    
+  - Support of LoRa protocol and FSK protocol (theoretically, I did not test FSK at all)    
   - Flexible setup for different modules (antenna control, TXCO control)    
-  - Support LoRaWan node class A, B and C (theoretical, I have no LoRaWan gateway to test it at all)    
+  - Support LoRaWan node class A, B and C (theoretically, I have no LoRaWan gateway to test it at all)    
 
 Functions
 -----
