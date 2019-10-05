@@ -3,6 +3,6 @@
 
 #include "boards/mcu/board.h"
 #include "radio/radio.h"
-#include "mac/loramachelper.h"
+#include "mac/LoRaMacHelper.h"
 
 #endif // _LORAWAN_ARDUINO_H
