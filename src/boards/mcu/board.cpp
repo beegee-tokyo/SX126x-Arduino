@@ -67,6 +67,29 @@ extern "C"
 		return 0;
 	}
 
+	uint32_t lora_isp4520_init(int chipType)
+	{
+		_hwConfig.CHIP_TYPE = chipType;		  // Chip type, SX1261 or SX1262
+		_hwConfig.PIN_LORA_RESET = 19;		  // LORA RESET
+		_hwConfig.PIN_LORA_NSS = 24;		  // LORA SPI CS
+		_hwConfig.PIN_LORA_SCLK = 23;		  // LORA SPI CLK
+		_hwConfig.PIN_LORA_MISO = 25;		  // LORA SPI MISO
+		_hwConfig.PIN_LORA_DIO_1 = 11;		  // LORA DIO_1
+		_hwConfig.PIN_LORA_BUSY = 27;		  // LORA SPI BUSY
+		_hwConfig.PIN_LORA_MOSI = 26;		  // LORA SPI MOSI
+		_hwConfig.RADIO_TXEN = -1;			  // LORA ANTENNA TX ENABLE (e.g. eByte E22 module)
+		_hwConfig.RADIO_RXEN = -1;			  // LORA ANTENNA RX ENABLE (e.g. eByte E22 module)
+		_hwConfig.USE_DIO2_ANT_SWITCH = true; // LORA DIO2 controls antenna
+		_hwConfig.USE_DIO3_TCXO = false;	  // LORA DIO3 controls oscillator voltage (e.g. eByte E22 module)
+		_hwConfig.USE_DIO3_ANT_SWITCH = true; // LORA DIO3 controls antenna (e.g. Insight SIP ISP4520 module)
+
+		TimerConfig();
+
+		SX126xIoInit();
+
+		return 0;
+	}
+
 	void lora_hardware_uninit(void)
 	{
 		SX126xIoDeInit();

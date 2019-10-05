@@ -82,6 +82,10 @@ extern "C"
  */
 	uint32_t lora_hardware_init(hw_config hwConfig);
 
+	/**@brief Initializes the ISP4520 board peripherals.
+ */
+	uint32_t lora_isp4520_init(int chipType);
+
 	/**@brief De-initializes the target board peripherals to decrease power
  *        consumption.
  */
