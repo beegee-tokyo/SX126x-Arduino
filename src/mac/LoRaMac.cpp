@@ -1922,6 +1922,8 @@ extern "C"
 		nextChan.Joined = IsLoRaMacNetworkJoined;
 		nextChan.LastAggrTx = AggregatedLastTxDoneTime;
 
+		// If we talk to a single channel gateway we should not switch channels
+#if DO_CHANNEL_SWITCH == 1
 		// Select channel
 		while (RegionNextChannel(LoRaMacRegion, &nextChan, &Channel, &dutyCycleTimeOff, &AggregatedTimeOff) == false)
 		{
@@ -1930,7 +1932,7 @@ extern "C"
 			// Update datarate in the function parameters
 			nextChan.Datarate = LoRaMacParams.ChannelsDatarate;
 		}
-
+#endif
 		// Compute Rx1 windows parameters
 		RegionComputeRxWindowParameters(LoRaMacRegion,
 										RegionApplyDrOffset(LoRaMacRegion, LoRaMacParams.DownlinkDwellTime, LoRaMacParams.ChannelsDatarate, LoRaMacParams.Rx1DrOffset),

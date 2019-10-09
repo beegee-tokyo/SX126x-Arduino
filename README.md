@@ -53,6 +53,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Changelog
 --------
+- 2019-10-09:    
+  - Tested LoRaWan with a single channel LoRaWan gateway.    
+  - Added support for single channel gateways    
+  - Added support for Insight SIP ISP4520 SoC (nRf52832 + SX1261/2 in one package)    
 - 2019-08-01: Added Espressif ESP8266 support
 - 2019-07-31: Added LoRaWan support (only partly tested)
 - 2019-07-28: Restructure of folders, added nRF52832 support    
@@ -61,9 +65,9 @@ Changelog
 Features
 --------
   - Support SX1261, SX1262 and SX1268 chips    
-  - Support of LoRa protocol and FSK protocol (theoretically, I did not test FSK at all)    
+  - Support of LoRa protocol and FSK protocol (theoretical, I did not test FSK at all)    
   - Flexible setup for different modules (antenna control, TXCO control)    
-  - Support LoRaWan node class A, B and C (theoretically, I have no LoRaWan gateway to test it at all)    
+  - Support LoRaWan node class A, B and C tested with single channel LoRaWan gateway    
 
 Functions
 -----
@@ -180,6 +184,10 @@ Initialize the LoRa HW
 ```
   lora_hardware_init(hwConfig);
 ```
+Simplified LoRa HW initialization for ISP4520 module
+```
+  lora_isp4520_init(SX1262);
+```
 Setup the callbacks for LoRa events
 ```
   RadioEvents.TxDone = OnTxDone;
@@ -259,6 +267,13 @@ You can find a lot of information about LoRaWan on the [LoRa Alliance](https://l
  * REGION_US915 -> US 915 MHz
  */
 #define REGION_US915
+
+/**@brief Indicate if a single channel gateway is the receiver
+ * More information https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723
+ * When set to 1 the application does randomly change channels on each transmission
+ * When set to 0 the application uses always the base channel
+ */
+#define DO_CHANNEL_SWITCH 0
 
 /**@brief Define activation procedure here
  * More information https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723

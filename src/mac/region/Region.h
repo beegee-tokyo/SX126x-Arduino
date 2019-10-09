@@ -55,6 +55,8 @@
 extern "C"
 {
 
+#include "mac/Commissioning.h"
+
 /*!
  * Macro to compute bit of a channel index.
  */

@@ -37,6 +37,13 @@ extern "C"
  */
 #define REGION_US915
 
+/**@brief Indicate if a single channel gateway is the receiver
+ * More information https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723
+ * When set to 1 the application does randomly change channels on each transmission
+ * When set to 0 the application uses always the base channel
+ */
+#define DO_CHANNEL_SWITCH 0
+
 /**@brief Define activation procedure here
  * More information https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723
  * When set to 1 the application uses the Over-the-Air activation procedure
