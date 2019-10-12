@@ -3,7 +3,7 @@ Created October 11th 2019
 __*Please confirm by yourself if this list is up-to-date*__
 
 ---
-### Other regions using 923MHz band    
+### Asia 923MHz band    
 ### AS923
 
 | Channel | Frequency |

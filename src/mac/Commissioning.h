@@ -38,7 +38,6 @@ extern "C"
 #define REGION_US915
 
 /**@brief Indicate if a single channel gateway is the receiver
- * More information https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723
  * When set to 1 the application does randomly change channels on each transmission
  * When set to 0 the application uses always the base channel
  */
