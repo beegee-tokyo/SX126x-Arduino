@@ -35,27 +35,30 @@ extern "C"
  * REGION_KR920 -> Korea 920 MHz
  * REGION_US915 -> US 915 MHz
  */
+
+#if !defined(REGION_AS923) && !defined(REGION_AU915) && !defined(REGION_CN470) && !defined(REGION_CN779) && !defined(REGION_EU433) && !defined(REGION_EU868) && !defined(REGION_IN865) && !defined(REGION_KR920) && !defined(REGION_US915) && !defined(REGION_US915_HYBRID)
 #define REGION_US915
+#endif
 
-/**@brief Indicate if a single channel gateway is the receiver
- * When set to 1 the application does randomly change channels on each transmission
- * When set to 0 the application uses always the base channel
- */
-#define DO_CHANNEL_SWITCH 1
+// /**@brief Indicate if a single channel gateway is the receiver
+//  * When set to 1 the application does randomly change channels on each transmission
+//  * When set to 0 the application uses always the base channel
+//  */
+// #define DO_CHANNEL_SWITCH 0
 
-/**@brief Channel to be used if we are talking to a single channel gateway
- * Check the file CHANNELS.MD to find out which channel corresponds to which frequency 
- * in a specific region
- * Defaults to channel 0
- */
-#define GATEWAY_SINGLE_CHANNEL 0
+// /**@brief Channel to be used if we are talking to a single channel gateway
+//  * Check the file CHANNELS.MD to find out which channel corresponds to which frequency 
+//  * in a specific region
+//  * Defaults to channel 0
+//  */
+// #define GATEWAY_SINGLE_CHANNEL 0
 
-/**@brief Datarate to be used if we are talking to a single channel gateway
- * Check the file Region.h to find out which datarate corresponds to which SF 
- * and bandwidth in a specific region
- * Defaults to channel DR_3
- */
-#define GATEWAY_SINGLE_DATARATE DR_3
+// /**@brief Datarate to be used if we are talking to a single channel gateway
+//  * Check the file Region.h to find out which datarate corresponds to which SF 
+//  * and bandwidth in a specific region
+//  * Defaults to channel DR_3
+//  */
+// #define GATEWAY_SINGLE_DATARATE DR_3
 
 /**@brief Define activation procedure here
  * More information https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723

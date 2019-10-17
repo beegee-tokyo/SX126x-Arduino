@@ -184,5 +184,56 @@ extern "C"
  * @param[in] tx_power tx power
  */
 	void lmh_tx_power_set(uint8_t tx_power);
+
+	/**@brief Set Device IEEE EUI (big endian)
+ *
+ * @param[in] Device EUI as uint8_t[] *
+ */
+	void lmh_setDevEui(uint8_t *userDevEui);
+
+	/**@brief Set Application IEEE EUI
+ *
+ * @param[in] Application IEEE EUI as uint8_t[] *
+ */
+	void lmh_setAppEui(uint8_t *userAppEui);
+
+	/**@brief Set Application Key
+ * AES encryption/decryption cipher application key
+ *
+ * @param[in] Application Key as uint8_t[] *
+ */
+	void lmh_setAppKey(uint8_t *userAppKey);
+
+	/**@brief Set Network Session Key
+ * AES encryption/decryption cipher network session key
+ *
+ * @param[in] Network Session Key as uint8_t[] *
+ */
+	void lmh_setNwkSKey(uint8_t *userNwkSKey);
+
+	/**@brief Set Application Session Key
+ * AES encryption/decryption cipher application session key
+ *
+ * @param[in] Application Session Key as uint8_t[] *
+ */
+	void lmh_setAppSKey(uint8_t *userAppSKey);
+
+	/**@brief Set Device address on the network (big endian)
+ *
+ * @param[in] Device address as uint8_t[] *
+ */
+	void lmh_setDevAddr(uint32_t userDevAddr);
+
+	/**@brief Disable channel hoping for connnection to
+ * single channel gateways
+ * Check the file CHANNELS.MD to find out which channel corresponds to which frequency 
+ * in a specific region
+ * Check the file Region.h to find out which datarate corresponds to which SF 
+ * and bandwidth in a specific region
+ *
+ * @param[in] Channel to be used 
+ * @param[in] Datarate to be used 
+ */
+	void lmh_setSingleChannelGateway(uint8_t userSingleChannel, int8_t userDatarate);
 };
 #endif

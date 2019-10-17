@@ -75,6 +75,10 @@ extern "C"
 	static uint32_t DevAddr = LORAWAN_DEVICE_ADDRESS; /**< End-device address */
 #endif
 
+	bool singleChannelGateway = false;   /**< Flag if connection is to a single channel gateway */
+	uint8_t singleChannelSelected = 0;   /**< Channel to be used to communicate with a single channel gateway */
+	int8_t singleChannelDatarate = DR_3; /**< Datarate to be used to communicate with a single channel gateway */
+
 	static LoRaMacPrimitives_t LoRaMacPrimitives; /**< LoRaMAC events variable */
 	static LoRaMacCallback_t LoRaMacCallbacks;	/**< LoRaMAC callback variable */
 	static MibRequestConfirm_t mibReq;			  /**< LoRaMAC MIB-RequestConfirm variable */
@@ -85,6 +89,43 @@ extern "C"
 
 	static bool m_adr_enable_init;
 	static TimerEvent_t ComplianceTestTxNextPacketTimer;
+
+	void lmh_setDevEui(uint8_t userDevEui[])
+	{
+		memcpy(DevEui, userDevEui, 8);
+	}
+
+	void lmh_setAppEui(uint8_t *userAppEui)
+	{
+		memcpy(AppEui, userAppEui, 8);
+	}
+
+	void lmh_setAppKey(uint8_t *userAppKey)
+	{
+		memcpy(AppKey, userAppKey, 16);
+	}
+
+	void lmh_setNwkSKey(uint8_t *userNwkSKey)
+	{
+		memcpy(NwkSKey, userNwkSKey, 16);
+	}
+
+	void lmh_setAppSKey(uint8_t *userAppSKey)
+	{
+		memcpy(AppSKey, userAppSKey, 16);
+	}
+
+	void lmh_setDevAddr(uint32_t userDevAddr)
+	{
+		DevAddr = userDevAddr;
+	}
+
+	void lmh_setSingleChannelGateway(uint8_t userSingleChannel, int8_t userDatarate) 
+	{
+		singleChannelGateway = true;
+		singleChannelSelected = userSingleChannel;
+		singleChannelDatarate = userDatarate;
+	}
 
 	static bool compliance_test_tx(void)
 	{
