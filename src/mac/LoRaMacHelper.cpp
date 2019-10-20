@@ -532,12 +532,12 @@ extern "C"
 				AppKey[0], AppKey[1], AppKey[2], AppKey[3], AppKey[4], AppKey[5], AppKey[6], AppKey[7],
 				AppKey[8], AppKey[9], AppKey[10], AppKey[11], AppKey[12], AppKey[13], AppKey[14], AppKey[15]);
 		// NRF_LOG_INFO("%s", (uint32_t)strlog3);
-#ifdef ESP32
-		log_i("OTAA\n%s\n%s\n%s", strlog1, strlog2, strlog3);
-#endif
-#ifdef NRF52
-		Serial.printf("OTAA\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
-#endif
+// #ifdef ESP32
+// 		log_i("OTAA\n%s\n%s\n%s", strlog1, strlog2, strlog3);
+// #endif
+// #ifdef NRF52
+// 		Serial.printf("OTAA\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
+// #endif
 #else
 #if (STATIC_DEVICE_ADDRESS != 1)
 		// Random seed initialization
@@ -557,12 +557,12 @@ extern "C"
 				AppSKey[0], AppSKey[1], AppSKey[2], AppSKey[3], AppSKey[4], AppSKey[5], AppSKey[6], AppSKey[7],
 				AppSKey[8], AppSKey[9], AppSKey[10], AppSKey[11], AppSKey[12], AppSKey[13], AppSKey[14], AppSKey[15]);
 		// NRF_LOG_INFO("%s", (uint32_t)strlog3);
-#ifdef ESP32
-		log_i("ABP\n%s\n%s\n%s", strlog1, strlog2, strlog3);
-#endif
-#ifdef NRF52
-		Serial.printf("ABP\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
-#endif
+// #ifdef ESP32
+// 		log_i("ABP\n%s\n%s\n%s", strlog1, strlog2, strlog3);
+// #endif
+// #ifdef NRF52
+// 		Serial.printf("ABP\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
+// #endif
 #endif
 
 		LoRaMacPrimitives.MacMcpsConfirm = McpsConfirm;
