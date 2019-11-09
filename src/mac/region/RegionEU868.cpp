@@ -17,6 +17,8 @@ License: Revised BSD License, see LICENSE.TXT file include in the project
 
 Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jaeckle ( STACKFORCE )
 */
+#ifdef REGION_EU868
+
 #include <stdbool.h>
 #include <string.h>
 #include <stdint.h>
@@ -1089,3 +1091,4 @@ extern "C"
 		return datarate;
 	}
 };
+#endif

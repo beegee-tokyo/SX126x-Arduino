@@ -17,6 +17,8 @@ License: Revised BSD License, see LICENSE.TXT file include in the project
 
 Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jaeckle ( STACKFORCE )
 */
+
+#ifdef REGION_AS923
 #include <stdbool.h>
 #include <string.h>
 #include <stdint.h>
@@ -1108,3 +1110,4 @@ extern "C"
 		return MIN(DR_5, MAX(minDr, dr - EffectiveRx1DrOffsetAS923[drOffset]));
 	}
 };
+#endif

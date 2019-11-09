@@ -17,6 +17,8 @@ License: Revised BSD License, see LICENSE.TXT file include in the project
 
 Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jaeckle ( STACKFORCE )
 */
+#ifdef REGION_IN865
+
 #include <stdbool.h>
 #include <string.h>
 #include <stdint.h>
@@ -1057,3 +1059,4 @@ extern "C"
 		return MIN(DR_5, MAX(DR_0, dr - EffectiveRx1DrOffsetIN865[drOffset]));
 	}
 };
+#endif
