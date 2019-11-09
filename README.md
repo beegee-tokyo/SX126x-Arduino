@@ -15,15 +15,13 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 | [Functions](#functions) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the LoRa HW](#initialize-the-lora-hw) | &nbsp;&nbsp;&nbsp;&nbsp;[Callbacks](#callbacks) |
 | &nbsp;&nbsp;[Module specific setup](#module-specific-setup) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialization for ISP4520 module](#simplified-lora-hw-initialization-for-isp4520-module) | &nbsp;&nbsp;&nbsp;&nbsp;[Join](#join) |
 | &nbsp;&nbsp;[Chip selection](#chip-selection) | &nbsp;&nbsp;&nbsp;&nbsp;[Setup the callbacks for LoRa events](#setup-the-callbacks-for-lora-events) | &nbsp;&nbsp;&nbsp;&nbsp;[LoRaWan single channel gateway](#lolawan-single-channel-gateway) |
-| &nbsp;&nbsp;[LoRa parameters](#lora-parameters) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |
+| &nbsp;&nbsp;[LoRa parameters](#lora-parameters) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |  &nbsp;&nbsp;&nbsp;&nbsp;[Limit frequency hopping to a sub band](#limit-frequency-hopping-to-a-sub-band) |
 | &nbsp;&nbsp;[SPI definition](#mcu-to-sx126x-spi-definition) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |
 | &nbsp;&nbsp;[TXCO and antenna control](#explanation-for-txco-and-antenna-control) | &nbsp;&nbsp;&nbsp;&nbsp;[Start listening for packages](#start-listening-for-packages) | [Installation](#installation) |
 
 ----
 ## General info
-Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32. ESP8266 and nRF52832. It will not work with other uC's like AVR.    
-
-I stumbled over the [SX126x LoRa family](https://www.semtech.com/products/wireless-rf/lora-transceivers) in a customer project. The existing Arduino libraries for Semtech's SX127x family are unfortunately not working with this new generation LoRa chip. I found a usefull base library from Insight SIP which is based on the original Semtech SX126x library and changed it to work with the ESP32.   
+I stumbled over the [SX126x LoRa family](https://www.semtech.com/products/wireless-rf/lora-transceivers) in a customer project. Most of the existing Arduino libraries for Semtech's SX127x family are unfortunately not working with this new generation LoRa chip. I found a usefull base library from Insight SIP which is based on the original Semtech SX126x library and changed it to work with the ESP32.   
 For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module connected to an ESP32 and an [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) which combines a Nordic nRF52832 and a Semtech SX1262 in one module    
 
 __**Check out the example provided with this library to learn the basic functions.**__
@@ -68,6 +66,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 ----
 ## Changelog
+- 2019-11-09:
+  - Added Workarounds for limitations as written in DS_SX1261-2_V1.2 datasheet
+  - Tested with both Single Channel ([ESP32](https://github.com/beegee-tokyo/SX1262-SC-GW)) and 8 Channel ([Dragino LPS8](https://www.dragino.com/products/lora-lorawan-gateway/item/148-lps8.html)) LoRaWan gateways
+  - Added possibility to force use of sub band of region `lmh_setSubBandChannels()`
 - 2019-10-12:
   - On PlatformIO no more need to edit `Commissioning.h`. Everything is done with functions and build flags
   - On ArduinoIDE reduced edititing of `Commissioning.h`. Only the region has to be setup by #define
@@ -136,8 +138,7 @@ DIO3 as antenna switch is used by e.g. [Insight SIP ISP4520](https://www.insight
 See [examples](https://github.com/beegee-tokyo/SX126x-Android/examples).    
 There is one example for [ArduinoIDE](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/PingPong) and one example for [PlatformIO](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/PingPongPio) available.    
 The PingPong examples show how to define the HW connection between the MCU and the SX126x chip/module.     
-Another example is only partly tested. It is for LoRaWan and I could only test it as far as I know the application is sending out packages. But as I don't own a LoRaWan gateway I cannot test the functionality. Theoretically it should support Class A, B and C nodes. The examples can be found here: [ArduinoIDE](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/LoRaWan) and one example for [PlatformIO](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/LoRaWanPio)    
-To use these examples you need to edit the header file ```Commissioning.h``` in the library folder ```src/mac```  
+Another example is for LoRaWan and is tested with a Single Channel ([ESP32](https://github.com/beegee-tokyo/SX1262-SC-GW)) and a 8 Channel ([Dragino LPS8](https://www.dragino.com/products/lora-lorawan-gateway/item/148-lps8.html)) LoRaWan gateways. The examples can be found here: [ArduinoIDE](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/LoRaWan) and one example for [PlatformIO](https://github.com/beegee-tokyo/SX126x-Android/tree/master/examples/LoRaWanPio)    
 
 ----
 ### Basic LoRa communication
@@ -356,14 +357,26 @@ lmh_setAppSKey(nodeAppsKey);
 lmh_setDevAddr(nodeDevAddr);
 ```
 ----
+#### Connection to a single channel gateway
+If the node talks to a single channel gateway you can fix the frequency and data rate and avoid frequency hopping. See more info in [LoRaWan single channel gateway](#lorawan-single-channel-gateway)
+```cpp
+ lmh_setSingleChannelGateway(uint8_t userSingleChannel, int8_t userDatarate)
+```   
+----
 #### Initialize
 Initialize LoRaWan
 ```cpp
  lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param)
 ```   
 ----
+#### Specifiy sub bands
+For some regions and some gateways you need to specifiy a sub band to be used.  See more info in [Limit frequency hopping to a sub band](#limit-frequency-hopping-to-a-sub-band)
+```cpp
+ lmh_setSubBandChannels(uint8_t subBand)
+```   
+----
 #### Callbacks
-LoRaWan needs callbacks and paramters defined before initialization    
+LoRaWan needs callbacks and parameters defined before initialization    
 ```cpp
 /** Lora user application data buffer. */ 
 static uint8_t m_lora_app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE];
@@ -401,6 +414,22 @@ In this example we fix the communication to the channel 0 with the datarate DR_3
 ```cpp
 // Setup connection to a single channel gateway
 lmh_setSingleChannelGateway(0, DR_3);
+```
+----
+#### Limit frequency hopping to a sub band    
+While testing the LoRaWan functionality I discovered that for some regions and some LoRaWan gateways it is required to limit the frequency hopping to a specific sub band of the region.    
+E.g. in the settings of the LoRaWan gateway I bought for testing ([Dragino LPS8](https://www.dragino.com/products/lora-lorawan-gateway/item/148-lps8.html)) you have not only to define the region, but as well one of 8 sub bands. The gateway will listen only on the selected sub band.    
+The problem is that if the LoRa node uses all available frequencies for frequency hopping, then for sure some of the packets will be lost, because they are sent on frequencies outside of the sub band on which the gateway is listening.    
+Depending on the region, there could be between 2 and 12 sub bands to select from. Each sub band consists of 8 frequencies with a fixed distance beteween each. The sub bands are selected by numbers starting with **`1`** for the first sub band of 8 frequencies.   
+_**You have to check with your LoRaWan gateway if you need to setup a sub band**_    
+Example to limit the frequency hopping to sub band #1
+```cpp
+// For some regions we might need to define the sub band the gateway is listening to
+/// \todo This is for Dragino LPS8 gateway. How about other gateways???
+if (!lmh_setSubBandChannels(1))
+{
+	Serial.println("lmh_setSubBandChannels failed. Wrong sub band requested?");
+}
 ```
 ----
 ## Installation

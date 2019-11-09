@@ -103,12 +103,17 @@ extern "C"
 			SX126xSetDio2AsRfSwitchCtrl(true);
 		}
 
-		OperatingMode = MODE_STDBY_RC;
+		SX126xSetOperatingMode(MODE_STDBY_RC);
 	}
 
 	RadioOperatingModes_t SX126xGetOperatingMode(void)
 	{
 		return OperatingMode;
+	}
+
+	void SX126xSetOperatingMode(RadioOperatingModes_t mode)
+	{
+		OperatingMode = mode;
 	}
 
 	void SX126xCheckDeviceReady(void)
@@ -227,7 +232,7 @@ extern "C"
 		SX126xAntSwOff();
 
 		SX126xWriteCommand(RADIO_SET_SLEEP, &sleepConfig.Value, 1);
-		OperatingMode = MODE_SLEEP;
+		SX126xSetOperatingMode(MODE_SLEEP);
 	}
 
 	void SX126xSetStandby(RadioStandbyModes_t standbyConfig)
@@ -235,25 +240,25 @@ extern "C"
 		SX126xWriteCommand(RADIO_SET_STANDBY, (uint8_t *)&standbyConfig, 1);
 		if (standbyConfig == STDBY_RC)
 		{
-			OperatingMode = MODE_STDBY_RC;
+			SX126xSetOperatingMode(MODE_STDBY_RC);
 		}
 		else
 		{
-			OperatingMode = MODE_STDBY_XOSC;
+			SX126xSetOperatingMode(MODE_STDBY_XOSC);
 		}
 	}
 
 	void SX126xSetFs(void)
 	{
 		SX126xWriteCommand(RADIO_SET_FS, 0, 0);
-		OperatingMode = MODE_FS;
+		SX126xSetOperatingMode(MODE_FS);
 	}
 
 	void SX126xSetTx(uint32_t timeout)
 	{
 		uint8_t buf[3];
 
-		OperatingMode = MODE_TX;
+		SX126xSetOperatingMode(MODE_TX);
 
 		buf[0] = (uint8_t)((timeout >> 16) & 0xFF);
 		buf[1] = (uint8_t)((timeout >> 8) & 0xFF);
@@ -265,7 +270,7 @@ extern "C"
 	{
 		uint8_t buf[3];
 
-		OperatingMode = MODE_RX;
+		SX126xSetOperatingMode(MODE_RX);
 
 		buf[0] = (uint8_t)((timeout >> 16) & 0xFF);
 		buf[1] = (uint8_t)((timeout >> 8) & 0xFF);
@@ -277,7 +282,7 @@ extern "C"
 	{
 		uint8_t buf[3];
 
-		OperatingMode = MODE_RX;
+		SX126xSetOperatingMode(MODE_RX);
 
 		SX126xWriteRegister(REG_RX_GAIN, 0x96); // max LNA gain, increase current by ~2mA for around ~3dB in sensivity
 
@@ -298,13 +303,13 @@ extern "C"
 		buf[4] = (uint8_t)((sleepTime >> 8) & 0xFF);
 		buf[5] = (uint8_t)(sleepTime & 0xFF);
 		SX126xWriteCommand(RADIO_SET_RXDUTYCYCLE, buf, 6);
-		OperatingMode = MODE_RX_DC;
+		SX126xSetOperatingMode(MODE_RX_DC);
 	}
 
 	void SX126xSetCad(void)
 	{
 		SX126xWriteCommand(RADIO_SET_CAD, 0, 0);
-		OperatingMode = MODE_CAD;
+		SX126xSetOperatingMode(MODE_CAD);
 	}
 
 	void SX126xSetTxContinuousWave(void)
@@ -349,7 +354,7 @@ extern "C"
 		else if (freq > 850000000)
 		{
 			calFreq[0] = 0xD7;
-			calFreq[1] = 0xD8;
+			calFreq[1] = 0xDB;
 		}
 		else if (freq > 770000000)
 		{
@@ -483,22 +488,27 @@ extern "C"
 			{
 				power = 14;
 			}
-			else if (power < -3)
+			else if (power < -17)
 			{
-				power = -3;
+				power = -17;
 			}
-			SX126xWriteRegister(REG_OCP, 0x18); //0x18 ); // current max is 80 mA for the whole device
+			SX126xWriteRegister(REG_OCP, 0x18); // current max is 80 mA for the whole device
 		}
 		else // sx1262
 		{
+			// WORKAROUND - Better Resistance of the SX1262 Tx to Antenna Mismatch, see DS_SX1261-2_V1.2 datasheet chapter 15.2
+			// RegTxClampConfig = @address 0x08D8
+			SX126xWriteRegister(0x08D8, SX126xReadRegister(0x08D8) | (0x0F << 1));
+			// WORKAROUND END
+
 			SX126xSetPaConfig(0x04, 0x07, 0x00, 0x01);
 			if (power > 22)
 			{
 				power = 22;
 			}
-			else if (power < -3)
+			else if (power < -9)
 			{
-				power = -3;
+				power = -9;
 			}
 			SX126xWriteRegister(REG_OCP, 0x38); // current max 160mA for the whole device
 		}
@@ -622,7 +632,7 @@ extern "C"
 		buf[4] = (uint8_t)((cadTimeout >> 16) & 0xFF);
 		buf[5] = (uint8_t)((cadTimeout >> 8) & 0xFF);
 		buf[6] = (uint8_t)(cadTimeout & 0xFF);
-		SX126xWriteCommand(RADIO_SET_CADPARAMS, buf, 5);
+		SX126xWriteCommand(RADIO_SET_CADPARAMS, buf, 7);
 		OperatingMode = MODE_CAD;
 	}
 
@@ -692,7 +702,8 @@ extern "C"
 
 		case PACKET_TYPE_LORA:
 			pktStatus->Params.LoRa.RssiPkt = -status[0] >> 1;
-			(status[1] < 128) ? (pktStatus->Params.LoRa.SnrPkt = status[1] >> 2) : (pktStatus->Params.LoRa.SnrPkt = ((status[1] - 256) >> 2));
+			// Returns SNR value [dB] rounded to the nearest integer value
+			pktStatus->Params.LoRa.SnrPkt = (((int8_t)status[1]) + 2) >> 2;
 			pktStatus->Params.LoRa.SignalRssiPkt = -status[2] >> 1;
 			pktStatus->Params.LoRa.FreqError = FrequencyError;
 			break;

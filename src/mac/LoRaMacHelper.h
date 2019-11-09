@@ -224,6 +224,12 @@ extern "C"
  */
 	void lmh_setDevAddr(uint32_t userDevAddr);
 
+	/**@brief Set custom channel mask
+ * 
+ * @param[in] sub channel number 1 to 8
+ */
+	bool lmh_setSubBandChannels(uint8_t subBand);
+
 	/**@brief Disable channel hoping for connnection to
  * single channel gateways
  * Check the file CHANNELS.MD to find out which channel corresponds to which frequency 

@@ -20,10 +20,15 @@
  *****************************************************************************/
 
 #include "LoRaMacHelper.h"
+#include "region/RegionCommon.h"
 #include "system/utilities.h"
 
 extern "C"
 {
+
+	extern uint16_t ChannelsMask[];
+	extern uint16_t ChannelsDefaultMask[];
+	extern uint16_t ChannelsMaskRemaining[];
 
 #if defined(REGION_EU868)
 
@@ -120,11 +125,166 @@ extern "C"
 		DevAddr = userDevAddr;
 	}
 
-	void lmh_setSingleChannelGateway(uint8_t userSingleChannel, int8_t userDatarate) 
+	void lmh_setSingleChannelGateway(uint8_t userSingleChannel, int8_t userDatarate)
 	{
 		singleChannelGateway = true;
 		singleChannelSelected = userSingleChannel;
 		singleChannelDatarate = userDatarate;
+	}
+
+	bool lmh_setSubBandChannels(uint8_t subBand)
+	{
+#if defined(REGION_AS923)
+		uint16_t subBandChannelMask[1] = {0x0000};
+		uint8_t maxBand = 1;
+#elif defined(REGION_AU915)
+		uint16_t subBandChannelMask[6] = {0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000};
+		uint8_t maxBand = 9;
+#elif defined(REGION_CN470)
+		uint16_t subBandChannelMask[6] = {0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000};
+		uint8_t maxBand = 12;
+#elif defined(REGION_CN779)
+		uint16_t subBandChannelMask[1] = {0x0000};
+		uint8_t maxBand = 2;
+#elif defined(REGION_EU433)
+		uint16_t subBandChannelMask[1] = {0x0000};
+		uint8_t maxBand = 2;
+#elif defined(REGION_IN865)
+		uint16_t subBandChannelMask[1] = {0x0000};
+		uint8_t maxBand = 2;
+#elif defined(REGION_EU868)
+		uint16_t subBandChannelMask[1] = {0x0000};
+		uint8_t maxBand = 2;
+#elif defined(REGION_KR920)
+		uint16_t subBandChannelMask[1] = {0x0000};
+		uint8_t maxBand = 2;
+#elif defined(REGION_US915)
+		uint16_t subBandChannelMask[6] = {0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000};
+		uint8_t maxBand = 9;
+#elif defined(REGION_US915_HYBRID)
+		uint16_t subBandChannelMask[6] = {0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000,
+										  0x0000};
+		uint8_t maxBand = 9;
+#else
+#error "Please define a region in the compiler options."
+#endif
+		uint16_t upperMask = 0xFF00;
+		uint16_t lowerMask = 0x00FF;
+
+		// Check for valid sub band
+		if ((subBand == 0) || (subBand > maxBand))
+		{
+			// Invalid sub band requested
+			return false;
+		}
+
+		switch (subBand)
+		{
+		case 1:
+			subBandChannelMask[0] = lowerMask;
+			break;
+		case 2:
+			if (maxBand >= 2)
+			{
+				subBandChannelMask[0] = upperMask;
+			}
+			break;
+		case 3:
+			if (maxBand >= 3)
+			{
+				subBandChannelMask[1] = lowerMask;
+			}
+			break;
+		case 4:
+			if (maxBand >= 4)
+			{
+				subBandChannelMask[1] = upperMask;
+			}
+			break;
+		case 5:
+			if (maxBand >= 5)
+			{
+				subBandChannelMask[2] = lowerMask;
+			}
+			break;
+		case 6:
+			if (maxBand >= 6)
+			{
+				subBandChannelMask[2] = upperMask;
+			}
+			break;
+		case 7:
+			if (maxBand >= 7)
+			{
+				subBandChannelMask[3] = lowerMask;
+			}
+			break;
+		case 8:
+			if (maxBand >= 8)
+			{
+				subBandChannelMask[3] = upperMask;
+			}
+			break;
+		case 9:
+			if (maxBand >= 9)
+			{
+				subBandChannelMask[4] = lowerMask;
+			}
+			break;
+		case 10:
+			if (maxBand >= 10)
+			{
+				subBandChannelMask[4] = upperMask;
+			}
+			break;
+		case 11:
+			if (maxBand >= 11)
+			{
+				subBandChannelMask[5] = lowerMask;
+			}
+			break;
+		case 12:
+			if (maxBand >= 12)
+			{
+				subBandChannelMask[5] = upperMask;
+			}
+			break;
+		default:
+			return false;
+		}
+		if (maxBand > 2)
+		{
+			RegionCommonChanMaskCopy(ChannelsDefaultMask, subBandChannelMask, 6);
+			RegionCommonChanMaskCopy(ChannelsMask, subBandChannelMask, 6);
+			RegionCommonChanMaskCopy(ChannelsMaskRemaining, subBandChannelMask, 6);
+		}
+		else
+		{
+			RegionCommonChanMaskCopy(ChannelsDefaultMask, subBandChannelMask, 1);
+			RegionCommonChanMaskCopy(ChannelsMask, subBandChannelMask, 1);
+			RegionCommonChanMaskCopy(ChannelsMaskRemaining, subBandChannelMask, 1);
+		}
+
+		return true;
 	}
 
 	static bool compliance_test_tx(void)

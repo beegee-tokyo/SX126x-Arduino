@@ -150,14 +150,30 @@ void setup()
 	lmh_setAppSKey(nodeAppsKey);
 	lmh_setDevAddr(nodeDevAddr);
 
-	// Setup connection to a single channel gateway
-	lmh_setSingleChannelGateway(0, DR_3);
-
 	// Initialize LoRaWan
 	err_code = lmh_init(&lora_callbacks, lora_param_init);
 	if (err_code != 0)
 	{
 		Serial.printf("lmh_init failed - %d\n", err_code);
+	}
+
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// Use either
+	// lmh_setSingleChannelGateway
+	// or
+	// lmh_setSubBandChannels
+	//
+	// DO NOT USE BOTH OR YOUR COMMUNICATION WILL MOST LIKELY NEVER WORK
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// Setup connection to a single channel gateway
+	// lmh_setSingleChannelGateway(0, DR_3);
+
+	// For some regions we might need to define the sub band the gateway is listening to
+	// This must be called AFTER lmh_init()
+	/// \todo This is for Dragino LPS8 gateway. How about other gateways???
+	if (!lmh_setSubBandChannels(1))
+	{
+		Serial.println("lmh_setSubBandChannels failed. Wrong sub band requested?");
 	}
 
 	// Start Join procedure

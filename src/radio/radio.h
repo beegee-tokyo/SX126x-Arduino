@@ -64,7 +64,7 @@ extern "C"
      * \param [IN] payload Received buffer pointer
      * \param [IN] size    Received buffer size
      * \param [IN] rssi    RSSI value computed while receiving the frame [dBm]
-     * \param [IN] snr     Raw SNR value given by the radio hardware
+     * \param [IN] snr     SNR value computed while receiving the frame [dB]
      *                     FSK : N/A ( set to 0 )
      *                     LoRa: SNR value in dB
      */
@@ -239,7 +239,7 @@ extern "C"
 		/*!
      * \brief Computes the packet time on air in ms for the given payload
      *
-     * \Remark Can only be called once SetRxConfig or SetTxConfig have been called
+     * \remark Can only be called once SetRxConfig or SetTxConfig have been called
      *
      * \param [IN] modem      Radio modem to be used [0: FSK, 1: LoRa]
      * \param [IN] pktLen     Packet payload length

@@ -528,7 +528,7 @@ extern "C"
 			return RF_TX_RUNNING;
 		case MODE_RX:
 			return RF_RX_RUNNING;
-		case RF_CAD:
+		case MODE_CAD:
 			return RF_CAD;
 		default:
 			return RF_IDLE;
@@ -570,6 +570,11 @@ extern "C"
 		bool status = true;
 		int16_t rssi = 0;
 		uint32_t carrierSenseTime = 0;
+
+		if (RadioGetStatus() != RF_IDLE)
+		{
+			return false;
+		}
 
 		RadioSetModem(modem);
 
@@ -632,7 +637,10 @@ extern "C"
 	{
 
 		RxContinuous = rxContinuous;
-
+		if (rxContinuous == true)
+		{
+			symbTimeout = 0;
+		}
 		if (fixLen == true)
 		{
 			MaxPayloadLength = payloadLen;
@@ -736,6 +744,19 @@ extern "C"
 			RadioSetModem((SX126x.ModulationParams.PacketType == PACKET_TYPE_GFSK) ? MODEM_FSK : MODEM_LORA);
 			SX126xSetModulationParams(&SX126x.ModulationParams);
 			SX126xSetPacketParams(&SX126x.PacketParams);
+
+			// WORKAROUND - Optimizing the Inverted IQ Operation, see DS_SX1261-2_V1.2 datasheet chapter 15.4
+			if (SX126x.PacketParams.Params.LoRa.InvertIQ == LORA_IQ_INVERTED)
+			{
+				// RegIqPolaritySetup = @address 0x0736
+				SX126xWriteRegister(0x0736, SX126xReadRegister(0x0736) & ~(1 << 2));
+			}
+			else
+			{
+				// RegIqPolaritySetup @address 0x0736
+				SX126xWriteRegister(0x0736, SX126xReadRegister(0x0736) | (1 << 2));
+			}
+			// WORKAROUND END
 
 			// Timeout Max, Timeout handled directly in SetRx function
 			RxTimeout = 0xFFFF;
@@ -843,6 +864,20 @@ extern "C"
 			SX126xSetPacketParams(&SX126x.PacketParams);
 			break;
 		}
+
+		// WORKAROUND - Modulation Quality with 500 kHz LoRa Bandwidth, see DS_SX1261-2_V1.2 datasheet chapter 15.1
+		if ((modem == MODEM_LORA) && (SX126x.ModulationParams.Params.LoRa.Bandwidth == LORA_BW_500))
+		{
+			// RegTxModulation = @address 0x0889
+			SX126xWriteRegister(0x0889, SX126xReadRegister(0x0889) & ~(1 << 2));
+		}
+		else
+		{
+			// RegTxModulation = @address 0x0889
+			SX126xWriteRegister(0x0889, SX126xReadRegister(0x0889) | (1 << 2));
+		}
+		// WORKAROUND END
+
 		SX126xSetRfTxPower(power);
 		TxTimeout = timeout;
 	}
@@ -947,14 +982,7 @@ extern "C"
 		}
 		else
 		{
-			if (_modem == MODEM_FSK)
-			{
-				SX126xSetRx(RxTimeout << 6);
-			}
-			else
-			{
-				SX126xSetRx(timeout << 6);
-			}
+			SX126xSetRx(RxTimeout << 6);
 		}
 	}
 
@@ -977,14 +1005,7 @@ extern "C"
 		}
 		else
 		{
-			if (_modem == MODEM_FSK)
-			{
-				SX126xSetRxBoosted(RxTimeout << 6);
-			}
-			else
-			{
-				SX126xSetRxBoosted(timeout << 6);
-			}
+			SX126xSetRxBoosted(RxTimeout << 6);
 		}
 	}
 
@@ -1145,6 +1166,8 @@ extern "C"
 			if ((irqRegs & IRQ_TX_DONE) == IRQ_TX_DONE)
 			{
 				TimerStop(&TxTimeoutTimer);
+				//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
+				SX126xSetOperatingMode(MODE_STDBY_RC);
 				if ((RadioEvents != NULL) && (RadioEvents->TxDone != NULL))
 				{
 					RadioEvents->TxDone();
@@ -1156,6 +1179,18 @@ extern "C"
 				uint8_t size;
 
 				TimerStop(&RxTimeoutTimer);
+				if (RxContinuous == false)
+				{
+					//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
+					SX126xSetOperatingMode(MODE_STDBY_RC);
+
+					// WORKAROUND - Implicit Header Mode Timeout Behavior, see DS_SX1261-2_V1.2 datasheet chapter 15.3
+					// RegRtcControl = @address 0x0902
+					SX126xWriteRegister(0x0902, 0x00);
+					// RegEventMask = @address 0x0944
+					SX126xWriteRegister(0x0944, SX126xReadRegister(0x0944) | (1 << 1));
+					// WORKAROUND END
+				}
 				SX126xGetPayload(RadioRxPayload, &size, 255);
 				SX126xGetPacketStatus(&RadioPktStatus);
 				if ((RadioEvents != NULL) && (RadioEvents->RxDone != NULL))
@@ -1166,6 +1201,11 @@ extern "C"
 
 			if ((irqRegs & IRQ_CRC_ERROR) == IRQ_CRC_ERROR)
 			{
+				if (RxContinuous == false)
+				{
+					//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
+					SX126xSetOperatingMode(MODE_STDBY_RC);
+				}
 				if ((RadioEvents != NULL) && (RadioEvents->RxError))
 				{
 					RadioEvents->RxError();
@@ -1174,6 +1214,8 @@ extern "C"
 
 			if ((irqRegs & IRQ_CAD_DONE) == IRQ_CAD_DONE)
 			{
+				//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
+				SX126xSetOperatingMode(MODE_STDBY_RC);
 				if ((RadioEvents != NULL) && (RadioEvents->CadDone != NULL))
 				{
 					RadioEvents->CadDone(((irqRegs & IRQ_CAD_ACTIVITY_DETECTED) == IRQ_CAD_ACTIVITY_DETECTED));
@@ -1185,6 +1227,8 @@ extern "C"
 				if (SX126xGetOperatingMode() == MODE_TX)
 				{
 					TimerStop(&TxTimeoutTimer);
+					//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
+					SX126xSetOperatingMode(MODE_STDBY_RC);
 					if ((RadioEvents != NULL) && (RadioEvents->TxTimeout != NULL))
 					{
 						RadioEvents->TxTimeout();
@@ -1193,6 +1237,8 @@ extern "C"
 				else if (SX126xGetOperatingMode() == MODE_RX)
 				{
 					TimerStop(&RxTimeoutTimer);
+					//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
+					SX126xSetOperatingMode(MODE_STDBY_RC);
 					if ((RadioEvents != NULL) && (RadioEvents->RxTimeout != NULL))
 					{
 						RadioEvents->RxTimeout();
@@ -1218,6 +1264,11 @@ extern "C"
 			if ((irqRegs & IRQ_HEADER_ERROR) == IRQ_HEADER_ERROR)
 			{
 				TimerStop(&RxTimeoutTimer);
+				if (RxContinuous == false)
+				{
+					//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
+					SX126xSetOperatingMode(MODE_STDBY_RC);
+				}
 				if ((RadioEvents != NULL) && (RadioEvents->RxTimeout != NULL))
 				{
 					RadioEvents->RxTimeout();

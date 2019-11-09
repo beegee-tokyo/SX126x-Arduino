@@ -718,6 +718,16 @@ extern "C"
 	RadioOperatingModes_t SX126xGetOperatingMode(void);
 
 	/*!
+ * \brief Sets/Updates the current Radio OperationMode variable.
+ *
+ * \remark WARNING: This function is only required to reflect the current radio
+ *                  operating mode when processing interrupts.
+ *
+ * \param [in] mode           New operating mode
+ */
+	void SX126xSetOperatingMode(RadioOperatingModes_t mode);
+
+	/*!
  * \brief Wakeup the radio if it is in Sleep mode and check that Busy is low
  */
 	void SX126xCheckDeviceReady(void);

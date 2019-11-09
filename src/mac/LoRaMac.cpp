@@ -62,10 +62,10 @@ extern "C"
  */
 #define BACKOFF_DC_24_HOURS 10000
 
-// Variables declared in LoRaMacHelper
-extern bool singleChannelGateway;
-extern uint8_t singleChannelSelected;
-extern int8_t singleChannelDatarate;
+	// Variables declared in LoRaMacHelper
+	extern bool singleChannelGateway;
+	extern uint8_t singleChannelSelected;
+	extern int8_t singleChannelDatarate;
 
 	/*!
  * Device IEEE EUI
@@ -2229,10 +2229,6 @@ extern int8_t singleChannelDatarate;
 		txConfig.AntennaGain = LoRaMacParams.AntennaGain;
 		txConfig.PktLen = LoRaMacBufferPktLen;
 
-// #if DO_CHANNEL_SWITCH == 0
-// 		txConfig.Channel = GATEWAY_SINGLE_CHANNEL;
-// 		txConfig.Datarate = GATEWAY_SINGLE_DATARATE;
-// #endif
 		// If we are connecting to a single channel gateway we use always the same predefined channel and datarate
 		if (singleChannelGateway)
 		{
