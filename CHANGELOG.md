@@ -4,6 +4,12 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V1.0.5 Bug fix and deep-sleep functionality
+- Fixed bug in the definition of the sync word
+- Added possibility to re-init connection to SX1261/2 after CPU wakes up from sleep/deep-sleep
+  - **`lora_hardware_re_init()`** to re-initialize SX1262 connection without resetting the LoRa chip
+  - **`Radio.ReInit()`** to re-initialize SX1262 connection without resetting the LoRa chip
+  - **`Radio.IrqProcessAfterDeepSleep()`** to handle IRQ that woke up the CPU (RX_DONE, TX_DONE, ...)
 ## V1.0.4 Extended LoRaWan functionality 
 - Tested with both Single Channel ([ESP32](https://github.com/beegee-tokyo/SX1262-SC-GW)) and 8 Channel ([Dragino LPS8](https://www.dragino.com/products/lora-lorawan-gateway/item/148-lps8.html)) LoRaWan gateways 
 - Added possibility to set LoRaWan keys programmatically

@@ -69,6 +69,27 @@ extern "C"
 		}
 	}
 
+	void SX126xIoReInit(void)
+	{
+
+		initSPI();
+
+		dio3IsOutput = false;
+
+		pinMode(_hwConfig.PIN_LORA_NSS, OUTPUT);
+		digitalWrite(_hwConfig.PIN_LORA_NSS, HIGH);
+		pinMode(_hwConfig.PIN_LORA_BUSY, INPUT);
+		pinMode(_hwConfig.PIN_LORA_DIO_1, INPUT);
+		// pinMode(_hwConfig.PIN_LORA_RESET, OUTPUT);
+		// digitalWrite(_hwConfig.PIN_LORA_RESET, HIGH);
+		if ((_hwConfig.RADIO_TXEN != -1) && (_hwConfig.RADIO_RXEN != -1))
+		{
+			pinMode(_hwConfig.RADIO_TXEN, OUTPUT);
+			pinMode(_hwConfig.RADIO_RXEN, OUTPUT);
+			SX126xRXena();
+		}
+	}
+
 	void SX126xIoIrqInit(DioIrqHandler dioIrq)
 	{
 		attachInterrupt(_hwConfig.PIN_LORA_DIO_1, dioIrq, RISING);

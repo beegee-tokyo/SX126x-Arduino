@@ -46,6 +46,10 @@ extern "C"
  */
 	void SX126xIoInit(void);
 
+	/**@brief Initializes the radio I/Os pins interface after deep sleep wake
+ */
+	void SX126xIoReInit(void);
+
 	/**@brief Initializes DIO IRQ handlers
  *
  * \param [IN] irqHandlers Array containing the IRQ callback functions

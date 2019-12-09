@@ -106,6 +106,11 @@ extern "C"
 		SX126xSetOperatingMode(MODE_STDBY_RC);
 	}
 
+	void SX126xReInit(DioIrqHandler dioIrq)
+	{
+		SX126xIoIrqInit(dioIrq);
+	}
+
 	RadioOperatingModes_t SX126xGetOperatingMode(void)
 	{
 		return OperatingMode;

@@ -711,6 +711,11 @@ extern "C"
 	void SX126xInit(DioIrqHandler dioIrq);
 
 	/*!
+ * \brief Re-Initializes the radio driver after CPU wakeup from deep sleep
+ */
+	void SX126xReInit(DioIrqHandler dioIrq);
+
+	/*!
  * \brief Gets the current Operation Mode of the Radio
  *
  * \retval      RadioOperatingModes_t last operating mode

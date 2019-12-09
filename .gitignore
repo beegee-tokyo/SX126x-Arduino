@@ -13,4 +13,10 @@ examples/LoRaWanPio/lib/
 
 examples/LoRaWanPio/.vscode
 
+examples/DeepSleepPio/test/
+
+examples/DeepSleepPio/lib/
+
+examples/DeepSleepPio/.vscode
+
 *.DB

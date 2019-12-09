@@ -1,6 +1,6 @@
 # SX126x-Arduino
 ----
-Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32. ESP8266 and nRF52832. It will not work with other uC's like AVR.    
+Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266 and nRF52832. It will not work with other uC's like AVR.    
 
 ----
 ## Content
@@ -25,6 +25,9 @@ I stumbled over the [SX126x LoRa family](https://www.semtech.com/products/wirele
 For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module connected to an ESP32 and an [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) which combines a Nordic nRF52832 and a Semtech SX1262 in one module    
 
 __**Check out the example provided with this library to learn the basic functions.**__
+
+Especially for the deep sleep support on the ESP32 check out the example DeepSleep.    
+===
 
 THIS IS WORK IN PROGRESS AND NOT ALL FUNCTIONS ARE INCLUDED NOR TESTED. USE IT AT YOUR OWN RISK!
 === 
@@ -66,6 +69,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 ----
 ## Changelog
+- 2019-12-09:
+  - Fixed bug in the definition of the sync word
+  - Added possibility to re-init connection to SX1261/2 after CPU wakes up from sleep/deep-sleep
+    - **`lora_hardware_re_init()`** to re-initialize SX1262 connection without resetting the LoRa chip
+    - **`Radio.ReInit()`** to re-initialize SX1262 connection without resetting the LoRa chip
+    - **`Radio.IrqProcessAfterDeepSleep()`** to handle IRQ that woke up the CPU (RX_DONE, TX_DONE, ...)
+
 - 2019-11-09:
   - Added Workarounds for limitations as written in DS_SX1261-2_V1.2 datasheet
   - Tested with both Single Channel ([ESP32](https://github.com/beegee-tokyo/SX1262-SC-GW)) and 8 Channel ([Dragino LPS8](https://www.dragino.com/products/lora-lorawan-gateway/item/148-lps8.html)) LoRaWan gateways
@@ -219,6 +229,13 @@ Fill the structure with the HW configuration
 ```
 
 ----
+#### Initialize the LoRa HW after CPU woke up from deep sleep
+When you want to use the deep sleep function of the ESP32 with external wake up source, you do not want to reset and reconfigure the SX126x chip after its IRQ woke up the ESP32. This re-init function sets up only the required definitions for the communication without resetting the ESP32
+```cpp
+  lora_hardware_re_init(hwConfig);
+```
+
+----
 #### Setup the callbacks for LoRa events
 ```cpp
   RadioEvents.TxDone = OnTxDone;
@@ -246,6 +263,16 @@ Initialize the radio and set the TX and RX parameters
                     LORA_CODINGRATE, 0, LORA_PREAMBLE_LENGTH,
                     LORA_SYMBOL_TIMEOUT, LORA_FIX_LENGTH_PAYLOAD_ON,
                     0, true, 0, 0, LORA_IQ_INVERSION_ON, true);
+```
+
+----
+#### Initialize the radio after CPU woke up from deep sleep
+When you want to use the deep sleep function of the ESP32 with external wake up source, you do not want to reset and reconfigure the SX126x chip after its IRQ woke up the ESP32. Radio.ReInit() sets up only the required communication means resetting the ESP32. 
+Radio.IrqProcessAfterDeepSleep() is checking the reason for the wake-up IRQ and calls the event handler
+```cpp
+  Radio.ReInit(&RadioEvents);
+
+  Radio.IrqProcessAfterDeepSleep();
 ```
 
 ----

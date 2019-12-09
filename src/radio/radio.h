@@ -104,6 +104,12 @@ extern "C"
      */
 		void (*Init)(RadioEvents_t *events);
 		/*!
+     * \brief Re-Initializes the radio after CPU wakeup from deep sleep
+     *
+     * \param [IN] events Structure containing the driver callback functions
+     */
+		void (*ReInit)(RadioEvents_t *events);
+		/*!
      * Return current radio status
      *
      * \param status Radio status.[RF_IDLE, RF_RX_RUNNING, RF_TX_RUNNING]
@@ -342,6 +348,10 @@ extern "C"
      * \brief Process radio irq
      */
 		void (*IrqProcess)(void);
+		/*
+      * \brief Process radio irq after CPU wakeup from deep sleep
+     */
+		void (*IrqProcessAfterDeepSleep)(void);
 		/*
      * The next functions are available only on SX126x radios.
      */

@@ -7,6 +7,7 @@
 #######################################
 
 lora_hardware_init	KEYWORD1
+lora_hardware_re_init	KEYWORD1
 lora_hardware_uninit	KEYWORD1
 BoardGetRandomSeed	KEYWORD1
 BoardGetUniqueId	KEYWORD1
@@ -82,6 +83,7 @@ SX126xClearIrqStatus	KEYWORD1
 #######################################
 
 Init	KEYWORD2
+ReInit	KEYWORD2
 GetStatus	KEYWORD2
 SetModem	KEYWORD2
 SetChannel	KEYWORD2
@@ -106,6 +108,7 @@ SetMaxPayloadLength	KEYWORD2
 SetPublicNetwork	KEYWORD2
 GetWakeupTime	KEYWORD2
 IrqProcess	KEYWORD2
+IrqProcessAfterDeepSleep	KEYWORD2
 RxBoosted	KEYWORD2
 SetRxDutyCycle	KEYWORD2
 
