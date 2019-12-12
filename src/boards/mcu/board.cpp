@@ -64,7 +64,15 @@ extern "C"
 
 		SX126xIoInit();
 
+		// After power on the sync word should be 2414. 4434 could be possible on a restart
+		// If we got something else, something is wrong.
+		uint16_t readSyncWord = 0;
+		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
+		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+		{
 		return 0;
+	}
+		return 1;
 	}
 
 	uint32_t lora_hardware_re_init(hw_config hwConfig)
@@ -87,7 +95,15 @@ extern "C"
 
 		SX126xIoReInit();
 
+		// After power on the sync word should be 2414. 4434 could be possible on a restart
+		// If we got something else, something is wrong.
+		uint16_t readSyncWord = 0;
+		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
+		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+		{
 		return 0;
+	}
+		return 1;
 	}
 
 	uint32_t lora_isp4520_init(int chipType)
