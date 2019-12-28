@@ -69,6 +69,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 ----
 ## Changelog
+- 2019-12-28:
+  - Updated examples
+- 2019-12-12:
+  - Added check if SX126x is really connected
+  - Fixed second bug in the definition of the sync word
+  - Added IRQ settings in RadioSetRxDutyCycle
 - 2019-12-09:
   - Fixed bug in the definition of the sync word
   - Added possibility to re-init connection to SX1261/2 after CPU wakes up from sleep/deep-sleep

@@ -25,20 +25,20 @@ int PIN_LORA_MISO = 19;  // LORA SPI MISO
 int PIN_LORA_DIO_1 = 21; // LORA DIO_1
 int PIN_LORA_BUSY = 22;  // LORA SPI BUSY
 int PIN_LORA_MOSI = 23;  // LORA SPI MOSI
-int RADIO_TXEN = 26;	 // LORA ANTENNA TX ENABLE
-int RADIO_RXEN = 27;	 // LORA ANTENNA RX ENABLE
+int RADIO_TXEN = -1;	 // LORA ANTENNA TX ENABLE
+int RADIO_RXEN = -1;	 // LORA ANTENNA RX ENABLE
 #endif
 #ifdef ESP8266
 // ESP32 - SX126x pin configuration
-int PIN_LORA_RESET = -1; // LORA RESET
-int PIN_LORA_NSS = 15;   // LORA SPI CS
-int PIN_LORA_SCLK = 14;  // LORA SPI CLK
-int PIN_LORA_MISO = 12;  // LORA SPI MISO
-int PIN_LORA_DIO_1 = 4;  // LORA DIO_1
-int PIN_LORA_BUSY = 5;   // LORA SPI BUSY
-int PIN_LORA_MOSI = 13;  // LORA SPI MOSI
-int RADIO_TXEN = 16;	 // LORA ANTENNA TX ENABLE
-int RADIO_RXEN = 2;		 // LORA ANTENNA RX ENABLE
+int PIN_LORA_RESET = 0;   // LORA RESET
+int PIN_LORA_NSS = 2;	 // LORA SPI CS
+int PIN_LORA_DIO_1 = 15;  // LORA DIO_1
+int PIN_LORA_BUSY = 16;   // LORA SPI BUSY
+int PIN_LORA_SCLK = SCK;  // LORA SPI CLK
+int PIN_LORA_MISO = MISO; // LORA SPI MISO
+int PIN_LORA_MOSI = MOSI; // LORA SPI MOSI
+int RADIO_TXEN = -1;	  // LORA ANTENNA TX ENABLE
+int RADIO_RXEN = -1;	  // LORA ANTENNA RX ENABLE
 #endif
 #ifdef NRF52
 // nRF52832 - SX126x pin configuration
@@ -49,8 +49,8 @@ int PIN_LORA_MISO = 14;  // LORA SPI MISO
 int PIN_LORA_DIO_1 = 11; // LORA DIO_1
 int PIN_LORA_BUSY = 29;  // LORA SPI BUSY
 int PIN_LORA_MOSI = 13;  // LORA SPI MOSI
-int RADIO_TXEN = 31;	 // LORA ANTENNA TX ENABLE
-int RADIO_RXEN = 27;	 // LORA ANTENNA RX ENABLE
+int RADIO_TXEN = -1;	 // LORA ANTENNA TX ENABLE
+int RADIO_RXEN = -1;	 // LORA ANTENNA RX ENABLE
 // Replace PIN_SPI_MISO, PIN_SPI_SCK, PIN_SPI_MOSI with your
 SPIClass SPI_LORA(NRF_SPI2, 14, 12, 13);
 #endif
@@ -122,8 +122,8 @@ void setup()
 	hwConfig.PIN_LORA_MOSI = PIN_LORA_MOSI;   // LORA SPI MOSI
 	hwConfig.RADIO_TXEN = RADIO_TXEN;		  // LORA ANTENNA TX ENABLE
 	hwConfig.RADIO_RXEN = RADIO_RXEN;		  // LORA ANTENNA RX ENABLE
-	hwConfig.USE_DIO2_ANT_SWITCH = false;	 // Example uses an eByte E22 module which uses RXEN and TXEN pins as antenna control
-	hwConfig.USE_DIO3_TCXO = true;			  // Example uses an eByte E22 module which uses DIO3 to control oscillator voltage
+	hwConfig.USE_DIO2_ANT_SWITCH = true;	  // Example uses an CircuitRocks Alora RFM1262 which uses DIO2 pins as antenna control
+	hwConfig.USE_DIO3_TCXO = true;			  // Example uses an CircuitRocks Alora RFM1262 which uses DIO3 to control oscillator voltage
 	hwConfig.USE_DIO3_ANT_SWITCH = false;	 // Only Insight ISP4520 module uses DIO3 as antenna control
 
 	// Initialize Serial for debug output

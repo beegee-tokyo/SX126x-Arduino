@@ -4,6 +4,11 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V1.0.6 Bug fix and deep-sleep functionality
+  - Updated examples
+  - Added check if SX126x is really connected
+  - Fixed second bug in the definition of the sync word
+  - Added IRQ settings in RadioSetRxDutyCycle
 ## V1.0.5 Bug fix and deep-sleep functionality
 - Fixed bug in the definition of the sync word
 - Added possibility to re-init connection to SX1261/2 after CPU wakes up from sleep/deep-sleep
