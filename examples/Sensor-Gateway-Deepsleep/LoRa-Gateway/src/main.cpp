@@ -67,9 +67,9 @@ struct dataMsg
 
 // Adafruit IoT stuff
 /** Username */
-#define AIO_USERNAME "beegee1962" // "<PUT_YOUR_AIO_USERNAME_HERE>"
+#define AIO_USERNAME "<PUT_YOUR_AIO_USERNAME_HERE>"
 /** Active key */
-#define AIO_KEY "734b9a9406b84acb8e201a7343cf0031" // " < PUT_YOUR_AIO_KEY_HERE > "
+#define AIO_KEY " < PUT_YOUR_AIO_KEY_HERE > "
 /** Server URL */
 #define AIO_SERVER "io.adafruit.com"
 /** Server port */
@@ -77,9 +77,9 @@ struct dataMsg
 
 // PUT YOUR OWN WIFI AP NAME AND PASSWORD HERE
 /** WiFi AP name */
-#define ssid "MHC2" // "MyWiFi"
+#define ssid "MyWiFi"
 /** WiFi password */
-#define pass "teresa1963" // "qwerty123"
+#define pass "qwerty123"
 
 /** WiFi client to connect to IoT service */
 WiFiClient client;
