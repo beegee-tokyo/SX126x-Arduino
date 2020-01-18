@@ -1037,8 +1037,8 @@ extern "C"
 
 	void RadioSetRxDutyCycle(uint32_t rxTime, uint32_t sleepTime)
 	{
-		SX126xSetDioIrqParams(IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT,
-							  IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT,
+		SX126xSetDioIrqParams(IRQ_RADIO_ALL | IRQ_RX_TX_TIMEOUT,
+							  IRQ_RADIO_ALL | IRQ_RX_TX_TIMEOUT,
 							  IRQ_RADIO_NONE, IRQ_RADIO_NONE);
 		SX126xSetRxDutyCycle(rxTime, sleepTime);
 	}
@@ -1220,26 +1220,48 @@ extern "C"
 					SX126xWriteRegister(0x0944, SX126xReadRegister(0x0944) | (1 << 1));
 					// WORKAROUND END
 				}
+				memset(RadioRxPayload, 0, 255);
+
+				if ((irqRegs & IRQ_CRC_ERROR) == IRQ_CRC_ERROR)
+				{
+					uint8_t size;
+					// Discard buffer
+					memset(RadioRxPayload, 0, 255);
 				SX126xGetPayload(RadioRxPayload, &size, 255);
 				SX126xGetPacketStatus(&RadioPktStatus);
-				if ((RadioEvents != NULL) && (RadioEvents->RxDone != NULL))
+					if ((RadioEvents != NULL) && (RadioEvents->RxError))
 				{
-					RadioEvents->RxDone(RadioRxPayload, size, RadioPktStatus.Params.LoRa.RssiPkt, RadioPktStatus.Params.LoRa.SnrPkt);
+						RadioEvents->RxError();
+				}
+			}
+				else
+			{
+					SX126xGetPayload(RadioRxPayload, &size, 255);
+					SX126xGetPacketStatus(&RadioPktStatus);
+					if ((RadioEvents != NULL) && (RadioEvents->RxDone != NULL))
+				{
+						RadioEvents->RxDone(RadioRxPayload, size, RadioPktStatus.Params.LoRa.RssiPkt, RadioPktStatus.Params.LoRa.SnrPkt);
+				}
 				}
 			}
 
-			if ((irqRegs & IRQ_CRC_ERROR) == IRQ_CRC_ERROR)
-			{
-				if (RxContinuous == false)
-				{
-					//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
-					SX126xSetOperatingMode(MODE_STDBY_RC);
-				}
-				if ((RadioEvents != NULL) && (RadioEvents->RxError))
-				{
-					RadioEvents->RxError();
-				}
-			}
+			// if ((irqRegs & IRQ_CRC_ERROR) == IRQ_CRC_ERROR)
+			// {
+			// 	uint8_t size;
+			// 	// Discard buffer
+			// 	memset(RadioRxPayload, 0, 255);
+			// 	SX126xGetPayload(RadioRxPayload, &size, 255);
+			// 	SX126xGetPacketStatus(&RadioPktStatus);
+			// 	if (RxContinuous == false)
+			// 	{
+			// 		//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
+			// 		SX126xSetOperatingMode(MODE_STDBY_RC);
+			// 	}
+			// 	if ((RadioEvents != NULL) && (RadioEvents->RxError))
+			// 	{
+			// 		RadioEvents->RxError();
+			// 	}
+			// }
 
 			if ((irqRegs & IRQ_CAD_DONE) == IRQ_CAD_DONE)
 			{
@@ -1277,7 +1299,10 @@ extern "C"
 
 			if ((irqRegs & IRQ_PREAMBLE_DETECTED) == IRQ_PREAMBLE_DETECTED)
 			{
-				//__NOP( );
+				if ((RadioEvents != NULL) && (RadioEvents->PreAmpDetect != NULL))
+				{
+					RadioEvents->PreAmpDetect();
+				}
 			}
 
 			if ((irqRegs & IRQ_SYNCWORD_VALID) == IRQ_SYNCWORD_VALID)
@@ -1330,6 +1355,5 @@ extern "C"
 		IrqFired = true;
 		BoardEnableIrq();
 		RadioIrqProcess();
-
 	}
 };

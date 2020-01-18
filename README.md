@@ -69,6 +69,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 ----
 ## Changelog
+- 2020-01-16:
+  - Fix bug in receive callbacks in case a CRC error is detected.
+  - Added Preamble detection callback
+  - Added two more examples for a sensor node and a gateway node with deep sleep usage.
 - 2019-12-28:
   - Updated examples
 - 2019-12-12:

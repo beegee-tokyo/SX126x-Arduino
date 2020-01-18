@@ -78,6 +78,10 @@ extern "C"
      */
 		void (*RxError)(void);
 		/*!
+     * \brief Preamble detected callback prototype.
+     */
+		void (*PreAmpDetect)(void);
+		/*!
      * \brief  FHSS Change Channel callback prototype.
      *
      * \param [IN] currentChannel   Index number of the current channel
