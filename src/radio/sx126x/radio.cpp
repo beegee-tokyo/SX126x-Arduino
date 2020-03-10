@@ -228,11 +228,26 @@ extern "C"
 	void RadioRx(uint32_t timeout);
 
 	/*!
+ * @brief Set Channel Activity Detection parameters
+ * 
+ * \param [in]  cadSymbolNum   The number of symbol to use for CAD operations
+ *                             [LORA_CAD_01_SYMBOL, LORA_CAD_02_SYMBOL,
+ *                              LORA_CAD_04_SYMBOL, LORA_CAD_08_SYMBOL,
+ *                              LORA_CAD_16_SYMBOL]
+ * \param [in]  cadDetPeak     Limit for detection of SNR peak used in the CAD
+ * \param [in]  cadDetMin      Set the minimum symbol recognition for CAD
+ * \param [in]  cadExitMode    Operation to be done at the end of CAD action
+ *                             [LORA_CAD_ONLY, LORA_CAD_RX, LORA_CAD_LBT]
+ * \param [in]  cadTimeout     Defines the timeout value to abort the CAD activity
+ */
+	void RadioSetCadParams(uint8_t cadSymbolNum, uint8_t cadDetPeak, uint8_t cadDetMin, uint8_t cadExitMode, uint32_t cadTimeout);
+
+	/*!
  * @brief Start a Channel Activity Detection
  * 
  * @remark Before calling this function CAD parameters need to be set first! \
- *      SX126xSetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0); \
- *      SX126xSetDioIrqParams(IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED, \
+ * 		Use RadioSetCadParams to setup the parameters or directly in the SX126x low level functions
+ *      RadioSetCadParams(uint8_t cadSymbolNum, uint8_t cadDetPeak, uint8_t cadDetMin, uint8_t cadExitMode, uint32_t cadTimeout);
  *              IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED, \
  *              IRQ_RADIO_NONE, IRQ_RADIO_NONE); \
  */
@@ -357,6 +372,7 @@ extern "C"
 			RadioSleep,
 			RadioStandby,
 			RadioRx,
+			RadioSetCadParams,
 			RadioStartCad,
 			RadioSetTxContinuousWave,
 			RadioRssi,
@@ -1043,9 +1059,17 @@ extern "C"
 		SX126xSetRxDutyCycle(rxTime, sleepTime);
 	}
 
+	void RadioSetCadParams(uint8_t cadSymbolNum, uint8_t cadDetPeak, uint8_t cadDetMin, uint8_t cadExitMode, uint32_t cadTimeout)
+	{
+		SX126xSetCadParams((RadioLoRaCadSymbols_t)cadSymbolNum, cadDetPeak, cadDetMin, (RadioCadExitModes_t)cadExitMode, cadTimeout);
+	}
+
 	void RadioStartCad(void)
 	{
 		SX126xRXena();
+		SX126xSetDioIrqParams(IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
+							  IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
+							  IRQ_RADIO_NONE, IRQ_RADIO_NONE);
 		SX126xSetCad();
 	}
 

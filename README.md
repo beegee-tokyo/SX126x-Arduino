@@ -69,6 +69,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 ----
 ## Changelog
+- 2020-03-10:
+  - Added new SetCadParameter function to Radio class 
 - 2020-01-16:
   - Fix bug in receive callbacks in case a CRC error is detected.
   - Added Preamble detection callback
@@ -85,7 +87,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     - **`lora_hardware_re_init()`** to re-initialize SX1262 connection without resetting the LoRa chip
     - **`Radio.ReInit()`** to re-initialize SX1262 connection without resetting the LoRa chip
     - **`Radio.IrqProcessAfterDeepSleep()`** to handle IRQ that woke up the CPU (RX_DONE, TX_DONE, ...)
-
 - 2019-11-09:
   - Added Workarounds for limitations as written in DS_SX1261-2_V1.2 datasheet
   - Tested with both Single Channel ([ESP32](https://github.com/beegee-tokyo/SX1262-SC-GW)) and 8 Channel ([Dragino LPS8](https://www.dragino.com/products/lora-lorawan-gateway/item/148-lps8.html)) LoRaWan gateways

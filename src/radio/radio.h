@@ -280,6 +280,10 @@ extern "C"
      */
 		void (*Rx)(uint32_t timeout);
 		/*!
+     * \brief Set Channel Activity Detection parameters
+     */
+		void (*SetCadParams)(uint8_t cadSymbolNum, uint8_t cadDetPeak, uint8_t cadDetMin, uint8_t cadExitMode, uint32_t cadTimeout);
+		/*!
      * \brief Start a Channel Activity Detection
      */
 		void (*StartCad)(void);

@@ -265,10 +265,7 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 
 				// Check if our channel is available for sending
 				Radio.Standby();
-				SX126xSetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
-				SX126xSetDioIrqParams(IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-									  IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-									  IRQ_RADIO_NONE, IRQ_RADIO_NONE);
+				Radio.SetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
 				cadTime = millis();
 				Radio.StartCad();
 				// Sending next Ping will be started when the channel is free
@@ -308,10 +305,7 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 
 				// Check if our channel is available for sending
 				Radio.Standby();
-				SX126xSetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
-				SX126xSetDioIrqParams(IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-									  IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-									  IRQ_RADIO_NONE, IRQ_RADIO_NONE);
+				Radio.SetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
 				cadTime = millis();
 				Radio.StartCad();
 				// Sending Pong will be started when the channel is free
@@ -370,10 +364,7 @@ void OnRxTimeout(void)
 
 		// Check if our channel is available for sending
 		Radio.Standby();
-		SX126xSetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
-		SX126xSetDioIrqParams(IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-							  IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-							  IRQ_RADIO_NONE, IRQ_RADIO_NONE);
+		Radio.SetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
 		cadTime = millis();
 		Radio.StartCad();
 		// Sending the ping will be started when the channel is free
@@ -384,10 +375,7 @@ void OnRxTimeout(void)
 		isMaster = true;
 		// Check if our channel is available for sending
 		Radio.Standby();
-		SX126xSetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
-		SX126xSetDioIrqParams(IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-							  IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-							  IRQ_RADIO_NONE, IRQ_RADIO_NONE);
+		Radio.SetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
 		cadTime = millis();
 		Radio.StartCad();
 		// Sending the ping will be started when the channel is free
@@ -414,10 +402,7 @@ void OnRxError(void)
 
 		// Check if our channel is available for sending
 		Radio.Standby();
-		SX126xSetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
-		SX126xSetDioIrqParams(IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-							  IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-							  IRQ_RADIO_NONE, IRQ_RADIO_NONE);
+		Radio.SetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
 		cadTime = millis();
 		Radio.StartCad();
 		// Sending the ping will be started when the channel is free

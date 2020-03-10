@@ -299,10 +299,7 @@ void OnCadDone(bool cadResult)
 		{
 			// Retry CAD
 			Radio.Standby();
-			SX126xSetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
-			SX126xSetDioIrqParams(IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-								  IRQ_CAD_DONE | IRQ_CAD_ACTIVITY_DETECTED,
-								  IRQ_RADIO_NONE, IRQ_RADIO_NONE);
+			Radio.SetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
 			Radio.StartCad();
 		}
 		else
