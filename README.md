@@ -69,6 +69,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 ----
 ## Changelog
+- 2020-03-28:
+  - Fix bug in LoRaWan Class switch 
 - 2020-03-10:
   - Added new SetCadParameter function to Radio class 
 - 2020-01-16:

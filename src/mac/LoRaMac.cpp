@@ -2719,6 +2719,8 @@ extern "C"
 			}
 			case CLASS_B:
 			{
+				// Set the radio into sleep to setup a defined state
+				Radio.Sleep();
 				break;
 			}
 			case CLASS_C:

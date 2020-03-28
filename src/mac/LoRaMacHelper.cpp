@@ -937,13 +937,31 @@ extern "C"
 			{
 			case CLASS_A:
 			{
-				if (currentClass == CLASS_A)
+				if (currentClass != CLASS_A)
 				{
 					mibReq.Param.Class = CLASS_A;
 					if (LoRaMacMibSetRequestConfirm(&mibReq) == LORAMAC_STATUS_OK)
 					{
 						// switch is instantanuous
 						m_callbacks->lmh_ConfirmClass(CLASS_A);
+					}
+					else
+					{
+						Errorstatus = LMH_ERROR;
+					}
+				}
+				break;
+			}
+
+			case CLASS_B:
+			{
+				if (currentClass != CLASS_B)
+				{
+					mibReq.Param.Class = CLASS_B;
+					if (LoRaMacMibSetRequestConfirm(&mibReq) == LORAMAC_STATUS_OK)
+					{
+						// switch is instantanuous
+						m_callbacks->lmh_ConfirmClass(CLASS_B);
 					}
 					else
 					{
@@ -973,6 +991,7 @@ extern "C"
 			}
 
 			default:
+				Errorstatus = LMH_ERROR;
 				break;
 			}
 		}
