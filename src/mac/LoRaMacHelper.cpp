@@ -695,7 +695,7 @@ extern "C"
 // #ifdef ESP32
 // 		log_i("OTAA\n%s\n%s\n%s", strlog1, strlog2, strlog3);
 // #endif
-// #ifdef NRF52
+// #ifdef NRF52_SERIES
 // 		Serial.printf("OTAA\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
 // #endif
 #else
@@ -720,7 +720,7 @@ extern "C"
 // #ifdef ESP32
 // 		log_i("ABP\n%s\n%s\n%s", strlog1, strlog2, strlog3);
 // #endif
-// #ifdef NRF52
+// #ifdef NRF52_SERIES
 // 		Serial.printf("ABP\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
 // #endif
 #endif

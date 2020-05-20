@@ -128,7 +128,7 @@ extern "C"
 #ifdef ESP32
 				log_e("LORA Busy timeout waiting for BUSY low");
 #endif
-#ifdef NRF52
+#ifdef NRF52_SERIES
 				LOG_LV2("LORA", "[SX126xWaitOnBusy] Timeout waiting for BUSY low");
 #endif
 				return;

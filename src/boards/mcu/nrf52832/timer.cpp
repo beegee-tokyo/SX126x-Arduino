@@ -33,7 +33,7 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
  *	OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  *****************************************************************************/
-#ifdef NRF52
+#ifdef NRF52_SERIES
 #include "boards/mcu/timer.h"
 #include "boards/mcu/board.h"
 #include "app_util.h"

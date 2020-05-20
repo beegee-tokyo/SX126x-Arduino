@@ -40,7 +40,7 @@ int PIN_LORA_MOSI = MOSI; // LORA SPI MOSI
 int RADIO_TXEN = -1;	  // LORA ANTENNA TX ENABLE
 int RADIO_RXEN = -1;	  // LORA ANTENNA RX ENABLE
 #endif
-#ifdef NRF52
+#ifdef NRF52_SERIES
 // nRF52832 - SX126x pin configuration
 int PIN_LORA_RESET = 4;  // LORA RESET
 int PIN_LORA_NSS = 28;   // LORA SPI CS
@@ -52,7 +52,7 @@ int PIN_LORA_MOSI = 13;  // LORA SPI MOSI
 int RADIO_TXEN = -1;	 // LORA ANTENNA TX ENABLE
 int RADIO_RXEN = -1;	 // LORA ANTENNA RX ENABLE
 // Replace PIN_SPI_MISO, PIN_SPI_SCK, PIN_SPI_MOSI with your
-SPIClass SPI_LORA(NRF_SPI2, 14, 12, 13);
+SPIClass SPI_LORA(NRF_SPIM2, 14, 12, 13);
 #endif
 
 // Foward declaration
@@ -76,7 +76,7 @@ static lmh_param_t lora_param_init = {LORAWAN_ADR_ON, LORAWAN_DEFAULT_DATARATE, 
 static lmh_callback_t lora_callbacks = {BoardGetBatteryLevel, BoardGetUniqueId, BoardGetRandomSeed,
 										lorawan_rx_handler, lorawan_has_joined_handler, lorawan_confirm_class_handler};
 
-#ifdef NRF52
+#ifdef NRF52_SERIES
 // Start BLE if we compile for nRF52
 #include <bluefruit.h>
 void initBLE();
@@ -89,7 +89,7 @@ extern BLEUart bleuart;
 #ifdef ESP32
 #define LED_BUILTIN 2
 #endif
-#ifdef NRF52
+#ifdef NRF52_SERIES
 #define LED_BUILTIN 17
 #endif
 #endif
@@ -133,7 +133,7 @@ void setup()
 	Serial.println("SX126x LoRaWan test");
 	Serial.println("=====================================");
 
-#ifdef NRF52
+#ifdef NRF52_SERIES
 	pinMode(30, OUTPUT);
 	digitalWrite(30, HIGH);
 	// Start BLE if we compile for nRF52

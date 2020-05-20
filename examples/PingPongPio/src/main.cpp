@@ -29,7 +29,7 @@ int PIN_LORA_MOSI = MOSI; // LORA SPI MOSI
 int RADIO_TXEN = -1;	  // LORA ANTENNA TX ENABLE
 int RADIO_RXEN = -1;	  // LORA ANTENNA RX ENABLE
 #endif
-#ifdef NRF52
+#ifdef NRF52_SERIES
 // nRF52832 - SX126x pin configuration
 int PIN_LORA_RESET = 30; // LORA RESET
 int PIN_LORA_DIO_1 = 27; // LORA DIO_1
@@ -41,7 +41,7 @@ int PIN_LORA_MOSI = 13;  // LORA SPI MOSI
 int RADIO_TXEN = -1;	 // LORA ANTENNA TX ENABLE
 int RADIO_RXEN = -1;	 // LORA ANTENNA RX ENABLE
 // Replace PIN_SPI_MISO, PIN_SPI_SCK, PIN_SPI_MOSI with your
-SPIClass SPI_LORA(NRF_SPI2, PIN_LORA_MISO, PIN_LORA_SCLK, PIN_LORA_MOSI);
+SPIClass SPI_LORA(NRF_SPIM2, PIN_LORA_MISO, PIN_LORA_SCLK, PIN_LORA_MOSI);
 #endif
 
 // Function declarations
@@ -51,7 +51,7 @@ void OnTxTimeout(void);
 void OnRxTimeout(void);
 void OnRxError(void);
 void OnCadDone(bool cadResult);
-#ifdef NRF52
+#ifdef NRF52_SERIES
 // Start BLE if we compile for nRF52
 #include <bluefruit.h>
 void initBLE();
@@ -66,7 +66,7 @@ extern BLEUart bleuart;
 #ifdef ESP8266
 #define LED_BUILTIN 2
 #endif
-#ifdef NRF52
+#ifdef NRF52_SERIES
 #define LED_BUILTIN 17
 #endif
 
@@ -127,7 +127,7 @@ void setup()
 	Serial.println("SX126x PingPong test");
 	Serial.println("=====================================");
 
-#ifdef NRF52
+#ifdef NRF52_SERIES
 	Serial.println("MCU Nordic nRF52832");
 	pinMode(30, OUTPUT);
 	digitalWrite(30, HIGH);
@@ -206,7 +206,7 @@ void loop()
 void OnTxDone(void)
 {
 	Serial.println("OnTxDone");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 	if (bleUARTisConnected)
 	{
 		bleuart.print("OnTxDone\n");
@@ -220,7 +220,7 @@ void OnTxDone(void)
 void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 {
 	Serial.println("OnRxDone");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 	if (bleUARTisConnected)
 	{
 		bleuart.print("OnRxDone\n");
@@ -238,7 +238,7 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 	}
 	Serial.println("");
 
-#ifdef NRF52
+#ifdef NRF52_SERIES
 	if (bleUARTisConnected)
 	{
 		bleuart.printf("RssiValue=%d dBm, SnrValue=%d\n", rssi, snr);
@@ -253,7 +253,7 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 			if (strncmp((const char *)RcvBuffer, (const char *)PongMsg, 4) == 0)
 			{
 				Serial.println("Received a PONG in OnRxDone as Master");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 				if (bleUARTisConnected)
 				{
 					bleuart.print("Received a PONG in OnRxDone as Master\n");
@@ -273,7 +273,7 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 			else if (strncmp((const char *)RcvBuffer, (const char *)PingMsg, 4) == 0)
 			{ // A master already exists then become a slave
 				Serial.println("Received a PING in OnRxDone as Master");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 				if (bleUARTisConnected)
 				{
 					bleuart.print("Received a PING in OnRxDone as Master\n");
@@ -296,7 +296,7 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 			if (strncmp((const char *)RcvBuffer, (const char *)PingMsg, 4) == 0)
 			{
 				Serial.println("Received a PING in OnRxDone as Slave");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 				if (bleUARTisConnected)
 				{
 					bleuart.print("Received a PING in OnRxDone as Slave\n");
@@ -313,7 +313,7 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 			else // valid reception but not a PING as expected
 			{	// Set device as master and start again
 				Serial.println("Received something in OnRxDone as Slave");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 				if (bleUARTisConnected)
 				{
 					bleuart.print("Received something in OnRxDone as Slave\n");
@@ -332,7 +332,7 @@ void OnTxTimeout(void)
 {
 	// Radio.Sleep();
 	Serial.println("OnTxTimeout");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 	if (bleUARTisConnected)
 	{
 		bleuart.print("OnTxTimeout\n");
@@ -348,7 +348,7 @@ void OnTxTimeout(void)
 void OnRxTimeout(void)
 {
 	Serial.println("OnRxTimeout");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 	if (bleUARTisConnected)
 	{
 		bleuart.print("OnRxTimeout\n");
@@ -387,7 +387,7 @@ void OnRxTimeout(void)
 void OnRxError(void)
 {
 	Serial.println("OnRxError");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 	if (bleUARTisConnected)
 	{
 		bleuart.print("OnRxError\n");
@@ -421,7 +421,7 @@ void OnCadDone(bool cadResult)
 	if (cadResult)
 	{
 		Serial.printf("CAD returned channel busy after %ldms\n", duration);
-#ifdef NRF52
+#ifdef NRF52_SERIES
 		if (bleUARTisConnected)
 		{
 			bleuart.printf("CAD returned channel busy after %ldms\n", duration);
@@ -432,7 +432,7 @@ void OnCadDone(bool cadResult)
 	else
 	{
 		Serial.printf("CAD returned channel free after %ldms\n", duration);
-#ifdef NRF52
+#ifdef NRF52_SERIES
 		if (bleUARTisConnected)
 		{
 			bleuart.printf("CAD returned channel free after %ldms\n", duration);
@@ -441,7 +441,7 @@ void OnCadDone(bool cadResult)
 		if (isMaster)
 		{
 			Serial.println("Sending a PING in OnCadDone as Master");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 			if (bleUARTisConnected)
 			{
 				bleuart.print("Sending a PING in OnCadDone as Master\n");
@@ -456,7 +456,7 @@ void OnCadDone(bool cadResult)
 		else
 		{
 			Serial.println("Sending a PONG in OnCadDone as Slave");
-#ifdef NRF52
+#ifdef NRF52_SERIES
 			if (bleUARTisConnected)
 			{
 				bleuart.print("Sending a PONG in OnCadDone as Slave\n");

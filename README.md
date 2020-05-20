@@ -69,6 +69,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 ----
 ## Changelog
+- 2020-05-20:
+  - Add compatibility with nRF52840 (experimental) 
+  - Fix ArduinoIDE compile problems
+  - Fix examples
 - 2020-03-28:
   - Fix bug in LoRaWan Class switch 
 - 2020-03-10:

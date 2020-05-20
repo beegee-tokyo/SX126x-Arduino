@@ -17,6 +17,8 @@ License: Revised BSD License, see LICENSE.TXT file include in the project
 
 Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jaeckle ( STACKFORCE )
 */
+#include "mac/Commissioning.h"
+
 #ifdef REGION_KR920
 
 #include <stdbool.h>

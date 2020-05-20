@@ -45,7 +45,7 @@
  *
  * @brief Various types and definitions available to all applications when using SoftDevice.
  */
-#ifdef NRF52
+#ifdef NRF52_SERIES
 #ifndef APP_UTIL_PLATFORM_H__
 #define APP_UTIL_PLATFORM_H__
 
