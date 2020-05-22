@@ -3,7 +3,7 @@ env:
     - ARDUINO_IDE_VERSION="1.8.9"
   matrix:
     - BOARD="esp8266:esp8266:generic:xtal=80,ResetMethod=ck,CrystalFreq=26,FlashFreq=40,FlashMode=qio,eesz=512K"
-    - BOARD="esp32:esp32:esp32:FlashFreq=80,FlashSize=4M"
+    - BOARD="esp32:esp32:featheresp32:FlashFreq=80,FlashSize=4M"
 #    - BOARD="adafruit:nrf52:feather52832"
 
 before_install:
