@@ -69,6 +69,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 ----
 ## Changelog
+- 2020-05-22:
+  - Fix compiler errors when OTAA is selected
 - 2020-05-20:
   - Add compatibility with nRF52840 (experimental) 
   - Fix ArduinoIDE compile problems

@@ -3,11 +3,11 @@
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32. ESP8266 and nRF52832. It will not work with other uC's like AVR.    
 
 # Release Notes
+## V1.1.2 Fix compile errors when OTAA is selected
 ## V1.1.1 Some bug fixes
   - Add compatibility with nRF52840 (experimental)        
   - Fix ArduinoIDE compile problems    
   - Fix examples    
-
 ## V1.1.0 Fix bug in LoRaWan class switch
 ## V1.0.9 Added new SetCadParameter function to Radio class
 ## V1.0.8 Removed credentials

@@ -74,11 +74,11 @@ extern "C"
 
 	static MlmeReqJoin_t JoinParameters;
 
-#if (OVER_THE_AIR_ACTIVATION == 0)
+// #if (OVER_THE_AIR_ACTIVATION == 0)
 	static uint8_t NwkSKey[] = LORAWAN_NWKSKEY;		  /**< Network session key */
 	static uint8_t AppSKey[] = LORAWAN_APPSKEY;		  /**< Application session key */
 	static uint32_t DevAddr = LORAWAN_DEVICE_ADDRESS; /**< End-device address */
-#endif
+// #endif
 
 	bool singleChannelGateway = false;   /**< Flag if connection is to a single channel gateway */
 	uint8_t singleChannelSelected = 0;   /**< Channel to be used to communicate with a single channel gateway */
