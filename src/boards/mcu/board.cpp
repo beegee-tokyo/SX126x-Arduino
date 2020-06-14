@@ -59,7 +59,7 @@ extern "C"
 		_hwConfig.USE_DIO2_ANT_SWITCH = hwConfig.USE_DIO2_ANT_SWITCH; // LORA DIO2 controls antenna
 		_hwConfig.USE_DIO3_TCXO = hwConfig.USE_DIO3_TCXO;			  // LORA DIO3 controls oscillator voltage (e.g. eByte E22 module)
 		_hwConfig.USE_DIO3_ANT_SWITCH = hwConfig.USE_DIO3_ANT_SWITCH; // LORA DIO3 controls antenna (e.g. Insight SIP ISP4520 module)
-
+		_hwConfig.USE_LDO = hwConfig.USE_LDO;						  // LORA usage of LDO or DCDC power regulator (defaults to DCDC)
 		TimerConfig();
 
 		SX126xIoInit();

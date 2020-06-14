@@ -34,50 +34,8 @@
  *            layer and the supported features.
  * \{
  *
- * \example   classA/LoRaMote/main.c
- *            LoRaWAN class A application example for the LoRaMote.
- *
- * \example   classB/LoRaMote/main.c
- *            LoRaWAN class B application example for the LoRaMote.
- *
- * \example   classC/LoRaMote/main.c
- *            LoRaWAN class C application example for the LoRaMote.
- *
- * \example   classA/MoteII/main.c
- *            LoRaWAN class A application example for the MoteII.
- *
- * \example   classB/MoteII/main.c
- *            LoRaWAN class B application example for the MoteII.
- *
- * \example   classC/MoteII/main.c
- *            LoRaWAN class C application example for the MoteII.
- *
- * \example   classA/NAMote72/main.c
- *            LoRaWAN class A application example for the NAMote72.
- *
- * \example   classB/NAMote72/main.c
- *            LoRaWAN class B application example for the NAMote72.
- *
- * \example   classC/NAMote72/main.c
- *            LoRaWAN class C application example for the NAMote72.
- *
- * \example   classA/SensorNode/main.c
- *            LoRaWAN class A application example for the SensorNode.
- *
- * \example   classB/SensorNode/main.c
- *            LoRaWAN class B application example for the SensorNode.
- *
- * \example   classC/SensorNode/main.c
- *            LoRaWAN class C application example for the SensorNode.
- *
- * \example   classA/SK-iM880A/main.c
- *            LoRaWAN class A application example for the SK-iM880A.
- *
- * \example   classB/SK-iM880A/main.c
- *            LoRaWAN class B application example for the SK-iM880A.
- *
- * \example   classC/SK-iM880A/main.c
- *            LoRaWAN class C application example for the SK-iM880A.
+ * \example   examples/LoRaWan
+ *            LoRaWAN application example.
  */
 #ifndef __LORAMAC_H__
 #define __LORAMAC_H__

@@ -71,6 +71,7 @@ struct hw_config
 	bool USE_DIO2_ANT_SWITCH = false; // Whether DIO2 is used to control the antenna
 	bool USE_DIO3_TCXO = false;		  // Whether DIO3 is used to control the oscillator
 	bool USE_DIO3_ANT_SWITCH = false; // Whether DIO2 is used to control the antenna
+	bool USE_LDO = false;			  // Whether SX126x uses LDO or DCDC power regulator
 };
 
 extern "C"

@@ -535,7 +535,14 @@ extern "C"
 		RadioEvents = events;
 		SX126xInit(RadioOnDioIrq);
 		SX126xSetStandby(STDBY_RC);
+		if (_hwConfig.USE_LDO)
+		{
+			SX126xSetRegulatorMode(USE_LDO);
+		}
+		else
+		{
 		SX126xSetRegulatorMode(USE_DCDC);
+		}
 
 		SX126xSetBufferBaseAddress(0x00, 0x00);
 		SX126xSetTxParams(0, RADIO_RAMP_200_US);
