@@ -22,7 +22,7 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 ----
 ## General info
 I stumbled over the [SX126x LoRa family](https://www.semtech.com/products/wireless-rf/lora-transceivers) in a customer project. Most of the existing Arduino libraries for Semtech's SX127x family are unfortunately not working with this new generation LoRa chip. I found a usefull base library from Insight SIP which is based on the original Semtech SX126x library and changed it to work with the ESP32.   
-For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module connected to an ESP32 and an [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) which combines a Nordic nRF52832 and a Semtech SX1262 in one module. It is as well tested with an [RAKwireless WisCore RAK4631](https://store.rakwireless.com/products)    
+For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module connected to an ESP32 and an [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) which combines a Nordic nRF52832 and a Semtech SX1262 in one module. It is as well tested with an [RAKwireless WisCore RAK4630](https://store.rakwireless.com/products) module    
 
 __**Check out the example provided with this library to learn the basic functions.**__
 

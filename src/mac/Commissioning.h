@@ -45,13 +45,18 @@ extern "C"
  * Please note that ETSI mandates duty cycled transmissions. 
  * Use only for test purposes
  */
-#define LORAWAN_DUTYCYCLE_ON true
-#define LORAWAN_DUTYCYCLE_OFF false
+#define LORAWAN_DUTYCYCLE_ON true	/**< LoRaWAN duty cycle enabled */
+#define LORAWAN_DUTYCYCLE_OFF false /**< LoRaWAN duty cycle disabled */
 
 /**@brief Indicates if the end-device is to be connected to a private or public network
  */
-#define LORAWAN_PUBLIC_NETWORK true
-#define LORAWAN_PRIVAT_NETWORK false
+#define LORAWAN_PUBLIC_NETWORK true	 /**< LoRaWAN public network */
+#define LORAWAN_PRIVAT_NETWORK false /**< LoRaWAN private network */
+
+/**@brief Enable or disable LoRaWAN Adaptive Data Rate enabled (the end-device should be static here).
+ */
+#define LORAWAN_ADR_ON true	  /**< LoRaWAN Adaptive Data Rate enabled (the end-device should be static here). */
+#define LORAWAN_ADR_OFF false /**< LoRaWAN Adaptive Data Rate disabled. */
 
 /**@brief Select if a hard coded device ID is used or an automatic generated one
  * When set to 1 DevEui is LORAWAN_DEVICE_EUI

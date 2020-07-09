@@ -6,9 +6,6 @@
 #define SCHED_MAX_EVENT_DATA_SIZE APP_TIMER_SCHED_EVENT_DATA_SIZE /**< Maximum size of scheduler events. */
 #define SCHED_QUEUE_SIZE 60										  /**< Maximum number of events in the scheduler queue. */
 
-#define LORAWAN_ADR_ON 1  /**< LoRaWAN Adaptive Data Rate enabled (the end-device should be static here). */
-#define LORAWAN_ADR_OFF 0 /**< LoRaWAN Adaptive Data Rate disabled. */
-
 #define LORAWAN_APP_DATA_BUFF_SIZE 64  /**< Size of the data to be transmitted. */
 #define LORAWAN_APP_TX_DUTYCYCLE 10000 /**< Defines the application data transmission duty cycle. 10s, value in [ms]. */
 #define APP_TX_DUTYCYCLE_RND 1000	  /**< Defines a random delay for application data transmission duty cycle. 1s, value in [ms]. */
