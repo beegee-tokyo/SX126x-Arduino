@@ -212,8 +212,8 @@ extern "C"
  */
 	static const int8_t DatarateOffsetsUS915_HYBRID[5][4] =
 		{
-			{DR_10, DR_9, DR_8, DR_8},	// DR_0
-			{DR_11, DR_10, DR_9, DR_8},   // DR_1
+			{DR_10, DR_9, DR_8, DR_8},	  // DR_0
+			{DR_11, DR_10, DR_9, DR_8},	  // DR_1
 			{DR_12, DR_11, DR_10, DR_9},  // DR_2
 			{DR_13, DR_12, DR_11, DR_10}, // DR_3
 			{DR_13, DR_13, DR_12, DR_11}, // DR_4

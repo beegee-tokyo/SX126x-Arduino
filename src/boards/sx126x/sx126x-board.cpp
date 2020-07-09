@@ -67,6 +67,8 @@ extern "C"
 			pinMode(_hwConfig.RADIO_RXEN, OUTPUT);
 			SX126xRXena();
 		}
+
+		SX126xReset();
 	}
 
 	void SX126xIoReInit(void)
@@ -107,11 +109,11 @@ extern "C"
 
 	void SX126xReset(void)
 	{
-		delay(10);
+		pinMode(_hwConfig.PIN_LORA_RESET, OUTPUT);
 		digitalWrite(_hwConfig.PIN_LORA_RESET, LOW);
-		delay(20);
-		digitalWrite(_hwConfig.PIN_LORA_RESET, HIGH);
 		delay(10);
+		digitalWrite(_hwConfig.PIN_LORA_RESET, HIGH);
+		delay(20);
 		dio3IsOutput = false;
 	}
 
@@ -144,6 +146,8 @@ extern "C"
 		digitalWrite(_hwConfig.PIN_LORA_NSS, LOW);
 
 		SPI_LORA.beginTransaction(spiSettings);
+		SPI_LORA.transfer(RADIO_GET_STATUS);
+		SPI_LORA.transfer(0x00);
 		SPI_LORA.endTransaction();
 		digitalWrite(_hwConfig.PIN_LORA_NSS, HIGH);
 

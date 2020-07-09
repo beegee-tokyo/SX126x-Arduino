@@ -46,7 +46,7 @@ extern "C"
 /*!
  * Number of default channels
  */
-#define AS923_NUMB_DEFAULT_CHANNELS 2
+#define AS923_NUMB_DEFAULT_CHANNELS 8
 
 /*!
  * Number of channels to apply for the CF list
@@ -212,33 +212,101 @@ extern "C"
  * Band 0 definition
  * { DutyCycle, TxMaxPower, LastTxDoneTime, TimeOff }
  */
-#define AS923_BAND0                   \
-	{                                 \
-		100, AS923_MAX_TX_POWER, 0, 0 \
+#define AS923_BAND0                      \
+	{                                    \
+		100, AS923_MAX_TX_POWER, 0, 0, 0 \
 	} //  1.0 %
 
-/*!
+#if AS923_DEFAULT_UPLINK_DWELL_TIME
+	/*!
  * LoRaMac default channel 1
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
+#define AS923_LC1                               \
+	{                                           \
+		923200000, 0, {((DR_5 << 4) | DR_2)}, 0 \
+	}
+
+	/*!
+ * LoRaMac default channel 2
+ * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
+ */
+#define AS923_LC2                               \
+	{                                           \
+		923400000, 0, {((DR_5 << 4) | DR_2)}, 0 \
+	}
+#define AS923_LC3                               \
+	{                                           \
+		923600000, 0, {((DR_5 << 4) | DR_2)}, 0 \
+	}
+#define AS923_LC4                               \
+	{                                           \
+		923800000, 0, {((DR_5 << 4) | DR_2)}, 0 \
+	}
+#define AS923_LC5                               \
+	{                                           \
+		924000000, 0, {((DR_5 << 4) | DR_2)}, 0 \
+	}
+#define AS923_LC6                               \
+	{                                           \
+		924200000, 0, {((DR_5 << 4) | DR_2)}, 0 \
+	}
+#define AS923_LC7                               \
+	{                                           \
+		924400000, 0, {((DR_5 << 4) | DR_2)}, 0 \
+	}
+#define AS923_LC8                               \
+	{                                           \
+		924600000, 0, {((DR_5 << 4) | DR_2)}, 0 \
+	}
+#else
+/*!
+	* LoRaMac default channel 1
+	* Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
+	*/
 #define AS923_LC1                               \
 	{                                           \
 		923200000, 0, {((DR_5 << 4) | DR_0)}, 0 \
 	}
 
 /*!
- * LoRaMac default channel 2
- * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
- */
+	* LoRaMac default channel 2
+	* Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
+	*/
 #define AS923_LC2                               \
 	{                                           \
 		923400000, 0, {((DR_5 << 4) | DR_0)}, 0 \
 	}
+#define AS923_LC3                               \
+	{                                           \
+		923600000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+#define AS923_LC4                               \
+	{                                           \
+		923800000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+#define AS923_LC5                               \
+	{                                           \
+		924000000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+#define AS923_LC6                               \
+	{                                           \
+		924200000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+#define AS923_LC7                               \
+	{                                           \
+		924400000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+#define AS923_LC8                               \
+	{                                           \
+		924600000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+#endif
 
 /*!
  * LoRaMac channels which are allowed for the join procedure
  */
-#define AS923_JOIN_CHANNELS (uint16_t)(LC(1) | LC(2))
+#define AS923_JOIN_CHANNELS (uint16_t)(LC(1) | LC(2) | LC(3) | LC(4) | LC(5) | LC(6) | LC(7) | LC(8))
 
 /*!
  * RSSI threshold for a free channel [dBm]
@@ -264,26 +332,30 @@ extern "C"
  * Maximum payload with respect to the datarate index. Cannot operate with repeater.
  * The table is valid for the dwell time configuration of 0 for uplinks and downlinks.
  */
-	static const uint8_t MaxPayloadOfDatarateDwell0AS923[] = {51, 51, 51, 115, 242, 242, 242, 242};
+	// static const uint8_t MaxPayloadOfDatarateDwell0AS923[] = { 51, 51, 51, 115, 242, 242, 242, 242 };
+	static const uint8_t MaxPayloadOfDatarateDwell0AS923[] = {59, 59, 59, 123, 230, 230, 230, 230};
 
 	/*!
  * Maximum payload with respect to the datarate index. Can operate with repeater.
  * The table is valid for the dwell time configuration of 0 for uplinks and downlinks. The table provides
  * repeater support.
  */
-	static const uint8_t MaxPayloadOfDatarateRepeaterDwell0AS923[] = {51, 51, 51, 115, 222, 222, 222, 222};
+	// static const uint8_t MaxPayloadOfDatarateRepeaterDwell0AS923[] = { 51, 51, 51, 115, 222, 222, 222, 222 };
+	static const uint8_t MaxPayloadOfDatarateRepeaterDwell0AS923[] = {59, 59, 59, 123, 250, 250, 250, 250};
 
 	/*!
  * Maximum payload with respect to the datarate index. Can operate with and without repeater.
  * The table proides repeater support. The table is only valid for uplinks.
  */
-	static const uint8_t MaxPayloadOfDatarateDwell1UpAS923[] = {0, 0, 11, 53, 125, 242, 242, 242};
+	// static const uint8_t MaxPayloadOfDatarateDwell1UpAS923[] = { 0, 0, 11, 53, 125, 242, 242, 242 };
+	static const uint8_t MaxPayloadOfDatarateDwell1UpAS923[] = {0, 0, 19, 61, 133, 250, 250, 250};
 
 	/*!
  * Maximum payload with respect to the datarate index. Can operate with and without repeater.
  * The table proides repeater support. The table is only valid for downlinks.
  */
-	static const uint8_t MaxPayloadOfDatarateDwell1DownAS923[] = {0, 0, 11, 53, 126, 242, 242, 242};
+	// static const uint8_t MaxPayloadOfDatarateDwell1DownAS923[] = { 0, 0, 11, 53, 126, 242, 242, 242 };
+	static const uint8_t MaxPayloadOfDatarateDwell1DownAS923[] = {0, 0, 19, 61, 133, 250, 250, 250};
 
 	/*!
  * Effective datarate offsets for receive window 1.

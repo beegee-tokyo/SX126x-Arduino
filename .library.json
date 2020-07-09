@@ -1,10 +1,11 @@
 {
 	"name": "SX126x-Arduino",
-	"version": "1.1.2",
+	"version": "1.1.3",
 	"keywords": [
 		"lora",
 		"Semtech",
-		"SX126x"
+		"SX126x",
+		"RAK4630"
 	],
 	"description": "Arduino library to use Semtech SX126x LoRa chips and modules to communicate",
 	"frameworks": [

@@ -94,7 +94,7 @@ extern "C"
 		{
 			CalibrationParams_t calibParam;
 
-			SX126xSetDio3AsTcxoCtrl(TCXO_CTRL_2_4V, RADIO_TCXO_SETUP_TIME << 6);
+			SX126xSetDio3AsTcxoCtrl(TCXO_CTRL_3_3V, RADIO_TCXO_SETUP_TIME << 6);
 			calibParam.Value = 0x7F;
 			SX126xCalibrate(calibParam);
 		}
@@ -220,14 +220,7 @@ extern "C"
 	{
 		uint8_t buf[] = {0, 0, 0, 0};
 
-		// Set radio in continuous reception
-		SX126xSetRx(0);
-
-		delay(1);
-
 		SX126xReadRegisters(RANDOM_NUMBER_GENERATORBASEADDR, buf, 4);
-
-		SX126xSetStandby(STDBY_RC);
 
 		return (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];
 	}

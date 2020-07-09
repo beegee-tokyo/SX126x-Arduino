@@ -541,7 +541,7 @@ extern "C"
 		}
 		else
 		{
-		SX126xSetRegulatorMode(USE_DCDC);
+			SX126xSetRegulatorMode(USE_DCDC);
 		}
 
 		SX126xSetBufferBaseAddress(0x00, 0x00);
@@ -666,13 +666,7 @@ extern "C"
 		// Set radio in continuous reception
 		SX126xSetRx(0);
 
-		for (i = 0; i < 32; i++)
-		{
-			delay(1);
-			// Unfiltered RSSI value reading. Only takes the LSB value
-			rnd |= ((uint32_t)SX126xGetRssiInst() & 0x01) << i;
-		}
-
+		rnd = SX126xGetRandom();
 		RadioSleep();
 
 		return rnd;
@@ -809,7 +803,7 @@ extern "C"
 			// WORKAROUND END
 
 			// Timeout Max, Timeout handled directly in SetRx function
-			RxTimeout = 0xFFFF;
+			RxTimeout = 0xFA0;
 
 			break;
 		}
@@ -1258,21 +1252,21 @@ extern "C"
 					uint8_t size;
 					// Discard buffer
 					memset(RadioRxPayload, 0, 255);
-				SX126xGetPayload(RadioRxPayload, &size, 255);
-				SX126xGetPacketStatus(&RadioPktStatus);
+					SX126xGetPayload(RadioRxPayload, &size, 255);
+					SX126xGetPacketStatus(&RadioPktStatus);
 					if ((RadioEvents != NULL) && (RadioEvents->RxError))
-				{
+					{
 						RadioEvents->RxError();
+					}
 				}
-			}
 				else
-			{
+				{
 					SX126xGetPayload(RadioRxPayload, &size, 255);
 					SX126xGetPacketStatus(&RadioPktStatus);
 					if ((RadioEvents != NULL) && (RadioEvents->RxDone != NULL))
-				{
+					{
 						RadioEvents->RxDone(RadioRxPayload, size, RadioPktStatus.Params.LoRa.RssiPkt, RadioPktStatus.Params.LoRa.SnrPkt);
-				}
+					}
 				}
 			}
 

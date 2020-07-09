@@ -364,9 +364,15 @@ extern "C"
 			// Channels
 			Channels[0] = (ChannelParams_t)AS923_LC1;
 			Channels[1] = (ChannelParams_t)AS923_LC2;
+			Channels[2] = (ChannelParams_t)AS923_LC3;
+			Channels[3] = (ChannelParams_t)AS923_LC4;
+			Channels[4] = (ChannelParams_t)AS923_LC5;
+			Channels[5] = (ChannelParams_t)AS923_LC6;
+			Channels[6] = (ChannelParams_t)AS923_LC7;
+			Channels[7] = (ChannelParams_t)AS923_LC8;
 
 			// Initialize the channels default mask
-			ChannelsDefaultMask[0] = LC(1) + LC(2);
+			ChannelsDefaultMask[0] = LC(1) + LC(2) + LC(3) + LC(4) + LC(5) + LC(6) + LC(7) + LC(8);
 			// Update the channels mask
 			RegionCommonChanMaskCopy(ChannelsMask, ChannelsDefaultMask, 1);
 			break;
@@ -635,12 +641,16 @@ extern "C"
 		if (dr == DR_7)
 		{
 			modem = MODEM_FSK;
-			Radio.SetRxConfig(modem, 50000, phyDr * 1000, 0, 83333, 5, rxConfig->WindowTimeout, false, 0, true, 0, 0, false, rxConfig->RxContinuous);
+			// Radio.SetRxConfig(modem, 50000, phyDr * 1000, 0, 83333, 5, rxConfig->WindowTimeout, false, 0, true, 0, 0, false, rxConfig->RxContinuous);
+			/// \todo RAKwireless symbTimeout changed after tests done by RAKwireless
+			Radio.SetRxConfig(modem, 50000, phyDr * 1000, 0, 83333, 5, 0, false, 0, true, 0, 0, false, rxConfig->RxContinuous);
 		}
 		else
 		{
 			modem = MODEM_LORA;
-			Radio.SetRxConfig(modem, rxConfig->Bandwidth, phyDr, 1, 0, 8, rxConfig->WindowTimeout, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
+			// Radio.SetRxConfig(modem, rxConfig->Bandwidth, phyDr, 1, 0, 8, rxConfig->WindowTimeout, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
+			/// \todo RAKwireless symbTimeout changed after tests done by RAKwireless
+			Radio.SetRxConfig(modem, rxConfig->Bandwidth, phyDr, 1, 0, 8, 0, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
 		}
 
 		// Check for repeater support
@@ -937,8 +947,8 @@ extern "C"
 		TimerTime_t nextTxDelay = 0;
 
 		if (RegionCommonCountChannels(ChannelsMask, 0, 1) == 0)
-		{ // Reactivate default channels
-			ChannelsMask[0] |= LC(1) + LC(2);
+		{	// Reactivate default channels
+			// ChannelsMask[0] |= LC( 1 ) + LC( 2 )+ LC( 3 )+ LC( 4 )+ LC( 5 )+ LC( 6 )+ LC( 7 )+ LC( 8 );
 		}
 
 		if (nextChanParams->AggrTimeOff <= TimerGetElapsedTime(nextChanParams->LastAggrTx))
@@ -962,6 +972,11 @@ extern "C"
 
 		if (nbEnabledChannels > 0)
 		{
+			*channel = enabledChannels[randr(0, nbEnabledChannels - 1)];
+			*time = 0;
+
+			return true;
+#if 0
 			for (uint8_t i = 0, j = randr(0, nbEnabledChannels - 1); i < AS923_MAX_NB_CHANNELS; i++)
 			{
 				channelNext = enabledChannels[j];
@@ -978,6 +993,7 @@ extern "C"
 				}
 			}
 			return false;
+#endif
 		}
 		else
 		{
@@ -988,7 +1004,7 @@ extern "C"
 				return true;
 			}
 			// Datarate not supported by any channel, restore defaults
-			ChannelsMask[0] |= LC(1) + LC(2);
+			//ChannelsMask[0] |= LC(1) + LC(2);
 			*time = 0;
 			return false;
 		}
@@ -1024,10 +1040,17 @@ extern "C"
 		if (id < AS923_NUMB_DEFAULT_CHANNELS)
 		{
 			// Validate the datarate range for min: must be DR_0
+#if AS923_DEFAULT_UPLINK_DWELL_TIME
+			if (channelAdd->NewChannel->DrRange.Fields.Min != DR_2)
+			{
+				drInvalid = true;
+			}
+#else
 			if (channelAdd->NewChannel->DrRange.Fields.Min > DR_0)
 			{
 				drInvalid = true;
 			}
+#endif
 			// Validate the datarate range for max: must be DR_5 <= Max <= TX_MAX_DATARATE
 			if (RegionCommonValueInRange(channelAdd->NewChannel->DrRange.Fields.Max, DR_5, AS923_TX_MAX_DATARATE) == false)
 			{

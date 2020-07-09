@@ -46,7 +46,7 @@ extern "C"
 /*!
  * Number of default channels
  */
-#define KR920_NUMB_DEFAULT_CHANNELS 3
+#define KR920_NUMB_DEFAULT_CHANNELS 7
 
 /*!
  * Number of channels to apply for the CF list
@@ -231,6 +231,23 @@ extern "C"
 #define KR920_LC3                               \
 	{                                           \
 		922500000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+
+#define KR920_LC4                               \
+	{                                           \
+		922700000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+#define KR920_LC5                               \
+	{                                           \
+		922900000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+#define KR920_LC6                               \
+	{                                           \
+		923100000, 0, {((DR_5 << 4) | DR_0)}, 0 \
+	}
+#define KR920_LC7                               \
+	{                                           \
+		923300000, 0, {((DR_5 << 4) | DR_0)}, 0 \
 	}
 
 /*!

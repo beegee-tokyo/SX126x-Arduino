@@ -217,10 +217,10 @@ extern "C"
  */
 	static const int8_t DatarateOffsetsAU915[7][6] =
 		{
-			{DR_8, DR_8, DR_8, DR_8, DR_8, DR_8},	  // DR_0
-			{DR_9, DR_8, DR_8, DR_8, DR_8, DR_8},	  // DR_1
-			{DR_10, DR_9, DR_8, DR_8, DR_8, DR_8},	 // DR_2
-			{DR_11, DR_10, DR_9, DR_8, DR_8, DR_8},	// DR_3
+			{DR_8, DR_8, DR_8, DR_8, DR_8, DR_8},	   // DR_0
+			{DR_9, DR_8, DR_8, DR_8, DR_8, DR_8},	   // DR_1
+			{DR_10, DR_9, DR_8, DR_8, DR_8, DR_8},	   // DR_2
+			{DR_11, DR_10, DR_9, DR_8, DR_8, DR_8},	   // DR_3
 			{DR_12, DR_11, DR_10, DR_9, DR_8, DR_8},   // DR_4
 			{DR_13, DR_12, DR_11, DR_10, DR_9, DR_8},  // DR_5
 			{DR_13, DR_13, DR_12, DR_11, DR_10, DR_9}, // DR_6

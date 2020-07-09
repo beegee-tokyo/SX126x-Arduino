@@ -28,6 +28,18 @@ int PIN_LORA_MOSI = 23;  // LORA SPI MOSI
 int RADIO_TXEN = -1;	 // LORA ANTENNA TX ENABLE
 int RADIO_RXEN = -1;	 // LORA ANTENNA RX ENABLE
 #endif
+#ifdef ESP8266
+// ESP32 - SX126x pin configuration
+int PIN_LORA_RESET = 0;   // LORA RESET
+int PIN_LORA_NSS = 2;	 // LORA SPI CS
+int PIN_LORA_DIO_1 = 15;  // LORA DIO_1
+int PIN_LORA_BUSY = 16;   // LORA SPI BUSY
+int PIN_LORA_SCLK = SCK;  // LORA SPI CLK
+int PIN_LORA_MISO = MISO; // LORA SPI MISO
+int PIN_LORA_MOSI = MOSI; // LORA SPI MOSI
+int RADIO_TXEN = -1;	  // LORA ANTENNA TX ENABLE
+int RADIO_RXEN = -1;	  // LORA ANTENNA RX ENABLE
+#endif
 #ifdef NRF52_SERIES
 // nRF52832 - SX126x pin configuration
 int PIN_LORA_RESET = 4;  // LORA RESET
@@ -57,7 +69,7 @@ static lmh_app_data_t m_lora_app_data = {m_lora_app_data_buffer, 0, 0, 0, 0}; //
 
 /**@brief Structure containing LoRaWan parameters, needed for lmh_init()
  */
-static lmh_param_t lora_param_init = {LORAWAN_ADR_OFF, DR_4, LORAWAN_PUBLIC_NETWORK, JOINREQ_NBTRIALS, LORAWAN_DEFAULT_TX_POWER};
+static lmh_param_t lora_param_init = {LORAWAN_ADR_ON, LORAWAN_DEFAULT_DATARATE, LORAWAN_PUBLIC_NETWORK, JOINREQ_NBTRIALS, LORAWAN_DEFAULT_TX_POWER, LORAWAN_DUTYCYCLE_OFF};
 
 /**@brief Structure containing LoRaWan callback functions, needed for lmh_init()
 */
@@ -151,7 +163,7 @@ void setup()
 	lmh_setDevAddr(nodeDevAddr);
 
 	// Initialize LoRaWan
-	err_code = lmh_init(&lora_callbacks, lora_param_init);
+	err_code = lmh_init(&lora_callbacks, lora_param_init, false);
 	if (err_code != 0)
 	{
 		Serial.printf("lmh_init failed - %d\n", err_code);

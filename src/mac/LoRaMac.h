@@ -1683,6 +1683,14 @@ extern "C"
 	LoRaMacStatus_t LoRaMacInitialization(LoRaMacPrimitives_t *primitives, LoRaMacCallback_t *callbacks, LoRaMacRegion_t region);
 
 	/*!
+ * \brief   Returns the Device Address set by the LoRaWan server
+ *          after OTAA join was successful
+ *
+ * \retval  Device Address given by the LoRaWan server
+ */
+	uint32_t LoRaMacGetOTAADevId(void);
+
+	/*!
  * \brief   Queries the LoRaMAC if it is possible to send the next frame with
  *          a given payload size. The LoRaMAC takes scheduled MAC commands into
  *          account and reports, when the frame can be send or not.

@@ -583,12 +583,16 @@ extern "C"
 		if (dr == DR_7)
 		{
 			modem = MODEM_FSK;
-			Radio.SetRxConfig(modem, 50000, phyDr * 1000, 0, 83333, 5, rxConfig->WindowTimeout, false, 0, true, 0, 0, false, rxConfig->RxContinuous);
+			// Radio.SetRxConfig(modem, 50000, phyDr * 1000, 0, 83333, 5, rxConfig->WindowTimeout, false, 0, true, 0, 0, false, rxConfig->RxContinuous);
+			/// \todo RAKwireless symbTimeout changed after tests done by RAKwireless
+			Radio.SetRxConfig(modem, 50000, phyDr * 1000, 0, 83333, 5, 0, false, 0, true, 0, 0, false, rxConfig->RxContinuous);
 		}
 		else
 		{
 			modem = MODEM_LORA;
-			Radio.SetRxConfig(modem, rxConfig->Bandwidth, phyDr, 1, 0, 8, rxConfig->WindowTimeout, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
+			// Radio.SetRxConfig(modem, rxConfig->Bandwidth, phyDr, 1, 0, 8, rxConfig->WindowTimeout, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
+			/// \todo RAKwireless symbTimeout changed after tests done by RAKwireless
+			Radio.SetRxConfig(modem, rxConfig->Bandwidth, phyDr, 1, 0, 8, 0, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
 		}
 
 		if (rxConfig->RepeaterSupport == true)
@@ -907,8 +911,8 @@ extern "C"
 		TimerTime_t nextTxDelay = 0;
 
 		if (RegionCommonCountChannels(ChannelsMask, 0, 1) == 0)
-		{ // Reactivate default channels
-			ChannelsMask[0] |= LC(1) + LC(2) + LC(3);
+		{	// Reactivate default channels
+			//ChannelsMask[0] |= LC(1) + LC(2) + LC(3);
 		}
 
 		if (nextChanParams->AggrTimeOff <= TimerGetElapsedTime(nextChanParams->LastAggrTx))
@@ -947,7 +951,7 @@ extern "C"
 				return true;
 			}
 			// Datarate not supported by any channel, restore defaults
-			ChannelsMask[0] |= LC(1) + LC(2) + LC(3);
+			//ChannelsMask[0] |= LC(1) + LC(2) + LC(3);
 			*time = 0;
 			return false;
 		}

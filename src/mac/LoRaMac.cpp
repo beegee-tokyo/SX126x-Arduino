@@ -616,21 +616,14 @@ extern "C"
 		{
 			Radio.Sleep();
 		}
-		else
-		{
-			OnRxWindow2TimerEvent();
-		}
 
 		// Setup timers
 		if (IsRxWindowsEnabled == true)
 		{
 			TimerSetValue(&RxWindowTimer1, RxWindow1Delay);
 			TimerStart(&RxWindowTimer1);
-			if (LoRaMacDeviceClass != CLASS_C)
-			{
-				TimerSetValue(&RxWindowTimer2, RxWindow2Delay);
-				TimerStart(&RxWindowTimer2);
-			}
+			TimerSetValue(&RxWindowTimer2, RxWindow2Delay);
+			TimerStart(&RxWindowTimer2);
 			if ((LoRaMacDeviceClass == CLASS_C) || (NodeAckRequested == true))
 			{
 				getPhy.Attribute = PHY_ACK_TIMEOUT;
@@ -2490,6 +2483,7 @@ extern "C"
 		if (txInfo->CurrentPayloadSize >= fOptLen)
 		{
 			txInfo->MaxPossiblePayload = txInfo->CurrentPayloadSize - fOptLen;
+			fOptLen = 0;
 		}
 		else
 		{
@@ -3357,5 +3351,10 @@ extern "C"
 	void LoRaMacTestSetChannel(uint8_t channel)
 	{
 		Channel = channel;
+	}
+
+	uint32_t LoRaMacGetOTAADevId(void)
+	{
+		return LoRaMacDevAddr;
 	}
 };

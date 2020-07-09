@@ -609,12 +609,16 @@ extern "C"
 		if (dr == DR_7)
 		{
 			modem = MODEM_FSK;
-			Radio.SetRxConfig(modem, 50000, phyDr * 1000, 0, 83333, 5, rxConfig->WindowTimeout, false, 0, true, 0, 0, false, rxConfig->RxContinuous);
+			// Radio.SetRxConfig(modem, 50000, phyDr * 1000, 0, 83333, 5, rxConfig->WindowTimeout, false, 0, true, 0, 0, false, rxConfig->RxContinuous);
+			/// \todo RAKwireless symbTimeout changed after tests done by RAKwireless
+			Radio.SetRxConfig(modem, 50000, phyDr * 1000, 0, 83333, 5, 0, false, 0, true, 0, 0, false, rxConfig->RxContinuous);
 		}
 		else
 		{
 			modem = MODEM_LORA;
-			Radio.SetRxConfig(modem, rxConfig->Bandwidth, phyDr, 1, 0, 8, rxConfig->WindowTimeout, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
+			// Radio.SetRxConfig(modem, rxConfig->Bandwidth, phyDr, 1, 0, 8, rxConfig->WindowTimeout, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
+			/// \todo RAKwireless symbTimeout changed after tests done by RAKwireless
+			Radio.SetRxConfig(modem, rxConfig->Bandwidth, phyDr, 1, 0, 8, 0, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
 		}
 
 		if (rxConfig->RepeaterSupport == true)

@@ -31,7 +31,7 @@ extern "C"
 /*!
      * Radio complete Wake-up Time with TCXO stabilisation time
      */
-#define RADIO_TCXO_SETUP_TIME 5 // [ms]
+#define RADIO_TCXO_SETUP_TIME 50 // [ms]
 
 /*!
  * Radio complete Wake-up Time with margin for temperature compensation
@@ -167,7 +167,7 @@ extern "C"
 	typedef enum
 	{
 		MODE_SLEEP = 0x00, //! The radio is in sleep mode
-		MODE_STDBY_RC,	 //! The radio is in standby mode with RC oscillator
+		MODE_STDBY_RC,	   //! The radio is in standby mode with RC oscillator
 		MODE_STDBY_XOSC,   //! The radio is in standby mode with XOSC oscillator
 		MODE_FS,		   //! The radio is in frequency synthesis mode
 		MODE_TX,		   //! The radio is in transmit mode
@@ -357,7 +357,7 @@ extern "C"
  */
 	typedef enum
 	{
-		RADIO_PACKET_FIXED_LENGTH = 0x00,	//!< The packet is known on both sides, no header included in the packet
+		RADIO_PACKET_FIXED_LENGTH = 0x00,	 //!< The packet is known on both sides, no header included in the packet
 		RADIO_PACKET_VARIABLE_LENGTH = 0x01, //!< The packet is on variable size, header included
 	} RadioPacketLengthModes_t;
 
@@ -400,7 +400,7 @@ extern "C"
  */
 	typedef enum
 	{
-		LORA_CRC_ON = 0x01,  //!< CRC activated
+		LORA_CRC_ON = 0x01,	 //!< CRC activated
 		LORA_CRC_OFF = 0x00, //!< CRC not used
 	} RadioLoRaCrcModes_t;
 
@@ -569,14 +569,14 @@ extern "C"
 			struct
 			{
 				uint8_t RxStatus;
-				int8_t RssiAvg;  //!< The averaged RSSI
+				int8_t RssiAvg;	 //!< The averaged RSSI
 				int8_t RssiSync; //!< The RSSI measured on last packet
 				uint32_t FreqError;
 			} Gfsk;
 			struct
 			{
 				int8_t RssiPkt; //!< The RSSI of the last packet
-				int8_t SnrPkt;  //!< The SNR of the last packet
+				int8_t SnrPkt;	//!< The SNR of the last packet
 				int8_t SignalRssiPkt;
 				uint32_t FreqError;
 			} LoRa;
@@ -634,12 +634,12 @@ extern "C"
 		{
 			uint8_t Rc64kCalib : 1; //!< RC 64kHz oscillator calibration failed
 			uint8_t Rc13mCalib : 1; //!< RC 13MHz oscillator calibration failed
-			uint8_t PllCalib : 1;   //!< PLL calibration failed
-			uint8_t AdcCalib : 1;   //!< ADC calibration failed
-			uint8_t ImgCalib : 1;   //!< Image calibration failed
-			uint8_t XoscStart : 1;  //!< XOSC oscillator failed to start
+			uint8_t PllCalib : 1;	//!< PLL calibration failed
+			uint8_t AdcCalib : 1;	//!< ADC calibration failed
+			uint8_t ImgCalib : 1;	//!< Image calibration failed
+			uint8_t XoscStart : 1;	//!< XOSC oscillator failed to start
 			uint8_t PllLock : 1;	//!< PLL lock failed
-			uint8_t BuckStart : 1;  //!< Buck converter failed to start
+			uint8_t BuckStart : 1;	//!< Buck converter failed to start
 			uint8_t PaRamp : 1;		//!< PA ramp failed
 			uint8_t : 7;			//!< Reserved
 		} Fields;

@@ -23,6 +23,8 @@
 #include "region/RegionCommon.h"
 #include "system/utilities.h"
 
+#include "mac/LoRaMacTest.h"
+
 extern "C"
 {
 
@@ -30,10 +32,13 @@ extern "C"
 	extern uint16_t ChannelsDefaultMask[];
 	extern uint16_t ChannelsMaskRemaining[];
 
+	bool _otaa = false;
+
+	bool _dutyCycleEnabled = false;
+
 #if defined(REGION_EU868)
 
 #include "LoRaMacTest.h"
-#define LORAWAN_DUTYCYCLE_ON true /**< LoRaWAN ETSI duty cycle control enable/disable. Please note that ETSI mandates duty cycled transmissions. Use only for test purposes */
 #define USE_SEMTECH_DEFAULT_CHANNEL_LINEUP 1
 #if (USE_SEMTECH_DEFAULT_CHANNEL_LINEUP == 1)
 #define LC4                                     \
@@ -68,24 +73,22 @@ extern "C"
 
 #endif
 
-	static uint8_t DevEui[] = LORAWAN_DEVICE_EUI;	  /**< End-device identifier */
+	static uint8_t DevEui[] = LORAWAN_DEVICE_EUI;	   /**< End-device identifier */
 	static uint8_t AppEui[] = LORAWAN_APPLICATION_EUI; /**< Application identifier */
 	static uint8_t AppKey[] = LORAWAN_APPLICATION_KEY; /**< Application key */
 
 	static MlmeReqJoin_t JoinParameters;
 
-// #if (OVER_THE_AIR_ACTIVATION == 0)
 	static uint8_t NwkSKey[] = LORAWAN_NWKSKEY;		  /**< Network session key */
 	static uint8_t AppSKey[] = LORAWAN_APPSKEY;		  /**< Application session key */
 	static uint32_t DevAddr = LORAWAN_DEVICE_ADDRESS; /**< End-device address */
-// #endif
 
-	bool singleChannelGateway = false;   /**< Flag if connection is to a single channel gateway */
-	uint8_t singleChannelSelected = 0;   /**< Channel to be used to communicate with a single channel gateway */
+	bool singleChannelGateway = false;	 /**< Flag if connection is to a single channel gateway */
+	uint8_t singleChannelSelected = 0;	 /**< Channel to be used to communicate with a single channel gateway */
 	int8_t singleChannelDatarate = DR_3; /**< Datarate to be used to communicate with a single channel gateway */
 
 	static LoRaMacPrimitives_t LoRaMacPrimitives; /**< LoRaMAC events variable */
-	static LoRaMacCallback_t LoRaMacCallbacks;	/**< LoRaMAC callback variable */
+	static LoRaMacCallback_t LoRaMacCallbacks;	  /**< LoRaMAC callback variable */
 	static MibRequestConfirm_t mibReq;			  /**< LoRaMAC MIB-RequestConfirm variable */
 
 	static lmh_param_t m_param;
@@ -137,6 +140,12 @@ extern "C"
 #if defined(REGION_AS923)
 		uint16_t subBandChannelMask[1] = {0x0000};
 		uint8_t maxBand = 1;
+#ifdef ESP32
+		log_i("[FREQ] REGION_AS923");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_AS923");
+#endif
 #elif defined(REGION_AU915)
 		uint16_t subBandChannelMask[6] = {0x0000,
 										  0x0000,
@@ -145,6 +154,12 @@ extern "C"
 										  0x0000,
 										  0x0000};
 		uint8_t maxBand = 9;
+#ifdef ESP32
+		log_i("[FREQ] REGION_AU915");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_AU915");
+#endif
 #elif defined(REGION_CN470)
 		uint16_t subBandChannelMask[6] = {0x0000,
 										  0x0000,
@@ -153,21 +168,57 @@ extern "C"
 										  0x0000,
 										  0x0000};
 		uint8_t maxBand = 12;
+#ifdef ESP32
+		log_i("[FREQ] REGION_CN470");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_CN470");
+#endif
 #elif defined(REGION_CN779)
 		uint16_t subBandChannelMask[1] = {0x0000};
 		uint8_t maxBand = 2;
+#ifdef ESP32
+		log_i("[FREQ] REGION_CN779");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_CN779");
+#endif
 #elif defined(REGION_EU433)
 		uint16_t subBandChannelMask[1] = {0x0000};
 		uint8_t maxBand = 2;
+#ifdef ESP32
+		log_i("[FREQ] REGION_EU433");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_EU433");
+#endif
 #elif defined(REGION_IN865)
 		uint16_t subBandChannelMask[1] = {0x0000};
 		uint8_t maxBand = 2;
+#ifdef ESP32
+		log_i("[FREQ] REGION_IN865");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_IN865");
+#endif
 #elif defined(REGION_EU868)
 		uint16_t subBandChannelMask[1] = {0x0000};
 		uint8_t maxBand = 2;
+#ifdef ESP32
+		log_i("[FREQ] REGION_EU868");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_EU868");
+#endif
 #elif defined(REGION_KR920)
 		uint16_t subBandChannelMask[1] = {0x0000};
 		uint8_t maxBand = 2;
+#ifdef ESP32
+		log_i("[FREQ] REGION_KR920");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_KR920");
+#endif
 #elif defined(REGION_US915)
 		uint16_t subBandChannelMask[6] = {0x0000,
 										  0x0000,
@@ -176,6 +227,12 @@ extern "C"
 										  0x0000,
 										  0x0000};
 		uint8_t maxBand = 9;
+#ifdef ESP32
+		log_i("[FREQ] REGION_US915");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_US915");
+#endif
 #elif defined(REGION_US915_HYBRID)
 		uint16_t subBandChannelMask[6] = {0x0000,
 										  0x0000,
@@ -184,6 +241,12 @@ extern "C"
 										  0x0000,
 										  0x0000};
 		uint8_t maxBand = 9;
+#ifdef ESP32
+		log_i("[FREQ] REGION_US915_HYBRID");
+#endif
+#ifdef NRF52_SERIES
+		ADALOG("FREQ", "REGION_US915_HYBRID");
+#endif
 #else
 #error "Please define a region in the compiler options."
 #endif
@@ -487,9 +550,8 @@ extern "C"
 						mibReq.Param.AdrEnable = true;
 						LoRaMacMibSetRequestConfirm(&mibReq);
 
-#if defined(REGION_EU868)
 						LoRaMacTestSetDutyCycleOn(false);
-#endif
+
 						TimerInit(&ComplianceTestTxNextPacketTimer, OnComplianceTestTxNextPacketTimerEvent);
 						TimerSetValue(&ComplianceTestTxNextPacketTimer, 5000);
 
@@ -512,9 +574,9 @@ extern "C"
 						mibReq.Type = MIB_ADR;
 						mibReq.Param.AdrEnable = m_adr_enable_init;
 						LoRaMacMibSetRequestConfirm(&mibReq);
-#if defined(REGION_EU868)
-						LoRaMacTestSetDutyCycleOn(LORAWAN_DUTYCYCLE_ON);
-#endif
+
+						LoRaMacTestSetDutyCycleOn(_dutyCycleEnabled);
+
 						break;
 					}
 
@@ -570,9 +632,9 @@ extern "C"
 						mibReq.Type = MIB_ADR;
 						mibReq.Param.AdrEnable = m_adr_enable_init;
 						LoRaMacMibSetRequestConfirm(&mibReq);
-#if defined(REGION_EU868)
-						LoRaMacTestSetDutyCycleOn(LORAWAN_DUTYCYCLE_ON);
-#endif
+
+						LoRaMacTestSetDutyCycleOn(_dutyCycleEnabled);
+
 						mlmeReq.Type = MLME_JOIN;
 						mlmeReq.Req.Join = JoinParameters;
 						LoRaMacMlmeRequest(&mlmeReq);
@@ -616,6 +678,7 @@ extern "C"
 			default:
 				app_data.port = mcpsIndication->Port;
 				app_data.buffsize = mcpsIndication->BufferSize;
+				mcpsIndication->Buffer[app_data.buffsize] = 0;
 				app_data.buffer = mcpsIndication->Buffer;
 				app_data.rssi = mcpsIndication->Rssi;
 				app_data.snr = mcpsIndication->Snr;
@@ -672,58 +735,56 @@ extern "C"
 	static char strlog1[64];
 	static char strlog2[64];
 	static char strlog3[64];
-	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param)
+	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa)
 	{
 		LoRaMacStatus_t error_status;
 		m_param = lora_param;
 		m_callbacks = callbacks;
 
+		_otaa = otaa;
+
+		_dutyCycleEnabled = m_param.duty_cycle;
+
 #if (STATIC_DEVICE_EUI != 1)
 		m_callbacks->BoardGetUniqueId(DevEui);
 #endif
 
-#if (OVER_THE_AIR_ACTIVATION != 0)
-		// NRF_LOG_INFO("OTAA");
-		sprintf(strlog2, "AppEui=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X", AppEui[0], AppEui[1], AppEui[2], AppEui[3], AppEui[4], AppEui[5], AppEui[6], AppEui[7]);
-		// NRF_LOG_INFO("%s", (uint32_t)strlog2);
-		sprintf(strlog1, "DevEui=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X", DevEui[0], DevEui[1], DevEui[2], DevEui[3], DevEui[4], DevEui[5], DevEui[6], DevEui[7]);
-		// NRF_LOG_INFO("%s", (uint32_t)strlog1);
-		sprintf(strlog3, "AppKey=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X",
-				AppKey[0], AppKey[1], AppKey[2], AppKey[3], AppKey[4], AppKey[5], AppKey[6], AppKey[7],
-				AppKey[8], AppKey[9], AppKey[10], AppKey[11], AppKey[12], AppKey[13], AppKey[14], AppKey[15]);
-		// NRF_LOG_INFO("%s", (uint32_t)strlog3);
-// #ifdef ESP32
-// 		log_i("OTAA\n%s\n%s\n%s", strlog1, strlog2, strlog3);
-// #endif
-// #ifdef NRF52_SERIES
-// 		Serial.printf("OTAA\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
-// #endif
-#else
+		if (_otaa)
+		{
+			sprintf(strlog2, "AppEui=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X", AppEui[0], AppEui[1], AppEui[2], AppEui[3], AppEui[4], AppEui[5], AppEui[6], AppEui[7]);
+			sprintf(strlog1, "DevEui=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X", DevEui[0], DevEui[1], DevEui[2], DevEui[3], DevEui[4], DevEui[5], DevEui[6], DevEui[7]);
+			sprintf(strlog3, "AppKey=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X",
+					AppKey[0], AppKey[1], AppKey[2], AppKey[3], AppKey[4], AppKey[5], AppKey[6], AppKey[7],
+					AppKey[8], AppKey[9], AppKey[10], AppKey[11], AppKey[12], AppKey[13], AppKey[14], AppKey[15]);
+#ifdef ESP32
+			log_i("OTAA\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
+#endif
+#ifdef NRF52_SERIES
+			ADALOG("OTAA", "\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
+#endif
+		}
+		else
+		{
 #if (STATIC_DEVICE_ADDRESS != 1)
-		// Random seed initialization
-		srand1(m_callbacks->BoardGetRandomSeed());
-		// Choose a random device address
-		DevAddr = randr(0, 0x01FFFFFF);
+			// Random seed initialization
+			srand1(m_callbacks->BoardGetRandomSeed());
+			// Choose a random device address
+			DevAddr = randr(0, 0x01FFFFFF);
 #endif
-		// NRF_LOG_INFO("ABP");
-		sprintf(strlog1, "DevEui=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X", DevEui[0], DevEui[1], DevEui[2], DevEui[3], DevEui[4], DevEui[5], DevEui[6], DevEui[7]);
-		// NRF_LOG_INFO("%s", (uint32_t)strlog1);
-		// NRF_LOG_INFO("DevAdd=%08X", DevAddr);
-		sprintf(strlog2, "NwkSKey=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X",
-				NwkSKey[0], NwkSKey[1], NwkSKey[2], NwkSKey[3], NwkSKey[4], NwkSKey[5], NwkSKey[6], NwkSKey[7],
-				NwkSKey[8], NwkSKey[9], NwkSKey[10], NwkSKey[11], NwkSKey[12], NwkSKey[13], NwkSKey[14], NwkSKey[15]);
-		// NRF_LOG_INFO("%s", (uint32_t)strlog2);
-		sprintf(strlog3, "AppSKey=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X",
-				AppSKey[0], AppSKey[1], AppSKey[2], AppSKey[3], AppSKey[4], AppSKey[5], AppSKey[6], AppSKey[7],
-				AppSKey[8], AppSKey[9], AppSKey[10], AppSKey[11], AppSKey[12], AppSKey[13], AppSKey[14], AppSKey[15]);
-		// NRF_LOG_INFO("%s", (uint32_t)strlog3);
-// #ifdef ESP32
-// 		log_i("ABP\n%s\n%s\n%s", strlog1, strlog2, strlog3);
-// #endif
-// #ifdef NRF52_SERIES
-// 		Serial.printf("ABP\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
-// #endif
+			sprintf(strlog1, "DevEui=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X", DevEui[0], DevEui[1], DevEui[2], DevEui[3], DevEui[4], DevEui[5], DevEui[6], DevEui[7]);
+			sprintf(strlog2, "NwkSKey=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X",
+					NwkSKey[0], NwkSKey[1], NwkSKey[2], NwkSKey[3], NwkSKey[4], NwkSKey[5], NwkSKey[6], NwkSKey[7],
+					NwkSKey[8], NwkSKey[9], NwkSKey[10], NwkSKey[11], NwkSKey[12], NwkSKey[13], NwkSKey[14], NwkSKey[15]);
+			sprintf(strlog3, "AppSKey=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X",
+					AppSKey[0], AppSKey[1], AppSKey[2], AppSKey[3], AppSKey[4], AppSKey[5], AppSKey[6], AppSKey[7],
+					AppSKey[8], AppSKey[9], AppSKey[10], AppSKey[11], AppSKey[12], AppSKey[13], AppSKey[14], AppSKey[15]);
+#ifdef ESP32
+			log_i("ABP\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
 #endif
+#ifdef NRF52_SERIES
+			ADALOG("ABP", "\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
+#endif
+		}
 
 		LoRaMacPrimitives.MacMcpsConfirm = McpsConfirm;
 		LoRaMacPrimitives.MacMcpsIndication = McpsIndication;
@@ -776,8 +837,8 @@ extern "C"
 		mibReq.Param.Class = CLASS_A;
 		LoRaMacMibSetRequestConfirm(&mibReq);
 
+		LoRaMacTestSetDutyCycleOn(_dutyCycleEnabled);
 #if defined(REGION_EU868)
-		LoRaMacTestSetDutyCycleOn(LORAWAN_DUTYCYCLE_ON);
 #if (USE_SEMTECH_DEFAULT_CHANNEL_LINEUP == 1)
 		LoRaMacChannelAdd(3, (ChannelParams_t)LC4);
 		LoRaMacChannelAdd(4, (ChannelParams_t)LC5);
@@ -797,6 +858,30 @@ extern "C"
 #endif
 #endif
 
+		// Set default SubBandChannels matching with RAK definitions
+#if defined(REGION_AS923)
+		lmh_setSubBandChannels(1);
+#elif defined(REGION_AU915)
+		lmh_setSubBandChannels(2);
+#elif defined(REGION_CN470)
+		lmh_setSubBandChannels(11);
+#elif defined(REGION_CN779)
+		lmh_setSubBandChannels(1);
+#elif defined(REGION_EU433)
+		lmh_setSubBandChannels(1);
+#elif defined(REGION_IN865)
+		lmh_setSubBandChannels(1);
+#elif defined(REGION_EU868)
+		lmh_setSubBandChannels(1);
+#elif defined(REGION_KR920)
+		lmh_setSubBandChannels(1);
+#elif defined(REGION_US915)
+		lmh_setSubBandChannels(2);
+#elif defined(REGION_US915_HYBRID)
+		lmh_setSubBandChannels(2);
+#else
+#error "Please define a region in the compiler options."
+#endif
 		return LMH_SUCCESS;
 	}
 
@@ -829,31 +914,34 @@ extern "C"
 
 		JoinParameters = mlmeReq.Req.Join;
 
-#if (OVER_THE_AIR_ACTIVATION != 0)
-		LoRaMacMlmeRequest(&mlmeReq);
-#else
-		mibReq.Type = MIB_NET_ID;
-		mibReq.Param.NetID = LORAWAN_NETWORK_ID;
-		LoRaMacMibSetRequestConfirm(&mibReq);
+		if (_otaa)
+		{
+			LoRaMacMlmeRequest(&mlmeReq);
+		}
+		else
+		{
+			mibReq.Type = MIB_NET_ID;
+			mibReq.Param.NetID = LORAWAN_NETWORK_ID;
+			LoRaMacMibSetRequestConfirm(&mibReq);
 
-		mibReq.Type = MIB_DEV_ADDR;
-		mibReq.Param.DevAddr = DevAddr;
-		LoRaMacMibSetRequestConfirm(&mibReq);
+			mibReq.Type = MIB_DEV_ADDR;
+			mibReq.Param.DevAddr = DevAddr;
+			LoRaMacMibSetRequestConfirm(&mibReq);
 
-		mibReq.Type = MIB_NWK_SKEY;
-		mibReq.Param.NwkSKey = NwkSKey;
-		LoRaMacMibSetRequestConfirm(&mibReq);
+			mibReq.Type = MIB_NWK_SKEY;
+			mibReq.Param.NwkSKey = NwkSKey;
+			LoRaMacMibSetRequestConfirm(&mibReq);
 
-		mibReq.Type = MIB_APP_SKEY;
-		mibReq.Param.AppSKey = AppSKey;
-		LoRaMacMibSetRequestConfirm(&mibReq);
+			mibReq.Type = MIB_APP_SKEY;
+			mibReq.Param.AppSKey = AppSKey;
+			LoRaMacMibSetRequestConfirm(&mibReq);
 
-		mibReq.Type = MIB_NETWORK_JOINED;
-		mibReq.Param.IsNetworkJoined = true;
-		LoRaMacMibSetRequestConfirm(&mibReq);
+			mibReq.Type = MIB_NETWORK_JOINED;
+			mibReq.Param.IsNetworkJoined = true;
+			LoRaMacMibSetRequestConfirm(&mibReq);
 
-		m_callbacks->lmh_has_joined();
-#endif
+			m_callbacks->lmh_has_joined();
+		}
 	}
 
 	lmh_join_status lmh_join_status_get(void)
@@ -890,6 +978,8 @@ extern "C"
 			mcpsReq.Req.Unconfirmed.fBuffer = NULL;
 			mcpsReq.Req.Unconfirmed.fBufferSize = 0;
 			mcpsReq.Req.Unconfirmed.Datarate = m_param.tx_data_rate;
+			// cannot send
+			return LMH_ERROR;
 		}
 		else
 		{
@@ -907,14 +997,18 @@ extern "C"
 				mcpsReq.Req.Confirmed.fPort = app_data->port;
 				mcpsReq.Req.Confirmed.fBufferSize = app_data->buffsize;
 				mcpsReq.Req.Confirmed.fBuffer = app_data->buffer;
+#if defined(REGION_AS923)
+				mcpsReq.Req.Confirmed.NbTrials = 1; //8;
+#else
 				mcpsReq.Req.Confirmed.NbTrials = 8;
+#endif
 				mcpsReq.Req.Confirmed.Datarate = m_param.tx_data_rate;
 			}
-		}
 
-		if (LoRaMacMcpsRequest(&mcpsReq) == LORAMAC_STATUS_OK)
-		{
-			return LMH_SUCCESS;
+			if (LoRaMacMcpsRequest(&mcpsReq) == LORAMAC_STATUS_OK)
+			{
+				return LMH_SUCCESS;
+			}
 		}
 
 		return LMH_ERROR;
@@ -1007,5 +1101,10 @@ extern "C"
 		LoRaMacMibGetRequestConfirm(&mibReq);
 
 		*currentClass = mibReq.Param.Class;
+	}
+
+	uint32_t lmh_getDevAddr(void)
+	{
+		return LoRaMacGetOTAADevId();
 	}
 };

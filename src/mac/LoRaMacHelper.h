@@ -45,7 +45,7 @@ extern "C"
 		bool enable_public_network; /**< Enable or disable a public network */
 		uint8_t nb_trials;			/**< Number of trials for the join request. */
 		int8_t tx_power;			/**< Uplink power */
-
+		bool duty_cycle;			/**< Enable or disable the duty cycle control */
 	} lmh_param_t;
 
 	typedef enum
@@ -72,7 +72,7 @@ extern "C"
 	{
 		uint8_t *buffer;  /**< point to the LoRa App data buffer */
 		uint8_t buffsize; /**< LoRa App data buffer size */
-		uint8_t port;	 /**< Port on which the LoRa App is data is sent/ received */
+		uint8_t port;	  /**< Port on which the LoRa App is data is sent/ received */
 		int16_t rssi;
 		uint8_t snr;
 	} lmh_app_data_t;
@@ -132,8 +132,9 @@ extern "C"
  *
  * @param[in] callbacks	Pointer to structure containing the callback functions
  * @param[in] LoRaParam	Pointer to structure containing the parameters
+ * @param[in] choose OTAA or ABP activation
  */
-	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param);
+	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa);
 
 	/**@brief Send data
  *
@@ -153,6 +154,13 @@ extern "C"
  * @retval returns LORAMACHELPER_SET if joined
  */
 	lmh_join_status lmh_join_status_get(void);
+
+	/**@brief Returns the Device address set by the LoRaWan
+ * server after OTAA join success
+ *
+ * @retval returns Device Address
+ */
+	uint32_t lmh_getDevAddr(void);
 
 	/**@brief change Lora Class
  *

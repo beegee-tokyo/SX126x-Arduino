@@ -612,16 +612,16 @@ extern "C"
 /*!
  * LoRaMac datarates definition
  */
-#define DR_0 0   // SF10 - BW125 |
-#define DR_1 1   // SF9  - BW125 |
-#define DR_2 2   // SF8  - BW125 +-> Up link
-#define DR_3 3   // SF7  - BW125 |
-#define DR_4 4   // SF8  - BW500 |
-#define DR_5 5   // RFU
-#define DR_6 6   // RFU
-#define DR_7 7   // RFU
-#define DR_8 8   // SF12 - BW500 |
-#define DR_9 9   // SF11 - BW500 |
+#define DR_0 0	 // SF10 - BW125 |
+#define DR_1 1	 // SF9  - BW125 |
+#define DR_2 2	 // SF8  - BW125 +-> Up link
+#define DR_3 3	 // SF7  - BW125 |
+#define DR_4 4	 // SF8  - BW500 |
+#define DR_5 5	 // RFU
+#define DR_6 6	 // RFU
+#define DR_7 7	 // RFU
+#define DR_8 8	 // SF12 - BW500 |
+#define DR_9 9	 // SF11 - BW500 |
 #define DR_10 10 // SF10 - BW500 |
 #define DR_11 11 // SF9  - BW500 |
 #define DR_12 12 // SF8  - BW500 +-> Down link

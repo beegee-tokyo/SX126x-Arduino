@@ -91,6 +91,10 @@ extern "C"
  */
 	uint32_t lora_isp4520_init(int chipType);
 
+	/**@brief Initializes the RAK4630 board peripherals.
+ */
+	uint32_t lora_rak4630_init(void);
+
 	/**@brief De-initializes the target board peripherals to decrease power
  *        consumption.
  */

@@ -547,7 +547,9 @@ extern "C"
 		Radio.SetChannel(frequency);
 
 		// Radio configuration
-		Radio.SetRxConfig(MODEM_LORA, rxConfig->Bandwidth, phyDr, 1, 0, 8, rxConfig->WindowTimeout, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
+		// Radio.SetRxConfig(MODEM_LORA, rxConfig->Bandwidth, phyDr, 1, 0, 8, rxConfig->WindowTimeout, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
+		/// \todo RAKwireless symbTimeout changed after tests done by RAKwireless
+		Radio.SetRxConfig(MODEM_LORA, rxConfig->Bandwidth, phyDr, 1, 0, 8, 0, false, 0, false, 0, 0, true, rxConfig->RxContinuous);
 
 		if (rxConfig->RepeaterSupport == true)
 		{

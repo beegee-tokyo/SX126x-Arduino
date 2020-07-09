@@ -69,7 +69,7 @@ static lmh_app_data_t m_lora_app_data = {m_lora_app_data_buffer, 0, 0, 0, 0}; //
 
 /**@brief Structure containing LoRaWan parameters, needed for lmh_init()
  */
-static lmh_param_t lora_param_init = {LORAWAN_ADR_ON, LORAWAN_DEFAULT_DATARATE, LORAWAN_PUBLIC_NETWORK, JOINREQ_NBTRIALS, LORAWAN_DEFAULT_TX_POWER};
+static lmh_param_t lora_param_init = {LORAWAN_ADR_ON, LORAWAN_DEFAULT_DATARATE, LORAWAN_PUBLIC_NETWORK, JOINREQ_NBTRIALS, LORAWAN_DEFAULT_TX_POWER, LORAWAN_DUTYCYCLE_OFF};
 
 /**@brief Structure containing LoRaWan callback functions, needed for lmh_init()
 */
@@ -163,7 +163,7 @@ void setup()
 	lmh_setDevAddr(nodeDevAddr);
 
 	// Initialize LoRaWan
-	err_code = lmh_init(&lora_callbacks, lora_param_init);
+	err_code = lmh_init(&lora_callbacks, lora_param_init, false);
 	if (err_code != 0)
 	{
 		Serial.printf("lmh_init failed - %d\n", err_code);

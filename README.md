@@ -22,7 +22,7 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 ----
 ## General info
 I stumbled over the [SX126x LoRa family](https://www.semtech.com/products/wireless-rf/lora-transceivers) in a customer project. Most of the existing Arduino libraries for Semtech's SX127x family are unfortunately not working with this new generation LoRa chip. I found a usefull base library from Insight SIP which is based on the original Semtech SX126x library and changed it to work with the ESP32.   
-For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module connected to an ESP32 and an [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) which combines a Nordic nRF52832 and a Semtech SX1262 in one module    
+For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module connected to an ESP32 and an [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) which combines a Nordic nRF52832 and a Semtech SX1262 in one module. It is as well tested with an [RAKwireless WisCore RAK4631](https://store.rakwireless.com/products)    
 
 __**Check out the example provided with this library to learn the basic functions.**__
 
@@ -69,9 +69,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 ----
 ## Changelog
+[Code releases](CHANGELOG.md)
+- 2020-07-09:
+  - Duty cycle and adaptive data rate control moved out of Commissioning.h
+- 2020-06-25:
+  - Rework the timer functions for nRF52 family. OTAA now working better
+  - Add option to select between OTAA and ABP for LoRaWan when calling **`lmh_init()`** 
+  - Reworked SX126x reset function
+  - Support for RAKwireless RAK4630/4631 => **`lora_rak4630_init()`**  
 - 2020-06-14:
   - Fix Travis CI & documentation
-  - Add option to select LDO instead of DCDC for SX126x chip in hwConfig struct
+  - Add option to select LDO instead of DCDC for SX126x chip in **`hwConfig`** struct
 - 2020-05-22:
   - Fix compiler errors when OTAA is selected
 - 2020-05-20:
@@ -157,14 +165,21 @@ The hardware configuration is given to the library by a structure with the follo
   hwConfig.USE_DIO2_ANT_SWITCH = false;     // True if DIO2 is used to switch the antenna from RX to TX
   hwConfig.USE_DIO3_TCXO = true;            // True if DIO3 is used to control the voltage of the TXCO oscillator
   hwConfig.USE_DIO3_ANT_SWITCH = false;     // True if DIO3 is used to enable/disable the antenna
+  hwConfig.USE_LDO = false;                 // False if SX126x DCDC converter is used, true if SX126x LDO is used
 ```    
+----
+### Explanation for LDO and DCDC selection
+
+The hardware of the SX126x chips can be designed to use either an internal _**LDO**_ or an internal _**DCDC converter**_. The DCDC converter provides better current savings and will be used in most modules. If there are problems to get the SX126x to work, check which HW configuration is used and set **`USE_LDO`** accordingly.   
+If **`USE_LDO`** is not set in the hwConfig, DCDC is used as default.    
+
 ----
 ### Explanation for TXCO and antenna control
 
-RADIO_TXEN and RADIO_TXEN are used on [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module to switch the antenna between RX and TX    
-DIO2 as antenna switch is used in the example Semtech design as default and might be used by many modules   
-DIO3 as antenna switch is used by e.g. [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) module which integrates a nRF52832 and a SX126x chip   
-
+- RADIO_TXEN and RADIO_TXEN are used on [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module to switch the antenna between RX and TX    
+- DIO2 as antenna switch is used in the example Semtech design as default and might be used by many modules   
+- DIO3 as antenna switch is used by e.g. [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) module which integrates a nRF52832 and a SX126x chip   
+- Some modules use DIO3 to control the power supply of the TXCO.    
 ----
 ## Usage
 See [examples](https://github.com/beegee-tokyo/SX126x-Android/examples).    
@@ -174,8 +189,8 @@ Another example is for LoRaWan and is tested with a Single Channel ([ESP32](http
 
 ----
 ### Basic LoRa communication
-
 ----
+
 #### HW structure definition
 Structure to define the connection between the MCU and the SX126x 
 ```cpp
@@ -236,23 +251,39 @@ Fill the structure with the HW configuration
   hwConfig.USE_DIO2_ANT_SWITCH = false;     // Example uses an eByte E22 module which uses RXEN and TXEN pins as antenna control
   hwConfig.USE_DIO3_TCXO = true;            // Example uses an eByte E22 module which uses DIO3 to control oscillator voltage
   hwConfig.USE_DIO3_ANT_SWITCH = false;     // Only Insight ISP4520 module uses DIO3 as antenna control
+  hwConfig.USE_LDO = false;                 // Set to true if SX126x uses LDO instead of DCDC converter
 ```
-
+----
+#### Module specific initialization
+----
+- If you use a microcontroller and a separate board with the SX126x transceiver you need to define the hwConfig structure to define the GPIO's used to connect the two chips.
+- If you use the Insight SIP4520 or the RAKwireless RAK4630/4631 modules the connections between the chips are fixed. In this case you do not need the hwConfig structure and can instead use simplified initialzation functions as shown below.
+----
+#### Module specific header files
+----
+- If you use a microcontroller and a separate board with the SX126x transceiver use the generic header files **`SX126x-Arduino.h`** and **`LoRaWan-Arduino.h`**
+- If you use the RAKwireless RAK4630/4631 modules use the module specific header files **`SX126x-RAK4630.h`** and **`LoRaWan-RAK4630.h`**
+- If you use the Insight SIP4520 modules use the module specific header files **`SX126x-ISP4520.h`** and **`LoRaWan-ISP4520.h`**
 ----
 #### Initialize the LoRa HW
 ```cpp
   lora_hardware_init(hwConfig);
 ```
-
 ----
 #### Simplified LoRa HW initialization for ISP4520 module
+The ISP4520 module has the nRF52832 and SX1261 or 1262 chips integrated in a module. Therefore the hardware configuration is fixed. To initialize the LoRa chip you need only to specify if the module is based on a SX1261 (ISP4520 EU version) or on a SX1262 (ISP4520 US version).
 ```cpp
   lora_isp4520_init(SX1262);
 ```
-
+----
+#### Simplified LoRa HW initialization for RAK4630/4631 module
+The RAK4630/4631 module has the nRF52840 and 1262 chips integrated in a module. Therefore the hardware configuration is fixed.    
+```cpp
+  lora_rak4630_init();
+```
 ----
 #### Initialize the LoRa HW after CPU woke up from deep sleep
-When you want to use the deep sleep function of the ESP32 with external wake up source, you do not want to reset and reconfigure the SX126x chip after its IRQ woke up the ESP32. This re-init function sets up only the required definitions for the communication without resetting the ESP32
+When you want to use the deep sleep function of the ESP32 with external wake up source, you do not want to reset and reconfigure the SX126x chip after its IRQ woke up the ESP32. This re-init function sets up only the required definitions for the communication without resetting the SX126x
 ```cpp
   lora_hardware_re_init(hwConfig);
 ```
@@ -289,7 +320,7 @@ Initialize the radio and set the TX and RX parameters
 
 ----
 #### Initialize the radio after CPU woke up from deep sleep
-When you want to use the deep sleep function of the ESP32 with external wake up source, you do not want to reset and reconfigure the SX126x chip after its IRQ woke up the ESP32. Radio.ReInit() sets up only the required communication means resetting the ESP32. 
+When you want to use the deep sleep function of the ESP32 with external wake up source, you do not want to reset and reconfigure the SX126x chip after its IRQ woke up the ESP32. Radio.ReInit() sets up only the required communication without resetting the SX1262. 
 Radio.IrqProcessAfterDeepSleep() is checking the reason for the wake-up IRQ and calls the event handler
 ```cpp
   Radio.ReInit(&RadioEvents);
@@ -324,16 +355,24 @@ In addition you need
 - Application Key, the AES encryption/decryption cipher application key
 - Device address
 - Network Session Key
-- App Session Key
+- App Session Key    
 
 for your node. 
 
 Sparkfun has a nice [tutorial](https://learn.sparkfun.com/tutorials/lorawan-with-prorf-and-the-things-network) how to get these requirements from [TheThingsInternet](https://www.thethingsnetwork.org/)
 
+In addition you must define several LoRaWan parameters.
+- Enable or disable adaptive data rate
+- Set the default or a specific data rate
+- Define if you want to connect to a public or private network
+- Specify the number of join trials in case you use OTAA
+- Specify the TX power
+- Enable or disable the duty cycle transmissions. For EU retion the ETSI mandates duty cycled transmissions.
+
 You can find a lot of information about LoRaWan on the [LoRa Alliance](https://lora-alliance.org/) website.
 
 ----
-#### ArduinoIDE LoRaWan definitions 
+#### ArduinoIDE LoRaWan region definitions 
 If you are using ArduinoIDE you need to edit the file ```/src/mac/Commissioning.h``` and define the region there.    
  
 In Arduino IDE you can find the file in _**`<arduinosketchfolder>/libraries/SX126x-Arduino/src/mac`**_    
@@ -353,9 +392,11 @@ to the region you want to use, e.g.
 ```
 #define REGION_EU868
 ```
+**_RAKwireless RAK4630/RAK4631_**    
+If you installed the BSP for these modules you can set the region from the Tools -> Board menu. You do not need to change ```/src/mac/Commissioning.h```    
 
 ----
-#### PlatformIO LoRaWan definitions 
+#### PlatformIO LoRaWan region definitions 
 If you are using PlatformIO you must define the region in the platformio.ini file of your project.     
 Open the platformio.ini file and add a define for the region e.g.    
 ```
@@ -413,9 +454,9 @@ If the node talks to a single channel gateway you can fix the frequency and data
 ```   
 ----
 #### Initialize
-Initialize LoRaWan
+Initialize LoRaWan. Select the join type OTAA by setting otaa to true. Select join type ABP by setting otaa to false.     
 ```cpp
- lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param)
+ lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa)
 ```   
 ----
 #### Specifiy sub bands
@@ -423,6 +464,9 @@ For some regions and some gateways you need to specifiy a sub band to be used.  
 ```cpp
  lmh_setSubBandChannels(uint8_t subBand)
 ```   
+**_RAKwireless RAK4630/RAK4631_**    
+The subbands for each region are automatically preset to match with the RAKwireless gateways default settings. In this case you do not need to define the sub bands.        
+
 ----
 #### Callbacks
 LoRaWan needs callbacks and parameters defined before initialization    
@@ -432,18 +476,29 @@ static uint8_t m_lora_app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE];
 /** Lora user application data structure. */
 static lmh_app_data_t m_lora_app_data = {m_lora_app_data_buffer, 0, 0, 0, 0};
 
-/**@brief Structure containing LoRaWan parameters, needed for lmh_init() */
+/**@brief Structure containing LoRaWan parameters, needed for lmh_init()
+ * 
+ * Set structure members to
+ * LORAWAN_ADR_ON or LORAWAN_ADR_OFF to enable or disable adaptive data rate
+ * LORAWAN_DEFAULT_DATARATE OR DR_0 ... DR_5 for default data rate or specific data rate selection
+ * LORAWAN_PUBLIC_NETWORK or LORAWAN_PRIVATE_NETWORK to select the use of a public or private network
+ * JOINREQ_NBTRIALS or a specific number to set the number of trials to join the network
+ * LORAWAN_DEFAULT_TX_POWER or a specific number to set the TX power used
+ * LORAWAN_DUTYCYCLE_ON or LORAWAN_DUTYCYCLE_OFF to enable or disable duty cycles
+ *                   Please note that ETSI mandates duty cycled transmissions. 
+ */
 static lmh_param_t lora_param_init = {LORAWAN_ADR_ON, 
 			LORAWAN_DEFAULT_DATARATE, LORAWAN_PUBLIC_NETWORK, 
 			JOINREQ_NBTRIALS, LORAWAN_DEFAULT_TX_POWER};
 
 /**@brief Structure containing LoRaWan callback functions, needed for lmh_init() */
+
 static lmh_callback_t lora_callbacks = {BoardGetBatteryLevel, BoardGetUniqueId, BoardGetRandomSeed,
 	lorawan_rx_handler, lorawan_has_joined_handler, lorawan_confirm_class_handler};
 ```    
 ----
 #### Join
-Join the LoRaWan network to be able to send and receive data    
+Join the LoRaWan network to be able to send and receive data. Default connection type is     
 ```cpp
 void lmh_join(void)
 ```    
