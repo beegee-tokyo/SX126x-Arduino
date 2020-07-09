@@ -3,7 +3,7 @@
  *
  * \brief     LoRa MAC layer test function implementation
  *
- * \copyright Revised BSD License, see section \ref LICENSE.
+ * \copyright Revised BSD License, see file LICENSE.
  *
  * \code
  *                ______                              _
@@ -44,7 +44,7 @@ extern "C"
  * \details This is a test function. It shall be used for testing purposes only.
  *          Changing this attribute may lead to a non-conformance LoRaMac operation.
  *
- * \param   [IN] enable - Enabled or disables the reception windows
+ * \param    enable - Enabled or disables the reception windows
  */
 	void LoRaMacTestRxWindowsOn(bool enable);
 
@@ -54,7 +54,7 @@ extern "C"
  * \details This is a test function. It shall be used for testing purposes only.
  *          Changing this attribute may lead to a non-conformance LoRaMac operation.
  *
- * \param   [IN] txPacketCounter - Fixed Tx packet counter value
+ * \param    txPacketCounter - Fixed Tx packet counter value
  */
 	void LoRaMacTestSetMic(uint16_t txPacketCounter);
 
@@ -64,7 +64,7 @@ extern "C"
  * \details This is a test function. It shall be used for testing purposes only.
  *          Changing this attribute may lead to a non-conformance LoRaMac operation.
  *
- * \param   [IN] enable - Enabled or disables the duty cycle
+ * \param    enable - Enabled or disables the duty cycle
  */
 	void LoRaMacTestSetDutyCycleOn(bool enable);
 
@@ -74,7 +74,7 @@ extern "C"
  * \details This is a test function. It shall be used for testing purposes only.
  *          Changing this attribute may lead to a non-conformance LoRaMac operation.
  *
- * \param   [IN] channel - Channel index
+ * \param    channel - Channel index
  */
 	void LoRaMacTestSetChannel(uint8_t channel);
 

@@ -217,7 +217,7 @@ static void lorawan_has_joined_handler(void)
 
 /**@brief Function for handling LoRaWan received data from Gateway
  *
- * @param[in] app_data  Pointer to rx data
+ * @param[app_data] app_data  Pointer to rx data
  */
 static void lorawan_rx_handler(lmh_app_data_t *app_data)
 {

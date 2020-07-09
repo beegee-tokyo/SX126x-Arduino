@@ -21,7 +21,7 @@ extern "C"
 /*!
  * Returns individual channel mask
  *
- * \param[IN] channelIndex Channel index 1 based
+ * \param channelIndex Channel index 1 based
  * \retval channelMask
  */
 #define LC(channelIndex) (uint16_t)(1 << (channelIndex - 1))

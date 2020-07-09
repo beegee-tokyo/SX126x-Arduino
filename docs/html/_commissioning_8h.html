@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -79,12 +80,21 @@ Macros</h2></td></tr>
 <tr class="memitem:a644ae3cf0dcaf2d4c3961af0c4e53e47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commissioning_8h.html#a644ae3cf0dcaf2d4c3961af0c4e53e47">REGION_US915</a></td></tr>
 <tr class="memdesc:a644ae3cf0dcaf2d4c3961af0c4e53e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define your region here Required because each region has different regulations The LoRa Alliance offers documentation for the regional parameters Latest revision when this library was created <a href="https://lora-alliance.org/resource-hub/lorawanr-regional-parameters-v11rb">https://lora-alliance.org/resource-hub/lorawanr-regional-parameters-v11rb</a> Check <a href="https://lora-alliance.org/resource-hub">https://lora-alliance.org/resource-hub</a> for any updates.  <a href="_commissioning_8h.html#a644ae3cf0dcaf2d4c3961af0c4e53e47">More...</a><br /></td></tr>
 <tr class="separator:a644ae3cf0dcaf2d4c3961af0c4e53e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4a8d909b72e6773f276521f3e81a099"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commissioning_8h.html#ab4a8d909b72e6773f276521f3e81a099">OVER_THE_AIR_ACTIVATION</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:ab4a8d909b72e6773f276521f3e81a099"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define activation procedure here More information <a href="https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723">https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723</a> When set to 1 the application uses the Over-the-Air activation procedure When set to 0 the application uses the Personalization activation procedure.  <a href="_commissioning_8h.html#ab4a8d909b72e6773f276521f3e81a099">More...</a><br /></td></tr>
-<tr class="separator:ab4a8d909b72e6773f276521f3e81a099"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dcff1e8f5fe0a5147106c01decc9793"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commissioning_8h.html#a2dcff1e8f5fe0a5147106c01decc9793">LORAWAN_DUTYCYCLE_ON</a>&#160;&#160;&#160;true</td></tr>
+<tr class="memdesc:a2dcff1e8f5fe0a5147106c01decc9793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable duty cycle control LoRaWAN ETSI duty cycle control enable/disable. Please note that ETSI mandates duty cycled transmissions. Use only for test purposes.  <a href="_commissioning_8h.html#a2dcff1e8f5fe0a5147106c01decc9793">More...</a><br /></td></tr>
+<tr class="separator:a2dcff1e8f5fe0a5147106c01decc9793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4052db143e9eadf9f297f02f6206ec12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commissioning_8h.html#a4052db143e9eadf9f297f02f6206ec12">LORAWAN_DUTYCYCLE_OFF</a>&#160;&#160;&#160;false</td></tr>
+<tr class="separator:a4052db143e9eadf9f297f02f6206ec12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3d87bc6a1dca396b576a8d83d3e3dbf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commissioning_8h.html#aa3d87bc6a1dca396b576a8d83d3e3dbf">LORAWAN_PUBLIC_NETWORK</a>&#160;&#160;&#160;true</td></tr>
 <tr class="memdesc:aa3d87bc6a1dca396b576a8d83d3e3dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if the end-device is to be connected to a private or public network.  <a href="_commissioning_8h.html#aa3d87bc6a1dca396b576a8d83d3e3dbf">More...</a><br /></td></tr>
 <tr class="separator:aa3d87bc6a1dca396b576a8d83d3e3dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eba27687fc2df0eb1e7d809aeaf77b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commissioning_8h.html#a2eba27687fc2df0eb1e7d809aeaf77b1">LORAWAN_PRIVAT_NETWORK</a>&#160;&#160;&#160;false</td></tr>
+<tr class="separator:a2eba27687fc2df0eb1e7d809aeaf77b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adac4009d9987bc72cbd980c1cfed9d65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commissioning_8h.html#adac4009d9987bc72cbd980c1cfed9d65">LORAWAN_ADR_ON</a>&#160;&#160;&#160;true</td></tr>
+<tr class="memdesc:adac4009d9987bc72cbd980c1cfed9d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable LoRaWAN Adaptive Data Rate enabled (the end-device should be static here).  <a href="_commissioning_8h.html#adac4009d9987bc72cbd980c1cfed9d65">More...</a><br /></td></tr>
+<tr class="separator:adac4009d9987bc72cbd980c1cfed9d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e846a8eecb64e0a26eab171de5ae28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commissioning_8h.html#aa1e846a8eecb64e0a26eab171de5ae28">LORAWAN_ADR_OFF</a>&#160;&#160;&#160;false</td></tr>
+<tr class="separator:aa1e846a8eecb64e0a26eab171de5ae28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a452370602b7ac7e04cd97897f20c7430"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commissioning_8h.html#a452370602b7ac7e04cd97897f20c7430">STATIC_DEVICE_EUI</a>&#160;&#160;&#160;1</td></tr>
 <tr class="memdesc:a452370602b7ac7e04cd97897f20c7430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select if a hard coded device ID is used or an automatic generated one When set to 1 DevEui is LORAWAN_DEVICE_EUI When set to 0 DevEui is automatically generated by calling BoardGetUniqueId function.  <a href="_commissioning_8h.html#a452370602b7ac7e04cd97897f20c7430">More...</a><br /></td></tr>
 <tr class="separator:a452370602b7ac7e04cd97897f20c7430"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,19 +141,37 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="ab4a8d909b72e6773f276521f3e81a099"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4a8d909b72e6773f276521f3e81a099">&#9670;&nbsp;</a></span>OVER_THE_AIR_ACTIVATION</h2>
+<a id="a2dcff1e8f5fe0a5147106c01decc9793"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dcff1e8f5fe0a5147106c01decc9793">&#9670;&nbsp;</a></span>LORAWAN_DUTYCYCLE_ON</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define OVER_THE_AIR_ACTIVATION&#160;&#160;&#160;0</td>
+          <td class="memname">#define LORAWAN_DUTYCYCLE_ON&#160;&#160;&#160;true</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Define activation procedure here More information <a href="https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723">https://www.thethingsnetwork.org/forum/t/what-is-the-difference-between-otaa-and-abp-devices/2723</a> When set to 1 the application uses the Over-the-Air activation procedure When set to 0 the application uses the Personalization activation procedure. </p>
+<p>Enable or disable duty cycle control LoRaWAN ETSI duty cycle control enable/disable. Please note that ETSI mandates duty cycled transmissions. Use only for test purposes. </p>
+<p>LoRaWAN duty cycle enabled </p>
+
+</div>
+</div>
+<a id="a4052db143e9eadf9f297f02f6206ec12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4052db143e9eadf9f297f02f6206ec12">&#9670;&nbsp;</a></span>LORAWAN_DUTYCYCLE_OFF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LORAWAN_DUTYCYCLE_OFF&#160;&#160;&#160;false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>LoRaWAN duty cycle disabled </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_lo_ra_wan_pio_0csrc_0cmain_8cpp-example.html#a8">LoRaWanPio\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -160,6 +188,58 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates if the end-device is to be connected to a private or public network. </p>
+<p>LoRaWAN public network </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_lo_ra_wan_pio_0csrc_0cmain_8cpp-example.html#a6">LoRaWanPio\src\main.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="a2eba27687fc2df0eb1e7d809aeaf77b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2eba27687fc2df0eb1e7d809aeaf77b1">&#9670;&nbsp;</a></span>LORAWAN_PRIVAT_NETWORK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LORAWAN_PRIVAT_NETWORK&#160;&#160;&#160;false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>LoRaWAN private network </p>
+
+</div>
+</div>
+<a id="adac4009d9987bc72cbd980c1cfed9d65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adac4009d9987bc72cbd980c1cfed9d65">&#9670;&nbsp;</a></span>LORAWAN_ADR_ON</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LORAWAN_ADR_ON&#160;&#160;&#160;true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable LoRaWAN Adaptive Data Rate enabled (the end-device should be static here). </p>
+<p>LoRaWAN Adaptive Data Rate enabled (the end-device should be static here). </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_lo_ra_wan_pio_0csrc_0cmain_8cpp-example.html#a4">LoRaWanPio\src\main.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="aa1e846a8eecb64e0a26eab171de5ae28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1e846a8eecb64e0a26eab171de5ae28">&#9670;&nbsp;</a></span>LORAWAN_ADR_OFF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LORAWAN_ADR_OFF&#160;&#160;&#160;false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>LoRaWAN Adaptive Data Rate disabled. </p>
 
 </div>
 </div>

@@ -468,25 +468,25 @@ extern "C"
 	/*!
  * \brief Initializes and opens the reception window
  *
- * \param [IN] rxContinuous Set to true, if the RX is in continuous mode
- * \param [IN] maxRxWindow Maximum RX window timeout
+ * \param  rxContinuous Set to true, if the RX is in continuous mode
+ * \param  maxRxWindow Maximum RX window timeout
  */
 	static void RxWindowSetup(bool rxContinuous, uint32_t maxRxWindow);
 
 	/*!
  * \brief Adds a new MAC command to be sent.
  *
- * \Remark MAC layer internal function
+ * \remark MAC layer internal function
  *
- * \param [in] cmd MAC command to be added
+ * \param  cmd MAC command to be added
  *                 [MOTE_MAC_LINK_CHECK_REQ,
  *                  MOTE_MAC_LINK_ADR_ANS,
  *                  MOTE_MAC_DUTY_CYCLE_ANS,
  *                  MOTE_MAC_RX2_PARAM_SET_ANS,
  *                  MOTE_MAC_DEV_STATUS_ANS
  *                  MOTE_MAC_NEW_CHANNEL_ANS]
- * \param [in] p1  1st parameter ( optional depends on the command )
- * \param [in] p2  2nd parameter ( optional depends on the command )
+ * \param  p1  1st parameter ( optional depends on the command )
+ * \param  p2  2nd parameter ( optional depends on the command )
  *
  * \retval status  Function status [0: OK, 1: Unknown command, 2: Buffer full]
  */
@@ -495,11 +495,11 @@ extern "C"
 	/*!
  * \brief Parses the MAC commands which must be repeated.
  *
- * \Remark MAC layer internal function
+ * \remark MAC layer internal function
  *
- * \param [IN] cmdBufIn  Buffer which stores the MAC commands to send
- * \param [IN] length  Length of the input buffer to parse
- * \param [OUT] cmdBufOut  Buffer which stores the MAC commands which must be
+ * \param  cmdBufIn  Buffer which stores the MAC commands to send
+ * \param  length  Length of the input buffer to parse
+ * \param  cmdBufOut  Buffer which stores the MAC commands which must be
  *                         repeated.
  *
  * \retval Size of the MAC commands to repeat.
@@ -532,10 +532,10 @@ extern "C"
 	/*!
  * \brief LoRaMAC layer generic send frame
  *
- * \param [IN] macHdr      MAC header field
- * \param [IN] fPort       MAC payload port
- * \param [IN] fBuffer     MAC data buffer to be sent
- * \param [IN] fBufferSize MAC data buffer size
+ * \param  macHdr      MAC header field
+ * \param  fPort       MAC payload port
+ * \param  fBuffer     MAC data buffer to be sent
+ * \param  fBufferSize MAC data buffer size
  * \retval status          Status of the operation.
  */
 	LoRaMacStatus_t Send(LoRaMacHeader_t *macHdr, uint8_t fPort, void *fBuffer, uint16_t fBufferSize);
@@ -543,12 +543,11 @@ extern "C"
 	/*!
  * \brief LoRaMAC layer frame buffer initialization
  *
- * \param [IN] macHdr      MAC header field
- * \param [IN] fCtrl       MAC frame control field
- * \param [IN] fOpts       MAC commands buffer
- * \param [IN] fPort       MAC payload port
- * \param [IN] fBuffer     MAC data buffer to be sent
- * \param [IN] fBufferSize MAC data buffer size
+ * \param  macHdr      MAC header field
+ * \param  fCtrl       MAC frame control field
+ * \param  fPort       MAC payload port
+ * \param  fBuffer     MAC data buffer to be sent
+ * \param  fBufferSize MAC data buffer size
  * \retval status          Status of the operation.
  */
 	LoRaMacStatus_t PrepareFrame(LoRaMacHeader_t *macHdr, LoRaMacFrameCtrl_t *fCtrl, uint8_t fPort, void *fBuffer, uint16_t fBufferSize);
@@ -563,7 +562,7 @@ extern "C"
 	/*
  * \brief Calculates the back-off time for the band of a channel.
  *
- * \param [IN] channel     The last Tx channel index
+ * \param  channel     The last Tx channel index
  */
 	static void CalculateBackOff(uint8_t channel);
 
@@ -573,7 +572,7 @@ extern "C"
  * \remark PrepareFrame must be called at least once before calling this
  *         function.
  *
- * \param [IN] channel     Channel to transmit on
+ * \param  channel     Channel to transmit on
  * \retval status          Status of the operation.
  */
 	LoRaMacStatus_t SendFrameOnChannel(uint8_t channel);
@@ -583,7 +582,7 @@ extern "C"
  *
  * \remark Uses the radio parameters set on the previous transmission.
  *
- * \param [IN] timeout     Time in seconds while the radio is kept in continuous wave mode
+ * \param  timeout     Time in seconds while the radio is kept in continuous wave mode
  * \retval status          Status of the operation.
  */
 	LoRaMacStatus_t SetTxContinuousWave(uint16_t timeout);
@@ -593,9 +592,9 @@ extern "C"
  *
  * \remark Uses the radio parameters set on the previous transmission.
  *
- * \param [IN] timeout     Time in seconds while the radio is kept in continuous wave mode
- * \param [IN] frequency   RF frequency to be set.
- * \param [IN] power       RF output power to be set.
+ * \param  timeout     Time in seconds while the radio is kept in continuous wave mode
+ * \param  frequency   RF frequency to be set.
+ * \param  power       RF output power to be set.
  * \retval status          Status of the operation.
  */
 	LoRaMacStatus_t SetTxContinuousWave1(uint16_t timeout, uint32_t frequency, uint8_t power);

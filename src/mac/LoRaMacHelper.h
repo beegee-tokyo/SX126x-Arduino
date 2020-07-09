@@ -87,7 +87,7 @@ extern "C"
 		uint8_t (*BoardGetBatteryLevel)(void);
 
 		/**@brief Gets the board 64 bits unique ID 
- * @param[in] id	Pointer to an array that will contain the Unique ID
+ * @param id	Pointer to an array that will contain the Unique ID
  */
 		void (*BoardGetUniqueId)(uint8_t *id);
 
@@ -97,7 +97,7 @@ extern "C"
 		uint32_t (*BoardGetRandomSeed)(void);
 
 		/**@brief Process Rx Data received from Lora network 
- * @param[in] AppData 	Rx structure
+ * @param AppData 	Rx structure
  */
 		void (*lmh_RxData)(lmh_app_data_t *appdata);
 
@@ -106,7 +106,7 @@ extern "C"
 		void (*lmh_has_joined)();
 
 		/**@brief Confirms the class change 
- * @param[in] Class A, B, or C
+ * @param Class A, B, or C
  */
 		void (*lmh_ConfirmClass)(DeviceClass_t Class);
 
@@ -130,16 +130,18 @@ extern "C"
 
 	/**@brief Lora Initialisation
  *
- * @param[in] callbacks	Pointer to structure containing the callback functions
- * @param[in] LoRaParam	Pointer to structure containing the parameters
- * @param[in] choose OTAA or ABP activation
+ * @param callbacks	Pointer to structure containing the callback functions
+ * @param lora_param	Pointer to structure containing the parameters
+ * @param otaa Choose OTAA (true) or ABP (false) activation
+ *
+ * @retval error status
  */
 	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa);
 
 	/**@brief Send data
  *
- * @param[in] app_data Pointer to data structure to be sent
- * @param[in] is_txconfirmed do we need confirmation?
+ * @param app_data Pointer to data structure to be sent
+ * @param is_txconfirmed do we need confirmation?
  *
  * @retval error status
  */
@@ -164,11 +166,11 @@ extern "C"
 
 	/**@brief change Lora Class
  *
- * @Note callback LORA_ConfirmClass informs upper layer that the change has occured
- * @Note Only switch from class A to class B/C OR from  class B/C to class A is allowed
- * @Attention can be called only in LORA_ClassSwitchSlot or LORA_RxData callbacks
+ * @note callback LORA_ConfirmClass informs upper layer that the change has occured
+ * @note Only switch from class A to class B/C OR from  class B/C to class A is allowed
+ * @attention can be called only in LORA_ClassSwitchSlot or LORA_RxData callbacks
  *
- * @param[in] DeviceClass_t NewClass
+ * @param newClass DeviceClass_t NewClass
  *
  * @retval LoraErrorStatus
  */
@@ -176,65 +178,65 @@ extern "C"
 
 	/**@brief get the current Lora Class
  *
- * @param[in] DeviceClass_t NewClass
+ * @param currentClass DeviceClass_t NewClass
  */
 	void lmh_class_get(DeviceClass_t *currentClass);
 
 	/**@brief Configure data rate
  *
- * @param[in] data_rate data rate
- * @param[in] enable_adr  enable adaptative data rate
+ * @param data_rate data rate
+ * @param enable_adr  enable adaptative data rate
  */
 	void lmh_datarate_set(uint8_t data_rate, uint8_t enable_adr);
 
 	/**@brief Configure tx power
  *
- * @param[in] tx_power tx power
+ * @param tx_power tx power
  */
 	void lmh_tx_power_set(uint8_t tx_power);
 
 	/**@brief Set Device IEEE EUI (big endian)
  *
- * @param[in] Device EUI as uint8_t[] *
+ * @param userDevEui Device EUI as uint8_t[] *
  */
 	void lmh_setDevEui(uint8_t *userDevEui);
 
 	/**@brief Set Application IEEE EUI
  *
- * @param[in] Application IEEE EUI as uint8_t[] *
+ * @param userAppEui Application IEEE EUI as uint8_t[] *
  */
 	void lmh_setAppEui(uint8_t *userAppEui);
 
 	/**@brief Set Application Key
  * AES encryption/decryption cipher application key
  *
- * @param[in] Application Key as uint8_t[] *
+ * @param userAppKey Application Key as uint8_t[] *
  */
 	void lmh_setAppKey(uint8_t *userAppKey);
 
 	/**@brief Set Network Session Key
  * AES encryption/decryption cipher network session key
  *
- * @param[in] Network Session Key as uint8_t[] *
+ * @param userNwkSKey Network Session Key as uint8_t[] *
  */
 	void lmh_setNwkSKey(uint8_t *userNwkSKey);
 
 	/**@brief Set Application Session Key
  * AES encryption/decryption cipher application session key
  *
- * @param[in] Application Session Key as uint8_t[] *
+ * @param userAppSKey Application Session Key as uint8_t[] *
  */
 	void lmh_setAppSKey(uint8_t *userAppSKey);
 
 	/**@brief Set Device address on the network (big endian)
  *
- * @param[in] Device address as uint8_t[] *
+ * @param userDevAddr Device address as uint8_t[] *
  */
 	void lmh_setDevAddr(uint32_t userDevAddr);
 
 	/**@brief Set custom channel mask
  * 
- * @param[in] sub channel number 1 to 8
+ * @param subBand Sub channel number 1 to 8
  */
 	bool lmh_setSubBandChannels(uint8_t subBand);
 
@@ -245,8 +247,8 @@ extern "C"
  * Check the file Region.h to find out which datarate corresponds to which SF 
  * and bandwidth in a specific region
  *
- * @param[in] Channel to be used 
- * @param[in] Datarate to be used 
+ * @param userSingleChannel Channel to be used 
+ * @param userDatarate Datarate to be used 
  */
 	void lmh_setSingleChannelGateway(uint8_t userSingleChannel, int8_t userDatarate);
 };

@@ -22,7 +22,7 @@ extern "C"
 /*!
  * \brief Returns 2 raised to the power of n
  *
- * \param [IN] n power value
+ * \param  n power value
  * \retval result of raising 2 to the power n
  */
 #define POW2(n) (1 << n)
@@ -30,15 +30,15 @@ extern "C"
 	/*!
  * \brief Initializes the pseudo random generator initial value
  *
- * \param [IN] seed Pseudo random generator initial value
+ * \param  seed Pseudo random generator initial value
  */
 	void srand1(uint32_t seed);
 
 	/*!
  * \brief Computes a random number between min and max
  *
- * \param [IN] min range minimum value
- * \param [IN] max range maximum value
+ * \param  min range minimum value
+ * \param  max range maximum value
  * \retval random random value in range min..max
  */
 	int32_t randr(int32_t min, int32_t max);
@@ -48,18 +48,18 @@ extern "C"
  *
  * \remark STM32 Standard memcpy function only works on pointers that are aligned
  *
- * \param [OUT] dst  Destination array
- * \param [IN]  src  Source array
- * \param [IN]  size Number of bytes to be copied
+ * \param  dst  Destination array
+ * \param   src  Source array
+ * \param   size Number of bytes to be copied
  */
 	void memcpy1(uint8_t *dst, const uint8_t *src, uint16_t size);
 
 	/*!
  * \brief Copies size elements of src array to dst array reversing the byte order
  *
- * \param [OUT] dst  Destination array
- * \param [IN]  src  Source array
- * \param [IN]  size Number of bytes to be copied
+ * \param  dst  Destination array
+ * \param   src  Source array
+ * \param   size Number of bytes to be copied
  */
 	void memcpyr(uint8_t *dst, const uint8_t *src, uint16_t size);
 
@@ -68,16 +68,16 @@ extern "C"
  *
  * \remark STM32 Standard memset function only works on pointers that are aligned
  *
- * \param [OUT] dst   Destination array
- * \param [IN]  value Default value
- * \param [IN]  size  Number of bytes to be copied
+ * \param  dst   Destination array
+ * \param   value Default value
+ * \param   size  Number of bytes to be copied
  */
 	void memset1(uint8_t *dst, uint8_t value, uint16_t size);
 
 	/*!
  * \brief Converts a nibble to an hexadecimal character
  *
- * \param [IN] a   Nibble to be converted
+ * \param  a   Nibble to be converted
  * \retval hexChar Converted hexadecimal character
  */
 	int8_t Nibble2HexChar(uint8_t a);

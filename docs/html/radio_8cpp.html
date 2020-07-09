@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -73,6 +74,9 @@ $(function() {
 <div class="title">radio.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Radio driver API definition.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="board_8h_source.html">boards/mcu/board.h</a>&quot;</code><br />
@@ -239,7 +243,20 @@ Variables</h2></td></tr>
 <tr class="memdesc:add170fb25c16257debebca669e0bf612"><td class="mdescLeft">&#160;</td><td class="mdescRight">Radio hardware and global parameters.  <a href="radio_8cpp.html#add170fb25c16257debebca669e0bf612">More...</a><br /></td></tr>
 <tr class="separator:add170fb25c16257debebca669e0bf612"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Radio driver API definition. </p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Revised BSD License, see file LICENSE.</dd></dl>
+<div class="fragment"><div class="line">  ______                              _</div>
+<div class="line"> / _____)             _              | |</div>
+<div class="line">( (____  _____ ____ _| |_ _____  ____| |__</div>
+<div class="line"> \____ \| ___ |    (_   _) ___ |/ ___)  _ \</div>
+<div class="line"> _____) ) ____| | | || |_| ____( (___| | | |</div>
+<div class="line">(______/|_____)_|_|_| \__)_____)\____)_| |_|</div>
+<div class="line">(C)2013-2017 Semtech</div>
+</div><!-- fragment --><dl class="section author"><dt>Author</dt><dd>Miguel Luis ( Semtech )</dd>
+<dd>
+Gregory Cristian ( Semtech ) </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="ace8c8e6198089c9714c802c0c7ee332e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace8c8e6198089c9714c802c0c7ee332e">&#9670;&nbsp;</a></span>RadioInit()</h2>
 
@@ -259,7 +276,7 @@ Variables</h2></td></tr>
 <p>Initializes the radio. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>events Structure containing the driver callback functions </td></tr>
+    <tr><td class="paramname">events</td><td>Structure containing the driver callback functions </td></tr>
   </table>
   </dd>
 </dl>
@@ -285,7 +302,7 @@ Variables</h2></td></tr>
 <p>Initializes the radio after deep sleep of the CPU. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>events Structure containing the driver callback functions </td></tr>
+    <tr><td class="paramname">events</td><td>Structure containing the driver callback functions </td></tr>
   </table>
   </dd>
 </dl>
@@ -308,9 +325,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Return current radio status</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">status</td><td>Radio status.[RF_IDLE, RF_RX_RUNNING, RF_TX_RUNNING] </td></tr>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Radio</td><td>status.[RF_IDLE, RF_RX_RUNNING, RF_TX_RUNNING] </td></tr>
   </table>
   </dd>
 </dl>
@@ -336,7 +353,7 @@ Variables</h2></td></tr>
 <p>Configures the radio with the given modem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">modem</td><td>Modem to be used [0: FSK, 1: LoRa] </td></tr>
   </table>
   </dd>
 </dl>
@@ -362,7 +379,7 @@ Variables</h2></td></tr>
 <p>Sets the channel frequency. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>freq Channel RF frequency </td></tr>
+    <tr><td class="paramname">freq</td><td>Channel RF frequency </td></tr>
   </table>
   </dd>
 </dl>
@@ -410,10 +427,10 @@ Variables</h2></td></tr>
 <p>Checks if the channel is free for the given time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>freq Channel RF frequency </td></tr>
-    <tr><td class="paramname">[IN]</td><td>rssiThresh RSSI threshold </td></tr>
-    <tr><td class="paramname">[IN]</td><td>maxCarrierSenseTime Max time while the RSSI is measured</td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">freq</td><td>Channel RF frequency </td></tr>
+    <tr><td class="paramname">rssiThresh</td><td>RSSI threshold </td></tr>
+    <tr><td class="paramname">maxCarrierSenseTime</td><td>Max time while the RSSI is measured</td></tr>
   </table>
   </dd>
 </dl>
@@ -554,20 +571,20 @@ Variables</h2></td></tr>
 <p>Sets the reception parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>bandwidth Sets the bandwidth FSK : &gt;= 2600 and &lt;= 250000 Hz LoRa: [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>datarate Sets the Datarate FSK : 600..300000 bits/s LoRa: [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096 chips] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>coderate Sets the coding rate (LoRa only) FSK : N/A ( set to 0 ) LoRa: [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>bandwidthAfc Sets the AFC Bandwidth (FSK only) FSK : &gt;= 2600 and &lt;= 250000 Hz LoRa: N/A ( set to 0 ) </td></tr>
-    <tr><td class="paramname">[IN]</td><td>preambleLen Sets the Preamble length FSK : Number of bytes LoRa: Length in symbols (the hardware adds 4 more symbols) </td></tr>
-    <tr><td class="paramname">[IN]</td><td>symbTimeout Sets the RxSingle timeout value FSK : timeout in number of bytes LoRa: timeout in symbols </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fixLen Fixed length packets [0: variable, 1: fixed] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>payloadLen Sets payload length when fixed length is used </td></tr>
-    <tr><td class="paramname">[IN]</td><td>crcOn Enables/Disables the CRC [0: OFF, 1: ON] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>FreqHopOn Enables disables the intra-packet frequency hopping FSK : N/A ( set to 0 ) LoRa: [0: OFF, 1: ON] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>HopPeriod Number of symbols between each hop FSK : N/A ( set to 0 ) LoRa: Number of symbols </td></tr>
-    <tr><td class="paramname">[IN]</td><td>iqInverted Inverts IQ signals (LoRa only) FSK : N/A ( set to 0 ) LoRa: [0: not inverted, 1: inverted] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>rxContinuous Sets the reception in continuous mode [false: single mode, true: continuous mode] </td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">bandwidth</td><td>Sets the bandwidth FSK : &gt;= 2600 and &lt;= 250000 Hz LoRa: [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved] </td></tr>
+    <tr><td class="paramname">datarate</td><td>Sets the Datarate FSK : 600..300000 bits/s LoRa: [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096 chips] </td></tr>
+    <tr><td class="paramname">coderate</td><td>Sets the coding rate (LoRa only) FSK : N/A ( set to 0 ) LoRa: [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8] </td></tr>
+    <tr><td class="paramname">bandwidthAfc</td><td>Sets the AFC Bandwidth (FSK only) FSK : &gt;= 2600 and &lt;= 250000 Hz LoRa: N/A ( set to 0 ) </td></tr>
+    <tr><td class="paramname">preambleLen</td><td>Sets the Preamble length FSK : Number of bytes LoRa: Length in symbols (the hardware adds 4 more symbols) </td></tr>
+    <tr><td class="paramname">symbTimeout</td><td>Sets the RxSingle timeout value FSK : timeout in number of bytes LoRa: timeout in symbols </td></tr>
+    <tr><td class="paramname">fixLen</td><td>Fixed length packets [0: variable, 1: fixed] </td></tr>
+    <tr><td class="paramname">payloadLen</td><td>Sets payload length when fixed length is used </td></tr>
+    <tr><td class="paramname">crcOn</td><td>Enables/Disables the CRC [0: OFF, 1: ON] </td></tr>
+    <tr><td class="paramname">FreqHopOn</td><td>Enables disables the intra-packet frequency hopping FSK : N/A ( set to 0 ) LoRa: [0: OFF, 1: ON] </td></tr>
+    <tr><td class="paramname">HopPeriod</td><td>Number of symbols between each hop FSK : N/A ( set to 0 ) LoRa: Number of symbols </td></tr>
+    <tr><td class="paramname">iqInverted</td><td>Inverts IQ signals (LoRa only) FSK : N/A ( set to 0 ) LoRa: [0: not inverted, 1: inverted] </td></tr>
+    <tr><td class="paramname">rxContinuous</td><td>Sets the reception in continuous mode [false: single mode, true: continuous mode] </td></tr>
   </table>
   </dd>
 </dl>
@@ -669,19 +686,19 @@ Variables</h2></td></tr>
 <p>Sets the transmission parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>power Sets the output power [dBm] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fdev Sets the frequency deviation (FSK only) FSK : [Hz] LoRa: 0 </td></tr>
-    <tr><td class="paramname">[IN]</td><td>bandwidth Sets the bandwidth (LoRa only) FSK : 0 LoRa: [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>datarate Sets the Datarate FSK : 600..300000 bits/s LoRa: [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096 chips] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>coderate Sets the coding rate (LoRa only) FSK : N/A ( set to 0 ) LoRa: [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>preambleLen Sets the preamble length FSK : Number of bytes LoRa: Length in symbols (the hardware adds 4 more symbols) </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fixLen Fixed length packets [0: variable, 1: fixed] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>crcOn Enables disables the CRC [0: OFF, 1: ON] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>FreqHopOn Enables disables the intra-packet frequency hopping FSK : N/A ( set to 0 ) LoRa: [0: OFF, 1: ON] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>HopPeriod Number of symbols between each hop FSK : N/A ( set to 0 ) LoRa: Number of symbols </td></tr>
-    <tr><td class="paramname">[IN]</td><td>iqInverted Inverts IQ signals (LoRa only) FSK : N/A ( set to 0 ) LoRa: [0: not inverted, 1: inverted] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>timeout Transmission timeout [ms] </td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">power</td><td>Sets the output power [dBm] </td></tr>
+    <tr><td class="paramname">fdev</td><td>Sets the frequency deviation (FSK only) FSK : [Hz] LoRa: 0 </td></tr>
+    <tr><td class="paramname">bandwidth</td><td>Sets the bandwidth (LoRa only) FSK : 0 LoRa: [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved] </td></tr>
+    <tr><td class="paramname">datarate</td><td>Sets the Datarate FSK : 600..300000 bits/s LoRa: [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096 chips] </td></tr>
+    <tr><td class="paramname">coderate</td><td>Sets the coding rate (LoRa only) FSK : N/A ( set to 0 ) LoRa: [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8] </td></tr>
+    <tr><td class="paramname">preambleLen</td><td>Sets the preamble length FSK : Number of bytes LoRa: Length in symbols (the hardware adds 4 more symbols) </td></tr>
+    <tr><td class="paramname">fixLen</td><td>Fixed length packets [0: variable, 1: fixed] </td></tr>
+    <tr><td class="paramname">crcOn</td><td>Enables disables the CRC [0: OFF, 1: ON] </td></tr>
+    <tr><td class="paramname">FreqHopOn</td><td>Enables disables the intra-packet frequency hopping FSK : N/A ( set to 0 ) LoRa: [0: OFF, 1: ON] </td></tr>
+    <tr><td class="paramname">HopPeriod</td><td>Number of symbols between each hop FSK : N/A ( set to 0 ) LoRa: Number of symbols </td></tr>
+    <tr><td class="paramname">iqInverted</td><td>Inverts IQ signals (LoRa only) FSK : N/A ( set to 0 ) LoRa: [0: not inverted, 1: inverted] </td></tr>
+    <tr><td class="paramname">timeout</td><td>Transmission timeout [ms] </td></tr>
   </table>
   </dd>
 </dl>
@@ -707,7 +724,7 @@ Variables</h2></td></tr>
 <p>Checks if the given RF frequency is supported by the hardware. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>frequency RF frequency to be checked </td></tr>
+    <tr><td class="paramname">frequency</td><td>RF frequency to be checked </td></tr>
   </table>
   </dd>
 </dl>
@@ -747,11 +764,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Computes the packet time on air in ms for the given payload. </p>
-<p>@Remark Can only be called once SetRxConfig or SetTxConfig have been called</p>
+<dl class="section remark"><dt>Remarks</dt><dd>Can only be called once SetRxConfig or SetTxConfig have been called</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>pktLen Packet payload length</td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">pktLen</td><td>Packet payload length</td></tr>
   </table>
   </dd>
 </dl>
@@ -793,8 +810,10 @@ Variables</h2></td></tr>
 <p>Sends the buffer of size. Prepares the packet to be sent and sets the radio in transmission. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>buffer Buffer pointer </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Buffer size </td></tr>
+    <tr><td class="paramname"></td><td>buffer Buffer pointer </td></tr>
+    <tr><td class="paramname"></td><td>size Buffer size</td></tr>
+    <tr><td class="paramname">buffer</td><td>Buffer pointer </td></tr>
+    <tr><td class="paramname">size</td><td>Buffer size </td></tr>
   </table>
   </dd>
 </dl>
@@ -860,7 +879,7 @@ Variables</h2></td></tr>
 <p>Sets the radio in reception mode for the given time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>timeout Reception timeout [ms] [0: continuous, others timeout] </td></tr>
+    <tr><td class="paramname">timeout</td><td>Reception timeout [ms] [0: continuous, others timeout] </td></tr>
   </table>
   </dd>
 </dl>
@@ -914,11 +933,11 @@ Variables</h2></td></tr>
 <p>Set Channel Activity Detection parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadSymbolNum</td><td>The number of symbol to use for CAD operations [LORA_CAD_01_SYMBOL, LORA_CAD_02_SYMBOL, LORA_CAD_04_SYMBOL, LORA_CAD_08_SYMBOL, LORA_CAD_16_SYMBOL] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadDetPeak</td><td>Limit for detection of SNR peak used in the CAD </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadDetMin</td><td>Set the minimum symbol recognition for CAD </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadExitMode</td><td>Operation to be done at the end of CAD action [LORA_CAD_ONLY, LORA_CAD_RX, LORA_CAD_LBT] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadTimeout</td><td>Defines the timeout value to abort the CAD activity </td></tr>
+    <tr><td class="paramname">cadSymbolNum</td><td>The number of symbol to use for CAD operations [LORA_CAD_01_SYMBOL, LORA_CAD_02_SYMBOL, LORA_CAD_04_SYMBOL, LORA_CAD_08_SYMBOL, LORA_CAD_16_SYMBOL] </td></tr>
+    <tr><td class="paramname">cadDetPeak</td><td>Limit for detection of SNR peak used in the CAD </td></tr>
+    <tr><td class="paramname">cadDetMin</td><td>Set the minimum symbol recognition for CAD </td></tr>
+    <tr><td class="paramname">cadExitMode</td><td>Operation to be done at the end of CAD action [LORA_CAD_ONLY, LORA_CAD_RX, LORA_CAD_LBT] </td></tr>
+    <tr><td class="paramname">cadTimeout</td><td>Defines the timeout value to abort the CAD activity </td></tr>
   </table>
   </dd>
 </dl>
@@ -981,9 +1000,12 @@ Variables</h2></td></tr>
 <p>Sets the radio in continuous wave transmission mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>freq Channel RF frequency </td></tr>
-    <tr><td class="paramname">[IN]</td><td>power Sets the output power [dBm] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>time Transmission mode timeout [s] </td></tr>
+    <tr><td class="paramname"></td><td>freq Channel RF frequency </td></tr>
+    <tr><td class="paramname"></td><td>power Sets the output power [dBm] </td></tr>
+    <tr><td class="paramname"></td><td>time Transmission mode timeout [s]</td></tr>
+    <tr><td class="paramname">freq</td><td>Channel RF frequency </td></tr>
+    <tr><td class="paramname">power</td><td>Sets the output power [dBm] </td></tr>
+    <tr><td class="paramname">time</td><td>Transmission mode timeout [s] </td></tr>
   </table>
   </dd>
 </dl>
@@ -1045,8 +1067,10 @@ Variables</h2></td></tr>
 <p>Writes the radio register at the specified address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>addr Register address </td></tr>
-    <tr><td class="paramname">[IN]</td><td>data New register value </td></tr>
+    <tr><td class="paramname"></td><td>addr Register address </td></tr>
+    <tr><td class="paramname"></td><td>data New register value</td></tr>
+    <tr><td class="paramname">addr</td><td>Register address </td></tr>
+    <tr><td class="paramname">data</td><td>New register value </td></tr>
   </table>
   </dd>
 </dl>
@@ -1072,13 +1096,19 @@ Variables</h2></td></tr>
 <p>Reads the radio register at the specified address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>addr Register address </td></tr>
+    <tr><td class="paramname"></td><td>addr Register address </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">data</td><td>Register value </td></tr>
+    <tr><td class="paramname">data</td><td>Register value</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td>Register address </td></tr>
   </table>
   </dd>
 </dl>
@@ -1120,9 +1150,9 @@ Variables</h2></td></tr>
 <p>Writes multiple radio registers starting at address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>addr First Radio register address </td></tr>
-    <tr><td class="paramname">[IN]</td><td>buffer Buffer containing the new register's values </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Number of registers to be written </td></tr>
+    <tr><td class="paramname">addr</td><td>First Radio register address </td></tr>
+    <tr><td class="paramname">buffer</td><td>Buffer containing the new register's values </td></tr>
+    <tr><td class="paramname">size</td><td>Number of registers to be written </td></tr>
   </table>
   </dd>
 </dl>
@@ -1164,9 +1194,9 @@ Variables</h2></td></tr>
 <p>Reads multiple radio registers starting at address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>addr First Radio register address </td></tr>
-    <tr><td class="paramname">[OUT]</td><td>buffer Buffer where to copy the registers data </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Number of registers to be read </td></tr>
+    <tr><td class="paramname">addr</td><td>First Radio register address </td></tr>
+    <tr><td class="paramname">buffer</td><td>Buffer where to copy the registers data </td></tr>
+    <tr><td class="paramname">size</td><td>Number of registers to be read </td></tr>
   </table>
   </dd>
 </dl>
@@ -1202,8 +1232,8 @@ Variables</h2></td></tr>
 <p>Sets the maximum payload length. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>max Maximum payload length in bytes </td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">max</td><td>Maximum payload length in bytes </td></tr>
   </table>
   </dd>
 </dl>
@@ -1230,7 +1260,7 @@ Variables</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>Applies to LoRa modem only</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>enable if true, it enables a public network </td></tr>
+    <tr><td class="paramname">enable</td><td>if true, it enables a public network </td></tr>
   </table>
   </dd>
 </dl>
@@ -1328,7 +1358,7 @@ Variables</h2></td></tr>
 <p>Sets the radio in reception mode with Max LNA gain for the given time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>timeout Reception timeout [ms] [0: continuous, others timeout] </td></tr>
+    <tr><td class="paramname">timeout</td><td>Reception timeout [ms] [0: continuous, others timeout] </td></tr>
   </table>
   </dd>
 </dl>
@@ -1364,8 +1394,8 @@ Variables</h2></td></tr>
 <p>Sets the Rx duty cycle management parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">rxTime</td><td>Structure describing reception timeout value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sleepTime</td><td>Structure describing sleep timeout value </td></tr>
+    <tr><td class="paramname">rxTime</td><td>Structure describing reception timeout value </td></tr>
+    <tr><td class="paramname">sleepTime</td><td>Structure describing sleep timeout value </td></tr>
   </table>
   </dd>
 </dl>
@@ -1458,7 +1488,7 @@ Variables</h2></td></tr>
 <p>Returns the known FSK bandwidth registers value</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>bandwidth Bandwidth value in Hz </td></tr>
+    <tr><td class="paramname">bandwidth</td><td>Bandwidth value in Hz </td></tr>
   </table>
   </dd>
 </dl>

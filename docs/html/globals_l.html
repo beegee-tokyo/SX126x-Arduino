@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -110,9 +111,13 @@ $(function() {
 <li>lmh_error_status
 : <a class="el" href="_lo_ra_mac_helper_8h.html#a1a1179b559ca0b19da3a7f60a810aeff">LoRaMacHelper.h</a>
 </li>
+<li>lmh_getDevAddr()
+: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a4f30246fdda3df164cf54d19436a621b">LoRaMacHelper.cpp</a>
+, <a class="el" href="_lo_ra_mac_helper_8h.html#a4f30246fdda3df164cf54d19436a621b">LoRaMacHelper.h</a>
+</li>
 <li>lmh_init()
-: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a1e9d5739c18ade1570940dd8a34515c9">LoRaMacHelper.cpp</a>
-, <a class="el" href="_lo_ra_mac_helper_8h.html#a1e9d5739c18ade1570940dd8a34515c9">LoRaMacHelper.h</a>
+: <a class="el" href="_lo_ra_mac_helper_8cpp.html#afe6e85f1768e6b6cfe750341eb5a1932">LoRaMacHelper.cpp</a>
+, <a class="el" href="_lo_ra_mac_helper_8h.html#afe6e85f1768e6b6cfe750341eb5a1932">LoRaMacHelper.h</a>
 </li>
 <li>lmh_join()
 : <a class="el" href="_lo_ra_mac_helper_8cpp.html#a9e5c1664c172cdca92e1978bbb99d4a9">LoRaMacHelper.cpp</a>
@@ -139,8 +144,8 @@ $(function() {
 : <a class="el" href="_lo_ra_mac_helper_8h.html#a9911c11ecab1c979cab4919335e7c7a1a8e2877b1efefb764946c087004ced78e">LoRaMacHelper.h</a>
 </li>
 <li>lmh_setAppEui()
-: <a class="el" href="_lo_ra_mac_helper_8h.html#a8cd24f2b4120397734723ba223bb3660">LoRaMacHelper.h</a>
-, <a class="el" href="_lo_ra_mac_helper_8cpp.html#a8cd24f2b4120397734723ba223bb3660">LoRaMacHelper.cpp</a>
+: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a8cd24f2b4120397734723ba223bb3660">LoRaMacHelper.cpp</a>
+, <a class="el" href="_lo_ra_mac_helper_8h.html#a8cd24f2b4120397734723ba223bb3660">LoRaMacHelper.h</a>
 </li>
 <li>lmh_setAppKey()
 : <a class="el" href="_lo_ra_mac_helper_8cpp.html#a114b937e2f484145fd03348cda0b2399">LoRaMacHelper.cpp</a>
@@ -312,6 +317,10 @@ $(function() {
 </li>
 <li>LORA_PACKET_VARIABLE_LENGTH
 : <a class="el" href="sx126x_8h.html#a5ea24c1bb07450f05fcc067870a5036bad152eaad9d30522916a44076b83ffe92">sx126x.h</a>
+</li>
+<li>lora_rak4630_init()
+: <a class="el" href="board_8cpp.html#af0dec5473aad3fa7b84eb06dcd0fb83e">board.cpp</a>
+, <a class="el" href="board_8h.html#af0dec5473aad3fa7b84eb06dcd0fb83e">board.h</a>
 </li>
 <li>LORA_SF10
 : <a class="el" href="sx126x_8h.html#abe9569be8b685cd334494ce8ec5b3ce5a4fa2cb57b3c09a7ba48fae7fa764cfc8">sx126x.h</a>
@@ -506,8 +515,8 @@ $(function() {
 , <a class="el" href="group___l_o_r_a_m_a_c.html#gafad6c929a33557ac2fd4000bcacd9453">LoRaMac.h</a>
 </li>
 <li>LoRaMacComputeMic()
-: <a class="el" href="group___l_o_r_a_m_a_c___c_r_y_p_t_o.html#ga6ee265070494b83255e7fdc4dff985da">LoRaMacCrypto.h</a>
-, <a class="el" href="group___l_o_r_a_m_a_c___c_r_y_p_t_o.html#ga6ee265070494b83255e7fdc4dff985da">LoRaMacCrypto.cpp</a>
+: <a class="el" href="group___l_o_r_a_m_a_c___c_r_y_p_t_o.html#ga6ee265070494b83255e7fdc4dff985da">LoRaMacCrypto.cpp</a>
+, <a class="el" href="group___l_o_r_a_m_a_c___c_r_y_p_t_o.html#ga6ee265070494b83255e7fdc4dff985da">LoRaMacCrypto.h</a>
 </li>
 <li>LoRaMacDevAddr
 : <a class="el" href="_lo_ra_mac_8cpp.html#ae4f54ed8a6d908c6604d65fc38cbb85e">LoRaMac.cpp</a>
@@ -536,12 +545,16 @@ $(function() {
 <li>LoRaMacFrameType_t
 : <a class="el" href="group___l_o_r_a_m_a_c.html#ga3772acf0e9af9869ead480132e733cb2">LoRaMac.h</a>
 </li>
+<li>LoRaMacGetOTAADevId()
+: <a class="el" href="group___l_o_r_a_m_a_c.html#gae0284f2814382abf4f45cfa03383660f">LoRaMac.h</a>
+, <a class="el" href="group___l_o_r_a_m_a_c.html#gae0284f2814382abf4f45cfa03383660f">LoRaMac.cpp</a>
+</li>
 <li>LoRaMacHeader_t
 : <a class="el" href="group___l_o_r_a_m_a_c.html#gaff5f7004a7a48d53d858e26834b53efa">LoRaMac.h</a>
 </li>
 <li>LoRaMacInitialization()
-: <a class="el" href="group___l_o_r_a_m_a_c.html#ga7ca445cf825e45999810b3991273eba5">LoRaMac.h</a>
-, <a class="el" href="group___l_o_r_a_m_a_c.html#ga7ca445cf825e45999810b3991273eba5">LoRaMac.cpp</a>
+: <a class="el" href="group___l_o_r_a_m_a_c.html#ga7ca445cf825e45999810b3991273eba5">LoRaMac.cpp</a>
+, <a class="el" href="group___l_o_r_a_m_a_c.html#ga7ca445cf825e45999810b3991273eba5">LoRaMac.h</a>
 </li>
 <li>LoRaMacInitializationTime
 : <a class="el" href="_lo_ra_mac_8cpp.html#a9f1317151d5bee85c310b5aa2d38725a">LoRaMac.cpp</a>
@@ -585,8 +598,8 @@ $(function() {
 , <a class="el" href="group___l_o_r_a_m_a_c.html#ga89622bf6a1705558ba7b76dbb2d59c2f">LoRaMac.cpp</a>
 </li>
 <li>LoRaMacMulticastChannelUnlink()
-: <a class="el" href="group___l_o_r_a_m_a_c.html#ga1542a215938fcff1d665ae48b449335e">LoRaMac.h</a>
-, <a class="el" href="group___l_o_r_a_m_a_c.html#ga1542a215938fcff1d665ae48b449335e">LoRaMac.cpp</a>
+: <a class="el" href="group___l_o_r_a_m_a_c.html#ga1542a215938fcff1d665ae48b449335e">LoRaMac.cpp</a>
+, <a class="el" href="group___l_o_r_a_m_a_c.html#ga1542a215938fcff1d665ae48b449335e">LoRaMac.h</a>
 </li>
 <li>LoRaMacNetID
 : <a class="el" href="_lo_ra_mac_8cpp.html#a7ca09f5a9430aecb3c21727f4aee5bf0">LoRaMac.cpp</a>
@@ -612,15 +625,15 @@ $(function() {
 , <a class="el" href="group___l_o_r_a_m_a_c___c_r_y_p_t_o.html#ga50339e60abea2186ca7e584b489718b1">LoRaMacCrypto.h</a>
 </li>
 <li>LoRaMacPrimitives
-: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a796121aa8a83d30f3d47961b67b53941">LoRaMacHelper.cpp</a>
-, <a class="el" href="_lo_ra_mac_8cpp.html#a18bac241dfa18d510ea2e53f0c740bd3">LoRaMac.cpp</a>
+: <a class="el" href="_lo_ra_mac_8cpp.html#a18bac241dfa18d510ea2e53f0c740bd3">LoRaMac.cpp</a>
+, <a class="el" href="_lo_ra_mac_helper_8cpp.html#a796121aa8a83d30f3d47961b67b53941">LoRaMacHelper.cpp</a>
 </li>
 <li>LoRaMacPrimitives_t
 : <a class="el" href="group___l_o_r_a_m_a_c.html#gafc0443f59f49d8597c0accb5e6074c44">LoRaMac.h</a>
 </li>
 <li>LoRaMacQueryTxPossible()
-: <a class="el" href="group___l_o_r_a_m_a_c.html#ga8b0aeaf75f9404ce01da9b202252c231">LoRaMac.cpp</a>
-, <a class="el" href="group___l_o_r_a_m_a_c.html#ga8b0aeaf75f9404ce01da9b202252c231">LoRaMac.h</a>
+: <a class="el" href="group___l_o_r_a_m_a_c.html#ga8b0aeaf75f9404ce01da9b202252c231">LoRaMac.h</a>
+, <a class="el" href="group___l_o_r_a_m_a_c.html#ga8b0aeaf75f9404ce01da9b202252c231">LoRaMac.cpp</a>
 </li>
 <li>LoRaMacRegion
 : <a class="el" href="_lo_ra_mac_8cpp.html#ab3e53bd4a0f4e547c9dbf450406acfe5">LoRaMac.cpp</a>
@@ -645,22 +658,28 @@ $(function() {
 , <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga3e8dc79232b2c86d12d8b4191324283d">LoRaMacTest.h</a>
 </li>
 <li>LoRaMacTestSetChannel()
-: <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga8cf3cc21ea237c5620536cea2750463e">LoRaMac.cpp</a>
-, <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga8cf3cc21ea237c5620536cea2750463e">LoRaMacTest.h</a>
+: <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga8cf3cc21ea237c5620536cea2750463e">LoRaMacTest.h</a>
+, <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga8cf3cc21ea237c5620536cea2750463e">LoRaMac.cpp</a>
 </li>
 <li>LoRaMacTestSetDutyCycleOn()
-: <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#gacee5e0492e548af9e1ec5a995e460865">LoRaMac.cpp</a>
-, <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#gacee5e0492e548af9e1ec5a995e460865">LoRaMacTest.h</a>
+: <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#gacee5e0492e548af9e1ec5a995e460865">LoRaMacTest.h</a>
+, <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#gacee5e0492e548af9e1ec5a995e460865">LoRaMac.cpp</a>
 </li>
 <li>LoRaMacTestSetMic()
-: <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga191314e00a8a27f426427473ba6821a7">LoRaMacTest.h</a>
-, <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga191314e00a8a27f426427473ba6821a7">LoRaMac.cpp</a>
+: <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga191314e00a8a27f426427473ba6821a7">LoRaMac.cpp</a>
+, <a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga191314e00a8a27f426427473ba6821a7">LoRaMacTest.h</a>
 </li>
 <li>LoRaMacTxInfo_t
 : <a class="el" href="group___l_o_r_a_m_a_c.html#ga3219fea2f3c3355f80d2ed29db613683">LoRaMac.h</a>
 </li>
 <li>LoRaMacTxPayloadLen
 : <a class="el" href="_lo_ra_mac_8cpp.html#a4d804b18131c6a241dd41197e68f9f0c">LoRaMac.cpp</a>
+</li>
+<li>LORAWAN_ADR_OFF
+: <a class="el" href="_commissioning_8h.html#aa1e846a8eecb64e0a26eab171de5ae28">Commissioning.h</a>
+</li>
+<li>LORAWAN_ADR_ON
+: <a class="el" href="_commissioning_8h.html#adac4009d9987bc72cbd980c1cfed9d65">Commissioning.h</a>
 </li>
 <li>LORAWAN_APP_DATA_MAX_SIZE
 : <a class="el" href="_lo_ra_mac_helper_8h.html#a00b3bd0109f6138543100250faa8fe1f">LoRaMacHelper.h</a>
@@ -695,11 +714,20 @@ $(function() {
 <li>LORAWAN_DEVICE_EUI
 : <a class="el" href="_commissioning_8h.html#a5a5c7994de8b9eff4893f05a302d422a">Commissioning.h</a>
 </li>
+<li>LORAWAN_DUTYCYCLE_OFF
+: <a class="el" href="_commissioning_8h.html#a4052db143e9eadf9f297f02f6206ec12">Commissioning.h</a>
+</li>
+<li>LORAWAN_DUTYCYCLE_ON
+: <a class="el" href="_commissioning_8h.html#a2dcff1e8f5fe0a5147106c01decc9793">Commissioning.h</a>
+</li>
 <li>LORAWAN_NETWORK_ID
 : <a class="el" href="_commissioning_8h.html#a03f526240cd528a75f0ba246be914055">Commissioning.h</a>
 </li>
 <li>LORAWAN_NWKSKEY
 : <a class="el" href="_commissioning_8h.html#a4cdf62d6a7d91dc335466647b864e9eb">Commissioning.h</a>
+</li>
+<li>LORAWAN_PRIVAT_NETWORK
+: <a class="el" href="_commissioning_8h.html#a2eba27687fc2df0eb1e7d809aeaf77b1">Commissioning.h</a>
 </li>
 <li>LORAWAN_PUBLIC_NETWORK
 : <a class="el" href="_commissioning_8h.html#aa3d87bc6a1dca396b576a8d83d3e3dbf">Commissioning.h</a>

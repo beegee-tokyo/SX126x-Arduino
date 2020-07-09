@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -73,6 +74,9 @@ $(function() {
 <div class="title">sx126x.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>SX126x driver implementation.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="board_8h_source.html">boards/mcu/board.h</a>&quot;</code><br />
@@ -126,10 +130,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab73ba3a3a7c06ae11abb3b3288a104d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Sync Word given by index used in GFSK.  <a href="sx126x_8cpp.html#ab73ba3a3a7c06ae11abb3b3288a104d6">More...</a><br /></td></tr>
 <tr class="separator:ab73ba3a3a7c06ae11abb3b3288a104d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4d2a9c6d18ef694e8b3d0c3de2322db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sx126x_8cpp.html#ab4d2a9c6d18ef694e8b3d0c3de2322db">SX126xSetCrcSeed</a> (uint16_t seed)</td></tr>
-<tr class="memdesc:ab4d2a9c6d18ef694e8b3d0c3de2322db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Initial value for the LFSR used for the CRC calculation.  <a href="sx126x_8cpp.html#ab4d2a9c6d18ef694e8b3d0c3de2322db">More...</a><br /></td></tr>
+<tr class="memdesc:ab4d2a9c6d18ef694e8b3d0c3de2322db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the seed value for the LFSR used for the CRC calculation.  <a href="sx126x_8cpp.html#ab4d2a9c6d18ef694e8b3d0c3de2322db">More...</a><br /></td></tr>
 <tr class="separator:ab4d2a9c6d18ef694e8b3d0c3de2322db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa21de46afa60fec5c57cb2af0102659b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sx126x_8cpp.html#aa21de46afa60fec5c57cb2af0102659b">SX126xSetCrcPolynomial</a> (uint16_t polynomial)</td></tr>
-<tr class="memdesc:aa21de46afa60fec5c57cb2af0102659b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the seed used for the CRC calculation.  <a href="sx126x_8cpp.html#aa21de46afa60fec5c57cb2af0102659b">More...</a><br /></td></tr>
+<tr class="memdesc:aa21de46afa60fec5c57cb2af0102659b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the polynomial used for the CRC calculation.  <a href="sx126x_8cpp.html#aa21de46afa60fec5c57cb2af0102659b">More...</a><br /></td></tr>
 <tr class="separator:aa21de46afa60fec5c57cb2af0102659b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4860c67f6d885030276376e698e1eb68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sx126x_8cpp.html#a4860c67f6d885030276376e698e1eb68">SX126xSetWhiteningSeed</a> (uint16_t seed)</td></tr>
 <tr class="memdesc:a4860c67f6d885030276376e698e1eb68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Initial value of the LFSR used for the whitening in GFSK protocols.  <a href="sx126x_8cpp.html#a4860c67f6d885030276376e698e1eb68">More...</a><br /></td></tr>
@@ -261,7 +265,20 @@ Variables</h2></td></tr>
 <tr class="memdesc:a99e11cb5a067659f38aa2adc9c94289b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hold the status of the Image calibration.  <a href="sx126x_8cpp.html#a99e11cb5a067659f38aa2adc9c94289b">More...</a><br /></td></tr>
 <tr class="separator:a99e11cb5a067659f38aa2adc9c94289b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>SX126x driver implementation. </p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Revised BSD License, see file LICENSE.</dd></dl>
+<div class="fragment"><div class="line">  ______                              _</div>
+<div class="line"> / _____)             _              | |</div>
+<div class="line">( (____  _____ ____ _| |_ _____  ____| |__</div>
+<div class="line"> \____ \| ___ |    (_   _) ___ |/ ___)  _ \</div>
+<div class="line"> _____) ) ____| | | || |_| ____( (___| | | |</div>
+<div class="line">(______/|_____)_|_|_| \__)_____)\____)_| |_|</div>
+<div class="line">(C)2013-2017 Semtech</div>
+</div><!-- fragment --><dl class="section author"><dt>Author</dt><dd>Miguel Luis ( Semtech )</dd>
+<dd>
+Gregory Cristian ( Semtech ) </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="ae3fda5d159084f4f94c486ad6d8ccc2c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3fda5d159084f4f94c486ad6d8ccc2c">&#9670;&nbsp;</a></span>SX126xOnDioIrq()</h2>
 
@@ -428,7 +445,7 @@ Variables</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>WARNING: This function is only required to reflect the current radio operating mode when processing interrupts.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>New operating mode </td></tr>
+    <tr><td class="paramname">mode</td><td>New operating mode </td></tr>
   </table>
   </dd>
 </dl>
@@ -484,8 +501,8 @@ Variables</h2></td></tr>
 <p>Saves the payload to be send in the radio buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">payload</td><td>A pointer to the payload </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>The size of the payload </td></tr>
+    <tr><td class="paramname">payload</td><td>A pointer to the payload </td></tr>
+    <tr><td class="paramname">size</td><td>The size of the payload </td></tr>
   </table>
   </dd>
 </dl>
@@ -527,9 +544,9 @@ Variables</h2></td></tr>
 <p>Reads the payload received. If the received payload is longer than maxSize, then the method returns 1 and do not set size and payload. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">payload</td><td>A pointer to a buffer into which the payload will be copied </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">size</td><td>A pointer to the size of the payload received </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">maxSize</td><td>The maximal size allowed to copy into the buffer </td></tr>
+    <tr><td class="paramname">payload</td><td>A pointer to a buffer into which the payload will be copied </td></tr>
+    <tr><td class="paramname">size</td><td>A pointer to the size of the payload received </td></tr>
+    <tr><td class="paramname">maxSize</td><td>The maximal size allowed to copy into the buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -571,9 +588,9 @@ Variables</h2></td></tr>
 <p>Sends a payload. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">payload</td><td>A pointer to the payload to send </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>The size of the payload to send </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>The timeout for Tx operation </td></tr>
+    <tr><td class="paramname">payload</td><td>A pointer to the payload to send </td></tr>
+    <tr><td class="paramname">size</td><td>The size of the payload to send </td></tr>
+    <tr><td class="paramname">timeout</td><td>The timeout for Tx operation </td></tr>
   </table>
   </dd>
 </dl>
@@ -599,7 +616,7 @@ Variables</h2></td></tr>
 <p>Sets the Sync Word given by index used in GFSK. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">syncWord</td><td>SyncWord bytes ( 8 bytes )</td></tr>
+    <tr><td class="paramname">syncWord</td><td>SyncWord bytes ( 8 bytes )</td></tr>
   </table>
   </dd>
 </dl>
@@ -628,10 +645,10 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the Initial value for the LFSR used for the CRC calculation. </p>
+<p>Sets the seed value for the LFSR used for the CRC calculation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">seed</td><td>Initial LFSR value ( 2 bytes ) </td></tr>
+    <tr><td class="paramname">seed</td><td>Initial LFSR value ( 2 bytes ) </td></tr>
   </table>
   </dd>
 </dl>
@@ -654,10 +671,10 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the seed used for the CRC calculation. </p>
+<p>Sets the polynomial used for the CRC calculation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">seed</td><td>The seed value </td></tr>
+    <tr><td class="paramname">polynomial</td><td>The seed value </td></tr>
   </table>
   </dd>
 </dl>
@@ -683,7 +700,7 @@ Variables</h2></td></tr>
 <p>Sets the Initial value of the LFSR used for the whitening in GFSK protocols. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">seed</td><td>Initial LFSR value </td></tr>
+    <tr><td class="paramname">seed</td><td>Initial LFSR value </td></tr>
   </table>
   </dd>
 </dl>
@@ -736,7 +753,7 @@ Variables</h2></td></tr>
 <p>Sets the radio in sleep mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">sleepConfig</td><td>The sleep configuration describing data retention and RTC wake-up </td></tr>
+    <tr><td class="paramname">sleepConfig</td><td>The sleep configuration describing data retention and RTC wake-up </td></tr>
   </table>
   </dd>
 </dl>
@@ -762,7 +779,7 @@ Variables</h2></td></tr>
 <p>Sets the radio in configuration mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>The standby mode to put the radio into </td></tr>
+    <tr><td class="paramname">mode</td><td>The standby mode to put the radio into </td></tr>
   </table>
   </dd>
 </dl>
@@ -808,7 +825,7 @@ Variables</h2></td></tr>
 <p>Sets the radio in transmission mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>Structure describing the transmission timeout value </td></tr>
+    <tr><td class="paramname">timeout</td><td>Structure describing the transmission timeout value </td></tr>
   </table>
   </dd>
 </dl>
@@ -834,7 +851,7 @@ Variables</h2></td></tr>
 <p>Sets the radio in reception mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>Structure describing the reception timeout value </td></tr>
+    <tr><td class="paramname">timeout</td><td>Structure describing the reception timeout value </td></tr>
   </table>
   </dd>
 </dl>
@@ -860,7 +877,7 @@ Variables</h2></td></tr>
 <p>Sets the radio in reception mode with Boosted LNA gain. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>Structure describing the reception timeout value </td></tr>
+    <tr><td class="paramname">timeout</td><td>Structure describing the reception timeout value </td></tr>
   </table>
   </dd>
 </dl>
@@ -896,8 +913,8 @@ Variables</h2></td></tr>
 <p>Sets the Rx duty cycle management parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">rxTime</td><td>Structure describing reception timeout value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sleepTime</td><td>Structure describing sleep timeout value </td></tr>
+    <tr><td class="paramname">rxTime</td><td>Structure describing reception timeout value </td></tr>
+    <tr><td class="paramname">sleepTime</td><td>Structure describing sleep timeout value </td></tr>
   </table>
   </dd>
 </dl>
@@ -983,7 +1000,7 @@ Variables</h2></td></tr>
 <p>Decide which interrupt will stop the internal radio rx timer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">enable</td><td>[0: Timer stop after header/syncword detection 1: Timer stop after preamble detection] </td></tr>
+    <tr><td class="paramname">enable</td><td>[0: Timer stop after header/syncword detection 1: Timer stop after preamble detection] </td></tr>
   </table>
   </dd>
 </dl>
@@ -1009,7 +1026,7 @@ Variables</h2></td></tr>
 <p>Set the number of symbol the radio will wait to validate a reception. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">SymbNum</td><td>number of LoRa symbols </td></tr>
+    <tr><td class="paramname">SymbNum</td><td>number of LoRa symbols </td></tr>
   </table>
   </dd>
 </dl>
@@ -1035,7 +1052,7 @@ Variables</h2></td></tr>
 <p>Sets the power regulators operating mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>[0: LDO, 1:DC_DC] </td></tr>
+    <tr><td class="paramname">mode</td><td>[0: LDO, 1:DC_DC] </td></tr>
   </table>
   </dd>
 </dl>
@@ -1061,7 +1078,7 @@ Variables</h2></td></tr>
 <p>Calibrates the given radio block. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">calibParam</td><td>The description of blocks to be calibrated </td></tr>
+    <tr><td class="paramname">calibParam</td><td>The description of blocks to be calibrated </td></tr>
   </table>
   </dd>
 </dl>
@@ -1087,7 +1104,7 @@ Variables</h2></td></tr>
 <p>Calibrates the Image rejection depending of the frequency. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">freq</td><td>The operating frequency </td></tr>
+    <tr><td class="paramname">freq</td><td>The operating frequency </td></tr>
   </table>
   </dd>
 </dl>
@@ -1135,10 +1152,10 @@ Variables</h2></td></tr>
 <p>Sets the transmission parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">paDutyCycle</td><td>Duty Cycle for the PA </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">hpMax</td><td>0 for sx1261, 7 for sx1262 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">deviceSel</td><td>1 for sx1261, 0 for sx1262 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">paLut</td><td>0 for 14dBm LUT, 1 for 22dBm LUT </td></tr>
+    <tr><td class="paramname">paDutyCycle</td><td>Duty Cycle for the PA </td></tr>
+    <tr><td class="paramname">hpMax</td><td>0 for sx1261, 7 for sx1262 </td></tr>
+    <tr><td class="paramname">deviceSel</td><td>1 for sx1261, 0 for sx1262 </td></tr>
+    <tr><td class="paramname">paLut</td><td>0 for 14dBm LUT, 1 for 22dBm LUT </td></tr>
   </table>
   </dd>
 </dl>
@@ -1164,7 +1181,7 @@ Variables</h2></td></tr>
 <p>Defines into which mode the chip goes after a TX / RX done. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">fallbackMode</td><td>The mode in which the radio goes </td></tr>
+    <tr><td class="paramname">fallbackMode</td><td>The mode in which the radio goes </td></tr>
   </table>
   </dd>
 </dl>
@@ -1212,12 +1229,14 @@ Variables</h2></td></tr>
 <p>Sets the IRQ mask and DIO masks. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">irqMask</td><td>General IRQ mask </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">dio1Mask</td><td>DIO1 mask </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">dio2Mask</td><td>DIO2 mask </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">dio3Mask</td><td>DIO3 mask </td></tr>
+    <tr><td class="paramname">irqMask</td><td>General IRQ mask </td></tr>
+    <tr><td class="paramname">dio1Mask</td><td>DIO1 mask </td></tr>
+    <tr><td class="paramname">dio2Mask</td><td>DIO2 mask </td></tr>
+    <tr><td class="paramname">dio3Mask</td><td>DIO3 mask </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a31">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -1267,7 +1286,7 @@ Variables</h2></td></tr>
 <p>Indicates if DIO2 is used to control an RF Switch. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">enable</td><td>true of false </td></tr>
+    <tr><td class="paramname">enable</td><td>true of false </td></tr>
   </table>
   </dd>
 </dl>
@@ -1303,8 +1322,8 @@ Variables</h2></td></tr>
 <p>Indicates if the Radio main clock is supplied from a tcxo. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">tcxoVoltage</td><td>voltage used to control the TCXO </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>time given to the TCXO to go to 32MHz </td></tr>
+    <tr><td class="paramname">tcxoVoltage</td><td>voltage used to control the TCXO </td></tr>
+    <tr><td class="paramname">timeout</td><td>time given to the TCXO to go to 32MHz </td></tr>
   </table>
   </dd>
 </dl>
@@ -1330,7 +1349,7 @@ Variables</h2></td></tr>
 <p>Sets the RF frequency. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">frequency</td><td>RF frequency [Hz] </td></tr>
+    <tr><td class="paramname">frequency</td><td>RF frequency [Hz] </td></tr>
   </table>
   </dd>
 </dl>
@@ -1356,7 +1375,7 @@ Variables</h2></td></tr>
 <p>Sets the radio for the given protocol. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">packetType</td><td>[PACKET_TYPE_GFSK, PACKET_TYPE_LORA]</td></tr>
+    <tr><td class="paramname">packetType</td><td>[PACKET_TYPE_GFSK, PACKET_TYPE_LORA]</td></tr>
   </table>
   </dd>
 </dl>
@@ -1419,8 +1438,8 @@ Variables</h2></td></tr>
 <p>Sets the transmission parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">power</td><td>RF output power [-18..13] dBm </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rampTime</td><td>Transmission ramp up time </td></tr>
+    <tr><td class="paramname">power</td><td>RF output power [-18..13] dBm </td></tr>
+    <tr><td class="paramname">rampTime</td><td>Transmission ramp up time </td></tr>
   </table>
   </dd>
 </dl>
@@ -1446,7 +1465,7 @@ Variables</h2></td></tr>
 <p>Set the modulation parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">modParams</td><td>A structure describing the modulation parameters </td></tr>
+    <tr><td class="paramname">modParams</td><td>A structure describing the modulation parameters </td></tr>
   </table>
   </dd>
 </dl>
@@ -1472,7 +1491,7 @@ Variables</h2></td></tr>
 <p>Sets the packet parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">packetParams</td><td>A structure describing the packet parameters </td></tr>
+    <tr><td class="paramname">packetParams</td><td>A structure describing the packet parameters </td></tr>
   </table>
   </dd>
 </dl>
@@ -1526,11 +1545,11 @@ Variables</h2></td></tr>
 <p>Sets the Channel Activity Detection (CAD) parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadSymbolNum</td><td>The number of symbol to use for CAD operations [LORA_CAD_01_SYMBOL, LORA_CAD_02_SYMBOL, LORA_CAD_04_SYMBOL, LORA_CAD_08_SYMBOL, LORA_CAD_16_SYMBOL] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadDetPeak</td><td>Limit for detection of SNR peak used in the CAD </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadDetMin</td><td>Set the minimum symbol recognition for CAD </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadExitMode</td><td>Operation to be done at the end of CAD action [LORA_CAD_ONLY, LORA_CAD_RX, LORA_CAD_LBT] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cadTimeout</td><td>Defines the timeout value to abort the CAD activity </td></tr>
+    <tr><td class="paramname">cadSymbolNum</td><td>The number of symbol to use for CAD operations [LORA_CAD_01_SYMBOL, LORA_CAD_02_SYMBOL, LORA_CAD_04_SYMBOL, LORA_CAD_08_SYMBOL, LORA_CAD_16_SYMBOL] </td></tr>
+    <tr><td class="paramname">cadDetPeak</td><td>Limit for detection of SNR peak used in the CAD </td></tr>
+    <tr><td class="paramname">cadDetMin</td><td>Set the minimum symbol recognition for CAD </td></tr>
+    <tr><td class="paramname">cadExitMode</td><td>Operation to be done at the end of CAD action [LORA_CAD_ONLY, LORA_CAD_RX, LORA_CAD_LBT] </td></tr>
+    <tr><td class="paramname">cadTimeout</td><td>Defines the timeout value to abort the CAD activity </td></tr>
   </table>
   </dd>
 </dl>
@@ -1566,8 +1585,8 @@ Variables</h2></td></tr>
 <p>Sets the data buffer base address for transmission and reception. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">txBaseAddress</td><td>Transmission base address </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rxBaseAddress</td><td>Reception base address </td></tr>
+    <tr><td class="paramname">txBaseAddress</td><td>Transmission base address </td></tr>
+    <tr><td class="paramname">rxBaseAddress</td><td>Reception base address </td></tr>
   </table>
   </dd>
 </dl>
@@ -1655,8 +1674,8 @@ Variables</h2></td></tr>
 <p>Gets the last received packet buffer status. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">payloadLength</td><td>Last received packet payload length </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">rxStartBuffer</td><td>Last received packet buffer address pointer </td></tr>
+    <tr><td class="paramname">payloadLength</td><td>Last received packet payload length </td></tr>
+    <tr><td class="paramname">rxStartBuffer</td><td>Last received packet buffer address pointer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1682,7 +1701,7 @@ Variables</h2></td></tr>
 <p>Gets the last received packet payload length. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">pktStatus</td><td>A structure of packet status </td></tr>
+    <tr><td class="paramname">pktStatus</td><td>A structure of packet status </td></tr>
   </table>
   </dd>
 </dl>
@@ -1754,7 +1773,7 @@ Variables</h2></td></tr>
 <p>Clears the IRQs. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">irq</td><td>IRQ(s) to be cleared </td></tr>
+    <tr><td class="paramname">irq</td><td>IRQ(s) to be cleared </td></tr>
   </table>
   </dd>
 </dl>

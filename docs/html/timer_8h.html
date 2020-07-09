@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -256,10 +257,12 @@ Functions</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>TimerSetValue function must be called before starting the timer. this function initializes timestamp and reload value at 0.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>obj Structure containing the timer object parameters </td></tr>
-    <tr><td class="paramname">[IN]</td><td>callback Function callback called at the end of the timeout </td></tr>
+    <tr><td class="paramname">obj</td><td>Structure containing the timer object parameters </td></tr>
+    <tr><td class="paramname">callback</td><td>Function callback called at the end of the timeout </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_lo_ra_wan_pio_0csrc_0cmain_8cpp-example.html#a44">LoRaWanPio\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -283,9 +286,11 @@ Functions</h2></td></tr>
 <p>Starts and adds the timer object to the list of timer events. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>obj Structure containing the timer object parameters </td></tr>
+    <tr><td class="paramname">obj</td><td>Structure containing the timer object parameters </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_lo_ra_wan_pio_0csrc_0cmain_8cpp-example.html#a29">LoRaWanPio\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -309,7 +314,7 @@ Functions</h2></td></tr>
 <p>Stops and removes the timer object from the list of timer events. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>obj Structure containing the timer object parameters </td></tr>
+    <tr><td class="paramname">obj</td><td>Structure containing the timer object parameters </td></tr>
   </table>
   </dd>
 </dl>
@@ -335,7 +340,7 @@ Functions</h2></td></tr>
 <p>Resets the timer object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>obj Structure containing the timer object parameters </td></tr>
+    <tr><td class="paramname">obj</td><td>Structure containing the timer object parameters </td></tr>
   </table>
   </dd>
 </dl>
@@ -371,10 +376,12 @@ Functions</h2></td></tr>
 <p>Set timer new timeout value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>obj Structure containing the timer object parameters</td></tr>
-    <tr><td class="paramname">[IN]</td><td>value New timer timeout value in ms </td></tr>
+    <tr><td class="paramname">obj</td><td>Structure containing the timer object parameters</td></tr>
+    <tr><td class="paramname">value</td><td>New timer timeout value in ms </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_lo_ra_wan_pio_0csrc_0cmain_8cpp-example.html#a28">LoRaWanPio\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -398,7 +405,7 @@ Functions</h2></td></tr>
 <p>Return the Time elapsed since a fix moment in Time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>savedTime fix moment in Time</td></tr>
+    <tr><td class="paramname">savedTime</td><td>fix moment in Time</td></tr>
   </table>
   </dd>
 </dl>

@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -387,6 +388,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7ca445cf825e45999810b3991273eba5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___l_o_r_a_m_a_c.html#ga30bd25657e10480f8605ee951b0ecfbd">LoRaMacStatus_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___l_o_r_a_m_a_c.html#ga7ca445cf825e45999810b3991273eba5">LoRaMacInitialization</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#gafc0443f59f49d8597c0accb5e6074c44">LoRaMacPrimitives_t</a> *primitives, <a class="el" href="group___l_o_r_a_m_a_c.html#ga2899a8ebbefe08452ddf89e14159a160">LoRaMacCallback_t</a> *callbacks, <a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region)</td></tr>
 <tr class="memdesc:ga7ca445cf825e45999810b3991273eba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">LoRaMAC layer initialization.  <a href="group___l_o_r_a_m_a_c.html#ga7ca445cf825e45999810b3991273eba5">More...</a><br /></td></tr>
 <tr class="separator:ga7ca445cf825e45999810b3991273eba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae0284f2814382abf4f45cfa03383660f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___l_o_r_a_m_a_c.html#gae0284f2814382abf4f45cfa03383660f">LoRaMacGetOTAADevId</a> (void)</td></tr>
+<tr class="memdesc:gae0284f2814382abf4f45cfa03383660f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Device Address set by the LoRaWan server after OTAA join was successful.  <a href="group___l_o_r_a_m_a_c.html#gae0284f2814382abf4f45cfa03383660f">More...</a><br /></td></tr>
+<tr class="separator:gae0284f2814382abf4f45cfa03383660f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8b0aeaf75f9404ce01da9b202252c231"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___l_o_r_a_m_a_c.html#ga30bd25657e10480f8605ee951b0ecfbd">LoRaMacStatus_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___l_o_r_a_m_a_c.html#ga8b0aeaf75f9404ce01da9b202252c231">LoRaMacQueryTxPossible</a> (uint8_t size, <a class="el" href="group___l_o_r_a_m_a_c.html#ga3219fea2f3c3355f80d2ed29db613683">LoRaMacTxInfo_t</a> *txInfo)</td></tr>
 <tr class="memdesc:ga8b0aeaf75f9404ce01da9b202252c231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the LoRaMAC if it is possible to send the next frame with a given payload size. The LoRaMAC takes scheduled MAC commands into account and reports, when the frame can be send or not.  <a href="group___l_o_r_a_m_a_c.html#ga8b0aeaf75f9404ce01da9b202252c231">More...</a><br /></td></tr>
 <tr class="separator:ga8b0aeaf75f9404ce01da9b202252c231"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1760,15 +1764,41 @@ Variables</h2></td></tr>
 <p>In addition to the initialization of the LoRaMAC layer, this function initializes the callback primitives of the MCPS and MLME services. Every data field of <a class="el" href="group___l_o_r_a_m_a_c.html#gafc0443f59f49d8597c0accb5e6074c44">LoRaMacPrimitives_t</a> must be set to a valid callback function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>primitives - Pointer to a structure defining the LoRaMAC event functions. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#gafc0443f59f49d8597c0accb5e6074c44">LoRaMacPrimitives_t</a>.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>events - Pointer to a structure defining the LoRaMAC callback functions. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga2899a8ebbefe08452ddf89e14159a160">LoRaMacCallback_t</a>.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>region - The region to start.</td></tr>
+    <tr><td class="paramname">primitives</td><td>- Pointer to a structure defining the LoRaMAC event functions. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#gafc0443f59f49d8597c0accb5e6074c44">LoRaMacPrimitives_t</a>.</td></tr>
+    <tr><td class="paramname">callbacks</td><td>- Pointer to a structure defining the LoRaMAC callback functions. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga2899a8ebbefe08452ddf89e14159a160">LoRaMacCallback_t</a>.</td></tr>
+    <tr><td class="paramname">region</td><td>- The region to start.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
     <tr><td class="paramname">LoRaMacStatus_t</td><td>Status of the operation. Possible returns are: returns are: <a class="el" href="group___l_o_r_a_m_a_c.html#gga1d18f26b344040b3ec5c3db662919661a03db5fca052313edb3823c014b653a74">LORAMAC_STATUS_OK</a>, <a class="el" href="group___l_o_r_a_m_a_c.html#gga1d18f26b344040b3ec5c3db662919661ad0d3119f247d00e1787dda106fcb3017">LORAMAC_STATUS_PARAMETER_INVALID</a>, <a class="el" href="group___l_o_r_a_m_a_c.html#gga1d18f26b344040b3ec5c3db662919661af424839424174be5fc5e52e00160940e">LORAMAC_STATUS_REGION_NOT_SUPPORTED</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gae0284f2814382abf4f45cfa03383660f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae0284f2814382abf4f45cfa03383660f">&#9670;&nbsp;</a></span>LoRaMacGetOTAADevId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t LoRaMacGetOTAADevId </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the Device Address set by the LoRaWan server after OTAA join was successful. </p>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Device</td><td>Address given by the LoRaWan server </td></tr>
   </table>
   </dd>
 </dl>
@@ -1804,8 +1834,8 @@ Variables</h2></td></tr>
 <p>Queries the LoRaMAC if it is possible to send the next frame with a given payload size. The LoRaMAC takes scheduled MAC commands into account and reports, when the frame can be send or not. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>size - Size of applicative payload to be send next</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>txInfo - The structure <a class="el" href="group___l_o_r_a_m_a_c.html#ga3219fea2f3c3355f80d2ed29db613683">LoRaMacTxInfo_t</a> contains information about the actual maximum payload possible ( according to the configured datarate or the next datarate according to ADR ), and the maximum frame size, taking the scheduled MAC commands into account.</td></tr>
+    <tr><td class="paramname">size</td><td>- Size of applicative payload to be send next</td></tr>
+    <tr><td class="paramname">txInfo</td><td>- The structure <a class="el" href="group___l_o_r_a_m_a_c.html#ga3219fea2f3c3355f80d2ed29db613683">LoRaMacTxInfo_t</a> contains information about the actual maximum payload possible ( according to the configured datarate or the next datarate according to ADR ), and the maximum frame size, taking the scheduled MAC commands into account.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1848,8 +1878,8 @@ Variables</h2></td></tr>
 <p>Adds a new channel to the channel list and activates the id in the channel mask. Please note that this functionality is not available on all regions. Information about allowed ranges are available at the LoRaWAN Regional Parameters V1.0.2rB</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>id - Id of the channel.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>params - Channel parameters to set.</td></tr>
+    <tr><td class="paramname">id</td><td>- Id of the channel.</td></tr>
+    <tr><td class="paramname">params</td><td>- Channel parameters to set.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1882,7 +1912,7 @@ Variables</h2></td></tr>
 <p>Deactivates the id in the channel mask.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>id - Id of the channel.</td></tr>
+    <tr><td class="paramname">id</td><td>- Id of the channel.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1915,7 +1945,7 @@ Variables</h2></td></tr>
 <p>Links a multicast channel into the linked list.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>channelParam - Multicast channel parameters to link.</td></tr>
+    <tr><td class="paramname">channelParam</td><td>- Multicast channel parameters to link.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1948,7 +1978,7 @@ Variables</h2></td></tr>
 <p>Unlinks a multicast channel from the linked list.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>channelParam - Multicast channel parameters to unlink.</td></tr>
+    <tr><td class="paramname">channelParam</td><td>- Multicast channel parameters to unlink.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1988,7 +2018,7 @@ Variables</h2></td></tr>
 <div class="line">}</div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>mibRequest - MIB-GET-Request to perform. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga9269d5ae88dd157a58e9d60f680d63f0">MibRequestConfirm_t</a>.</td></tr>
+    <tr><td class="paramname">mibGet</td><td>- MIB-GET-Request to perform. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga9269d5ae88dd157a58e9d60f680d63f0">MibRequestConfirm_t</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2030,7 +2060,7 @@ Variables</h2></td></tr>
 <div class="line">}</div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>mibRequest - MIB-SET-Request to perform. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga9269d5ae88dd157a58e9d60f680d63f0">MibRequestConfirm_t</a>.</td></tr>
+    <tr><td class="paramname">mibSet</td><td>- MIB-SET-Request to perform. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga9269d5ae88dd157a58e9d60f680d63f0">MibRequestConfirm_t</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2087,7 +2117,7 @@ Variables</h2></td></tr>
 <div class="line">}</div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>mlmeRequest - MLME-Request to perform. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga5a32f5920a7a3d04435c142be7f38b19">MlmeReq_t</a>.</td></tr>
+    <tr><td class="paramname">mlmeRequest</td><td>- MLME-Request to perform. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga5a32f5920a7a3d04435c142be7f38b19">MlmeReq_t</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2132,7 +2162,7 @@ Variables</h2></td></tr>
 <div class="line">}</div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>mcpsRequest - MCPS-Request to perform. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga038e0fe5eecc1fc4e8165eace8e2e683">McpsReq_t</a>.</td></tr>
+    <tr><td class="paramname">mcpsRequest</td><td>- MCPS-Request to perform. Refer to <a class="el" href="group___l_o_r_a_m_a_c.html#ga038e0fe5eecc1fc4e8165eace8e2e683">McpsReq_t</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2170,35 +2200,35 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="astructe_mib_request_confirm_html_a71cc0adf3fe8337eaa6dc69a1463c8bc"><div class="ttname"><a href="structe_mib_request_confirm.html#a71cc0adf3fe8337eaa6dc69a1463c8bc">eMibRequestConfirm::Param</a></div><div class="ttdeci">MibParam_t Param</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1497</div></div>
+<div class="ttc" id="astructe_mib_request_confirm_html_a71cc0adf3fe8337eaa6dc69a1463c8bc"><div class="ttname"><a href="structe_mib_request_confirm.html#a71cc0adf3fe8337eaa6dc69a1463c8bc">eMibRequestConfirm::Param</a></div><div class="ttdeci">MibParam_t Param</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1498</div></div>
 <div class="ttc" id="astructs_mlme_req_html_a6f57f62db1981b24980a7745b966a469"><div class="ttname"><a href="structs_mlme_req.html#a6f57f62db1981b24980a7745b966a469">sMlmeReq::Req</a></div><div class="ttdeci">union sMlmeReq::uMlmeParam Req</div></div>
-<div class="ttc" id="aunions_mlme_req_1_1u_mlme_param_html_a8065a3a3d703e59ee8ee10ed48bcb726"><div class="ttname"><a href="unions_mlme_req_1_1u_mlme_param.html#a8065a3a3d703e59ee8ee10ed48bcb726">sMlmeReq::uMlmeParam::Join</a></div><div class="ttdeci">MlmeReqJoin_t Join</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1013</div></div>
-<div class="ttc" id="aunionu_mib_param_html_ab178fe02b29604d3996b55e72ebc39b6"><div class="ttname"><a href="unionu_mib_param.html#ab178fe02b29604d3996b55e72ebc39b6">uMibParam::AdrEnable</a></div><div class="ttdeci">bool AdrEnable</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1319</div></div>
-<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_gga320f4c08fe99747b08463689be624f7ba475ad5dea1c4c13b93b31095c665e92e"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#gga320f4c08fe99747b08463689be624f7ba475ad5dea1c4c13b93b31095c665e92e">MLME_JOIN</a></div><div class="ttdeci">@ MLME_JOIN</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:927</div></div>
-<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_ga79768f8a3c22aaff84d4dfcc77ad508c"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#ga79768f8a3c22aaff84d4dfcc77ad508c">LoRaMacMcpsRequest</a></div><div class="ttdeci">LoRaMacStatus_t LoRaMacMcpsRequest(McpsReq_t *mcpsRequest)</div><div class="ttdoc">LoRaMAC MCPS-Request.</div><div class="ttdef"><b>Definition:</b> LoRaMac.cpp:3223</div></div>
-<div class="ttc" id="a_lo_ra_mac_helper_8cpp_html_a6456b5f4ecdf15e4968b32065d48e2d2"><div class="ttname"><a href="_lo_ra_mac_helper_8cpp.html#a6456b5f4ecdf15e4968b32065d48e2d2">AppKey</a></div><div class="ttdeci">static uint8_t AppKey[]</div><div class="ttdef"><b>Definition:</b> LoRaMacHelper.cpp:73</div></div>
-<div class="ttc" id="aunions_mcps_req_1_1u_mcps_param_html_a2aae1e6bd0891c17e9bc2654ae95e60a"><div class="ttname"><a href="unions_mcps_req_1_1u_mcps_param.html#a2aae1e6bd0891c17e9bc2654ae95e60a">sMcpsReq::uMcpsParam::Unconfirmed</a></div><div class="ttdeci">McpsReqUnconfirmed_t Unconfirmed</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:780</div></div>
+<div class="ttc" id="aunions_mlme_req_1_1u_mlme_param_html_a8065a3a3d703e59ee8ee10ed48bcb726"><div class="ttname"><a href="unions_mlme_req_1_1u_mlme_param.html#a8065a3a3d703e59ee8ee10ed48bcb726">sMlmeReq::uMlmeParam::Join</a></div><div class="ttdeci">MlmeReqJoin_t Join</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1014</div></div>
+<div class="ttc" id="aunionu_mib_param_html_ab178fe02b29604d3996b55e72ebc39b6"><div class="ttname"><a href="unionu_mib_param.html#ab178fe02b29604d3996b55e72ebc39b6">uMibParam::AdrEnable</a></div><div class="ttdeci">bool AdrEnable</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1320</div></div>
+<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_gga320f4c08fe99747b08463689be624f7ba475ad5dea1c4c13b93b31095c665e92e"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#gga320f4c08fe99747b08463689be624f7ba475ad5dea1c4c13b93b31095c665e92e">MLME_JOIN</a></div><div class="ttdeci">@ MLME_JOIN</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:928</div></div>
+<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_ga79768f8a3c22aaff84d4dfcc77ad508c"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#ga79768f8a3c22aaff84d4dfcc77ad508c">LoRaMacMcpsRequest</a></div><div class="ttdeci">LoRaMacStatus_t LoRaMacMcpsRequest(McpsReq_t *mcpsRequest)</div><div class="ttdoc">LoRaMAC MCPS-Request.</div><div class="ttdef"><b>Definition:</b> LoRaMac.cpp:3216</div></div>
+<div class="ttc" id="a_lo_ra_mac_helper_8cpp_html_a6456b5f4ecdf15e4968b32065d48e2d2"><div class="ttname"><a href="_lo_ra_mac_helper_8cpp.html#a6456b5f4ecdf15e4968b32065d48e2d2">AppKey</a></div><div class="ttdeci">static uint8_t AppKey[]</div><div class="ttdef"><b>Definition:</b> LoRaMacHelper.cpp:78</div></div>
+<div class="ttc" id="aunions_mcps_req_1_1u_mcps_param_html_a2aae1e6bd0891c17e9bc2654ae95e60a"><div class="ttname"><a href="unions_mcps_req_1_1u_mcps_param.html#a2aae1e6bd0891c17e9bc2654ae95e60a">sMcpsReq::uMcpsParam::Unconfirmed</a></div><div class="ttdeci">McpsReqUnconfirmed_t Unconfirmed</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:781</div></div>
 <div class="ttc" id="astructs_mcps_req_html_a36a00aadc44825e3235a1652bd7911d6"><div class="ttname"><a href="structs_mcps_req.html#a36a00aadc44825e3235a1652bd7911d6">sMcpsReq::Req</a></div><div class="ttdeci">union sMcpsReq::uMcpsParam Req</div></div>
-<div class="ttc" id="astructe_mib_request_confirm_html_ad3d963c102bbd81f7dd9918f4c1731c1"><div class="ttname"><a href="structe_mib_request_confirm.html#ad3d963c102bbd81f7dd9918f4c1731c1">eMibRequestConfirm::Type</a></div><div class="ttdeci">Mib_t Type</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1492</div></div>
-<div class="ttc" id="astructs_mlme_req_join_html_a46bda1421b6d9dc9e6444ece02fd77d0"><div class="ttname"><a href="structs_mlme_req_join.html#a46bda1421b6d9dc9e6444ece02fd77d0">sMlmeReqJoin::AppEui</a></div><div class="ttdeci">uint8_t * AppEui</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:964</div></div>
-<div class="ttc" id="a_lo_ra_mac_helper_8cpp_html_a553baee9b2c1a2c0aa6334bb5560f3d1"><div class="ttname"><a href="_lo_ra_mac_helper_8cpp.html#a553baee9b2c1a2c0aa6334bb5560f3d1">mibReq</a></div><div class="ttdeci">static MibRequestConfirm_t mibReq</div><div class="ttdef"><b>Definition:</b> LoRaMacHelper.cpp:89</div></div>
-<div class="ttc" id="astructs_mlme_req_html_ab7870d559ad9c5a08d305220bf798cd3"><div class="ttname"><a href="structs_mlme_req.html#ab7870d559ad9c5a08d305220bf798cd3">sMlmeReq::Type</a></div><div class="ttdeci">Mlme_t Type</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1004</div></div>
-<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_gga7b080a046606f23fe030d0aa6d2a0e30a340afc087e96410da04d07fb0470f84a"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#gga7b080a046606f23fe030d0aa6d2a0e30a340afc087e96410da04d07fb0470f84a">MCPS_UNCONFIRMED</a></div><div class="ttdeci">@ MCPS_UNCONFIRMED</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:656</div></div>
-<div class="ttc" id="astructe_mib_request_confirm_html"><div class="ttname"><a href="structe_mib_request_confirm.html">eMibRequestConfirm</a></div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1488</div></div>
-<div class="ttc" id="a_lo_ra_mac_helper_8cpp_html_a559e145046915c83d8d4cd1034dcd48d"><div class="ttname"><a href="_lo_ra_mac_helper_8cpp.html#a559e145046915c83d8d4cd1034dcd48d">DevEui</a></div><div class="ttdeci">static uint8_t DevEui[]</div><div class="ttdef"><b>Definition:</b> LoRaMacHelper.cpp:71</div></div>
-<div class="ttc" id="astructs_mlme_req_join_html_a3bd1a01c6d01990265ec2b5bf0dd906f"><div class="ttname"><a href="structs_mlme_req_join.html#a3bd1a01c6d01990265ec2b5bf0dd906f">sMlmeReqJoin::AppKey</a></div><div class="ttdeci">uint8_t * AppKey</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:970</div></div>
-<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_gga1d18f26b344040b3ec5c3db662919661a03db5fca052313edb3823c014b653a74"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#gga1d18f26b344040b3ec5c3db662919661a03db5fca052313edb3823c014b653a74">LORAMAC_STATUS_OK</a></div><div class="ttdeci">@ LORAMAC_STATUS_OK</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1523</div></div>
-<div class="ttc" id="astructs_mlme_req_join_html_abd56390965a0e3a80e198d9ae39d1625"><div class="ttname"><a href="structs_mlme_req_join.html#abd56390965a0e3a80e198d9ae39d1625">sMlmeReqJoin::DevEui</a></div><div class="ttdeci">uint8_t * DevEui</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:958</div></div>
-<div class="ttc" id="astructs_mcps_req_unconfirmed_html_a38fff2f3a5d07612c80146613fe86ceb"><div class="ttname"><a href="structs_mcps_req_unconfirmed.html#a38fff2f3a5d07612c80146613fe86ceb">sMcpsReqUnconfirmed::fBuffer</a></div><div class="ttdeci">void * fBuffer</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:686</div></div>
-<div class="ttc" id="astructs_mcps_req_unconfirmed_html_a3c0190f7a5cc179b8cd664ff6a57169e"><div class="ttname"><a href="structs_mcps_req_unconfirmed.html#a3c0190f7a5cc179b8cd664ff6a57169e">sMcpsReqUnconfirmed::fPort</a></div><div class="ttdeci">uint8_t fPort</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:682</div></div>
-<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_ga097113f30feecc17c780940ff74af33e"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#ga097113f30feecc17c780940ff74af33e">LoRaMacMlmeRequest</a></div><div class="ttdeci">LoRaMacStatus_t LoRaMacMlmeRequest(MlmeReq_t *mlmeRequest)</div><div class="ttdoc">LoRaMAC MLME-Request.</div><div class="ttdef"><b>Definition:</b> LoRaMac.cpp:3113</div></div>
-<div class="ttc" id="a_lo_ra_mac_helper_8cpp_html_aeb7c5cb4ee9f2d92b3ee178bce539626"><div class="ttname"><a href="_lo_ra_mac_helper_8cpp.html#aeb7c5cb4ee9f2d92b3ee178bce539626">AppEui</a></div><div class="ttdeci">static uint8_t AppEui[]</div><div class="ttdef"><b>Definition:</b> LoRaMacHelper.cpp:72</div></div>
-<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_ga3e208a4f73213aa801eeb9d9da7b71dd"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#ga3e208a4f73213aa801eeb9d9da7b71dd">LoRaMacMibGetRequestConfirm</a></div><div class="ttdeci">LoRaMacStatus_t LoRaMacMibGetRequestConfirm(MibRequestConfirm_t *mibGet)</div><div class="ttdoc">LoRaMAC MIB-Get.</div><div class="ttdef"><b>Definition:</b> LoRaMac.cpp:2512</div></div>
-<div class="ttc" id="astructs_mcps_req_unconfirmed_html_a0e3cfa4780e696a8e262d1f8f9f5fec4"><div class="ttname"><a href="structs_mcps_req_unconfirmed.html#a0e3cfa4780e696a8e262d1f8f9f5fec4">sMcpsReqUnconfirmed::fBufferSize</a></div><div class="ttdeci">uint16_t fBufferSize</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:690</div></div>
-<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_gga32ea83d13a3f5bb4b3ec2ace2319ab61a756ff0b66217e3e4ddd0442c8aa56802"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#gga32ea83d13a3f5bb4b3ec2ace2319ab61a756ff0b66217e3e4ddd0442c8aa56802">MIB_ADR</a></div><div class="ttdeci">@ MIB_ADR</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1119</div></div>
-<div class="ttc" id="astructs_mcps_req_html"><div class="ttname"><a href="structs_mcps_req.html">sMcpsReq</a></div><div class="ttdef"><b>Definition:</b> LoRaMac.h:767</div></div>
-<div class="ttc" id="astructs_mcps_req_html_a9c0265d5c764fb2b0119c932b896f826"><div class="ttname"><a href="structs_mcps_req.html#a9c0265d5c764fb2b0119c932b896f826">sMcpsReq::Type</a></div><div class="ttdeci">Mcps_t Type</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:771</div></div>
-<div class="ttc" id="astructs_mlme_req_html"><div class="ttname"><a href="structs_mlme_req.html">sMlmeReq</a></div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1000</div></div>
+<div class="ttc" id="astructe_mib_request_confirm_html_ad3d963c102bbd81f7dd9918f4c1731c1"><div class="ttname"><a href="structe_mib_request_confirm.html#ad3d963c102bbd81f7dd9918f4c1731c1">eMibRequestConfirm::Type</a></div><div class="ttdeci">Mib_t Type</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1493</div></div>
+<div class="ttc" id="astructs_mlme_req_join_html_a46bda1421b6d9dc9e6444ece02fd77d0"><div class="ttname"><a href="structs_mlme_req_join.html#a46bda1421b6d9dc9e6444ece02fd77d0">sMlmeReqJoin::AppEui</a></div><div class="ttdeci">uint8_t * AppEui</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:965</div></div>
+<div class="ttc" id="a_lo_ra_mac_helper_8cpp_html_a553baee9b2c1a2c0aa6334bb5560f3d1"><div class="ttname"><a href="_lo_ra_mac_helper_8cpp.html#a553baee9b2c1a2c0aa6334bb5560f3d1">mibReq</a></div><div class="ttdeci">static MibRequestConfirm_t mibReq</div><div class="ttdef"><b>Definition:</b> LoRaMacHelper.cpp:92</div></div>
+<div class="ttc" id="astructs_mlme_req_html_ab7870d559ad9c5a08d305220bf798cd3"><div class="ttname"><a href="structs_mlme_req.html#ab7870d559ad9c5a08d305220bf798cd3">sMlmeReq::Type</a></div><div class="ttdeci">Mlme_t Type</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1005</div></div>
+<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_gga7b080a046606f23fe030d0aa6d2a0e30a340afc087e96410da04d07fb0470f84a"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#gga7b080a046606f23fe030d0aa6d2a0e30a340afc087e96410da04d07fb0470f84a">MCPS_UNCONFIRMED</a></div><div class="ttdeci">@ MCPS_UNCONFIRMED</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:657</div></div>
+<div class="ttc" id="astructe_mib_request_confirm_html"><div class="ttname"><a href="structe_mib_request_confirm.html">eMibRequestConfirm</a></div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1489</div></div>
+<div class="ttc" id="a_lo_ra_mac_helper_8cpp_html_a559e145046915c83d8d4cd1034dcd48d"><div class="ttname"><a href="_lo_ra_mac_helper_8cpp.html#a559e145046915c83d8d4cd1034dcd48d">DevEui</a></div><div class="ttdeci">static uint8_t DevEui[]</div><div class="ttdef"><b>Definition:</b> LoRaMacHelper.cpp:76</div></div>
+<div class="ttc" id="astructs_mlme_req_join_html_a3bd1a01c6d01990265ec2b5bf0dd906f"><div class="ttname"><a href="structs_mlme_req_join.html#a3bd1a01c6d01990265ec2b5bf0dd906f">sMlmeReqJoin::AppKey</a></div><div class="ttdeci">uint8_t * AppKey</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:971</div></div>
+<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_gga1d18f26b344040b3ec5c3db662919661a03db5fca052313edb3823c014b653a74"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#gga1d18f26b344040b3ec5c3db662919661a03db5fca052313edb3823c014b653a74">LORAMAC_STATUS_OK</a></div><div class="ttdeci">@ LORAMAC_STATUS_OK</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1524</div></div>
+<div class="ttc" id="astructs_mlme_req_join_html_abd56390965a0e3a80e198d9ae39d1625"><div class="ttname"><a href="structs_mlme_req_join.html#abd56390965a0e3a80e198d9ae39d1625">sMlmeReqJoin::DevEui</a></div><div class="ttdeci">uint8_t * DevEui</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:959</div></div>
+<div class="ttc" id="astructs_mcps_req_unconfirmed_html_a38fff2f3a5d07612c80146613fe86ceb"><div class="ttname"><a href="structs_mcps_req_unconfirmed.html#a38fff2f3a5d07612c80146613fe86ceb">sMcpsReqUnconfirmed::fBuffer</a></div><div class="ttdeci">void * fBuffer</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:687</div></div>
+<div class="ttc" id="astructs_mcps_req_unconfirmed_html_a3c0190f7a5cc179b8cd664ff6a57169e"><div class="ttname"><a href="structs_mcps_req_unconfirmed.html#a3c0190f7a5cc179b8cd664ff6a57169e">sMcpsReqUnconfirmed::fPort</a></div><div class="ttdeci">uint8_t fPort</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:683</div></div>
+<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_ga097113f30feecc17c780940ff74af33e"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#ga097113f30feecc17c780940ff74af33e">LoRaMacMlmeRequest</a></div><div class="ttdeci">LoRaMacStatus_t LoRaMacMlmeRequest(MlmeReq_t *mlmeRequest)</div><div class="ttdoc">LoRaMAC MLME-Request.</div><div class="ttdef"><b>Definition:</b> LoRaMac.cpp:3106</div></div>
+<div class="ttc" id="a_lo_ra_mac_helper_8cpp_html_aeb7c5cb4ee9f2d92b3ee178bce539626"><div class="ttname"><a href="_lo_ra_mac_helper_8cpp.html#aeb7c5cb4ee9f2d92b3ee178bce539626">AppEui</a></div><div class="ttdeci">static uint8_t AppEui[]</div><div class="ttdef"><b>Definition:</b> LoRaMacHelper.cpp:77</div></div>
+<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_ga3e208a4f73213aa801eeb9d9da7b71dd"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#ga3e208a4f73213aa801eeb9d9da7b71dd">LoRaMacMibGetRequestConfirm</a></div><div class="ttdeci">LoRaMacStatus_t LoRaMacMibGetRequestConfirm(MibRequestConfirm_t *mibGet)</div><div class="ttdoc">LoRaMAC MIB-Get.</div><div class="ttdef"><b>Definition:</b> LoRaMac.cpp:2505</div></div>
+<div class="ttc" id="astructs_mcps_req_unconfirmed_html_a0e3cfa4780e696a8e262d1f8f9f5fec4"><div class="ttname"><a href="structs_mcps_req_unconfirmed.html#a0e3cfa4780e696a8e262d1f8f9f5fec4">sMcpsReqUnconfirmed::fBufferSize</a></div><div class="ttdeci">uint16_t fBufferSize</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:691</div></div>
+<div class="ttc" id="agroup___l_o_r_a_m_a_c_html_gga32ea83d13a3f5bb4b3ec2ace2319ab61a756ff0b66217e3e4ddd0442c8aa56802"><div class="ttname"><a href="group___l_o_r_a_m_a_c.html#gga32ea83d13a3f5bb4b3ec2ace2319ab61a756ff0b66217e3e4ddd0442c8aa56802">MIB_ADR</a></div><div class="ttdeci">@ MIB_ADR</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1120</div></div>
+<div class="ttc" id="astructs_mcps_req_html"><div class="ttname"><a href="structs_mcps_req.html">sMcpsReq</a></div><div class="ttdef"><b>Definition:</b> LoRaMac.h:768</div></div>
+<div class="ttc" id="astructs_mcps_req_html_a9c0265d5c764fb2b0119c932b896f826"><div class="ttname"><a href="structs_mcps_req.html#a9c0265d5c764fb2b0119c932b896f826">sMcpsReq::Type</a></div><div class="ttdeci">Mcps_t Type</div><div class="ttdef"><b>Definition:</b> LoRaMac.h:772</div></div>
+<div class="ttc" id="astructs_mlme_req_html"><div class="ttname"><a href="structs_mlme_req.html">sMlmeReq</a></div><div class="ttdef"><b>Definition:</b> LoRaMac.h:1001</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

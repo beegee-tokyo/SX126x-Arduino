@@ -3,7 +3,7 @@
  *
  * \brief     SX126x driver implementation
  *
- * \copyright Revised BSD License, see section \ref LICENSE.
+ * \copyright Revised BSD License, see file LICENSE.
  *
  * \code
  *                ______                              _
@@ -728,7 +728,7 @@ extern "C"
  * \remark WARNING: This function is only required to reflect the current radio
  *                  operating mode when processing interrupts.
  *
- * \param [in] mode           New operating mode
+ * \param  mode           New operating mode
  */
 	void SX126xSetOperatingMode(RadioOperatingModes_t mode);
 
@@ -740,8 +740,8 @@ extern "C"
 	/*!
  * \brief Saves the payload to be send in the radio buffer
  *
- * \param [in]  payload       A pointer to the payload
- * \param [in]  size          The size of the payload
+ * \param   payload       A pointer to the payload
+ * \param   size          The size of the payload
  */
 	void SX126xSetPayload(uint8_t *payload, uint8_t size);
 
@@ -749,42 +749,42 @@ extern "C"
  * \brief Reads the payload received. If the received payload is longer
  * than maxSize, then the method returns 1 and do not set size and payload.
  *
- * \param [out] payload       A pointer to a buffer into which the payload will be copied
- * \param [out] size          A pointer to the size of the payload received
- * \param [in]  maxSize       The maximal size allowed to copy into the buffer
+ * \param  payload       A pointer to a buffer into which the payload will be copied
+ * \param  size          A pointer to the size of the payload received
+ * \param   maxSize       The maximal size allowed to copy into the buffer
  */
 	uint8_t SX126xGetPayload(uint8_t *payload, uint8_t *size, uint8_t maxSize);
 
 	/*!
  * \brief Sends a payload
  *
- * \param [in]  payload       A pointer to the payload to send
- * \param [in]  size          The size of the payload to send
- * \param [in]  timeout       The timeout for Tx operation
+ * \param   payload       A pointer to the payload to send
+ * \param   size          The size of the payload to send
+ * \param   timeout       The timeout for Tx operation
  */
 	void SX126xSendPayload(uint8_t *payload, uint8_t size, uint32_t timeout);
 
 	/*!
  * \brief Sets the Sync Word given by index used in GFSK
  *
- * \param [in]  syncWord      SyncWord bytes ( 8 bytes )
+ * \param   syncWord      SyncWord bytes ( 8 bytes )
  *
  * \retval      status        [0: OK, 1: NOK]
  */
 	uint8_t SX126xSetSyncWord(uint8_t *syncWord);
 
 	/*!
- * \brief Sets the Initial value for the LFSR used for the CRC calculation
+ * \brief Sets the seed value for the LFSR used for the CRC calculation
  *
- * \param [in]  seed          Initial LFSR value ( 2 bytes )
+ * \param   seed          Initial LFSR value ( 2 bytes )
  *
  */
 	void SX126xSetCrcSeed(uint16_t seed);
 
 	/*!
- * \brief Sets the seed used for the CRC calculation
+ * \brief Sets the polynomial used for the CRC calculation
  *
- * \param [in]  seed          The seed value
+ * \param   polynomial          The seed value
  *
  */
 	void SX126xSetCrcPolynomial(uint16_t polynomial);
@@ -792,7 +792,7 @@ extern "C"
 	/*!
  * \brief Sets the Initial value of the LFSR used for the whitening in GFSK protocols
  *
- * \param [in]  seed          Initial LFSR value
+ * \param   seed          Initial LFSR value
  */
 	void SX126xSetWhiteningSeed(uint16_t seed);
 
@@ -808,7 +808,7 @@ extern "C"
 	/*!
  * \brief Sets the radio in sleep mode
  *
- * \param [in]  sleepConfig   The sleep configuration describing data
+ * \param   sleepConfig   The sleep configuration describing data
  *                            retention and RTC wake-up
  */
 	void SX126xSetSleep(SleepParams_t sleepConfig);
@@ -816,7 +816,7 @@ extern "C"
 	/*!
  * \brief Sets the radio in configuration mode
  *
- * \param [in]  mode          The standby mode to put the radio into
+ * \param   mode          The standby mode to put the radio into
  */
 	void SX126xSetStandby(RadioStandbyModes_t mode);
 
@@ -828,29 +828,29 @@ extern "C"
 	/*!
  * \brief Sets the radio in transmission mode
  *
- * \param [in]  timeout       Structure describing the transmission timeout value
+ * \param   timeout       Structure describing the transmission timeout value
  */
 	void SX126xSetTx(uint32_t timeout);
 
 	/*!
  * \brief Sets the radio in reception mode
  *
- * \param [in]  timeout       Structure describing the reception timeout value
+ * \param   timeout       Structure describing the reception timeout value
  */
 	void SX126xSetRx(uint32_t timeout);
 
 	/*!
  * \brief Sets the radio in reception mode with Boosted LNA gain
  *
- * \param [in]  timeout       Structure describing the reception timeout value
+ * \param   timeout       Structure describing the reception timeout value
  */
 	void SX126xSetRxBoosted(uint32_t timeout);
 
 	/*!
  * \brief Sets the Rx duty cycle management parameters
  *
- * \param [in]  rxTime        Structure describing reception timeout value
- * \param [in]  sleepTime     Structure describing sleep timeout value
+ * \param   rxTime        Structure describing reception timeout value
+ * \param   sleepTime     Structure describing sleep timeout value
  */
 	void SX126xSetRxDutyCycle(uint32_t rxTime, uint32_t sleepTime);
 
@@ -872,7 +872,7 @@ extern "C"
 	/*!
  * \brief Decide which interrupt will stop the internal radio rx timer.
  *
- * \param [in]  enable          [0: Timer stop after header/syncword detection
+ * \param   enable          [0: Timer stop after header/syncword detection
  *                               1: Timer stop after preamble detection]
  */
 	void SX126xSetStopRxTimerOnPreambleDetect(bool enable);
@@ -880,98 +880,98 @@ extern "C"
 	/*!
  * \brief Set the number of symbol the radio will wait to validate a reception
  *
- * \param [in]  SymbNum          number of LoRa symbols
+ * \param   SymbNum          number of LoRa symbols
  */
 	void SX126xSetLoRaSymbNumTimeout(uint8_t SymbNum);
 
 	/*!
  * \brief Sets the power regulators operating mode
  *
- * \param [in]  mode          [0: LDO, 1:DC_DC]
+ * \param   mode          [0: LDO, 1:DC_DC]
  */
 	void SX126xSetRegulatorMode(RadioRegulatorMode_t mode);
 
 	/*!
  * \brief Calibrates the given radio block
  *
- * \param [in]  calibParam    The description of blocks to be calibrated
+ * \param   calibParam    The description of blocks to be calibrated
  */
 	void SX126xCalibrate(CalibrationParams_t calibParam);
 
 	/*!
  * \brief Calibrates the Image rejection depending of the frequency
  *
- * \param [in]  freq    The operating frequency
+ * \param   freq    The operating frequency
  */
 	void SX126xCalibrateImage(uint32_t freq);
 
 	/*!
  * \brief Activate the extention of the timeout when long preamble is used
  *
- * \param [in]  enable      The radio will extend the timeout to cope with long preamble
+ * \param   enable      The radio will extend the timeout to cope with long preamble
  */
 	void SX126xSetLongPreamble(uint8_t enable);
 
 	/*!
  * \brief Sets the transmission parameters
  *
- * \param [in]  paDutyCycle     Duty Cycle for the PA
- * \param [in]  hpMax          0 for sx1261, 7 for sx1262
- * \param [in]  deviceSel       1 for sx1261, 0 for sx1262
- * \param [in]  paLut           0 for 14dBm LUT, 1 for 22dBm LUT
+ * \param   paDutyCycle     Duty Cycle for the PA
+ * \param   hpMax          0 for sx1261, 7 for sx1262
+ * \param   deviceSel       1 for sx1261, 0 for sx1262
+ * \param   paLut           0 for 14dBm LUT, 1 for 22dBm LUT
  */
 	void SX126xSetPaConfig(uint8_t paDutyCycle, uint8_t hpMax, uint8_t deviceSel, uint8_t paLut);
 
 	/*!
  * \brief Defines into which mode the chip goes after a TX / RX done
  *
- * \param [in]  fallbackMode    The mode in which the radio goes
+ * \param   fallbackMode    The mode in which the radio goes
  */
 	void SX126xSetRxTxFallbackMode(uint8_t fallbackMode);
 
 	/*!
  * \brief Write data to the radio memory
  *
- * \param [in]  address       The address of the first byte to write in the radio
- * \param [in]  buffer        The data to be written in radio's memory
- * \param [in]  size          The number of bytes to write in radio's memory
+ * \param   address       The address of the first byte to write in the radio
+ * \param   buffer        The data to be written in radio's memory
+ * \param   size          The number of bytes to write in radio's memory
  */
 	void SX126xWriteRegisters(uint16_t address, uint8_t *buffer, uint16_t size);
 
 	/*!
  * \brief Read data from the radio memory
  *
- * \param [in]  address       The address of the first byte to read from the radio
- * \param [out] buffer        The buffer that holds data read from radio
- * \param [in]  size          The number of bytes to read from radio's memory
+ * \param   address       The address of the first byte to read from the radio
+ * \param  buffer        The buffer that holds data read from radio
+ * \param   size          The number of bytes to read from radio's memory
  */
 	void SX126xReadRegisters(uint16_t address, uint8_t *buffer, uint16_t size);
 
 	/*!
  * \brief Write data to the buffer holding the payload in the radio
  *
- * \param [in]  offset        The offset to start writing the payload
- * \param [in]  buffer        The data to be written (the payload)
- * \param [in]  size          The number of byte to be written
+ * \param   offset        The offset to start writing the payload
+ * \param   buffer        The data to be written (the payload)
+ * \param   size          The number of byte to be written
  */
 	void SX126xWriteBuffer(uint8_t offset, uint8_t *buffer, uint8_t size);
 
 	/*!
  * \brief Read data from the buffer holding the payload in the radio
  *
- * \param [in]  offset        The offset to start reading the payload
- * \param [out] buffer        A pointer to a buffer holding the data from the radio
- * \param [in]  size          The number of byte to be read
+ * \param   offset        The offset to start reading the payload
+ * \param  buffer        A pointer to a buffer holding the data from the radio
+ * \param   size          The number of byte to be read
  */
 	void SX126xReadBuffer(uint8_t offset, uint8_t *buffer, uint8_t size);
 
 	/*!
  * \brief   Sets the IRQ mask and DIO masks
  *
- * \param [in]  irqMask       General IRQ mask
- * \param [in]  dio1Mask      DIO1 mask
- * \param [in]  dio2Mask      DIO2 mask
- * \param [in]  dio3Mask      DIO3 mask
+ * \param   irqMask       General IRQ mask
+ * \param   dio1Mask      DIO1 mask
+ * \param   dio2Mask      DIO2 mask
+ * \param   dio3Mask      DIO3 mask
  */
 	void SX126xSetDioIrqParams(uint16_t irqMask, uint16_t dio1Mask, uint16_t dio2Mask, uint16_t dio3Mask);
 
@@ -985,29 +985,29 @@ extern "C"
 	/*!
  * \brief Indicates if DIO2 is used to control an RF Switch
  *
- * \param [in] enable     true of false
+ * \param  enable     true of false
  */
 	void SX126xSetDio2AsRfSwitchCtrl(uint8_t enable);
 
 	/*!
  * \brief Indicates if the Radio main clock is supplied from a tcxo
  *
- * \param [in] tcxoVoltage     voltage used to control the TCXO
- * \param [in] timeout         time given to the TCXO to go to 32MHz
+ * \param  tcxoVoltage     voltage used to control the TCXO
+ * \param  timeout         time given to the TCXO to go to 32MHz
  */
 	void SX126xSetDio3AsTcxoCtrl(RadioTcxoCtrlVoltage_t tcxoVoltage, uint32_t timeout);
 
 	/*!
  * \brief Sets the RF frequency
  *
- * \param [in]  frequency     RF frequency [Hz]
+ * \param   frequency     RF frequency [Hz]
  */
 	void SX126xSetRfFrequency(uint32_t frequency);
 
 	/*!
  * \brief Sets the radio for the given protocol
  *
- * \param [in]  packetType    [PACKET_TYPE_GFSK, PACKET_TYPE_LORA]
+ * \param   packetType    [PACKET_TYPE_GFSK, PACKET_TYPE_LORA]
  *
  * \remark This method has to be called before SetRfFrequency,
  *         SetModulationParams and SetPacketParams
@@ -1024,45 +1024,45 @@ extern "C"
 	/*!
  * \brief Sets the transmission parameters
  *
- * \param [in]  power         RF output power [-18..13] dBm
- * \param [in]  rampTime      Transmission ramp up time
+ * \param   power         RF output power [-18..13] dBm
+ * \param   rampTime      Transmission ramp up time
  */
 	void SX126xSetTxParams(int8_t power, RadioRampTimes_t rampTime);
 
 	/*!
  * \brief Set the modulation parameters
  *
- * \param [in]  modParams     A structure describing the modulation parameters
+ * \param   modParams     A structure describing the modulation parameters
  */
 	void SX126xSetModulationParams(ModulationParams_t *modParams);
 
 	/*!
  * \brief Sets the packet parameters
  *
- * \param [in]  packetParams  A structure describing the packet parameters
+ * \param   packetParams  A structure describing the packet parameters
  */
 	void SX126xSetPacketParams(PacketParams_t *packetParams);
 
 	/*!
  * \brief Sets the Channel Activity Detection (CAD) parameters
  *
- * \param [in]  cadSymbolNum   The number of symbol to use for CAD operations
+ * \param   cadSymbolNum   The number of symbol to use for CAD operations
  *                             [LORA_CAD_01_SYMBOL, LORA_CAD_02_SYMBOL,
  *                              LORA_CAD_04_SYMBOL, LORA_CAD_08_SYMBOL,
  *                              LORA_CAD_16_SYMBOL]
- * \param [in]  cadDetPeak     Limit for detection of SNR peak used in the CAD
- * \param [in]  cadDetMin      Set the minimum symbol recognition for CAD
- * \param [in]  cadExitMode    Operation to be done at the end of CAD action
+ * \param   cadDetPeak     Limit for detection of SNR peak used in the CAD
+ * \param   cadDetMin      Set the minimum symbol recognition for CAD
+ * \param   cadExitMode    Operation to be done at the end of CAD action
  *                             [LORA_CAD_ONLY, LORA_CAD_RX, LORA_CAD_LBT]
- * \param [in]  cadTimeout     Defines the timeout value to abort the CAD activity
+ * \param   cadTimeout     Defines the timeout value to abort the CAD activity
  */
 	void SX126xSetCadParams(RadioLoRaCadSymbols_t cadSymbolNum, uint8_t cadDetPeak, uint8_t cadDetMin, RadioCadExitModes_t cadExitMode, uint32_t cadTimeout);
 
 	/*!
  * \brief Sets the data buffer base address for transmission and reception
  *
- * \param [in]  txBaseAddress Transmission base address
- * \param [in]  rxBaseAddress Reception base address
+ * \param   txBaseAddress Transmission base address
+ * \param   rxBaseAddress Reception base address
  */
 	void SX126xSetBufferBaseAddress(uint8_t txBaseAddress, uint8_t rxBaseAddress);
 
@@ -1083,15 +1083,15 @@ extern "C"
 	/*!
  * \brief Gets the last received packet buffer status
  *
- * \param [out] payloadLength Last received packet payload length
- * \param [out] rxStartBuffer Last received packet buffer address pointer
+ * \param  payloadLength Last received packet payload length
+ * \param  rxStartBuffer Last received packet buffer address pointer
  */
 	void SX126xGetRxBufferStatus(uint8_t *payloadLength, uint8_t *rxStartBuffer);
 
 	/*!
  * \brief Gets the last received packet payload length
  *
- * \param [out] pktStatus     A structure of packet status
+ * \param  pktStatus     A structure of packet status
  */
 	void SX126xGetPacketStatus(PacketStatus_t *pktStatus);
 
@@ -1110,7 +1110,7 @@ extern "C"
 	/*!
  * \brief Clears the IRQs
  *
- * \param [in]  irq           IRQ(s) to be cleared
+ * \param   irq           IRQ(s) to be cleared
  */
 	void SX126xClearIrqStatus(uint16_t irq);
 };

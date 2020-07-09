@@ -3,7 +3,7 @@
  *
  * \brief     LoRa MAC layer implementation
  *
- * \copyright Revised BSD License, see section \ref LICENSE.
+ * \copyright Revised BSD License, see file LICENSE.
  *
  * \code
  *                ______                              _
@@ -34,7 +34,8 @@
  *            layer and the supported features.
  * \{
  *
- * \example   examples/LoRaWan
+ * \example   LoRaWan\LoRaWan.ino
+ * \example   LoRaWanPio\src\main.cpp
  *            LoRaWAN application example.
  */
 #ifndef __LORAMAC_H__
@@ -1620,19 +1621,19 @@ extern "C"
 		/*!
      * \brief   MCPS-Confirm primitive
      *
-     * \param   [OUT] MCPS-Confirm parameters
+     * \param    MCPS-Confirm parameters
      */
 		void (*MacMcpsConfirm)(McpsConfirm_t *McpsConfirm);
 		/*!
      * \brief   MCPS-Indication primitive
      *
-     * \param   [OUT] MCPS-Indication parameters
+     * \param    MCPS-Indication parameters
      */
 		void (*MacMcpsIndication)(McpsIndication_t *McpsIndication);
 		/*!
      * \brief   MLME-Confirm primitive
      *
-     * \param   [OUT] MLME-Confirm parameters
+     * \param    MLME-Confirm parameters
      */
 		void (*MacMlmeConfirm)(MlmeConfirm_t *MlmeConfirm);
 	} LoRaMacPrimitives_t;
@@ -1666,13 +1667,13 @@ extern "C"
  *          MLME services. Every data field of \ref LoRaMacPrimitives_t must be
  *          set to a valid callback function.
  *
- * \param   [IN] primitives - Pointer to a structure defining the LoRaMAC
+ * \param    primitives - Pointer to a structure defining the LoRaMAC
  *                            event functions. Refer to \ref LoRaMacPrimitives_t.
  *
- * \param   [IN] events - Pointer to a structure defining the LoRaMAC
+ * \param    callbacks - Pointer to a structure defining the LoRaMAC
  *                        callback functions. Refer to \ref LoRaMacCallback_t.
  *
- * \param   [IN] region - The region to start.
+ * \param    region - The region to start.
  *
  * \retval  LoRaMacStatus_t Status of the operation. Possible returns are:
  *          returns are:
@@ -1695,9 +1696,9 @@ extern "C"
  *          a given payload size. The LoRaMAC takes scheduled MAC commands into
  *          account and reports, when the frame can be send or not.
  *
- * \param   [IN] size - Size of applicative payload to be send next
+ * \param    size - Size of applicative payload to be send next
  *
- * \param   [OUT] txInfo - The structure \ref LoRaMacTxInfo_t contains
+ * \param    txInfo - The structure \ref LoRaMacTxInfo_t contains
  *                         information about the actual maximum payload possible
  *                         ( according to the configured datarate or the next
  *                         datarate according to ADR ), and the maximum frame
@@ -1722,9 +1723,9 @@ extern "C"
  *          the channel mask. Please note that this functionality is not available
  *          on all regions. Information about allowed ranges are available at the LoRaWAN Regional Parameters V1.0.2rB
  *
- * \param   [IN] id - Id of the channel.
+ * \param    id - Id of the channel.
  *
- * \param   [IN] params - Channel parameters to set.
+ * \param    params - Channel parameters to set.
  *
  * \retval  LoRaMacStatus_t Status of the operation. Possible returns are:
  *          \ref LORAMAC_STATUS_OK,
@@ -1738,7 +1739,7 @@ extern "C"
  *
  * \details Deactivates the id in the channel mask.
  *
- * \param   [IN] id - Id of the channel.
+ * \param    id - Id of the channel.
  *
  * \retval  LoRaMacStatus_t Status of the operation. Possible returns are:
  *          \ref LORAMAC_STATUS_OK,
@@ -1752,7 +1753,7 @@ extern "C"
  *
  * \details Links a multicast channel into the linked list.
  *
- * \param   [IN] channelParam - Multicast channel parameters to link.
+ * \param    channelParam - Multicast channel parameters to link.
  *
  * \retval  LoRaMacStatus_t Status of the operation. Possible returns are:
  *          \ref LORAMAC_STATUS_OK,
@@ -1766,7 +1767,7 @@ extern "C"
  *
  * \details Unlinks a multicast channel from the linked list.
  *
- * \param   [IN] channelParam - Multicast channel parameters to unlink.
+ * \param    channelParam - Multicast channel parameters to unlink.
  *
  * \retval  LoRaMacStatus_t Status of the operation. Possible returns are:
  *          \ref LORAMAC_STATUS_OK,
@@ -1794,7 +1795,7 @@ extern "C"
  * }
  * \endcode
  *
- * \param   [IN] mibRequest - MIB-GET-Request to perform. Refer to \ref MibRequestConfirm_t.
+ * \param    mibGet - MIB-GET-Request to perform. Refer to \ref MibRequestConfirm_t.
  *
  * \retval  LoRaMacStatus_t Status of the operation. Possible returns are:
  *          \ref LORAMAC_STATUS_OK,
@@ -1824,7 +1825,7 @@ extern "C"
  * }
  * \endcode
  *
- * \param   [IN] mibRequest - MIB-SET-Request to perform. Refer to \ref MibRequestConfirm_t.
+ * \param    mibSet - MIB-SET-Request to perform. Refer to \ref MibRequestConfirm_t.
  *
  * \retval  LoRaMacStatus_t Status of the operation. Possible returns are:
  *          \ref LORAMAC_STATUS_OK,
@@ -1868,7 +1869,7 @@ extern "C"
  * }
  * \endcode
  *
- * \param   [IN] mlmeRequest - MLME-Request to perform. Refer to \ref MlmeReq_t.
+ * \param    mlmeRequest - MLME-Request to perform. Refer to \ref MlmeReq_t.
  *
  * \retval  LoRaMacStatus_t Status of the operation. Possible returns are:
  *          \ref LORAMAC_STATUS_OK,
@@ -1903,7 +1904,7 @@ extern "C"
  * }
  * \endcode
  *
- * \param   [IN] mcpsRequest - MCPS-Request to perform. Refer to \ref McpsReq_t.
+ * \param    mcpsRequest - MCPS-Request to perform. Refer to \ref McpsReq_t.
  *
  * \retval  LoRaMacStatus_t Status of the operation. Possible returns are:
  *          \ref LORAMAC_STATUS_OK,

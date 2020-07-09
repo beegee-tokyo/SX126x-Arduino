@@ -80,14 +80,20 @@ extern "C"
 	extern hw_config _hwConfig;
 
 	/**@brief Initializes the target board peripherals.
+ *
+ * @param [hwConfig] hw_config describes the HW connection between the MCU and the SX126x
  */
 	uint32_t lora_hardware_init(hw_config hwConfig);
 
 	/**@brief Initializes the target board peripherals after deep sleep wake up.
+ *
+ * @param [hwConfig] hw_config describes the HW connection between the MCU and the SX126x
  */
 	uint32_t lora_hardware_re_init(hw_config hwConfig);
 
 	/**@brief Initializes the ISP4520 board peripherals.
+ *
+ * @param [chipType] chipType selects either SX1262/1268 or SX1261
  */
 	uint32_t lora_isp4520_init(int chipType);
 
@@ -108,7 +114,7 @@ extern "C"
 
 	/**@brief Gets the board 64 bits unique ID
  *
- * @param [IN] id Pointer to an array that will contain the Unique ID
+ * @param [id] id Pointer to an array that will contain the Unique ID
  */
 	void BoardGetUniqueId(uint8_t *id);
 

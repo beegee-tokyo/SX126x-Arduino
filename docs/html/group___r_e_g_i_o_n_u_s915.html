@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -710,7 +711,7 @@ Variables</h2></td></tr>
 <p>The function gets a value of a specific phy attribute. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>getPhy Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">getPhy</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -742,7 +743,7 @@ Variables</h2></td></tr>
 <p>Updates the last TX done parameters of the current channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>txDone Pointer to the function parameters. </td></tr>
+    <tr><td class="paramname">txDone</td><td>Pointer to the function parameters. </td></tr>
   </table>
   </dd>
 </dl>
@@ -768,7 +769,7 @@ Variables</h2></td></tr>
 <p>Initializes the channels masks and the channels. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>type Sets the initialization type. </td></tr>
+    <tr><td class="paramname">type</td><td>Sets the initialization type. </td></tr>
   </table>
   </dd>
 </dl>
@@ -804,8 +805,8 @@ Variables</h2></td></tr>
 <p>Verifies a parameter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>verify Pointer to the function parameters.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>type Sets the initialization type.</td></tr>
+    <tr><td class="paramname">verify</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">phyAttribute</td><td>Sets the initialization type.</td></tr>
   </table>
   </dd>
 </dl>
@@ -837,7 +838,7 @@ Variables</h2></td></tr>
 <p>The function parses the input buffer and sets up the channels of the CF list. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>applyCFList Pointer to the function parameters. </td></tr>
+    <tr><td class="paramname">applyCFList</td><td>Pointer to the function parameters. </td></tr>
   </table>
   </dd>
 </dl>
@@ -863,7 +864,7 @@ Variables</h2></td></tr>
 <p>Sets a channels mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>chanMaskSet Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">chanMaskSet</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -917,10 +918,10 @@ Variables</h2></td></tr>
 <p>Calculates the next datarate to set, when ADR is on or off. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>adrNext Pointer to the function parameters.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>drOut The calculated datarate for the next TX.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>txPowOut The TX power for the next TX.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>adrAckCounter The calculated ADR acknowledgement counter.</td></tr>
+    <tr><td class="paramname">adrNext</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">drOut</td><td>The calculated datarate for the next TX.</td></tr>
+    <tr><td class="paramname">txPowOut</td><td>The TX power for the next TX.</td></tr>
+    <tr><td class="paramname">adrAckCounter</td><td>The calculated ADR acknowledgement counter.</td></tr>
   </table>
   </dd>
 </dl>
@@ -973,10 +974,10 @@ Variables</h2></td></tr>
 <p>Computes the Rx window timeout and offset.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>datarate Rx window datarate index to be used</td></tr>
-    <tr><td class="paramname">[IN]</td><td>minRxSymbols Minimum required number of symbols to detect an Rx frame.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>rxError System maximum timing error of the receiver. In milliseconds The receiver will turn on in a [-rxError : +rxError] ms interval around RxOffset</td></tr>
-    <tr><td class="paramname">[OUT]rxConfigParams</td><td>Returns updated WindowTimeout and WindowOffset fields. </td></tr>
+    <tr><td class="paramname">datarate</td><td>Rx window datarate index to be used</td></tr>
+    <tr><td class="paramname">minRxSymbols</td><td>Minimum required number of symbols to detect an Rx frame.</td></tr>
+    <tr><td class="paramname">rxError</td><td>System maximum timing error of the receiver. In milliseconds The receiver will turn on in a [-rxError : +rxError] ms interval around RxOffset</td></tr>
+    <tr><td class="paramname">rxConfigParams</td><td>Returns updated WindowTimeout and WindowOffset fields. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1012,8 +1013,8 @@ Variables</h2></td></tr>
 <p>Configuration of the RX windows. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>rxConfig Pointer to the function parameters.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>datarate The datarate index which was set.</td></tr>
+    <tr><td class="paramname">rxConfig</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">datarate</td><td>The datarate index which was set.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1061,9 +1062,9 @@ Variables</h2></td></tr>
 <p>TX configuration. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>txConfig Pointer to the function parameters.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>txPower The tx power index which was set.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>txTimeOnAir The time-on-air of the frame.</td></tr>
+    <tr><td class="paramname">txConfig</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">txPower</td><td>The tx power index which was set.</td></tr>
+    <tr><td class="paramname">txTimeOnAir</td><td>The time-on-air of the frame.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1123,7 +1124,11 @@ Variables</h2></td></tr>
 <p>The function processes a Link ADR Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>linkAdrReq Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">linkAdrReq</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">drOut</td><td>Data rate.</td></tr>
+    <tr><td class="paramname">txPowOut</td><td>TX power.</td></tr>
+    <tr><td class="paramname">nbRepOut</td><td>Number of repeats.</td></tr>
+    <tr><td class="paramname">nbBytesParsed</td><td>Number of parsed bytes.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1155,7 +1160,7 @@ Variables</h2></td></tr>
 <p>The function processes a RX Parameter Setup Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>rxParamSetupReq Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">rxParamSetupReq</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1187,7 +1192,7 @@ Variables</h2></td></tr>
 <p>The function processes a Channel Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>newChannelReq Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">newChannelReq</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1219,7 +1224,7 @@ Variables</h2></td></tr>
 <p>The function processes a TX ParamSetup Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>txParamSetupReq Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">txParamSetupReq</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1251,7 +1256,7 @@ Variables</h2></td></tr>
 <p>The function processes a DlChannel Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>dlChannelReq Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">dlChannelReq</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1283,7 +1288,7 @@ Variables</h2></td></tr>
 <p>Alternates the datarate of the channel for the join request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>alternateDr Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">alternateDr</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1315,7 +1320,7 @@ Variables</h2></td></tr>
 <p>Calculates the back-off time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>calcBackOff Pointer to the function parameters. </td></tr>
+    <tr><td class="paramname">calcBackOff</td><td>Pointer to the function parameters. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1363,9 +1368,10 @@ Variables</h2></td></tr>
 <p>Searches and set the next random available channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[OUT]</td><td>channel Next channel to use for TX.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>time Time to wait for the next transmission according to the duty cycle.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>aggregatedTimeOff Updates the aggregated time off.</td></tr>
+    <tr><td class="paramname">nextChanParams</td><td>Parameters of next channel to use for TX.</td></tr>
+    <tr><td class="paramname">channel</td><td>Next channel to use for TX.</td></tr>
+    <tr><td class="paramname">time</td><td>Time to wait for the next transmission according to the duty cycle.</td></tr>
+    <tr><td class="paramname">aggregatedTimeOff</td><td>Updates the aggregated time off.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1397,7 +1403,7 @@ Variables</h2></td></tr>
 <p>Adds a channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>channelAdd Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">channelAdd</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1429,7 +1435,7 @@ Variables</h2></td></tr>
 <p>Removes a channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>channelRemove Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">channelRemove</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1461,7 +1467,7 @@ Variables</h2></td></tr>
 <p>Sets the radio into continuous wave mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>continuousWave Pointer to the function parameters. </td></tr>
+    <tr><td class="paramname">continuousWave</td><td>Pointer to the function parameters. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1503,9 +1509,9 @@ Variables</h2></td></tr>
 <p>Computes new datarate according to the given offset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>downlinkDwellTime Downlink dwell time configuration. 0: No limit, 1: 400ms</td></tr>
-    <tr><td class="paramname">[IN]</td><td>dr Current datarate</td></tr>
-    <tr><td class="paramname">[IN]</td><td>drOffset Offset to be applied</td></tr>
+    <tr><td class="paramname">downlinkDwellTime</td><td>Downlink dwell time configuration. 0: No limit, 1: 400ms</td></tr>
+    <tr><td class="paramname">dr</td><td>Current datarate</td></tr>
+    <tr><td class="paramname">drOffset</td><td>Offset to be applied</td></tr>
   </table>
   </dd>
 </dl>
@@ -1586,7 +1592,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">        {</div>
-<div class="line">            {<a class="code" href="group___r_e_g_i_o_n.html#ga8cc471faabc38682537f6a60a30844e4">DR_10</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga67346d631ba28781d6dffb2a7b6fd22f">DR_9</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga44cc96ba80ae464cd9330b784d329c16">DR_8</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga44cc96ba80ae464cd9330b784d329c16">DR_8</a>},  </div>
+<div class="line">            {<a class="code" href="group___r_e_g_i_o_n.html#ga8cc471faabc38682537f6a60a30844e4">DR_10</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga67346d631ba28781d6dffb2a7b6fd22f">DR_9</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga44cc96ba80ae464cd9330b784d329c16">DR_8</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga44cc96ba80ae464cd9330b784d329c16">DR_8</a>},    </div>
 <div class="line">            {<a class="code" href="group___r_e_g_i_o_n.html#ga77672781eaa7dc6f6892195739a5ef27">DR_11</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga8cc471faabc38682537f6a60a30844e4">DR_10</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga67346d631ba28781d6dffb2a7b6fd22f">DR_9</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga44cc96ba80ae464cd9330b784d329c16">DR_8</a>},   </div>
 <div class="line">            {<a class="code" href="group___r_e_g_i_o_n.html#gafcf0cda11eda5db3d4c4e9a5bd79c0d5">DR_12</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga77672781eaa7dc6f6892195739a5ef27">DR_11</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga8cc471faabc38682537f6a60a30844e4">DR_10</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga67346d631ba28781d6dffb2a7b6fd22f">DR_9</a>},  </div>
 <div class="line">            {<a class="code" href="group___r_e_g_i_o_n.html#ga226f47470cc69a6fe831f7c92709bc1f">DR_13</a>, <a class="code" href="group___r_e_g_i_o_n.html#gafcf0cda11eda5db3d4c4e9a5bd79c0d5">DR_12</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga77672781eaa7dc6f6892195739a5ef27">DR_11</a>, <a class="code" href="group___r_e_g_i_o_n.html#ga8cc471faabc38682537f6a60a30844e4">DR_10</a>}, </div>

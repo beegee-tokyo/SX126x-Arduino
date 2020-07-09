@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -112,6 +113,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a0658729c9849bfd14c87c5bdf121ea93"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="board_8h.html#a0658729c9849bfd14c87c5bdf121ea93">lora_isp4520_init</a> (int chipType)</td></tr>
 <tr class="memdesc:a0658729c9849bfd14c87c5bdf121ea93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the ISP4520 board peripherals.  <a href="board_8h.html#a0658729c9849bfd14c87c5bdf121ea93">More...</a><br /></td></tr>
 <tr class="separator:a0658729c9849bfd14c87c5bdf121ea93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0dec5473aad3fa7b84eb06dcd0fb83e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="board_8h.html#af0dec5473aad3fa7b84eb06dcd0fb83e">lora_rak4630_init</a> (void)</td></tr>
+<tr class="memdesc:af0dec5473aad3fa7b84eb06dcd0fb83e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the RAK4630 board peripherals.  <a href="board_8h.html#af0dec5473aad3fa7b84eb06dcd0fb83e">More...</a><br /></td></tr>
+<tr class="separator:af0dec5473aad3fa7b84eb06dcd0fb83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d6a3cc0043197b20f964dc3191bbe79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="board_8h.html#a2d6a3cc0043197b20f964dc3191bbe79">lora_hardware_uninit</a> (void)</td></tr>
 <tr class="memdesc:a2d6a3cc0043197b20f964dc3191bbe79"><td class="mdescLeft">&#160;</td><td class="mdescRight">De-initializes the target board peripherals to decrease power consumption.  <a href="board_8h.html#a2d6a3cc0043197b20f964dc3191bbe79">More...</a><br /></td></tr>
 <tr class="separator:a2d6a3cc0043197b20f964dc3191bbe79"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,6 +166,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_lo_ra_wan_pio_0csrc_0cmain_8cpp-example.html#a13">LoRaWanPio\src\main.cpp</a>, <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a4">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>, and <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a5">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -197,6 +203,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the target board peripherals. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[hwConfig]</td><td><a class="el" href="structhw__config.html">hw_config</a> describes the HW connection between the MCU and the SX126x </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -217,6 +229,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the target board peripherals after deep sleep wake up. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[hwConfig]</td><td><a class="el" href="structhw__config.html">hw_config</a> describes the HW connection between the MCU and the SX126x </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -237,6 +255,32 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the ISP4520 board peripherals. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[chipType]</td><td>chipType selects either SX1262/1268 or SX1261 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af0dec5473aad3fa7b84eb06dcd0fb83e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0dec5473aad3fa7b84eb06dcd0fb83e">&#9670;&nbsp;</a></span>lora_rak4630_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t lora_rak4630_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the RAK4630 board peripherals. </p>
 
 </div>
 </div>
@@ -305,7 +349,7 @@ Variables</h2></td></tr>
 <p>Gets the board 64 bits unique ID. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>id Pointer to an array that will contain the Unique ID </td></tr>
+    <tr><td class="paramname">[id]</td><td>id Pointer to an array that will contain the Unique ID </td></tr>
   </table>
   </dd>
 </dl>

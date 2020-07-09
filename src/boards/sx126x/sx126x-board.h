@@ -52,7 +52,7 @@ extern "C"
 
 	/**@brief Initializes DIO IRQ handlers
  *
- * \param [IN] irqHandlers Array containing the IRQ callback functions
+ * \param  dioIrq Array containing the IRQ callback functions
  */
 	void SX126xIoIrqInit(DioIrqHandler dioIrq);
 
@@ -76,30 +76,30 @@ extern "C"
 
 	/**@brief Send a command that write data to the radio
  *
- * \param [in]  opcode        Opcode of the command
- * \param [in]  buffer        Buffer to be send to the radio
- * \param [in]  size          Size of the buffer to send
+ * \param   opcode        Opcode of the command
+ * \param   buffer        Buffer to be send to the radio
+ * \param   size          Size of the buffer to send
  */
 	void SX126xWriteCommand(RadioCommands_t opcode, uint8_t *buffer, uint16_t size);
 
 	/**@brief Send a command that read data from the radio
  *
- * \param [in]  opcode        Opcode of the command
- * \param [out] buffer        Buffer holding data from the radio
- * \param [in]  size          Size of the buffer
+ * \param   opcode        Opcode of the command
+ * \param  buffer        Buffer holding data from the radio
+ * \param   size          Size of the buffer
  */
 	void SX126xReadCommand(RadioCommands_t opcode, uint8_t *buffer, uint16_t size);
 
 	/**@brief Write a single byte of data to the radio memory
  *
- * \param [in]  address       The address of the first byte to write in the radio
- * \param [in]  value         The data to be written in radio's memory
+ * \param   address       The address of the first byte to write in the radio
+ * \param   value         The data to be written in radio's memory
  */
 	void SX126xWriteRegister(uint16_t address, uint8_t value);
 
 	/**@brief Read a single byte of data from the radio memory
  *
- * \param [in]  address       The address of the first byte to write in the radio
+ * \param   address       The address of the first byte to write in the radio
  *
  * \retval      value         The value of the byte at the given address in radio's memory
  */
@@ -107,13 +107,13 @@ extern "C"
 
 	/**@brief Sets the radio output power.
  *
- * \param [IN] power Sets the RF output power
+ * \param  power Sets the RF output power
  */
 	void SX126xSetRfTxPower(int8_t power);
 
 	/**@brief Gets the board PA selection configuration
  *
- * \param [IN] channel Channel frequency in Hz
+ * \param  channel Channel frequency in Hz
  * \retval PaSelect RegPaConfig PaSelect value
  */
 	uint8_t SX126xGetPaSelect(uint32_t channel);
@@ -142,16 +142,16 @@ extern "C"
 
 	/**@brief Checks if the given RF frequency is supported by the hardware
  *
- * \param [IN] frequency RF frequency to be checked
+ * \param  frequency RF frequency to be checked
  * \retval isSupported [true: supported, false: unsupported]
  */
 	bool SX126xCheckRfFrequency(uint32_t frequency);
 
 	/**@brief Gets info on the number of packets received
  *
- * \param [OUT] nb_pkt_received     Number of received packets with CRC OK
- * \param [OUT] nb_pkt_crc_error    Number of received packets with CRC error
- * \param [OUT] nb_pkt_length_error Number of received packets with length error
+ * \param  nb_pkt_received     Number of received packets with CRC OK
+ * \param  nb_pkt_crc_error    Number of received packets with CRC error
+ * \param  nb_pkt_length_error Number of received packets with length error
  */
 	void SX126xGetStats(uint16_t *nb_pkt_received, uint16_t *nb_pkt_crc_error, uint16_t *nb_pkt_length_error);
 

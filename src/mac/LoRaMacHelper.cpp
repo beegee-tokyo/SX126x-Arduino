@@ -429,7 +429,7 @@ extern "C"
 
 	/**@brief MCPS-Confirm event function
  *
- * @param[in] McpsConfirm - Pointer to the confirm structure, containing confirm attributes.
+ * @param mcpsConfirm Pointer to the confirm structure, containing confirm attributes.
  */
 	static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 	{
@@ -466,7 +466,7 @@ extern "C"
 
 	/**@brief MCPS-Indication event function
  *
- * @param[in] mcpsIndication	Pointer to the indication structure, containing indication attributes.
+ * @param mcpsIndication	Pointer to the indication structure, containing indication attributes.
  */
 	static void McpsIndication(McpsIndication_t *mcpsIndication)
 	{
@@ -690,7 +690,7 @@ extern "C"
 
 	/**@brief MLME-Confirm event function
  *
- * @param[in] MlmeConfirm	Pointer to the confirm structure, containing confirm attributes.
+ * @param mlmeConfirm	Pointer to the confirm structure, containing confirm attributes.
  */
 	static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
 	{

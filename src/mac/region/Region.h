@@ -3,7 +3,7 @@
  *
  * \brief     Region implementation.
  *
- * \copyright Revised BSD License, see section \ref LICENSE.
+ * \copyright Revised BSD License, see file LICENSE.
  *
  * \code
  *                ______                              _
@@ -36,16 +36,16 @@
  *            - LoRaWAN regions can be activated by defining the related preprocessor
  *              definition. It is possible to define more than one region.
  *              The following regions are supported:
- *              - #define REGION_AS923
- *              - #define REGION_AU915
- *              - #define REGION_CN470
- *              - #define REGION_CN779
- *              - #define REGION_EU433
- *              - #define REGION_EU868
- *              - #define REGION_KR920
- *              - #define REGION_IN865
- *              - #define REGION_US915
- *              - #define REGION_US915_HYBRID
+ *              - # REGION_AS923
+ *              - # REGION_AU915
+ *              - # REGION_CN470
+ *              - # REGION_CN779
+ *              - # REGION_EU433
+ *              - # REGION_EU868
+ *              - # REGION_KR920
+ *              - # REGION_IN865
+ *              - # REGION_US915
+ *              - # REGION_US915_HYBRID
  *
  * \{
  */
@@ -1173,7 +1173,7 @@ extern "C"
  * \brief The function verifies if a region is active or not. If a region
  *        is not active, it cannot be used.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
  * \retval Return true, if the region is supported.
  */
@@ -1182,9 +1182,9 @@ extern "C"
 	/*!
  * \brief The function gets a value of a specific phy attribute.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] getPhy Pointer to the function parameters.
+ * \param  getPhy Pointer to the function parameters.
  *
  * \retval Returns a structure containing the PHY parameter.
  */
@@ -1193,29 +1193,29 @@ extern "C"
 	/*!
  * \brief Updates the last TX done parameters of the current channel.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] txDone Pointer to the function parameters.
+ * \param  txDone Pointer to the function parameters.
  */
 	void RegionSetBandTxDone(LoRaMacRegion_t region, SetBandTxDoneParams_t *txDone);
 
 	/*!
  * \brief Initializes the channels masks and the channels.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] type Sets the initialization type.
+ * \param  type Sets the initialization type.
  */
 	void RegionInitDefaults(LoRaMacRegion_t region, InitType_t type);
 
 	/*!
  * \brief Verifies a parameter.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] verify Pointer to the function parameters.
+ * \param  verify Pointer to the function parameters.
  *
- * \param [IN] type Sets the initialization type.
+ * \param  phyAttribute Sets the initialization type.
  *
  * \retval Returns true, if the parameter is valid.
  */
@@ -1225,18 +1225,18 @@ extern "C"
  * \brief The function parses the input buffer and sets up the channels of the
  *        CF list.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] applyCFList Pointer to the function parameters.
+ * \param  applyCFList Pointer to the function parameters.
  */
 	void RegionApplyCFList(LoRaMacRegion_t region, ApplyCFListParams_t *applyCFList);
 
 	/*!
  * \brief Sets a channels mask.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] chanMaskSet Pointer to the function parameters.
+ * \param  chanMaskSet Pointer to the function parameters.
  *
  * \retval Returns true, if the channels mask could be set.
  */
@@ -1245,15 +1245,15 @@ extern "C"
 	/*!
  * \brief Calculates the next datarate to set, when ADR is on or off.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] adrNext Pointer to the function parameters.
+ * \param  adrNext Pointer to the function parameters.
  *
- * \param [OUT] drOut The calculated datarate for the next TX.
+ * \param  drOut The calculated datarate for the next TX.
  *
- * \param [OUT] txPowOut The TX power for the next TX.
+ * \param  txPowOut The TX power for the next TX.
  *
- * \param [OUT] adrAckCounter The calculated ADR acknowledgement counter.
+ * \param  adrAckCounter The calculated ADR acknowledgement counter.
  *
  * \retval Returns true, if an ADR request should be performed.
  */
@@ -1262,11 +1262,11 @@ extern "C"
 	/*!
  * \brief Configuration of the RX windows.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] rxConfig Pointer to the function parameters.
+ * \param  rxConfig Pointer to the function parameters.
  *
- * \param [OUT] datarate The datarate index which was set.
+ * \param  datarate The datarate index which was set.
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
@@ -1313,30 +1313,30 @@ extern "C"
 	/*!
  * Computes the Rx window timeout and offset.
  *
- * \param [IN] region       LoRaWAN region.
+ * \param  region       LoRaWAN region.
  *
- * \param [IN] datarate     Rx window datarate index to be used
+ * \param  datarate     Rx window datarate index to be used
  *
- * \param [IN] minRxSymbols Minimum required number of symbols to detect an Rx frame.
+ * \param  minRxSymbols Minimum required number of symbols to detect an Rx frame.
  *
- * \param [IN] rxError      System maximum timing error of the receiver. In milliseconds
+ * \param  rxError      System maximum timing error of the receiver. In milliseconds
  *                          The receiver will turn on in a [-rxError : +rxError] ms
  *                          interval around RxOffset
  *
- * \param [OUT]rxConfigParams Returns updated WindowTimeout and WindowOffset fields.
+ * \param rxConfigParams Returns updated WindowTimeout and WindowOffset fields.
  */
 	void RegionComputeRxWindowParameters(LoRaMacRegion_t region, int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams);
 
 	/*!
  * \brief TX configuration.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] txConfig Pointer to the function parameters.
+ * \param  txConfig Pointer to the function parameters.
  *
- * \param [OUT] txPower The tx power index which was set.
+ * \param  txPower The tx power index which was set.
  *
- * \param [OUT] txTimeOnAir The time-on-air of the frame.
+ * \param  txTimeOnAir The time-on-air of the frame.
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
@@ -1345,17 +1345,17 @@ extern "C"
 	/*!
  * \brief The function processes a Link ADR Request.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] linkAdrReq Pointer to the function parameters.
+ * \param  linkAdrReq Pointer to the function parameters.
  *
- * \param [OUT] drOut The datarate which was applied.
+ * \param  drOut The datarate which was applied.
  *
- * \param [OUT] txPowOut The TX power which was applied.
+ * \param  txPowOut The TX power which was applied.
  *
- * \param [OUT] nbRepOut The number of repetitions to apply.
+ * \param  nbRepOut The number of repetitions to apply.
  *
- * \param [OUT] nbBytesParsed The number bytes which were parsed.
+ * \param  nbBytesParsed The number bytes which were parsed.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
@@ -1364,9 +1364,9 @@ extern "C"
 	/*!
  * \brief The function processes a RX Parameter Setup Request.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] rxParamSetupReq Pointer to the function parameters.
+ * \param  rxParamSetupReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
@@ -1375,9 +1375,9 @@ extern "C"
 	/*!
  * \brief The function processes a New Channel Request.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] newChannelReq Pointer to the function parameters.
+ * \param  newChannelReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
@@ -1386,9 +1386,9 @@ extern "C"
 	/*!
  * \brief The function processes a TX ParamSetup Request.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] txParamSetupReq Pointer to the function parameters.
+ * \param  txParamSetupReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  *         Returns -1, if the functionality is not implemented. In this case, the end node
@@ -1399,9 +1399,9 @@ extern "C"
 	/*!
  * \brief The function processes a DlChannel Request.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] dlChannelReq Pointer to the function parameters.
+ * \param  dlChannelReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
@@ -1410,9 +1410,9 @@ extern "C"
 	/*!
  * \brief Alternates the datarate of the channel for the join request.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] alternateDr Pointer to the function parameters.
+ * \param  alternateDr Pointer to the function parameters.
  *
  * \retval Datarate to apply.
  */
@@ -1421,23 +1421,25 @@ extern "C"
 	/*!
  * \brief Calculates the back-off time.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] calcBackOff Pointer to the function parameters.
+ * \param  calcBackOff Pointer to the function parameters.
  */
 	void RegionCalcBackOff(LoRaMacRegion_t region, CalcBackOffParams_t *calcBackOff);
 
 	/*!
  * \brief Searches and set the next random available channel
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [OUT] channel Next channel to use for TX.
+ * \param  nextChanParams parameter for next channel to use for TX.
  *
- * \param [OUT] time Time to wait for the next transmission according to the duty
+ * \param  channel Next channel to use for TX.
+ *
+ * \param  time Time to wait for the next transmission according to the duty
  *              cycle.
  *
- * \param [OUT] aggregatedTimeOff Updates the aggregated time off.
+ * \param  aggregatedTimeOff Updates the aggregated time off.
  *
  * \retval Function status [1: OK, 0: Unable to find a channel on the current datarate].
  */
@@ -1446,9 +1448,9 @@ extern "C"
 	/*!
  * \brief Adds a channel.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] channelAdd Pointer to the function parameters.
+ * \param  channelAdd Pointer to the function parameters.
  *
  * \retval Status of the operation.
  */
@@ -1457,9 +1459,9 @@ extern "C"
 	/*!
  * \brief Removes a channel.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] channelRemove Pointer to the function parameters.
+ * \param  channelRemove Pointer to the function parameters.
  *
  * \retval Returns true, if the channel was removed successfully.
  */
@@ -1468,20 +1470,22 @@ extern "C"
 	/*!
  * \brief Sets the radio into continuous wave mode.
  *
- * \param [IN] region LoRaWAN region.
+ * \param  region LoRaWAN region.
  *
- * \param [IN] continuousWave Pointer to the function parameters.
+ * \param  continuousWave Pointer to the function parameters.
  */
 	void RegionSetContinuousWave(LoRaMacRegion_t region, ContinuousWaveParams_t *continuousWave);
 
 	/*!
  * \brief Computes new datarate according to the given offset
  *
- * \param [IN] downlinkDwellTime Downlink dwell time configuration. 0: No limit, 1: 400ms
+ * \param  region LoRaWAN region.
  *
- * \param [IN] dr Current datarate
+ * \param  downlinkDwellTime Downlink dwell time configuration. 0: No limit, 1: 400ms
  *
- * \param [IN] drOffset Offset to be applied
+ * \param  dr Current datarate
+ *
+ * \param  drOffset Offset to be applied
  *
  * \retval newDr Computed datarate.
  */

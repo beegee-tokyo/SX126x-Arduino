@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -150,31 +151,33 @@ $(function() {
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">extern</span> <a class="code" href="structhw__config.html">hw_config</a> <a class="code" href="board_8h.html#a8a895ef188996ab7a31f64042c25ce82">_hwConfig</a>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    uint32_t <a class="code" href="board_8h.html#a6bd116b2545a4b1e27155c0d85c1ce62">lora_hardware_init</a>(<a class="code" href="structhw__config.html">hw_config</a> hwConfig);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    uint32_t <a class="code" href="board_8h.html#a3c7c06505d8f51022df1bad91408e050">lora_hardware_re_init</a>(<a class="code" href="structhw__config.html">hw_config</a> hwConfig);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    uint32_t <a class="code" href="board_8h.html#a0658729c9849bfd14c87c5bdf121ea93">lora_isp4520_init</a>(<span class="keywordtype">int</span> chipType);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    uint32_t <a class="code" href="board_8h.html#a6bd116b2545a4b1e27155c0d85c1ce62">lora_hardware_init</a>(<a class="code" href="structhw__config.html">hw_config</a> hwConfig);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    uint32_t <a class="code" href="board_8h.html#a3c7c06505d8f51022df1bad91408e050">lora_hardware_re_init</a>(<a class="code" href="structhw__config.html">hw_config</a> hwConfig);</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="board_8h.html#a2d6a3cc0043197b20f964dc3191bbe79">lora_hardware_uninit</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="board_8h.html#a9095c4392ffacd8b8e58e085edda7513">  103</a></span>&#160;    uint32_t <a class="code" href="board_8h.html#a9095c4392ffacd8b8e58e085edda7513">BoardGetRandomSeed</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="board_8h.html#a54a40b5afeedebdf522c93f3b3be43f5">  109</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="board_8h.html#a54a40b5afeedebdf522c93f3b3be43f5">BoardGetUniqueId</a>(uint8_t *<span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="board_8h.html#af76c87dec5209225d7e36c1af950c57d">  113</a></span>&#160;    uint8_t <a class="code" href="board_8h.html#af76c87dec5209225d7e36c1af950c57d">BoardGetBatteryLevel</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    uint32_t <a class="code" href="board_8h.html#a0658729c9849bfd14c87c5bdf121ea93">lora_isp4520_init</a>(<span class="keywordtype">int</span> chipType);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    uint32_t <a class="code" href="board_8h.html#af0dec5473aad3fa7b84eb06dcd0fb83e">lora_rak4630_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="board_8h.html#a2d6a3cc0043197b20f964dc3191bbe79">lora_hardware_uninit</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="board_8h.html#a9095c4392ffacd8b8e58e085edda7513">  113</a></span>&#160;    uint32_t <a class="code" href="board_8h.html#a9095c4392ffacd8b8e58e085edda7513">BoardGetRandomSeed</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="board_8h.html#a5f86a7fcd15b738de889d9226c437da1">  119</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="board_8h.html#a5f86a7fcd15b738de889d9226c437da1">BoardDisableIrq</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="board_8h.html#a54a40b5afeedebdf522c93f3b3be43f5">  119</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="board_8h.html#a54a40b5afeedebdf522c93f3b3be43f5">BoardGetUniqueId</a>(uint8_t *<span class="keywordtype">id</span>);</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="board_8h.html#a8d6641d901d5418117dcb38242130678">  125</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="board_8h.html#a8d6641d901d5418117dcb38242130678">BoardEnableIrq</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;};</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif // __BOARD_H__</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="board_8h.html#af76c87dec5209225d7e36c1af950c57d">  123</a></span>&#160;    uint8_t <a class="code" href="board_8h.html#af76c87dec5209225d7e36c1af950c57d">BoardGetBatteryLevel</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="board_8h.html#a5f86a7fcd15b738de889d9226c437da1">  129</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="board_8h.html#a5f86a7fcd15b738de889d9226c437da1">BoardDisableIrq</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="board_8h.html#a8d6641d901d5418117dcb38242130678">  135</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="board_8h.html#a8d6641d901d5418117dcb38242130678">BoardEnableIrq</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;};</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">#endif // __BOARD_H__</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aradio_8h_html"><div class="ttname"><a href="radio_8h.html">radio.h</a></div><div class="ttdoc">Radio driver API definition.</div></div>
 <div class="ttc" id="asx126x-board_8h_html"><div class="ttname"><a href="sx126x-board_8h.html">sx126x-board.h</a></div></div>
 <div class="ttc" id="aboard_8h_html_af76c87dec5209225d7e36c1af950c57d"><div class="ttname"><a href="board_8h.html#af76c87dec5209225d7e36c1af950c57d">BoardGetBatteryLevel</a></div><div class="ttdeci">uint8_t BoardGetBatteryLevel(void)</div><div class="ttdoc">Get batttery value TO BE IMPLEMENTED.</div></div>
 <div class="ttc" id="astructhw__config_html_a8439004a735cdf9ff405d0be6a327e21"><div class="ttname"><a href="structhw__config.html#a8439004a735cdf9ff405d0be6a327e21">hw_config::USE_LDO</a></div><div class="ttdeci">bool USE_LDO</div><div class="ttdef"><b>Definition:</b> board.h:74</div></div>
-<div class="ttc" id="aboard_8h_html_a2d6a3cc0043197b20f964dc3191bbe79"><div class="ttname"><a href="board_8h.html#a2d6a3cc0043197b20f964dc3191bbe79">lora_hardware_uninit</a></div><div class="ttdeci">void lora_hardware_uninit(void)</div><div class="ttdoc">De-initializes the target board peripherals to decrease power consumption.</div><div class="ttdef"><b>Definition:</b> board.cpp:132</div></div>
+<div class="ttc" id="aboard_8h_html_a2d6a3cc0043197b20f964dc3191bbe79"><div class="ttname"><a href="board_8h.html#a2d6a3cc0043197b20f964dc3191bbe79">lora_hardware_uninit</a></div><div class="ttdeci">void lora_hardware_uninit(void)</div><div class="ttdoc">De-initializes the target board peripherals to decrease power consumption.</div><div class="ttdef"><b>Definition:</b> board.cpp:171</div></div>
 <div class="ttc" id="astructhw__config_html_a5d3fc00da636981caf2dd7e78da8f2a7"><div class="ttname"><a href="structhw__config.html#a5d3fc00da636981caf2dd7e78da8f2a7">hw_config::RADIO_TXEN</a></div><div class="ttdeci">int RADIO_TXEN</div><div class="ttdef"><b>Definition:</b> board.h:69</div></div>
 <div class="ttc" id="aboard_8h_html_a8d6641d901d5418117dcb38242130678"><div class="ttname"><a href="board_8h.html#a8d6641d901d5418117dcb38242130678">BoardEnableIrq</a></div><div class="ttdeci">void BoardEnableIrq(void)</div><div class="ttdoc">Enable interrupts.</div></div>
 <div class="ttc" id="astructhw__config_html_a72ef40d54c7d1595eae39bee512b0620"><div class="ttname"><a href="structhw__config.html#a72ef40d54c7d1595eae39bee512b0620">hw_config::USE_DIO2_ANT_SWITCH</a></div><div class="ttdeci">bool USE_DIO2_ANT_SWITCH</div><div class="ttdef"><b>Definition:</b> board.h:71</div></div>
@@ -198,6 +201,7 @@ $(function() {
 <div class="ttc" id="aboard_8h_html_a0658729c9849bfd14c87c5bdf121ea93"><div class="ttname"><a href="board_8h.html#a0658729c9849bfd14c87c5bdf121ea93">lora_isp4520_init</a></div><div class="ttdeci">uint32_t lora_isp4520_init(int chipType)</div><div class="ttdoc">Initializes the ISP4520 board peripherals.</div><div class="ttdef"><b>Definition:</b> board.cpp:109</div></div>
 <div class="ttc" id="astructhw__config_html_ab71897257b0e801435be473a8fa85f07"><div class="ttname"><a href="structhw__config.html#ab71897257b0e801435be473a8fa85f07">hw_config::PIN_LORA_RESET</a></div><div class="ttdeci">int PIN_LORA_RESET</div><div class="ttdef"><b>Definition:</b> board.h:62</div></div>
 <div class="ttc" id="aboard_8h_html_a54a40b5afeedebdf522c93f3b3be43f5"><div class="ttname"><a href="board_8h.html#a54a40b5afeedebdf522c93f3b3be43f5">BoardGetUniqueId</a></div><div class="ttdeci">void BoardGetUniqueId(uint8_t *id)</div><div class="ttdoc">Gets the board 64 bits unique ID.</div></div>
+<div class="ttc" id="aboard_8h_html_af0dec5473aad3fa7b84eb06dcd0fb83e"><div class="ttname"><a href="board_8h.html#af0dec5473aad3fa7b84eb06dcd0fb83e">lora_rak4630_init</a></div><div class="ttdeci">uint32_t lora_rak4630_init(void)</div><div class="ttdoc">Initializes the RAK4630 board peripherals.</div><div class="ttdef"><b>Definition:</b> board.cpp:140</div></div>
 <div class="ttc" id="astructhw__config_html_a959d7afdfca4d0c4e82d276c6982f6e6"><div class="ttname"><a href="structhw__config.html#a959d7afdfca4d0c4e82d276c6982f6e6">hw_config::RADIO_RXEN</a></div><div class="ttdeci">int RADIO_RXEN</div><div class="ttdef"><b>Definition:</b> board.h:70</div></div>
 <div class="ttc" id="astructhw__config_html_a9e07ce520dba04c3178a362b21f18559"><div class="ttname"><a href="structhw__config.html#a9e07ce520dba04c3178a362b21f18559">hw_config::PIN_LORA_BUSY</a></div><div class="ttdeci">int PIN_LORA_BUSY</div><div class="ttdef"><b>Definition:</b> board.h:67</div></div>
 <!-- start footer part -->

@@ -65,17 +65,6 @@ extern "C"
  */
 	static AES_CMAC_CTX AesCmacCtx[1];
 
-	/*!
- * \brief Computes the LoRaMAC frame MIC field  
- *
- * \param [IN]  buffer          Data buffer
- * \param [IN]  size            Data buffer size
- * \param [IN]  key             AES key to be used
- * \param [IN]  address         Frame address
- * \param [IN]  dir             Frame direction [0: uplink, 1: downlink]
- * \param [IN]  sequenceCounter Frame sequence counter
- * \param [OUT] mic Computed MIC field
- */
 	void LoRaMacComputeMic(const uint8_t *buffer, uint16_t size, const uint8_t *key, uint32_t address, uint8_t dir, uint32_t sequenceCounter, uint32_t *mic)
 	{
 		MicBlockB0[5] = dir;

@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -103,6 +104,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Radio driver callback functions. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#_a0">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>, and <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#_a0">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a3694cada87df2ed6f60bf83fe1e84d1d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3694cada87df2ed6f60bf83fe1e84d1d">&#9670;&nbsp;</a></span>TxDone</h2>
@@ -117,6 +120,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Tx Done callback prototype. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a19">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -133,6 +138,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Tx Timeout callback prototype. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a20">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -151,12 +158,14 @@ Public Attributes</h2></td></tr>
 <p>Rx Done callback prototype. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>payload Received buffer pointer </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Received buffer size </td></tr>
-    <tr><td class="paramname">[IN]</td><td>rssi RSSI value computed while receiving the frame [dBm] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>snr SNR value computed while receiving the frame [dB] FSK : N/A ( set to 0 ) LoRa: SNR value in dB </td></tr>
+    <tr><td class="paramname">payload</td><td>Received buffer pointer </td></tr>
+    <tr><td class="paramname">size</td><td>Received buffer size </td></tr>
+    <tr><td class="paramname">rssi</td><td>RSSI value computed while receiving the frame [dBm] </td></tr>
+    <tr><td class="paramname">snr</td><td>SNR value computed while receiving the frame [dB] FSK : N/A ( set to 0 ) LoRa: SNR value in dB </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a19">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -174,6 +183,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Rx Timeout callback prototype. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a20">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -190,6 +201,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Rx Error callback prototype. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a21">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -224,7 +237,7 @@ Public Attributes</h2></td></tr>
 <p>FHSS Change Channel callback prototype. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>currentChannel Index number of the current channel </td></tr>
+    <tr><td class="paramname">currentChannel</td><td>Index number of the current channel </td></tr>
   </table>
   </dd>
 </dl>
@@ -246,9 +259,11 @@ Public Attributes</h2></td></tr>
 <p>CAD Done callback prototype. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>channelDetected Channel Activity detected during the CAD </td></tr>
+    <tr><td class="paramname">channelDetected</td><td>Channel Activity detected during the CAD </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a21">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
 </dl>
 
 </div>

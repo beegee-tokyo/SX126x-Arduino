@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -226,6 +227,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8cf3cc21ea237c5620536cea2750463e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga8cf3cc21ea237c5620536cea2750463e">LoRaMacTestSetChannel</a> (uint8_t channel)</td></tr>
 <tr class="memdesc:ga8cf3cc21ea237c5620536cea2750463e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the channel index.  <a href="group___l_o_r_a_m_a_c_t_e_s_t.html#ga8cf3cc21ea237c5620536cea2750463e">More...</a><br /></td></tr>
 <tr class="separator:ga8cf3cc21ea237c5620536cea2750463e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae0284f2814382abf4f45cfa03383660f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___l_o_r_a_m_a_c.html#gae0284f2814382abf4f45cfa03383660f">LoRaMacGetOTAADevId</a> (void)</td></tr>
+<tr class="memdesc:gae0284f2814382abf4f45cfa03383660f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Device Address set by the LoRaWan server after OTAA join was successful.  <a href="group___l_o_r_a_m_a_c.html#gae0284f2814382abf4f45cfa03383660f">More...</a><br /></td></tr>
+<tr class="separator:gae0284f2814382abf4f45cfa03383660f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -855,8 +859,8 @@ Variables</h2></td></tr>
 <p>Initializes and opens the reception window. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>rxContinuous Set to true, if the RX is in continuous mode </td></tr>
-    <tr><td class="paramname">[IN]</td><td>maxRxWindow Maximum RX window timeout </td></tr>
+    <tr><td class="paramname">rxContinuous</td><td>Set to true, if the RX is in continuous mode </td></tr>
+    <tr><td class="paramname">maxRxWindow</td><td>Maximum RX window timeout </td></tr>
   </table>
   </dd>
 </dl>
@@ -904,12 +908,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Adds a new MAC command to be sent. </p>
-<p>\Remark MAC layer internal function</p>
+<dl class="section remark"><dt>Remarks</dt><dd>MAC layer internal function</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cmd</td><td>MAC command to be added [MOTE_MAC_LINK_CHECK_REQ, MOTE_MAC_LINK_ADR_ANS, MOTE_MAC_DUTY_CYCLE_ANS, MOTE_MAC_RX2_PARAM_SET_ANS, MOTE_MAC_DEV_STATUS_ANS MOTE_MAC_NEW_CHANNEL_ANS] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">p1</td><td>1st parameter ( optional depends on the command ) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">p2</td><td>2nd parameter ( optional depends on the command )</td></tr>
+    <tr><td class="paramname">cmd</td><td>MAC command to be added [MOTE_MAC_LINK_CHECK_REQ, MOTE_MAC_LINK_ADR_ANS, MOTE_MAC_DUTY_CYCLE_ANS, MOTE_MAC_RX2_PARAM_SET_ANS, MOTE_MAC_DEV_STATUS_ANS MOTE_MAC_NEW_CHANNEL_ANS] </td></tr>
+    <tr><td class="paramname">p1</td><td>1st parameter ( optional depends on the command ) </td></tr>
+    <tr><td class="paramname">p2</td><td>2nd parameter ( optional depends on the command )</td></tr>
   </table>
   </dd>
 </dl>
@@ -963,12 +967,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Parses the MAC commands which must be repeated. </p>
-<p>\Remark MAC layer internal function</p>
+<dl class="section remark"><dt>Remarks</dt><dd>MAC layer internal function</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>cmdBufIn Buffer which stores the MAC commands to send </td></tr>
-    <tr><td class="paramname">[IN]</td><td>length Length of the input buffer to parse </td></tr>
-    <tr><td class="paramname">[OUT]</td><td>cmdBufOut Buffer which stores the MAC commands which must be repeated.</td></tr>
+    <tr><td class="paramname">cmdBufIn</td><td>Buffer which stores the MAC commands to send </td></tr>
+    <tr><td class="paramname">length</td><td>Length of the input buffer to parse </td></tr>
+    <tr><td class="paramname">cmdBufOut</td><td>Buffer which stores the MAC commands which must be repeated.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1131,10 +1135,10 @@ Variables</h2></td></tr>
 <p>LoRaMAC layer generic send frame. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>macHdr MAC header field </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fPort MAC payload port </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fBuffer MAC data buffer to be sent </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fBufferSize MAC data buffer size </td></tr>
+    <tr><td class="paramname">macHdr</td><td>MAC header field </td></tr>
+    <tr><td class="paramname">fPort</td><td>MAC payload port </td></tr>
+    <tr><td class="paramname">fBuffer</td><td>MAC data buffer to be sent </td></tr>
+    <tr><td class="paramname">fBufferSize</td><td>MAC data buffer size </td></tr>
   </table>
   </dd>
 </dl>
@@ -1194,12 +1198,11 @@ Variables</h2></td></tr>
 <p>LoRaMAC layer frame buffer initialization. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>macHdr MAC header field </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fCtrl MAC frame control field </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fOpts MAC commands buffer </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fPort MAC payload port </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fBuffer MAC data buffer to be sent </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fBufferSize MAC data buffer size </td></tr>
+    <tr><td class="paramname">macHdr</td><td>MAC header field </td></tr>
+    <tr><td class="paramname">fCtrl</td><td>MAC frame control field </td></tr>
+    <tr><td class="paramname">fPort</td><td>MAC payload port </td></tr>
+    <tr><td class="paramname">fBuffer</td><td>MAC data buffer to be sent </td></tr>
+    <tr><td class="paramname">fBufferSize</td><td>MAC data buffer size </td></tr>
   </table>
   </dd>
 </dl>
@@ -1284,7 +1287,7 @@ Variables</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>PrepareFrame must be called at least once before calling this function.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>channel Channel to transmit on </td></tr>
+    <tr><td class="paramname">channel</td><td>Channel to transmit on </td></tr>
   </table>
   </dd>
 </dl>
@@ -1317,7 +1320,7 @@ Variables</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>Uses the radio parameters set on the previous transmission.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>timeout Time in seconds while the radio is kept in continuous wave mode </td></tr>
+    <tr><td class="paramname">timeout</td><td>Time in seconds while the radio is kept in continuous wave mode </td></tr>
   </table>
   </dd>
 </dl>
@@ -1366,9 +1369,9 @@ Variables</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>Uses the radio parameters set on the previous transmission.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>timeout Time in seconds while the radio is kept in continuous wave mode </td></tr>
-    <tr><td class="paramname">[IN]</td><td>frequency RF frequency to be set. </td></tr>
-    <tr><td class="paramname">[IN]</td><td>power RF output power to be set. </td></tr>
+    <tr><td class="paramname">timeout</td><td>Time in seconds while the radio is kept in continuous wave mode </td></tr>
+    <tr><td class="paramname">frequency</td><td>RF frequency to be set. </td></tr>
+    <tr><td class="paramname">power</td><td>RF output power to be set. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2539,6 +2542,8 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Radio events function pointer </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a1">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>, and <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a1">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>

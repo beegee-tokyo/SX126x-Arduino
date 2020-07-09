@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -368,16 +369,16 @@ Functions</h2></td></tr>
 <p>This is the common API to access the specific regional implementations. </p>
 <p>Preprocessor options:</p><ul>
 <li>LoRaWAN regions can be activated by defining the related preprocessor definition. It is possible to define more than one region. The following regions are supported:<ul>
-<li>#define REGION_AS923</li>
-<li>#define REGION_AU915</li>
-<li>#define REGION_CN470</li>
-<li>#define REGION_CN779</li>
-<li>#define REGION_EU433</li>
-<li>#define REGION_EU868</li>
-<li>#define REGION_KR920</li>
-<li>#define REGION_IN865</li>
-<li>#define REGION_US915</li>
-<li>#define REGION_US915_HYBRID </li>
+<li># REGION_AS923</li>
+<li># REGION_AU915</li>
+<li># REGION_CN470</li>
+<li># REGION_CN779</li>
+<li># REGION_EU433</li>
+<li># REGION_EU868</li>
+<li># REGION_KR920</li>
+<li># REGION_IN865</li>
+<li># REGION_US915</li>
+<li># REGION_US915_HYBRID </li>
 </ul>
 </li>
 </ul>
@@ -1994,7 +1995,7 @@ Functions</h2></td></tr>
 <p>The function verifies if a region is active or not. If a region is not active, it cannot be used. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2036,8 +2037,8 @@ Functions</h2></td></tr>
 <p>The function gets a value of a specific phy attribute. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>getPhy Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">getPhy</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2079,8 +2080,8 @@ Functions</h2></td></tr>
 <p>Updates the last TX done parameters of the current channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>txDone Pointer to the function parameters. </td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">txDone</td><td>Pointer to the function parameters. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2116,8 +2117,8 @@ Functions</h2></td></tr>
 <p>Initializes the channels masks and the channels. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>type Sets the initialization type. </td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">type</td><td>Sets the initialization type. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2159,9 +2160,9 @@ Functions</h2></td></tr>
 <p>Verifies a parameter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>verify Pointer to the function parameters.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>type Sets the initialization type.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">verify</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">phyAttribute</td><td>Sets the initialization type.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2203,8 +2204,8 @@ Functions</h2></td></tr>
 <p>The function parses the input buffer and sets up the channels of the CF list. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>applyCFList Pointer to the function parameters. </td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">applyCFList</td><td>Pointer to the function parameters. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2240,8 +2241,8 @@ Functions</h2></td></tr>
 <p>Sets a channels mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>chanMaskSet Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">chanMaskSet</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2301,11 +2302,11 @@ Functions</h2></td></tr>
 <p>Calculates the next datarate to set, when ADR is on or off. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>adrNext Pointer to the function parameters.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>drOut The calculated datarate for the next TX.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>txPowOut The TX power for the next TX.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>adrAckCounter The calculated ADR acknowledgement counter.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">adrNext</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">drOut</td><td>The calculated datarate for the next TX.</td></tr>
+    <tr><td class="paramname">txPowOut</td><td>The TX power for the next TX.</td></tr>
+    <tr><td class="paramname">adrAckCounter</td><td>The calculated ADR acknowledgement counter.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2353,9 +2354,9 @@ Functions</h2></td></tr>
 <p>Configuration of the RX windows. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>rxConfig Pointer to the function parameters.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>datarate The datarate index which was set.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">rxConfig</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">datarate</td><td>The datarate index which was set.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2414,11 +2415,11 @@ Functions</h2></td></tr>
 <p>Computes the Rx window timeout and offset.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>datarate Rx window datarate index to be used</td></tr>
-    <tr><td class="paramname">[IN]</td><td>minRxSymbols Minimum required number of symbols to detect an Rx frame.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>rxError System maximum timing error of the receiver. In milliseconds The receiver will turn on in a [-rxError : +rxError] ms interval around RxOffset</td></tr>
-    <tr><td class="paramname">[OUT]rxConfigParams</td><td>Returns updated WindowTimeout and WindowOffset fields. </td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">datarate</td><td>Rx window datarate index to be used</td></tr>
+    <tr><td class="paramname">minRxSymbols</td><td>Minimum required number of symbols to detect an Rx frame.</td></tr>
+    <tr><td class="paramname">rxError</td><td>System maximum timing error of the receiver. In milliseconds The receiver will turn on in a [-rxError : +rxError] ms interval around RxOffset</td></tr>
+    <tr><td class="paramname">rxConfigParams</td><td>Returns updated WindowTimeout and WindowOffset fields. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2466,10 +2467,10 @@ Functions</h2></td></tr>
 <p>TX configuration. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>txConfig Pointer to the function parameters.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>txPower The tx power index which was set.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>txTimeOnAir The time-on-air of the frame.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">txConfig</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">txPower</td><td>The tx power index which was set.</td></tr>
+    <tr><td class="paramname">txTimeOnAir</td><td>The time-on-air of the frame.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2535,12 +2536,12 @@ Functions</h2></td></tr>
 <p>The function processes a Link ADR Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>linkAdrReq Pointer to the function parameters.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>drOut The datarate which was applied.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>txPowOut The TX power which was applied.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>nbRepOut The number of repetitions to apply.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>nbBytesParsed The number bytes which were parsed.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">linkAdrReq</td><td>Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">drOut</td><td>The datarate which was applied.</td></tr>
+    <tr><td class="paramname">txPowOut</td><td>The TX power which was applied.</td></tr>
+    <tr><td class="paramname">nbRepOut</td><td>The number of repetitions to apply.</td></tr>
+    <tr><td class="paramname">nbBytesParsed</td><td>The number bytes which were parsed.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2582,8 +2583,8 @@ Functions</h2></td></tr>
 <p>The function processes a RX Parameter Setup Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>rxParamSetupReq Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">rxParamSetupReq</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2625,8 +2626,8 @@ Functions</h2></td></tr>
 <p>The function processes a New Channel Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>newChannelReq Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">newChannelReq</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2668,8 +2669,8 @@ Functions</h2></td></tr>
 <p>The function processes a TX ParamSetup Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>txParamSetupReq Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">txParamSetupReq</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2711,8 +2712,8 @@ Functions</h2></td></tr>
 <p>The function processes a DlChannel Request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>dlChannelReq Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">dlChannelReq</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2754,8 +2755,8 @@ Functions</h2></td></tr>
 <p>Alternates the datarate of the channel for the join request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>alternateDr Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">alternateDr</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2797,8 +2798,8 @@ Functions</h2></td></tr>
 <p>Calculates the back-off time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>calcBackOff Pointer to the function parameters. </td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">calcBackOff</td><td>Pointer to the function parameters. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2852,10 +2853,11 @@ Functions</h2></td></tr>
 <p>Searches and set the next random available channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>channel Next channel to use for TX.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>time Time to wait for the next transmission according to the duty cycle.</td></tr>
-    <tr><td class="paramname">[OUT]</td><td>aggregatedTimeOff Updates the aggregated time off.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">nextChanParams</td><td>parameter for next channel to use for TX.</td></tr>
+    <tr><td class="paramname">channel</td><td>Next channel to use for TX.</td></tr>
+    <tr><td class="paramname">time</td><td>Time to wait for the next transmission according to the duty cycle.</td></tr>
+    <tr><td class="paramname">aggregatedTimeOff</td><td>Updates the aggregated time off.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2897,8 +2899,8 @@ Functions</h2></td></tr>
 <p>Adds a channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>channelAdd Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">channelAdd</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2940,8 +2942,8 @@ Functions</h2></td></tr>
 <p>Removes a channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>channelRemove Pointer to the function parameters.</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">channelRemove</td><td>Pointer to the function parameters.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2983,8 +2985,8 @@ Functions</h2></td></tr>
 <p>Sets the radio into continuous wave mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>region LoRaWAN region.</td></tr>
-    <tr><td class="paramname">[IN]</td><td>continuousWave Pointer to the function parameters. </td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">continuousWave</td><td>Pointer to the function parameters. </td></tr>
   </table>
   </dd>
 </dl>
@@ -3032,9 +3034,10 @@ Functions</h2></td></tr>
 <p>Computes new datarate according to the given offset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>downlinkDwellTime Downlink dwell time configuration. 0: No limit, 1: 400ms</td></tr>
-    <tr><td class="paramname">[IN]</td><td>dr Current datarate</td></tr>
-    <tr><td class="paramname">[IN]</td><td>drOffset Offset to be applied</td></tr>
+    <tr><td class="paramname">region</td><td>LoRaWAN region.</td></tr>
+    <tr><td class="paramname">downlinkDwellTime</td><td>Downlink dwell time configuration. 0: No limit, 1: 400ms</td></tr>
+    <tr><td class="paramname">dr</td><td>Current datarate</td></tr>
+    <tr><td class="paramname">drOffset</td><td>Offset to be applied</td></tr>
   </table>
   </dd>
 </dl>

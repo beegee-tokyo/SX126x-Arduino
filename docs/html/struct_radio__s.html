@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -183,9 +184,11 @@ Public Attributes</h2></td></tr>
 <p>Initializes the radio. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>events Structure containing the driver callback functions </td></tr>
+    <tr><td class="paramname">events</td><td>Structure containing the driver callback functions </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a25">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>, and <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a23">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -205,9 +208,11 @@ Public Attributes</h2></td></tr>
 <p>Re-Initializes the radio after CPU wakeup from deep sleep. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>events Structure containing the driver callback functions </td></tr>
+    <tr><td class="paramname">events</td><td>Structure containing the driver callback functions </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a23">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -248,7 +253,7 @@ Public Attributes</h2></td></tr>
 <p>Configures the radio with the given modem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">modem</td><td>Modem to be used [0: FSK, 1: LoRa] </td></tr>
   </table>
   </dd>
 </dl>
@@ -270,9 +275,11 @@ Public Attributes</h2></td></tr>
 <p>Sets the channel frequency. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>freq Channel RF frequency </td></tr>
+    <tr><td class="paramname">freq</td><td>Channel RF frequency </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a26">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>, and <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a25">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -292,10 +299,10 @@ Public Attributes</h2></td></tr>
 <p>Checks if the channel is free for the given time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>freq Channel RF frequency </td></tr>
-    <tr><td class="paramname">[IN]</td><td>rssiThresh RSSI threshold </td></tr>
-    <tr><td class="paramname">[IN]</td><td>maxCarrierSenseTime Max time while the RSSI is measured</td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">freq</td><td>Channel RF frequency </td></tr>
+    <tr><td class="paramname">rssiThresh</td><td>RSSI threshold </td></tr>
+    <tr><td class="paramname">maxCarrierSenseTime</td><td>Max time while the RSSI is measured</td></tr>
   </table>
   </dd>
 </dl>
@@ -346,22 +353,24 @@ Public Attributes</h2></td></tr>
 <p>Sets the reception parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>bandwidth Sets the bandwidth FSK : &gt;= 2600 and &lt;= 250000 Hz LoRa: [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>datarate Sets the Datarate FSK : 600..300000 bits/s LoRa: [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096 chips] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>coderate Sets the coding rate (LoRa only) FSK : N/A ( set to 0 ) LoRa: [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>bandwidthAfc Sets the AFC Bandwidth (FSK only) FSK : &gt;= 2600 and &lt;= 250000 Hz LoRa: N/A ( set to 0 ) </td></tr>
-    <tr><td class="paramname">[IN]</td><td>preambleLen Sets the Preamble length FSK : Number of bytes LoRa: Length in symbols (the hardware adds 4 more symbols) </td></tr>
-    <tr><td class="paramname">[IN]</td><td>symbTimeout Sets the RxSingle timeout value FSK : timeout in number of bytes LoRa: timeout in symbols </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fixLen Fixed length packets [0: variable, 1: fixed] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>payloadLen Sets payload length when fixed length is used </td></tr>
-    <tr><td class="paramname">[IN]</td><td>crcOn Enables/Disables the CRC [0: OFF, 1: ON] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>freqHopOn Enables disables the intra-packet frequency hopping FSK : N/A ( set to 0 ) LoRa: [0: OFF, 1: ON] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>hopPeriod Number of symbols between each hop FSK : N/A ( set to 0 ) LoRa: Number of symbols </td></tr>
-    <tr><td class="paramname">[IN]</td><td>iqInverted Inverts IQ signals (LoRa only) FSK : N/A ( set to 0 ) LoRa: [0: not inverted, 1: inverted] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>rxContinuous Sets the reception in continuous mode [false: single mode, true: continuous mode] </td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">bandwidth</td><td>Sets the bandwidth FSK : &gt;= 2600 and &lt;= 250000 Hz LoRa: [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved] </td></tr>
+    <tr><td class="paramname">datarate</td><td>Sets the Datarate FSK : 600..300000 bits/s LoRa: [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096 chips] </td></tr>
+    <tr><td class="paramname">coderate</td><td>Sets the coding rate (LoRa only) FSK : N/A ( set to 0 ) LoRa: [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8] </td></tr>
+    <tr><td class="paramname">bandwidthAfc</td><td>Sets the AFC Bandwidth (FSK only) FSK : &gt;= 2600 and &lt;= 250000 Hz LoRa: N/A ( set to 0 ) </td></tr>
+    <tr><td class="paramname">preambleLen</td><td>Sets the Preamble length FSK : Number of bytes LoRa: Length in symbols (the hardware adds 4 more symbols) </td></tr>
+    <tr><td class="paramname">symbTimeout</td><td>Sets the RxSingle timeout value FSK : timeout in number of bytes LoRa: timeout in symbols </td></tr>
+    <tr><td class="paramname">fixLen</td><td>Fixed length packets [0: variable, 1: fixed] </td></tr>
+    <tr><td class="paramname">payloadLen</td><td>Sets payload length when fixed length is used </td></tr>
+    <tr><td class="paramname">crcOn</td><td>Enables/Disables the CRC [0: OFF, 1: ON] </td></tr>
+    <tr><td class="paramname">freqHopOn</td><td>Enables disables the intra-packet frequency hopping FSK : N/A ( set to 0 ) LoRa: [0: OFF, 1: ON] </td></tr>
+    <tr><td class="paramname">hopPeriod</td><td>Number of symbols between each hop FSK : N/A ( set to 0 ) LoRa: Number of symbols </td></tr>
+    <tr><td class="paramname">iqInverted</td><td>Inverts IQ signals (LoRa only) FSK : N/A ( set to 0 ) LoRa: [0: not inverted, 1: inverted] </td></tr>
+    <tr><td class="paramname">rxContinuous</td><td>Sets the reception in continuous mode [false: single mode, true: continuous mode] </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a29">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>, and <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a28">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -381,21 +390,23 @@ Public Attributes</h2></td></tr>
 <p>Sets the transmission parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>power Sets the output power [dBm] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fdev Sets the frequency deviation (FSK only) FSK : [Hz] LoRa: 0 </td></tr>
-    <tr><td class="paramname">[IN]</td><td>bandwidth Sets the bandwidth (LoRa only) FSK : 0 LoRa: [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>datarate Sets the Datarate FSK : 600..300000 bits/s LoRa: [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096 chips] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>coderate Sets the coding rate (LoRa only) FSK : N/A ( set to 0 ) LoRa: [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>preambleLen Sets the preamble length FSK : Number of bytes LoRa: Length in symbols (the hardware adds 4 more symbols) </td></tr>
-    <tr><td class="paramname">[IN]</td><td>fixLen Fixed length packets [0: variable, 1: fixed] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>crcOn Enables disables the CRC [0: OFF, 1: ON] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>freqHopOn Enables disables the intra-packet frequency hopping FSK : N/A ( set to 0 ) LoRa: [0: OFF, 1: ON] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>hopPeriod Number of symbols between each hop FSK : N/A ( set to 0 ) LoRa: Number of symbols </td></tr>
-    <tr><td class="paramname">[IN]</td><td>iqInverted Inverts IQ signals (LoRa only) FSK : N/A ( set to 0 ) LoRa: [0: not inverted, 1: inverted] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>timeout Transmission timeout [ms] </td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">power</td><td>Sets the output power [dBm] </td></tr>
+    <tr><td class="paramname">fdev</td><td>Sets the frequency deviation (FSK only) FSK : [Hz] LoRa: 0 </td></tr>
+    <tr><td class="paramname">bandwidth</td><td>Sets the bandwidth (LoRa only) FSK : 0 LoRa: [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved] </td></tr>
+    <tr><td class="paramname">datarate</td><td>Sets the Datarate FSK : 600..300000 bits/s LoRa: [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096 chips] </td></tr>
+    <tr><td class="paramname">coderate</td><td>Sets the coding rate (LoRa only) FSK : N/A ( set to 0 ) LoRa: [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8] </td></tr>
+    <tr><td class="paramname">preambleLen</td><td>Sets the preamble length FSK : Number of bytes LoRa: Length in symbols (the hardware adds 4 more symbols) </td></tr>
+    <tr><td class="paramname">fixLen</td><td>Fixed length packets [0: variable, 1: fixed] </td></tr>
+    <tr><td class="paramname">crcOn</td><td>Enables disables the CRC [0: OFF, 1: ON] </td></tr>
+    <tr><td class="paramname">freqHopOn</td><td>Enables disables the intra-packet frequency hopping FSK : N/A ( set to 0 ) LoRa: [0: OFF, 1: ON] </td></tr>
+    <tr><td class="paramname">hopPeriod</td><td>Number of symbols between each hop FSK : N/A ( set to 0 ) LoRa: Number of symbols </td></tr>
+    <tr><td class="paramname">iqInverted</td><td>Inverts IQ signals (LoRa only) FSK : N/A ( set to 0 ) LoRa: [0: not inverted, 1: inverted] </td></tr>
+    <tr><td class="paramname">timeout</td><td>Transmission timeout [ms] </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a27">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>, and <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a26">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -415,7 +426,7 @@ Public Attributes</h2></td></tr>
 <p>Checks if the given RF frequency is supported by the hardware. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>frequency RF frequency to be checked </td></tr>
+    <tr><td class="paramname">frequency</td><td>RF frequency to be checked </td></tr>
   </table>
   </dd>
 </dl>
@@ -444,8 +455,8 @@ Public Attributes</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>Can only be called once SetRxConfig or SetTxConfig have been called</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>pktLen Packet payload length</td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">pktLen</td><td>Packet payload length</td></tr>
   </table>
   </dd>
 </dl>
@@ -473,10 +484,12 @@ Public Attributes</h2></td></tr>
 <p>Sends the buffer of size. Prepares the packet to be sent and sets the radio in transmission. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>buffer Buffer pointer </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Buffer size </td></tr>
+    <tr><td class="paramname">buffer</td><td>Buffer pointer </td></tr>
+    <tr><td class="paramname">size</td><td>Buffer size </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a35">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -494,6 +507,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the radio in sleep mode. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a34">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -510,6 +525,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the radio in standby mode. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a30">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>, and <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a24">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -528,7 +545,7 @@ Public Attributes</h2></td></tr>
 <p>Sets the radio in reception mode for the given time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>timeout Reception timeout [ms] [0: continuous, others timeout] </td></tr>
+    <tr><td class="paramname">timeout</td><td>Reception timeout [ms] [0: continuous, others timeout] </td></tr>
   </table>
   </dd>
 </dl>
@@ -548,6 +565,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set Channel Activity Detection parameters. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a29">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -564,6 +583,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Start a Channel Activity Detection. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a32">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -582,9 +603,9 @@ Public Attributes</h2></td></tr>
 <p>Sets the radio in continuous wave transmission mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>freq Channel RF frequency </td></tr>
-    <tr><td class="paramname">[IN]</td><td>power Sets the output power [dBm] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>time Transmission mode timeout [s] </td></tr>
+    <tr><td class="paramname">freq</td><td>Channel RF frequency </td></tr>
+    <tr><td class="paramname">power</td><td>Sets the output power [dBm] </td></tr>
+    <tr><td class="paramname">time</td><td>Transmission mode timeout [s] </td></tr>
   </table>
   </dd>
 </dl>
@@ -628,8 +649,8 @@ Public Attributes</h2></td></tr>
 <p>Writes the radio register at the specified address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>addr Register address </td></tr>
-    <tr><td class="paramname">[IN]</td><td>data New register value </td></tr>
+    <tr><td class="paramname">addr</td><td>Register address </td></tr>
+    <tr><td class="paramname">data</td><td>New register value </td></tr>
   </table>
   </dd>
 </dl>
@@ -651,7 +672,7 @@ Public Attributes</h2></td></tr>
 <p>Reads the radio register at the specified address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>addr Register address </td></tr>
+    <tr><td class="paramname">addr</td><td>Register address </td></tr>
   </table>
   </dd>
 </dl>
@@ -679,9 +700,9 @@ Public Attributes</h2></td></tr>
 <p>Writes multiple radio registers starting at address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>addr First Radio register address </td></tr>
-    <tr><td class="paramname">[IN]</td><td>buffer Buffer containing the new register's values </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Number of registers to be written </td></tr>
+    <tr><td class="paramname">addr</td><td>First Radio register address </td></tr>
+    <tr><td class="paramname">buffer</td><td>Buffer containing the new register's values </td></tr>
+    <tr><td class="paramname">size</td><td>Number of registers to be written </td></tr>
   </table>
   </dd>
 </dl>
@@ -703,9 +724,9 @@ Public Attributes</h2></td></tr>
 <p>Reads multiple radio registers starting at address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>addr First Radio register address </td></tr>
-    <tr><td class="paramname">[OUT]</td><td>buffer Buffer where to copy the registers data </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Number of registers to be read </td></tr>
+    <tr><td class="paramname">addr</td><td>First Radio register address </td></tr>
+    <tr><td class="paramname">buffer</td><td>Buffer where to copy the registers data </td></tr>
+    <tr><td class="paramname">size</td><td>Number of registers to be read </td></tr>
   </table>
   </dd>
 </dl>
@@ -727,8 +748,8 @@ Public Attributes</h2></td></tr>
 <p>Sets the maximum payload length. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>modem Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
-    <tr><td class="paramname">[IN]</td><td>max Maximum payload length in bytes </td></tr>
+    <tr><td class="paramname">modem</td><td>Radio modem to be used [0: FSK, 1: LoRa] </td></tr>
+    <tr><td class="paramname">max</td><td>Maximum payload length in bytes </td></tr>
   </table>
   </dd>
 </dl>
@@ -751,7 +772,7 @@ Public Attributes</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>Applies to LoRa modem only</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>enable if true, it enables a public network </td></tr>
+    <tr><td class="paramname">enable</td><td>if true, it enables a public network </td></tr>
   </table>
   </dd>
 </dl>
@@ -793,6 +814,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Process radio irq. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_lo_ra_wan_pio_0csrc_0cmain_8cpp-example.html#a25">LoRaWanPio\src\main.cpp</a>, and <a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_temp_sensor_0csrc_0cmain_8cpp-example.html#a33">Sensor-Gateway-Deepsleep\LoRa-TempSensor\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -807,6 +830,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a24">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -826,7 +851,7 @@ Public Attributes</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>Available on SX126x radios only.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>timeout Reception timeout [ms] [0: continuous, others timeout] </td></tr>
+    <tr><td class="paramname">timeout</td><td>Reception timeout [ms] [0: continuous, others timeout] </td></tr>
   </table>
   </dd>
 </dl>
@@ -849,10 +874,12 @@ Public Attributes</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>Available on SX126x radios only.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">rxTime</td><td>Structure describing reception timeout value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sleepTime</td><td>Structure describing sleep timeout value </td></tr>
+    <tr><td class="paramname">rxTime</td><td>Structure describing reception timeout value </td></tr>
+    <tr><td class="paramname">sleepTime</td><td>Structure describing sleep timeout value </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_sensor-_gateway-_deepsleep_0c_lo_ra-_gateway_0csrc_0cmain_8cpp-example.html#a35">Sensor-Gateway-Deepsleep\LoRa-Gateway\src\main.cpp</a>.</dd>
 </dl>
 
 </div>

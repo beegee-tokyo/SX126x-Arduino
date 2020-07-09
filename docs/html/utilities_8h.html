@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
    </div>
@@ -127,7 +128,7 @@ Functions</h2></td></tr>
 <p>Returns 2 raised to the power of n. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>n power value </td></tr>
+    <tr><td class="paramname">n</td><td>power value </td></tr>
   </table>
   </dd>
 </dl>
@@ -218,7 +219,7 @@ Functions</h2></td></tr>
 <p>Initializes the pseudo random generator initial value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>seed Pseudo random generator initial value </td></tr>
+    <tr><td class="paramname">seed</td><td>Pseudo random generator initial value </td></tr>
   </table>
   </dd>
 </dl>
@@ -254,8 +255,8 @@ Functions</h2></td></tr>
 <p>Computes a random number between min and max. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>min range minimum value </td></tr>
-    <tr><td class="paramname">[IN]</td><td>max range maximum value </td></tr>
+    <tr><td class="paramname">min</td><td>range minimum value </td></tr>
+    <tr><td class="paramname">max</td><td>range maximum value </td></tr>
   </table>
   </dd>
 </dl>
@@ -304,9 +305,9 @@ Functions</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>STM32 Standard memcpy function only works on pointers that are aligned</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[OUT]</td><td>dst Destination array </td></tr>
-    <tr><td class="paramname">[IN]</td><td>src Source array </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Number of bytes to be copied </td></tr>
+    <tr><td class="paramname">dst</td><td>Destination array </td></tr>
+    <tr><td class="paramname">src</td><td>Source array </td></tr>
+    <tr><td class="paramname">size</td><td>Number of bytes to be copied </td></tr>
   </table>
   </dd>
 </dl>
@@ -348,9 +349,9 @@ Functions</h2></td></tr>
 <p>Copies size elements of src array to dst array reversing the byte order. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[OUT]</td><td>dst Destination array </td></tr>
-    <tr><td class="paramname">[IN]</td><td>src Source array </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Number of bytes to be copied </td></tr>
+    <tr><td class="paramname">dst</td><td>Destination array </td></tr>
+    <tr><td class="paramname">src</td><td>Source array </td></tr>
+    <tr><td class="paramname">size</td><td>Number of bytes to be copied </td></tr>
   </table>
   </dd>
 </dl>
@@ -393,9 +394,9 @@ Functions</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>STM32 Standard memset function only works on pointers that are aligned</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[OUT]</td><td>dst Destination array </td></tr>
-    <tr><td class="paramname">[IN]</td><td>value Default value </td></tr>
-    <tr><td class="paramname">[IN]</td><td>size Number of bytes to be copied </td></tr>
+    <tr><td class="paramname">dst</td><td>Destination array </td></tr>
+    <tr><td class="paramname">value</td><td>Default value </td></tr>
+    <tr><td class="paramname">size</td><td>Number of bytes to be copied </td></tr>
   </table>
   </dd>
 </dl>
@@ -421,7 +422,7 @@ Functions</h2></td></tr>
 <p>Converts a nibble to an hexadecimal character. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">[IN]</td><td>a Nibble to be converted </td></tr>
+    <tr><td class="paramname">a</td><td>Nibble to be converted </td></tr>
   </table>
   </dd>
 </dl>
