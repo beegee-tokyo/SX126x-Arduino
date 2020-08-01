@@ -70,6 +70,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2020-08-01:
+  - Fixed linker error when header files are included from multiple source files
 - 2020-07-09:
   - Duty cycle and adaptive data rate control moved out of Commissioning.h
 - 2020-06-25:
