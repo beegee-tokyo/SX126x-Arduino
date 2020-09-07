@@ -31,7 +31,7 @@ script:
 #   - python run-clang-format.py -r .
    #- build_main_platforms
    - build_platform nrf52840
-  # - build_platform esp8266
+   - build_platform esp8266
    - build_platform esp32
   #  - build_platform uno
   #  - build_platform mega2560
