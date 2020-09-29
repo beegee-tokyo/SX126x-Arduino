@@ -235,6 +235,8 @@ extern "C"
 
 	void SX126xSetStandby(RadioStandbyModes_t standbyConfig)
 	{
+		SX126xAntSwOff();
+
 		SX126xWriteCommand(RADIO_SET_STANDBY, (uint8_t *)&standbyConfig, 1);
 		if (standbyConfig == STDBY_RC)
 		{

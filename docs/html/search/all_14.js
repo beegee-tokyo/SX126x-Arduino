@@ -127,8 +127,9 @@ var searchData=
   ['use_5fdio3_5fant_5fswitch_2240',['USE_DIO3_ANT_SWITCH',['../structhw__config.html#a155684887eaa302bed5666e136cc4aaa',1,'hw_config']]],
   ['use_5fdio3_5ftcxo_2241',['USE_DIO3_TCXO',['../structhw__config.html#a6426b2d28084b6a43f298ea40cf57128',1,'hw_config']]],
   ['use_5fldo_2242',['USE_LDO',['../structhw__config.html#a8439004a735cdf9ff405d0be6a327e21',1,'hw_config::USE_LDO()'],['../sx126x_8h.html#a3b5b9328caadebb2acab3c5d7faefafca986dd845c547cb83c3d1b334714e94be',1,'USE_LDO():&#160;sx126x.h']]],
-  ['use_5ftables_2243',['USE_TABLES',['../aes_8cpp.html#ab7aef13fbdead81e2d3ab96eb3630f10',1,'aes.cpp']]],
-  ['utilities_2ecpp_2244',['utilities.cpp',['../utilities_8cpp.html',1,'']]],
-  ['utilities_2eh_2245',['utilities.h',['../utilities_8h.html',1,'']]],
-  ['uverifyparams_2246',['uVerifyParams',['../unionu_verify_params.html',1,'']]]
+  ['use_5frxen_5fant_5fpwr_2243',['USE_RXEN_ANT_PWR',['../structhw__config.html#aa99ba86e7b0ecc31dca224787611742f',1,'hw_config']]],
+  ['use_5ftables_2244',['USE_TABLES',['../aes_8cpp.html#ab7aef13fbdead81e2d3ab96eb3630f10',1,'aes.cpp']]],
+  ['utilities_2ecpp_2245',['utilities.cpp',['../utilities_8cpp.html',1,'']]],
+  ['utilities_2eh_2246',['utilities.h',['../utilities_8h.html',1,'']]],
+  ['uverifyparams_2247',['uVerifyParams',['../unionu_verify_params.html',1,'']]]
 ];

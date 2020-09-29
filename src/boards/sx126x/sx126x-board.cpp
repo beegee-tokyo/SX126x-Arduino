@@ -61,7 +61,16 @@ extern "C"
 		pinMode(_hwConfig.PIN_LORA_DIO_1, INPUT);
 		pinMode(_hwConfig.PIN_LORA_RESET, OUTPUT);
 		digitalWrite(_hwConfig.PIN_LORA_RESET, HIGH);
-		if ((_hwConfig.RADIO_TXEN != -1) && (_hwConfig.RADIO_RXEN != -1))
+
+		// Use RADIO_TXEN as power for the antenna switch
+		if (_hwConfig.USE_RXEN_ANT_PWR)
+		{
+			pinMode(_hwConfig.RADIO_TXEN, INPUT);
+			pinMode(_hwConfig.RADIO_RXEN, OUTPUT);
+			digitalWrite(_hwConfig.RADIO_RXEN, LOW);
+		}
+		// If both RADIO_TXEN and RADIO_RXEN is defined they control the direction of the antenna switch
+		else if ((_hwConfig.RADIO_TXEN != -1) && (_hwConfig.RADIO_RXEN != -1))
 		{
 			pinMode(_hwConfig.RADIO_TXEN, OUTPUT);
 			pinMode(_hwConfig.RADIO_RXEN, OUTPUT);
@@ -84,7 +93,16 @@ extern "C"
 		pinMode(_hwConfig.PIN_LORA_DIO_1, INPUT);
 		// pinMode(_hwConfig.PIN_LORA_RESET, OUTPUT);
 		// digitalWrite(_hwConfig.PIN_LORA_RESET, HIGH);
-		if ((_hwConfig.RADIO_TXEN != -1) && (_hwConfig.RADIO_RXEN != -1))
+
+		// If only RADIO_TXEN is defined, it is the power control for the antenna switch
+		if (_hwConfig.USE_RXEN_ANT_PWR)
+		{
+			pinMode(_hwConfig.RADIO_TXEN, INPUT);
+			pinMode(_hwConfig.RADIO_RXEN, OUTPUT);
+			digitalWrite(_hwConfig.RADIO_RXEN, LOW);
+		}
+		// If both RADIO_TXEN and RADIO_RXEN is defined they control the direction of the antenna switch
+		else if ((_hwConfig.RADIO_TXEN != -1) && (_hwConfig.RADIO_RXEN != -1))
 		{
 			pinMode(_hwConfig.RADIO_TXEN, OUTPUT);
 			pinMode(_hwConfig.RADIO_RXEN, OUTPUT);
@@ -482,35 +500,54 @@ extern "C"
 
 	void SX126xAntSwOn(void)
 	{
+		// Use if DIO3 is used as antenna switch power control
 		if (_hwConfig.USE_DIO3_ANT_SWITCH)
 		{
 			SX126xDio3Control(true);
+		}
+
+		// Use if RADIO_TXEN is used as antenna switch power control
+		if (_hwConfig.USE_RXEN_ANT_PWR)
+		{
+			digitalWrite(_hwConfig.RADIO_RXEN, HIGH);
 		}
 	}
 
 	void SX126xAntSwOff(void)
 	{
+		// Use if DIO3 is used as antenna switch power control
 		if (_hwConfig.USE_DIO3_ANT_SWITCH)
 		{
 			SX126xDio3Control(false);
+		}
+		// Use if RADIO_TXEN is used as antenna switch power control
+		if (_hwConfig.USE_RXEN_ANT_PWR)
+		{
+			digitalWrite(_hwConfig.RADIO_RXEN, LOW);
 		}
 	}
 
 	void SX126xRXena(void)
 	{
+		if (!_hwConfig.USE_RXEN_ANT_PWR)
+		{
 		if ((_hwConfig.RADIO_RXEN != -1) && (_hwConfig.RADIO_TXEN != -1))
 		{
 			digitalWrite(_hwConfig.RADIO_RXEN, HIGH);
 			digitalWrite(_hwConfig.RADIO_TXEN, LOW);
 		}
 	}
+	}
 
 	void SX126xTXena(void)
 	{
+		if (!_hwConfig.USE_RXEN_ANT_PWR)
+		{
 		if ((_hwConfig.RADIO_RXEN != -1) && (_hwConfig.RADIO_TXEN != -1))
 		{
 			digitalWrite(_hwConfig.RADIO_RXEN, LOW);
 			digitalWrite(_hwConfig.RADIO_TXEN, HIGH);
+			}
 		}
 	}
 

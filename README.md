@@ -70,6 +70,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2020-09-29:
+  - Fix wrong control of antenna switch for RAK4631
+  - Add option to control power of antenna switch by the library with **`_hwConfig.USE_RXEN_ANT_PWR`**
 - 2020-08-01:
   - Fixed linker error when header files are included from multiple source files
 - 2020-07-09:
@@ -168,6 +171,7 @@ The hardware configuration is given to the library by a structure with the follo
   hwConfig.USE_DIO3_TCXO = true;            // True if DIO3 is used to control the voltage of the TXCO oscillator
   hwConfig.USE_DIO3_ANT_SWITCH = false;     // True if DIO3 is used to enable/disable the antenna
   hwConfig.USE_LDO = false;                 // False if SX126x DCDC converter is used, true if SX126x LDO is used
+  hwConfig.USE_RXEN_ANT_PWR = false;        // If set to true RADIO_RXEN pin is used to control power of antenna switch
 ```    
 ----
 ### Explanation for LDO and DCDC selection
@@ -178,10 +182,11 @@ If **`USE_LDO`** is not set in the hwConfig, DCDC is used as default.
 ----
 ### Explanation for TXCO and antenna control
 
-- RADIO_TXEN and RADIO_TXEN are used on [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module to switch the antenna between RX and TX    
+- RADIO_TXEN and RADIO_RXEN are used on [eByte E22-900M22S](http://www.ebyte.com/en/product-view-news.aspx?id=437) module to switch the antenna between RX and TX    
 - DIO2 as antenna switch is used in the example Semtech design as default and might be used by many modules   
 - DIO3 as antenna switch is used by e.g. [Insight SIP ISP4520](https://www.insightsip.com/products/combo-smart-modules/isp4520) module which integrates a nRF52832 and a SX126x chip   
 - Some modules use DIO3 to control the power supply of the TXCO.    
+- Some modules use DIO2 to switch the antenna between RX and TX and a separate GPIO to power the antenna switch on or off. Switching the antenna switch off can reduce the power consumption. The GPIO used to control the antenna power is defined as RADIO_RXEN. LOW == power off, HIGH == power on.
 ----
 ## Usage
 See [examples](https://github.com/beegee-tokyo/SX126x-Android/examples).    
@@ -254,6 +259,7 @@ Fill the structure with the HW configuration
   hwConfig.USE_DIO3_TCXO = true;            // Example uses an eByte E22 module which uses DIO3 to control oscillator voltage
   hwConfig.USE_DIO3_ANT_SWITCH = false;     // Only Insight ISP4520 module uses DIO3 as antenna control
   hwConfig.USE_LDO = false;                 // Set to true if SX126x uses LDO instead of DCDC converter
+  hwConfig.USE_RXEN_ANT_PWR = false;        // Antenna power is not controlled by a GPIO
 ```
 ----
 #### Module specific initialization

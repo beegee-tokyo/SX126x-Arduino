@@ -61,7 +61,7 @@ var searchData=
   ['smulticastparams_1919',['sMulticastParams',['../structs_multicast_params.html',1,'']]],
   ['snewchannelreqparams_1920',['sNewChannelReqParams',['../structs_new_channel_req_params.html',1,'']]],
   ['snextchanparams_1921',['sNextChanParams',['../structs_next_chan_params.html',1,'']]],
-  ['snr_1922',['snr',['../structlmh__app__data__t.html#ac193316a934397616ad2d0e719608870',1,'lmh_app_data_t::snr()'],['../structs_mcps_indication.html#a408da739421acbaba81eab1836a432ed',1,'sMcpsIndication::Snr()']]],
+  ['snr_1922',['Snr',['../structs_mcps_indication.html#a408da739421acbaba81eab1836a432ed',1,'sMcpsIndication::Snr()'],['../structlmh__app__data__t.html#ac193316a934397616ad2d0e719608870',1,'lmh_app_data_t::snr()']]],
   ['snrpkt_1923',['SnrPkt',['../struct_packet_status__t.html#a7562e60e21e95924c782fe31c989c223',1,'PacketStatus_t']]],
   ['spi_1924',['Spi',['../struct_s_x126x__s.html#a02a868374a4e55992d6171ace7d8f469',1,'SX126x_s']]],
   ['spi_5fboard_2ecpp_1925',['spi_board.cpp',['../espressif_2spi__board_8cpp.html',1,'(Global Namespace)'],['../nrf52832_2spi__board_8cpp.html',1,'(Global Namespace)']]],

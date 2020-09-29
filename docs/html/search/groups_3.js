@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['utility_20functions_20and_20definitions_20_28platform_29_4142',['Utility Functions and Definitions (Platform)',['../group__app__util__platform.html',1,'']]]
+  ['utility_20functions_20and_20definitions_20_28platform_29_4144',['Utility Functions and Definitions (Platform)',['../group__app__util__platform.html',1,'']]]
 ];
