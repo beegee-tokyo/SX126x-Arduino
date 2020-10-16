@@ -1,6 +1,8 @@
 # SX126x-Arduino [![Build Status](https://travis-ci.com/beegee-tokyo/SX126x-Arduino.svg?branch=master)](https://travis-ci.com/beegee-tokyo/SX126x-Arduino)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](https://beegee-tokyo.github.io/SX126x-Arduino/)
 ----
-Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266 and nRF52832. It will not work with other uC's like AVR.    
+Arduino Library for LoRa communication with Semtech SX126x chips.
+It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266 and nRF52832. 
+It will not work with other uC's like AVR.    
 
 ----
 ## Content
