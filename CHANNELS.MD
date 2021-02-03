@@ -6,10 +6,11 @@ __*Please confirm by yourself if this list is up-to-date*__
 ### Asia 923MHz band    
 ### AS923
 
-| Channel | Frequency |
-| :---: | :---: |
-| 0 | 923200000 |   
-| 1 | 923400000 |
+| Channel | Frequency |    
+| :-:     | :-:       |
+| 0       | 923200000 |   
+| 1       | 923400000 |
+
 ---
 ### Australia
 ### AU915
@@ -34,6 +35,7 @@ __*Please confirm by yourself if this list is up-to-date*__
 | 15 | 918200000 | 33 | 921800000 | 51 | 925400000 | 69 | 923900000 |
 | 16 | 918400000 | 34 | 922000000 | 52 | 925600000 | 70 | 925500000 |
 | 17 | 918600000 | 35 | 922200000 | 53 | 925800000 | 71 | 927100000 |
+
 ---
 ### China 470MHz
 ### CN470
@@ -64,6 +66,7 @@ __*Please confirm by yourself if this list is up-to-date*__
 | 21 | 474500000 | 45 | 479300000 | 69 | 484100000 | 93 | 488900000 |
 | 22 | 474700000 | 46 | 479500000 | 70 | 484300000 | 94 | 489100000 |
 | 23 | 474900000 | 47 | 479700000 | 71 | 484500000 | 95 | 489300000 |
+
 ---
 ### China 779MHz
 ### CN779
@@ -73,6 +76,7 @@ __*Please confirm by yourself if this list is up-to-date*__
 | 0 | 779500000 |
 | 1 | 779700000 |
 | 2 | 779900000 |
+
 ---
 ### Europe 433MHz
 ### EU433
@@ -82,6 +86,7 @@ __*Please confirm by yourself if this list is up-to-date*__
 | 0 | 433175000 |
 | 1 | 433375000 |
 | 2 | 433575000 |
+
 ---
 ### Europe 868MHz
 ### EU868
@@ -91,6 +96,7 @@ __*Please confirm by yourself if this list is up-to-date*__
 | 0 | 868100000 |
 | 1 | 868300000 |
 | 2 | 868500000 |
+
 ---
 ### India 865MHz
 ### IN865
@@ -100,6 +106,7 @@ __*Please confirm by yourself if this list is up-to-date*__
 | 0 | 865062500 |
 | 1 | 865402500 |
 | 2 | 865985000 |
+
 ---
 ### South Korea 920MHz
 ### KR920
@@ -109,6 +116,7 @@ __*Please confirm by yourself if this list is up-to-date*__
 | 0 | 922100000 |
 | 1 | 922300000 |
 | 2 | 922500000 |
+
 ---
 ### USA 915 MHz
 ### US915 & US915_HYBRID

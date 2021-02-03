@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
-   &#160;<span id="projectnumber">1.2.1</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
   </td>
  </tr>
@@ -142,9 +142,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:afe6e85f1768e6b6cfe750341eb5a1932"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_lo_ra_mac_helper_8h.html#a1a1179b559ca0b19da3a7f60a810aeff">lmh_error_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_lo_ra_mac_helper_8h.html#afe6e85f1768e6b6cfe750341eb5a1932">lmh_init</a> (<a class="el" href="_lo_ra_mac_helper_8h.html#a9c5d80b837941c443d6d4f7a2f512dc5">lmh_callback_t</a> *callbacks, <a class="el" href="_lo_ra_mac_helper_8h.html#abb7483a952afbf12b3c80790a9166c37">lmh_param_t</a> lora_param, bool otaa)</td></tr>
-<tr class="memdesc:afe6e85f1768e6b6cfe750341eb5a1932"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lora Initialisation.  <a href="_lo_ra_mac_helper_8h.html#afe6e85f1768e6b6cfe750341eb5a1932">More...</a><br /></td></tr>
-<tr class="separator:afe6e85f1768e6b6cfe750341eb5a1932"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fba9f775b75286ccf2c71a4ce2f4b87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_lo_ra_mac_helper_8h.html#a1a1179b559ca0b19da3a7f60a810aeff">lmh_error_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_lo_ra_mac_helper_8h.html#a6fba9f775b75286ccf2c71a4ce2f4b87">lmh_init</a> (<a class="el" href="_lo_ra_mac_helper_8h.html#a9c5d80b837941c443d6d4f7a2f512dc5">lmh_callback_t</a> *callbacks, <a class="el" href="_lo_ra_mac_helper_8h.html#abb7483a952afbf12b3c80790a9166c37">lmh_param_t</a> lora_param, bool otaa, <a class="el" href="group___l_o_r_a_m_a_c.html#ga133e92597739340bac439d1b0916dcb6">eDeviceClass</a> nodeClass=<a class="el" href="group___l_o_r_a_m_a_c.html#gga133e92597739340bac439d1b0916dcb6a307ee33f71385819abc142fe4f23c3bb">CLASS_A</a>)</td></tr>
+<tr class="memdesc:a6fba9f775b75286ccf2c71a4ce2f4b87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lora Initialisation.  <a href="_lo_ra_mac_helper_8h.html#a6fba9f775b75286ccf2c71a4ce2f4b87">More...</a><br /></td></tr>
+<tr class="separator:a6fba9f775b75286ccf2c71a4ce2f4b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8dd58732c7df4c20560bee8836c38f89"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_lo_ra_mac_helper_8h.html#a1a1179b559ca0b19da3a7f60a810aeff">lmh_error_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_lo_ra_mac_helper_8h.html#a8dd58732c7df4c20560bee8836c38f89">lmh_send</a> (<a class="el" href="structlmh__app__data__t.html">lmh_app_data_t</a> *app_data, <a class="el" href="_lo_ra_mac_helper_8h.html#a402708547180917fdda8e4587952ad3e">lmh_confirm</a> is_txconfirmed)</td></tr>
 <tr class="memdesc:a8dd58732c7df4c20560bee8836c38f89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data.  <a href="_lo_ra_mac_helper_8h.html#a8dd58732c7df4c20560bee8836c38f89">More...</a><br /></td></tr>
 <tr class="separator:a8dd58732c7df4c20560bee8836c38f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -394,8 +394,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="afe6e85f1768e6b6cfe750341eb5a1932"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe6e85f1768e6b6cfe750341eb5a1932">&#9670;&nbsp;</a></span>lmh_init()</h2>
+<a id="a6fba9f775b75286ccf2c71a4ce2f4b87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fba9f775b75286ccf2c71a4ce2f4b87">&#9670;&nbsp;</a></span>lmh_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -416,7 +416,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>otaa</em>&#160;</td>
+          <td class="paramname"><em>otaa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group___l_o_r_a_m_a_c.html#ga133e92597739340bac439d1b0916dcb6">eDeviceClass</a>&#160;</td>
+          <td class="paramname"><em>nodeClass</em> = <code><a class="el" href="group___l_o_r_a_m_a_c.html#gga133e92597739340bac439d1b0916dcb6a307ee33f71385819abc142fe4f23c3bb">CLASS_A</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -431,7 +437,8 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">callbacks</td><td>Pointer to structure containing the callback functions </td></tr>
     <tr><td class="paramname">lora_param</td><td>Pointer to structure containing the parameters </td></tr>
-    <tr><td class="paramname">otaa</td><td>Choose OTAA (true) or ABP (false) activation</td></tr>
+    <tr><td class="paramname">otaa</td><td>Choose OTAA (true) or ABP (false) activation </td></tr>
+    <tr><td class="paramname">nodeClass</td><td>Choose node class CLASS_A, CLASS_B or CLASS_C, default to CLASS_A</td></tr>
   </table>
   </dd>
 </dl>

@@ -70,6 +70,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2021-02-02:
+  - Fix ADR problem
+  - Fix Join problem for some Regions
+  - Add some debug output
+  - Add option to set node class during initialization. Defaults to CLASS_A for backward compatibility: **`lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, eDeviceClass class = CLASS_A);`**
 - 2020-09-29:
   - Fix wrong control of antenna switch for RAK4631
   - Add option to control power of antenna switch by the library with **`_hwConfig.USE_RXEN_ANT_PWR`**
@@ -357,6 +362,11 @@ You need to define a region. The defined region tells the library which frequenc
 - REGION_KR920 -> Korea 920 MHz
 - REGION_US915 -> US 915 MHz
 
+More information:    
+- **[Channel plan per Region](./CHANNELS.MD)**    
+- **[Max packet size per Region and Datarate](./MAX_PACKET_SIZE.md)**
+- **[LoRaWan Datarate to SF and BW table](./DATARATE.MD)**    
+
 In addition you need
 - Device EUI if you want to use ABP registration of the device
 - Application EUI 
@@ -512,14 +522,14 @@ void lmh_join(void)
 ```    
 ----
 #### LoRaWan single channel gateway
-By default when using LoRaWan communication, the node is using frequency hoping. That means that for each package to be sent a random frequency is chosen out of the predefined frequencies for a region. The frequency (== channels) for each region can be found in the file [CHANNELS.MD](https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/CHANNELS.MD).    
+By default when using LoRaWan communication, the node is using frequency hoping. That means that for each package to be sent a random frequency is chosen out of the predefined frequencies for a region. The frequency (== channels) for each region can be found in the file [CHANNELS.MD](./CHANNELS.MD).    
 If connecting the node to a single channel gateway this is a problem, because a single channel gateway can receive only on one channel (== frequency). To get around this problem the channel hoping can be disabled and a fixed frequency (channel) and datarate can be set by the function
 ```cpp
 void lmh_setSingleChannelGateway(uint8_t userSingleChannel, int8_t userDatarate);
 ```
 The first paramenter is the channel (frequency) to be used to communicate with the single channel gateway.    
-Check the specification of your single channel gateway to find out on which channel (frequency) it is listening and then get the channel number from the file [CHANNELS.MD](https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/CHANNELS.MD).     
-The second parameter selects the datarate for the communication. Again check the specification of your single channel gateway to find out what datarate it is using and use it in the function call. It might be that instead of the datarate the spreading factor SF and bandwidth BW are documented. In this case you need to check the file [DATARATE.MD](https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/DATARATE.MD) to find out which datarate to choose.    
+Check the specification of your single channel gateway to find out on which channel (frequency) it is listening and then get the channel number from the file [CHANNELS.MD](./CHANNELS.MD).     
+The second parameter selects the datarate for the communication. Again check the specification of your single channel gateway to find out what datarate it is using and use it in the function call. It might be that instead of the datarate the spreading factor SF and bandwidth BW are documented. In this case you need to check the file [DATARATE.MD](./DATARATE.MD) to find out which datarate to choose.    
 E.g. the [things4u ESP-1ch-Gateway-v5.0](https://github.com/things4u/ESP-1ch-Gateway-v5.0/tree/master/ESP-sc-gway) single channel gateway when setup to US915 region is listening on 902.30 Mhz with a bandwidth of 125kHz and a spreading factor of 7.
 In **_CHANNEL.MD_** you can find that 902.30 MHz is channel 0 and in **_DATARATE.MD_** you can find that SF7 and BW 125 kHz would be for region US915 the data rate DR_3.
 In this example we fix the communication to the channel 0 with the datarate DR_3 (SF7 and BW125);

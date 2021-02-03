@@ -51,7 +51,7 @@ extern "C"
 /*!
  * Maximal datarate that can be used by the node
  */
-#define AU915_TX_MAX_DATARATE DR_6
+#define AU915_TX_MAX_DATARATE DR_13
 
 /*!
  * Minimal datarate that can be used by the node
@@ -66,7 +66,7 @@ extern "C"
 /*!
  * Default datarate used by the node
  */
-#define AU915_DEFAULT_DATARATE DR_0
+#define AU915_DEFAULT_DATARATE DR_2
 
 /*!
  * Minimal Rx1 receive datarate offset
@@ -86,7 +86,7 @@ extern "C"
 /*!
  * Minimal Tx output power that can be used by the node
  */
-#define AU915_MIN_TX_POWER TX_POWER_10
+#define AU915_MIN_TX_POWER TX_POWER_14
 
 /*!
  * Maximal Tx output power that can be used by the node
@@ -229,12 +229,12 @@ extern "C"
 	/*!
  * Maximum payload with respect to the datarate index. Cannot operate with repeater.
  */
-	static const uint8_t MaxPayloadOfDatarateAU915[] = {51, 51, 51, 115, 242, 242, 242, 0, 53, 129, 242, 242, 242, 242, 0, 0};
+	static const uint8_t MaxPayloadOfDatarateAU915[] = {51, 51, 51, 115, 242, 242, 242, 0, 53, 129, 242, 242, 242, 242};
 
 	/*!
  * Maximum payload with respect to the datarate index. Can operate with repeater.
  */
-	static const uint8_t MaxPayloadOfDatarateRepeaterAU915[] = {51, 51, 51, 115, 222, 222, 222, 0, 33, 109, 222, 222, 222, 222, 0, 0};
+	static const uint8_t MaxPayloadOfDatarateRepeaterAU915[] = {0, 0, 11, 53, 125, 242, 242, 0, 53, 129, 242, 242, 242, 242};
 
 	/*!
  * \brief The function gets a value of a specific phy attribute.

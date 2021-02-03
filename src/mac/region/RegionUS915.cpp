@@ -756,8 +756,11 @@ extern "C"
 		// Re-enable 500 kHz default channels
 		ChannelsMask[4] = 0x00FF;
 
-		if ((alternateDr->NbTrials & 0x01) == 0x01)
+		// Alternates the data rate according to the channel sequence:
+		// Eight times a 125kHz DR_0 and then one 500kHz DR_4 channel
+		if( alternateDr->NbTrials % 9 == 0 )
 		{
+			// Use DR_4 every 9th times.
 			datarate = DR_4;
 		}
 		else

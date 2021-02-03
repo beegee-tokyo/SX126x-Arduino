@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['boarddisableirq_2408',['BoardDisableIrq',['../board_8cpp.html#a5f86a7fcd15b738de889d9226c437da1',1,'BoardDisableIrq(void):&#160;board.cpp'],['../board_8h.html#a5f86a7fcd15b738de889d9226c437da1',1,'BoardDisableIrq(void):&#160;board.h']]],
-  ['boardenableirq_2409',['BoardEnableIrq',['../board_8cpp.html#a8d6641d901d5418117dcb38242130678',1,'BoardEnableIrq(void):&#160;board.cpp'],['../board_8h.html#a8d6641d901d5418117dcb38242130678',1,'BoardEnableIrq(void):&#160;board.h']]],
-  ['boardgetbatterylevel_2410',['BoardGetBatteryLevel',['../board_8cpp.html#af76c87dec5209225d7e36c1af950c57d',1,'BoardGetBatteryLevel(void):&#160;board.cpp'],['../board_8h.html#af76c87dec5209225d7e36c1af950c57d',1,'BoardGetBatteryLevel(void):&#160;board.h']]],
-  ['boardgetrandomseed_2411',['BoardGetRandomSeed',['../board_8cpp.html#a9095c4392ffacd8b8e58e085edda7513',1,'BoardGetRandomSeed(void):&#160;board.cpp'],['../board_8h.html#a9095c4392ffacd8b8e58e085edda7513',1,'BoardGetRandomSeed(void):&#160;board.h']]],
-  ['boardgetuniqueid_2412',['BoardGetUniqueId',['../board_8cpp.html#a54a40b5afeedebdf522c93f3b3be43f5',1,'BoardGetUniqueId(uint8_t *id):&#160;board.cpp'],['../board_8h.html#a54a40b5afeedebdf522c93f3b3be43f5',1,'BoardGetUniqueId(uint8_t *id):&#160;board.h']]]
+  ['boarddisableirq_2405',['BoardDisableIrq',['../board_8cpp.html#a5f86a7fcd15b738de889d9226c437da1',1,'BoardDisableIrq(void):&#160;board.cpp'],['../board_8h.html#a5f86a7fcd15b738de889d9226c437da1',1,'BoardDisableIrq(void):&#160;board.h']]],
+  ['boardenableirq_2406',['BoardEnableIrq',['../board_8cpp.html#a8d6641d901d5418117dcb38242130678',1,'BoardEnableIrq(void):&#160;board.cpp'],['../board_8h.html#a8d6641d901d5418117dcb38242130678',1,'BoardEnableIrq(void):&#160;board.h']]],
+  ['boardgetbatterylevel_2407',['BoardGetBatteryLevel',['../board_8cpp.html#af76c87dec5209225d7e36c1af950c57d',1,'BoardGetBatteryLevel(void):&#160;board.cpp'],['../board_8h.html#af76c87dec5209225d7e36c1af950c57d',1,'BoardGetBatteryLevel(void):&#160;board.h']]],
+  ['boardgetrandomseed_2408',['BoardGetRandomSeed',['../board_8cpp.html#a9095c4392ffacd8b8e58e085edda7513',1,'BoardGetRandomSeed(void):&#160;board.cpp'],['../board_8h.html#a9095c4392ffacd8b8e58e085edda7513',1,'BoardGetRandomSeed(void):&#160;board.h']]],
+  ['boardgetuniqueid_2409',['BoardGetUniqueId',['../board_8cpp.html#a54a40b5afeedebdf522c93f3b3be43f5',1,'BoardGetUniqueId(uint8_t *id):&#160;board.cpp'],['../board_8h.html#a54a40b5afeedebdf522c93f3b3be43f5',1,'BoardGetUniqueId(uint8_t *id):&#160;board.h']]]
 ];

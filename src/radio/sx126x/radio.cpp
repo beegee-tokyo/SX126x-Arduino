@@ -654,7 +654,6 @@ extern "C"
 
 	uint32_t RadioRandom(void)
 	{
-		uint8_t i;
 		uint32_t rnd = 0;
 
 		/*
@@ -1274,6 +1273,12 @@ extern "C"
 
 				if ((irqRegs & IRQ_CRC_ERROR) == IRQ_CRC_ERROR)
 				{
+#ifdef ESP32
+					log_d("RadioIrqProcess => IRQ_CRC_ERROR");
+#endif
+#ifdef NRF52_SERIES
+					LOG_LV1("RADIO", "RadioIrqProcess => IRQ_CRC_ERROR");
+#endif
 					uint8_t size;
 					// Discard buffer
 					memset(RadioRxPayload, 0, 255);
@@ -1325,6 +1330,12 @@ extern "C"
 
 			if ((irqRegs & IRQ_RX_TX_TIMEOUT) == IRQ_RX_TX_TIMEOUT)
 			{
+#ifdef ESP32
+				log_d("RadioIrqProcess => IRQ_RX_TX_TIMEOUT");
+#endif
+#ifdef NRF52_SERIES
+				LOG_LV1("RADIO", "RadioIrqProcess => IRQ_RX_TX_TIMEOUT");
+#endif
 				if (SX126xGetOperatingMode() == MODE_TX)
 				{
 					TimerStop(&TxTimeoutTimer);
@@ -1367,6 +1378,12 @@ extern "C"
 
 			if ((irqRegs & IRQ_HEADER_ERROR) == IRQ_HEADER_ERROR)
 			{
+#ifdef ESP32
+				log_d("RadioIrqProcess => IRQ_HEADER_ERROR");
+#endif
+#ifdef NRF52_SERIES
+				LOG_LV1("RADIO", "RadioIrqProcess => IRQ_HEADER_ERROR");
+#endif
 				TimerStop(&RxTimeoutTimer);
 				if (RxContinuous == false)
 				{

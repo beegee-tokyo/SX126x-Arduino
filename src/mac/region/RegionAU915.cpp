@@ -570,7 +570,7 @@ extern "C"
 		// Setup the radio frequency
 		Radio.SetChannel(Channels[txConfig->Channel].Frequency);
 
-		Radio.SetTxConfig(MODEM_LORA, phyTxPower, 0, bandwidth, phyDr, 1, 8, false, true, 0, 0, false, 3000);
+		Radio.SetTxConfig(MODEM_LORA, phyTxPower, 0, bandwidth, phyDr, 1, 8, false, true, 0, 0, false, 4000);
 
 		// Setup maximum payload lenght of the radio driver
 		Radio.SetMaxPayloadLength(MODEM_LORA, txConfig->PktLen);
@@ -744,20 +744,22 @@ extern "C"
 
 	int8_t RegionAU915AlternateDr(AlternateDrParams_t *alternateDr)
 	{
-		int8_t datarate = 0;
+		static int8_t trialsCount = 0;
+		uint8_t currentDr = 0;
 
 		// Re-enable 500 kHz default channels
 		ChannelsMask[4] = 0x00FF;
 
-		if ((alternateDr->NbTrials & 0x01) == 0x01)
+		if( ( trialsCount & 0x01 ) == 0x01 )
 		{
-			datarate = DR_6;
+			currentDr = DR_6;
 		}
 		else
 		{
-			datarate = DR_0;
+			currentDr = DR_2;
 		}
-		return datarate;
+		trialsCount++;
+		return currentDr;
 	}
 
 	void RegionAU915CalcBackOff(CalcBackOffParams_t *calcBackOff)

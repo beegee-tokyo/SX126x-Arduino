@@ -3,6 +3,11 @@
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32. ESP8266 and nRF52832. It will not work with other uC's like AVR.    
 
 # Release Notes
+## V1.3.0 Bug fixes for LoRaWAN
+  - Fix ADR problem
+  - Fix Join problem for some Regions
+  - Add some debug output    
+  - Add option to set node class during initialization. Defaults to CLASS_A for backward compatibility: **`lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, eDeviceClass class = CLASS_A);`**
 ## V1.2.1 Add option to control antenna switch power with GPIO
   - Fix wrong control of antenna switch for RAK4631
   - Add option to control power of antenna switch by the library with **`_hwConfig.USE_RXEN_ANT_PWR`**

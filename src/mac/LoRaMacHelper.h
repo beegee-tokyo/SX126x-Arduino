@@ -133,10 +133,11 @@ extern "C"
  * @param callbacks	Pointer to structure containing the callback functions
  * @param lora_param	Pointer to structure containing the parameters
  * @param otaa Choose OTAA (true) or ABP (false) activation
+ * @param nodeClass Choose node class CLASS_A, CLASS_B or CLASS_C, default to CLASS_A
  *
  * @retval error status
  */
-	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa);
+	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, eDeviceClass nodeClass = CLASS_A);
 
 	/**@brief Send data
  *
