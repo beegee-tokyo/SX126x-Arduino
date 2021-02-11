@@ -70,6 +70,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2021-02-11:
+  - Add callback for OTAA join failure 
 - 2021-02-02:
   - Fix ADR problem
   - Fix Join problem for some Regions
@@ -512,8 +514,10 @@ static lmh_param_t lora_param_init = {LORAWAN_ADR_ON,
 /**@brief Structure containing LoRaWan callback functions, needed for lmh_init() */
 
 static lmh_callback_t lora_callbacks = {BoardGetBatteryLevel, BoardGetUniqueId, BoardGetRandomSeed,
-	lorawan_rx_handler, lorawan_has_joined_handler, lorawan_confirm_class_handler};
+	lorawan_rx_handler, lorawan_has_joined_handler, lorawan_confirm_class_handler, lpwan_joined_failed};
 ```    
+The last callback function was added in library version 1.3.1. Before the app had to poll the status to see if OTAA join request had failed. The new callback is an addition to the `lorawan_has_joined_handler` callback. If the OTAA join request was successful, `lorawan_has_joined_handler` is called. If the OTAA join request fails (wrong EUI's, wrong Keys, or other reason), `lpwan_joined_failed` is called and the app can retry to join or notify an error.
+
 ----
 #### Join
 Join the LoRaWan network to be able to send and receive data. Default connection type is     
@@ -542,7 +546,7 @@ lmh_setSingleChannelGateway(0, DR_3);
 While testing the LoRaWan functionality I discovered that for some regions and some LoRaWan gateways it is required to limit the frequency hopping to a specific sub band of the region.    
 E.g. in the settings of the LoRaWan gateway I bought for testing ([Dragino LPS8](https://www.dragino.com/products/lora-lorawan-gateway/item/148-lps8.html)) you have not only to define the region, but as well one of 8 sub bands. The gateway will listen only on the selected sub band.    
 The problem is that if the LoRa node uses all available frequencies for frequency hopping, then for sure some of the packets will be lost, because they are sent on frequencies outside of the sub band on which the gateway is listening.    
-Depending on the region, there could be between 2 and 12 sub bands to select from. Each sub band consists of 8 frequencies with a fixed distance beteween each. The sub bands are selected by numbers starting with **`1`** for the first sub band of 8 frequencies.   
+Depending on the region, there could be between 2 and 12 sub bands to select from. Each sub band consists of 8 frequencies with a fixed distance between each. The sub bands are selected by numbers starting with **`1`** for the first sub band of 8 frequencies.   
 _**You have to check with your LoRaWan gateway if you need to setup a sub band**_    
 Example to limit the frequency hopping to sub band #1
 ```cpp

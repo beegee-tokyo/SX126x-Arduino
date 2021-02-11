@@ -180,7 +180,7 @@ extern "C"
 	/*!
  * Indicates if the MAC layer has already joined a network.
  */
-	static bool IsLoRaMacNetworkJoined = false;
+	eJoinStatus_t IsLoRaMacNetworkJoined = JOIN_NOT_START;
 
 	/*!
  * LoRaMac ADR control status
@@ -769,7 +769,7 @@ extern "C"
 #ifdef NRF52_SERIES
 			LOG_LV1("LM", "OnRadioRxDone => FRAME_TYPE_JOIN_ACCEPT");
 #endif
-			if (IsLoRaMacNetworkJoined == true)
+			if (IsLoRaMacNetworkJoined == JOIN_OK)
 			{
 				McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_ERROR;
 				PrepareRxDoneAbort();
@@ -820,11 +820,12 @@ extern "C"
 				RegionApplyCFList(LoRaMacRegion, &applyCFList);
 
 				MlmeConfirm.Status = LORAMAC_EVENT_INFO_STATUS_OK;
-				IsLoRaMacNetworkJoined = true;
+				IsLoRaMacNetworkJoined = JOIN_OK;
 				LoRaMacParams.ChannelsDatarate = LoRaMacParamsDefaults.ChannelsDatarate;
 			}
 			else
 			{
+				IsLoRaMacNetworkJoined = JOIN_FAILED;
 				MlmeConfirm.Status = LORAMAC_EVENT_INFO_STATUS_JOIN_FAIL;
 			}
 			break;
@@ -1309,12 +1310,20 @@ extern "C"
 						}
 						else
 						{
+#ifdef ESP32
+							log_d("Join network failed %d time(s)\n", JoinRequestTrials);
+#endif
+#ifdef NRF52_SERIES
+							LOG_LV1("LM", "Join network failed %d time(s)\n", JoinRequestTrials);
+#endif
+							IsLoRaMacNetworkJoined = JOIN_FAILED;
 							if (JoinRequestTrials >= MaxJoinRequestTrials)
 							{
 								LoRaMacState &= ~LORAMAC_TX_RUNNING;
 							}
 							else
 							{
+								IsLoRaMacNetworkJoined = JOIN_ONGOING;
 								LoRaMacFlags.Bits.MacDone = 0;
 								// Sends the same frame again
 								OnTxDelayedTimerEvent();
@@ -2007,7 +2016,7 @@ extern "C"
 										LoRaMacParams.SystemMaxRxError,
 										&RxWindow2Config);
 
-		if (IsLoRaMacNetworkJoined == false)
+		if (IsLoRaMacNetworkJoined != JOIN_OK)
 		{
 			RxWindow1Delay = LoRaMacParams.JoinAcceptDelay1 + RxWindow1Config.WindowOffset;
 			RxWindow2Delay = LoRaMacParams.JoinAcceptDelay2 + RxWindow2Config.WindowOffset;
@@ -2059,8 +2068,6 @@ extern "C"
 
 	static void ResetMacParameters(void)
 	{
-		IsLoRaMacNetworkJoined = false;
-
 		// Counters
 		UpLinkCounter = 0;
 		DownLinkCounter = 0;
@@ -2158,7 +2165,7 @@ extern "C"
 			NodeAckRequested = true;
 			//Intentional fallthrough
 		case FRAME_TYPE_DATA_UNCONFIRMED_UP:
-			if (IsLoRaMacNetworkJoined == false)
+			if (IsLoRaMacNetworkJoined != JOIN_OK)
 			{
 				return LORAMAC_STATUS_NO_NETWORK_JOINED; // No network has been joined yet
 			}
@@ -2309,7 +2316,7 @@ extern "C"
 		TimerSetValue(&MacStateCheckTimer, MAC_STATE_CHECK_TIMEOUT);
 		TimerStart(&MacStateCheckTimer);
 
-		if (IsLoRaMacNetworkJoined == false)
+		if (IsLoRaMacNetworkJoined != JOIN_OK)
 		{
 			JoinRequestTrials++;
 		}
@@ -2864,7 +2871,7 @@ extern "C"
 			{
 				LoRaMacParams.Rx2Channel = mibSet->Param.Rx2Channel;
 
-				if ((LoRaMacDeviceClass == CLASS_C) && (IsLoRaMacNetworkJoined == true))
+				if ((LoRaMacDeviceClass == CLASS_C) && (IsLoRaMacNetworkJoined == JOIN_OK))
 				{
 					// Compute Rx2 windows parameters
 					RegionComputeRxWindowParameters(LoRaMacRegion,
@@ -3217,13 +3224,13 @@ extern "C"
 			// Verify the parameter NbTrials for the join procedure
 			verify.NbJoinTrials = mlmeRequest->Req.Join.NbTrials;
 
-			if (RegionVerify(LoRaMacRegion, &verify, PHY_NB_JOIN_TRIALS) == false)
-			{
-				// Value not supported, get default
-				getPhy.Attribute = PHY_DEF_NB_JOIN_TRIALS;
-				phyParam = RegionGetPhyParam(LoRaMacRegion, &getPhy);
-				mlmeRequest->Req.Join.NbTrials = (uint8_t)phyParam.Value;
-			}
+			// if (RegionVerify(LoRaMacRegion, &verify, PHY_NB_JOIN_TRIALS) == false)
+			// {
+			// 	// Value not supported, get default
+			// 	getPhy.Attribute = PHY_DEF_NB_JOIN_TRIALS;
+			// 	phyParam = RegionGetPhyParam(LoRaMacRegion, &getPhy);
+			// 	mlmeRequest->Req.Join.NbTrials = (uint8_t)phyParam.Value;
+			// }
 
 			LoRaMacFlags.Bits.MlmeReq = 1;
 			MlmeConfirm.MlmeRequest = mlmeRequest->Type;
@@ -3245,6 +3252,8 @@ extern "C"
 			altDr.NbTrials = JoinRequestTrials + 1;
 
 			LoRaMacParams.ChannelsDatarate = RegionAlternateDr(LoRaMacRegion, &altDr);
+
+			IsLoRaMacNetworkJoined = JOIN_ONGOING;
 
 			status = Send(&macHdr, 0, NULL, 0);
 			break;

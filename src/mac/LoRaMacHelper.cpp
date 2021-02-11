@@ -665,12 +665,21 @@ extern "C"
 			if (mlmeConfirm->Status == LORAMAC_EVENT_INFO_STATUS_OK)
 			{
 				// Status is OK, node has joined the network
-				m_callbacks->lmh_has_joined();
+				if (m_callbacks->lmh_has_joined != NULL)
+				{
+					m_callbacks->lmh_has_joined();
+				}
 			}
 			else
 			{
+				// call joined failed callback here
+				if (m_callbacks->lmh_has_joined_failed != NULL)
+				{
+					m_callbacks->lmh_has_joined_failed();
+				}
+
 				// Join was not successful. Try to join again
-				lmh_join();
+				// lmh_join(); // people can call it in callback funtion of joined failed.
 			}
 			break;
 		}
@@ -810,7 +819,6 @@ extern "C"
 		mibReq.Param.Class = nodeClass;
 		LoRaMacMibSetRequestConfirm(&mibReq);
 
-
 		LoRaMacTestSetDutyCycleOn(_dutyCycleEnabled);
 #if defined(REGION_EU868)
 #if (USE_SEMTECH_DEFAULT_CHANNEL_LINEUP == 1)
@@ -911,7 +919,7 @@ extern "C"
 			LoRaMacMibSetRequestConfirm(&mibReq);
 
 			mibReq.Type = MIB_NETWORK_JOINED;
-			mibReq.Param.IsNetworkJoined = true;
+			mibReq.Param.IsNetworkJoined = JOIN_OK;
 			LoRaMacMibSetRequestConfirm(&mibReq);
 
 			m_callbacks->lmh_has_joined();
@@ -924,14 +932,16 @@ extern "C"
 		mibReq.Type = MIB_NETWORK_JOINED;
 		LoRaMacMibGetRequestConfirm(&mibReq);
 
-		if (mibReq.Param.IsNetworkJoined == true)
-		{
-			return LMH_SET;
-		}
-		else
-		{
-			return LMH_RESET;
-		}
+		// if (mibReq.Param.IsNetworkJoined == true)
+		// {
+		// 	return LMH_SET;
+		// }
+		// else
+		// {
+		// 	return LMH_RESET;
+		// }
+
+		return (lmh_join_status)mibReq.Param.IsNetworkJoined;
 	}
 
 	lmh_error_status lmh_send(lmh_app_data_t *app_data, lmh_confirm is_tx_confirmed)

@@ -51,7 +51,9 @@ extern "C"
 	typedef enum
 	{
 		LMH_RESET = 0,
-		LMH_SET = !LMH_RESET
+		LMH_SET,
+		LMH_ONGOING,
+		LMH_FAILED
 	} lmh_join_status;
 
 	typedef enum
@@ -109,6 +111,10 @@ extern "C"
  * @param Class A, B, or C
  */
 		void (*lmh_ConfirmClass)(DeviceClass_t Class);
+
+		/**@brief callback indicating EndNode has just joined failed
+ */
+		void (*lmh_has_joined_failed)();
 
 	} lmh_callback_t;
 
