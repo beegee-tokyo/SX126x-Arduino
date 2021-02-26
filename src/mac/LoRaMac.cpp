@@ -1446,7 +1446,14 @@ extern "C"
 			if (LoRaMacFlags.Bits.MlmeReq == 1)
 			{
 				LoRaMacPrimitives->MacMlmeConfirm(&MlmeConfirm);
-				LoRaMacFlags.Bits.MlmeReq = 0;
+				if (MlmeConfirm.MlmeRequest == MLME_JOIN && IsLoRaMacNetworkJoined != JOIN_OK)
+				{ // fix the bug: When the number of join times is used up, if call lmh_join() in callback function again cannot work
+					LoRaMacFlags.Bits.MlmeReq = 1;
+				}
+				else
+				{
+					LoRaMacFlags.Bits.MlmeReq = 0;
+				}
 			}
 
 			// Procedure done. Reset variables.
@@ -2507,6 +2514,20 @@ extern "C"
 
 		PublicNetwork = true;
 		Radio.SetPublicNetwork(PublicNetwork);
+
+		/// \todo Putting the RegionTxConfig here makes the OTAA join more stable
+		TxConfigParams_t txConfig;
+		int8_t txPower = 0;
+
+		txConfig.Channel = 0;
+		txConfig.Datarate = LoRaMacParams.ChannelsDatarate;
+		txConfig.TxPower = LoRaMacParams.ChannelsTxPower;
+		txConfig.MaxEirp = LoRaMacParams.MaxEirp;
+		txConfig.AntennaGain = LoRaMacParams.AntennaGain;
+		txConfig.PktLen = LoRaMacBufferPktLen;
+
+		RegionTxConfig(LoRaMacRegion, &txConfig, &txPower, &TxTimeOnAir);
+
 		Radio.Sleep();
 
 		return LORAMAC_STATUS_OK;
