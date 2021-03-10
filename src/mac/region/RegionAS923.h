@@ -306,7 +306,8 @@ extern "C"
 /*!
  * LoRaMac channels which are allowed for the join procedure
  */
-#define AS923_JOIN_CHANNELS (uint16_t)(LC(1) | LC(2) | LC(3) | LC(4) | LC(5) | LC(6) | LC(7) | LC(8))
+// #define AS923_JOIN_CHANNELS (uint16_t)(LC(1) | LC(2) | LC(3) | LC(4) | LC(5) | LC(6) | LC(7) | LC(8))
+#define AS923_JOIN_CHANNELS (uint16_t)(LC(1) | LC(2))
 
 /*!
  * RSSI threshold for a free channel [dBm]

@@ -70,6 +70,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2021-03-10:  
+  - Fix AS923 OTAA join problem
 - 2021-02-26:
   - Fix join bug when first OTAA join fails
   - When OTAA join failed callback was called, following lmh_join() calls fail always 

@@ -675,7 +675,8 @@ extern "C"
 		LastTxChannel = Channel;
 		// Update last tx done time for the current channel
 		txDone.Channel = Channel;
-		txDone.Joined = IsLoRaMacNetworkJoined;
+//		txDone.Joined = IsLoRaMacNetworkJoined;
+		txDone.Joined = (IsLoRaMacNetworkJoined == JOIN_OK);
 		txDone.LastTxDoneTime = curTime;
 		RegionSetBandTxDone(LoRaMacRegion, &txDone);
 		// Update Aggregated last tx done time
@@ -1998,7 +1999,8 @@ extern "C"
 		nextChan.AggrTimeOff = AggregatedTimeOff;
 		nextChan.Datarate = LoRaMacParams.ChannelsDatarate;
 		nextChan.DutyCycleEnabled = DutyCycleOn;
-		nextChan.Joined = IsLoRaMacNetworkJoined;
+//		nextChan.Joined = IsLoRaMacNetworkJoined;
+		nextChan.Joined = (IsLoRaMacNetworkJoined == JOIN_OK);
 		nextChan.LastAggrTx = AggregatedLastTxDoneTime;
 
 		// Select channel
@@ -2059,7 +2061,8 @@ extern "C"
 	{
 		CalcBackOffParams_t calcBackOff;
 
-		calcBackOff.Joined = IsLoRaMacNetworkJoined;
+//		calcBackOff.Joined = IsLoRaMacNetworkJoined;
+		calcBackOff.Joined = (IsLoRaMacNetworkJoined == JOIN_OK);
 		calcBackOff.DutyCycleEnabled = DutyCycleOn;
 		calcBackOff.Channel = channel;
 		calcBackOff.ElapsedTime = TimerGetElapsedTime(LoRaMacInitializationTime);
