@@ -168,10 +168,6 @@ int8_t init_lora(void)
 		return -4;
 	}
 
-	// Start Join procedure
-	MYLOG("LORA", "Start network join request");
-	lmh_join();
-
 	g_lorawan_initialized = true;
 	return 0;
 }
@@ -183,12 +179,16 @@ int8_t init_lora(void)
  */
 void lora_task(void *pvParameters)
 {
+	// Start Join procedure
+	MYLOG("LORA", "Start network join request");
+	lmh_join();
+
 	while (1)
 	{
 		if (!lpwan_has_joined)
 		{
 			Radio.IrqProcess();
-			delay(100);
+			delay(10);
 			if (lpwan_has_joined)
 			{
 				// In deep sleep we need to hijack the SX126x IRQ to trigger a wakeup of the nRF52
@@ -197,7 +197,6 @@ void lora_task(void *pvParameters)
 		}
 		else
 		{
-
 			// Switch off the indicator lights
 			digitalWrite(LED_BUILTIN, LOW);
 			// Only if semaphore is available we need to handle LoRa events.
@@ -244,6 +243,8 @@ static void lpwan_joined_handler(void)
 	{
 		MYLOG("LORA", "ABP joined");
 	}
+
+	delay(100); // Just to enable the serial port to send the message
 
 	// Class A is default in the LoRaWAN lib. If app needs different class, request change here
 	if (g_lorawan_settings.lora_class != CLASS_A)
