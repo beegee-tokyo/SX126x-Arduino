@@ -1,5 +1,33 @@
 # SX126x-Arduino [![Build Status](https://github.com/beegee-tokyo/SX126x-Arduino/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/beegee-tokyo/SX126x-Arduino/actions)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](https://beegee-tokyo.github.io/SX126x-Arduino/)
 ----
+# Testing branch  
+Up to now the LoRaWAN region had to be predefined during compilation of the source code.      
+This branch is an attempt to have all LoRaWAN regions available during run-time.    
+The region that should be used is set when calling `lmh_init()`.      
+## Changed `lmh_init()` function call  
+`lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, eDeviceClass nodeClass = CLASS_A, int region = LORAMAC_REGION_AS923);`  
+The region is set with the last parameter and can be one of    
+```  
+LORAMAC_REGION_AS923
+LORAMAC_REGION_AU915
+LORAMAC_REGION_CN470
+LORAMAC_REGION_CN779
+LORAMAC_REGION_EU433
+LORAMAC_REGION_EU868
+LORAMAC_REGION_KR920
+LORAMAC_REGION_IN865
+LORAMAC_REGION_US915
+LORAMAC_REGION_US915_HYBRID
+```
+## Influence on code
+- When using this branch, the Tools->Region settings in ArduinoIDE are ignored.    
+- Default region is LORAMAC_REGION_US915
+- Code size is increasing by ~30kByte
+- The region can be set during runtime, however to avoid any problems, if the region is changing from one to another, a restart is suggested. (Still need to test if it is possible to just switch regions).
+- Best use of this library extension would be with the [RAK4631-LoRa-BLE-Config](https://github.com/beegee-tokyo/RAK4631-LoRa-BLE-Config) which allows you to setup/change LoRaWAN parameters over BLE and store it permanently on the device.
+----
+----
+----
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266 and nRF52832. It will not work with other uC's like AVR.    
 
 ----
