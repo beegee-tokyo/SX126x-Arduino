@@ -1,0 +1,163 @@
+#######################################
+# Syntax Coloring Map For SX126x-ESP32
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1) Board
+#######################################
+
+lora_hardware_init	KEYWORD1
+lora_hardware_re_init	KEYWORD1
+lora_hardware_uninit	KEYWORD1
+BoardGetRandomSeed	KEYWORD1
+BoardGetUniqueId	KEYWORD1
+BoardGetBatteryLevel	KEYWORD1
+BoardDisableIrq	KEYWORD1
+BoardEnableIrq	KEYWORD1
+
+#######################################
+# Datatypes (KEYWORD1) Radio
+#######################################
+
+Radio 	KEYWORD1
+RadioEvents 	KEYWORD1
+
+#######################################
+# Datatypes (KEYWORD1) SX126x board
+#######################################
+
+SX126xInit	KEYWORD1
+SX126xCheckDeviceReady	KEYWORD1
+SX126xSetPayload	KEYWORD1
+SX126xGetPayload	KEYWORD1
+SX126xSendPayload	KEYWORD1
+SX126xSetSyncWord	KEYWORD1
+SX126xSetCrcSeed	KEYWORD1
+SX126xSetCrcPolynomial	KEYWORD1
+SX126xSetWhiteningSeed	KEYWORD1
+SX126xGetRandom	KEYWORD1
+SX126xSetSleep	KEYWORD1
+SX126xSetStandby	KEYWORD1
+SX126xSetFs	KEYWORD1
+SX126xSetTx	KEYWORD1
+SX126xSetRx	KEYWORD1
+SX126xSetRxBoosted	KEYWORD1
+SX126xSetRxDutyCycle	KEYWORD1
+SX126xSetCad	KEYWORD1
+SX126xSetTxContinuousWave	KEYWORD1
+SX126xSetTxInfinitePreamble	KEYWORD1
+SX126xSetStopRxTimerOnPreambleDetect	KEYWORD1
+SX126xSetLoRaSymbNumTimeout	KEYWORD1
+SX126xSetRegulatorMode	KEYWORD1
+SX126xCalibrate	KEYWORD1
+SX126xCalibrateImage	KEYWORD1
+SX126xSetLongPreamble	KEYWORD1
+SX126xSetPaConfig	KEYWORD1
+SX126xSetRxTxFallbackMode	KEYWORD1
+SX126xWriteRegisters	KEYWORD1
+SX126xReadRegisters	KEYWORD1
+SX126xWriteBuffer	KEYWORD1
+SX126xReadBuffer	KEYWORD1
+SX126xSetDioIrqParams	KEYWORD1
+SX126xGetIrqStatus	KEYWORD1
+SX126xSetDio2AsRfSwitchCtrl	KEYWORD1
+SX126xSetDio3AsTcxoCtrl	KEYWORD1
+SX126xSetRfFrequency	KEYWORD1
+SX126xSetPacketType	KEYWORD1
+SX126xGetPacketType	KEYWORD1
+SX126xSetTxParams	KEYWORD1
+SX126xSetModulationParams	KEYWORD1
+SX126xSetPacketParams	KEYWORD1
+SX126xSetCadParams	KEYWORD1
+SX126xSetBufferBaseAddress	KEYWORD1
+SX126xGetStatus	KEYWORD1
+SX126xGetRssiInst	KEYWORD1
+SX126xGetRxBufferStatus	KEYWORD1
+SX126xGetPacketStatus	KEYWORD1
+SX126xGetDeviceErrors	KEYWORD1
+SX126xClearDeviceErrors	KEYWORD1
+SX126xClearIrqStatus	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2) Radio
+#######################################
+
+Init	KEYWORD2
+ReInit	KEYWORD2
+GetStatus	KEYWORD2
+SetModem	KEYWORD2
+SetChannel	KEYWORD2
+IsChannelFree	KEYWORD2
+Random	KEYWORD2
+SetRxConfig	KEYWORD2
+SetTxConfig	KEYWORD2
+CheckRfFrequency	KEYWORD2
+TimeOnAir	KEYWORD2
+Send	KEYWORD2
+Sleep	KEYWORD2
+Standby	KEYWORD2
+Rx	KEYWORD2
+SetCatParams	KEYWORD2
+StartCad	KEYWORD2
+SetTxContinuousWave	KEYWORD2
+Rssi	KEYWORD2
+Write	KEYWORD2
+Read	KEYWORD2
+WriteBuffer	KEYWORD2
+ReadBuffer	KEYWORD2
+SetMaxPayloadLength	KEYWORD2
+SetPublicNetwork	KEYWORD2
+GetWakeupTime	KEYWORD2
+IrqProcess	KEYWORD2
+IrqProcessAfterDeepSleep	KEYWORD2
+RxBoosted	KEYWORD2
+SetRxDutyCycle	KEYWORD2
+
+#######################################
+# Methods and Functions (KEYWORD2) RadioEvents
+#######################################
+
+TxDone	KEYWORD2
+TxTimeout	KEYWORD2
+RxDone	KEYWORD2
+RxTimeout	KEYWORD2
+RxError	KEYWORD2
+FhssChangeChannel	KEYWORD2
+CadDone	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+SX1262_CHIP	LITERAL1
+SX1261_CHIP	LITERAL1
+REGION_EU868	LITERAL1
+REGION_US910	LITERAL1
+USE_TCXO	LITERAL1
+
+PIN_LORA_RESET	LITERAL1
+PIN_LORA_NSS	LITERAL1
+PIN_LORA_SCLK	LITERAL1
+PIN_LORA_MISO	LITERAL1
+PIN_LORA_DIO_1	LITERAL1
+PIN_LORA_BUSY	LITERAL1
+PIN_LORA_MOSI	LITERAL1
+RADIO_TXEN	LITERAL1
+RADIO_RXEN	LITERAL1
+
+RF_FREQUENCY	LITERAL1
+TX_OUTPUT_POWER	LITERAL1
+LORA_BANDWIDTH	LITERAL1
+LORA_SPREADING_FACTOR	LITERAL1
+LORA_CODINGRATE	LITERAL1
+LORA_PREAMBLE_LENGTH	LITERAL1
+LORA_SYMBOL_TIMEOUT	LITERAL1
+LORA_FIX_LENGTH_PAYLOAD_ON	LITERAL1
+LORA_IQ_INVERSION_ON	LITERAL1
+RX_TIMEOUT_VALUE	LITERAL1
+TX_TIMEOUT_VALUE	LITERAL1
+
+
