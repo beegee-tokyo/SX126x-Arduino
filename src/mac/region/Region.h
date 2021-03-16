@@ -57,6 +57,8 @@ extern "C"
 
 #include "mac/Commissioning.h"
 
+#define channel_mask_size 12
+
 /*!
  * Macro to compute bit of a channel index.
  */
