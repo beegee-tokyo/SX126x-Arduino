@@ -151,10 +151,6 @@ void bleuart_rx_callback(uint16_t conn_handle)
 {
 	(void)conn_handle;
 
-	String uart_rx_buff = "";
-	uart_rx_buff = ble_uart.readStringUntil('\n');
-
-	uart_rx_buff.toUpperCase();
-
-	MYLOG("BLE", "BLE Received %s", uart_rx_buff.c_str());
+	g_task_event_type |= BLE_DATA;
+	xSemaphoreGiveFromISR(g_task_sem, pdFALSE);
 }

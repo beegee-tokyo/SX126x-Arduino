@@ -65,7 +65,7 @@ extern bool ble_uart_is_connected;
 
 // LoRa
 #ifdef _VARIANT_ISP4520_
-#include <LoRaWan-ISP4250.h>
+#include <LoRaWan-ISP4520.h>
 #else
 #include <LoRaWan-RAK4630.h>
 #endif
@@ -133,5 +133,7 @@ extern bool g_lorawan_initialized;
 void init_flash(void);
 bool save_settings(void);
 void log_settings(void);
+void flash_reset(void);
+void ble_log_settings(void);
 
 #endif // MAIN_H

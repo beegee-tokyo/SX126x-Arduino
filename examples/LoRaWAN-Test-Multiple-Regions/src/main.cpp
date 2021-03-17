@@ -45,7 +45,7 @@ uint16_t g_task_event_type = NO_EVENT;
 void periodic_wakeup(TimerHandle_t unused)
 {
 	// Switch on blue LED to show we are awake
-	digitalWrite(LED_CONN, HIGH);
+	digitalWrite(LED_BUILTIN, HIGH);
 	g_task_event_type |= STATUS;
 	xSemaphoreGiveFromISR(g_task_sem, pdFALSE);
 }
@@ -149,30 +149,39 @@ void loop()
 			{
 				g_task_event_type &= N_STATUS;
 				MYLOG("APP", "Timer wakeup");
+				delay(100); // Just to enable the serial port to send the message
 
-				/**************************************************************/
-				/**************************************************************/
-				/// \todo read sensor or whatever you need to do frequently
-				/// \todo write your data into a char array
-				/// \todo call LoRa P2P send_lora_packet()
-				/**************************************************************/
-				/**************************************************************/
-
-				uint8_t collected_data[8] = {0};
-				uint8_t data_size = 0;
-				collected_data[data_size++] = 'H';
-				collected_data[data_size++] = 'e';
-				collected_data[data_size++] = 'l';
-				collected_data[data_size++] = 'l';
-				collected_data[data_size++] = 'o';
-
-				if (!send_lora_packet(collected_data, data_size))
+				if (g_lorawan_settings.send_repeat_time == 0)
 				{
-					MYLOG("APP", "LoRa package sending failed");
+					MYLOG("APP", "Repeat send is disabled");
+					delay(100); // Just to enable the serial port to send the message
 				}
 				else
 				{
-					MYLOG("APP", "LoRa package sent");
+					/**************************************************************/
+					/**************************************************************/
+					/// \todo read sensor or whatever you need to do frequently
+					/// \todo write your data into a char array
+					/// \todo call LoRa P2P send_lora_packet()
+					/**************************************************************/
+					/**************************************************************/
+
+					uint8_t collected_data[8] = {0};
+					uint8_t data_size = 0;
+					collected_data[data_size++] = 'H';
+					collected_data[data_size++] = 'e';
+					collected_data[data_size++] = 'l';
+					collected_data[data_size++] = 'l';
+					collected_data[data_size++] = 'o';
+
+					if (!send_lora_packet(collected_data, data_size))
+					{
+						MYLOG("APP", "LoRa package sending failed");
+					}
+					else
+					{
+						MYLOG("APP", "LoRa package sent");
+					}
 				}
 			}
 			if ((g_task_event_type & BLE_CONFIG) == BLE_CONFIG)
@@ -199,6 +208,26 @@ void loop()
 				uart_rx_buff.toUpperCase();
 
 				MYLOG("BLE", "BLE Received %s", uart_rx_buff.c_str());
+
+				if (uart_rx_buff[0] == 'S')
+				{
+					ble_uart.printf("Alive and LoRaWAN %s", g_lorawan_initialized ? "initialized" : "not initialized");
+					ble_log_settings();
+				}
+				if (uart_rx_buff[0] == 'E')
+				{
+					ble_uart.printf("Erasing Flash content");
+					flash_reset();
+					ble_uart.printf("Reset device");
+					delay(5000);
+					sd_nvic_SystemReset();
+				}
+				if (uart_rx_buff[0] == 'R')
+				{
+					ble_uart.printf("Reset device");
+					delay(5000);
+					sd_nvic_SystemReset();
+				}
 			}
 			if ((g_task_event_type & LORA_DATA) == LORA_DATA)
 			{
@@ -210,7 +239,7 @@ void loop()
 				}
 				else
 				{
-					char log_buff[g_rx_data_len*3] = {0};
+					char log_buff[g_rx_data_len * 3] = {0};
 					uint8_t log_idx = 0;
 					for (int idx = 0; idx < g_rx_data_len; idx++)
 					{
