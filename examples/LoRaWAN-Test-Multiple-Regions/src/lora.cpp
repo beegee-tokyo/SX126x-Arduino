@@ -162,7 +162,11 @@ int8_t init_lora(void)
 
 	// Start the task that will handle the LoRaWan events
 	MYLOG("LORA", "Starting LoRaWan task");
+#ifdef _VARIANT_ISP4520_
+	if (!xTaskCreate(lora_task, "LORA", 2048, NULL, TASK_PRIO_LOW, &loraTaskHandle))
+#else
 	if (!xTaskCreate(lora_task, "LORA", 4096, NULL, TASK_PRIO_LOW, &loraTaskHandle))
+#endif
 	{
 		MYLOG("LORA", "Failed to start LoRaWAN task");
 		return -4;
@@ -181,6 +185,7 @@ void lora_task(void *pvParameters)
 {
 	// Start Join procedure
 	MYLOG("LORA", "Start network join request");
+	delay(200);
 	lmh_join();
 
 	while (1)
@@ -254,21 +259,24 @@ static void lpwan_joined_handler(void)
 	}
 	else
 	{
+		lpwan_has_joined = true;
 		// Wake up task to send initial packet
 		g_task_event_type |= STATUS;
 		// Notify task about the event
 		if (g_task_sem != NULL)
 		{
 			MYLOG("LORA", "Waking up loop task");
+			delay(100); // Just to enable the serial port to send the message
 			xSemaphoreGive(g_task_sem);
 		}
-
-		lpwan_has_joined = true;
 	}
 
-	// Now we are connected, start the timer that will wakeup the loop frequently
-	g_task_wakeup_timer.begin(g_lorawan_settings.send_repeat_time, periodic_wakeup);
-	g_task_wakeup_timer.start();
+	if (g_lorawan_settings.send_repeat_time != 0)
+	{
+		// Now we are connected, start the timer that will wakeup the loop frequently
+		g_task_wakeup_timer.begin(g_lorawan_settings.send_repeat_time, periodic_wakeup);
+		g_task_wakeup_timer.start();
+	}
 }
 
 /**
