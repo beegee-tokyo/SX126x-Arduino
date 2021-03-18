@@ -183,87 +183,87 @@ void loop()
 						MYLOG("APP", "LoRa package sent");
 					}
 				}
-			}
-			if ((g_task_event_type & BLE_CONFIG) == BLE_CONFIG)
-			{
-				g_task_event_type &= N_BLE_CONFIG;
-				MYLOG("APP", "Config received over BLE");
-				delay(100);
+				if ((g_task_event_type & BLE_CONFIG) == BLE_CONFIG)
+				{
+					g_task_event_type &= N_BLE_CONFIG;
+					MYLOG("APP", "Config received over BLE");
+					delay(100);
 
-				// Inform connected device about new settings
-				lora_data.write((void *)&g_lorawan_settings, sizeof(s_lorawan_settings));
-				lora_data.notify((void *)&g_lorawan_settings, sizeof(s_lorawan_settings));
+					// Inform connected device about new settings
+					lora_data.write((void *)&g_lorawan_settings, sizeof(s_lorawan_settings));
+					lora_data.notify((void *)&g_lorawan_settings, sizeof(s_lorawan_settings));
 
-				// Check if auto connect is enabled
-				if ((g_lorawan_settings.auto_join) && !g_lorawan_initialized)
-				{
-					init_lora();
-				}
-			}
-			if ((g_task_event_type & BLE_DATA) == BLE_DATA)
-			{
-				g_task_event_type &= N_BLE_DATA;
-				String uart_rx_buff = ble_uart.readStringUntil('\n');
-
-				uart_rx_buff.toUpperCase();
-
-				MYLOG("BLE", "BLE Received %s", uart_rx_buff.c_str());
-
-				if (uart_rx_buff[0] == 'S')
-				{
-					ble_uart.printf("Alive and LoRaWAN %s", g_lorawan_initialized ? "initialized" : "not initialized");
-					ble_log_settings();
-				}
-				if (uart_rx_buff[0] == 'E')
-				{
-					ble_uart.printf("Erasing Flash content");
-					flash_reset();
-					ble_uart.printf("Reset device");
-					delay(5000);
-					sd_nvic_SystemReset();
-				}
-				if (uart_rx_buff[0] == 'R')
-				{
-					ble_uart.printf("Reset device");
-					delay(5000);
-					sd_nvic_SystemReset();
-				}
-			}
-			if ((g_task_event_type & LORA_DATA) == LORA_DATA)
-			{
-				g_task_event_type &= N_LORA_DATA;
-				MYLOG("APP", "Received package over LoRa");
-				if (g_rx_lora_data[0] > 0x1F)
-				{
-					MYLOG("APP", "%s", (char *)g_rx_lora_data);
-				}
-				else
-				{
-					char log_buff[g_rx_data_len * 3] = {0};
-					uint8_t log_idx = 0;
-					for (int idx = 0; idx < g_rx_data_len; idx++)
+					// Check if auto connect is enabled
+					if ((g_lorawan_settings.auto_join) && !g_lorawan_initialized)
 					{
-						sprintf(&log_buff[log_idx], "%02X ", g_rx_lora_data[idx]);
-						log_idx += 3;
+						init_lora();
 					}
-					MYLOG("APP", "%s", log_buff);
 				}
-				if (ble_uart_is_connected)
+				if ((g_task_event_type & BLE_DATA) == BLE_DATA)
 				{
-					for (int idx = 0; idx < g_rx_data_len; idx++)
+					g_task_event_type &= N_BLE_DATA;
+					String uart_rx_buff = ble_uart.readStringUntil('\n');
+
+					uart_rx_buff.toUpperCase();
+
+					MYLOG("BLE", "BLE Received %s", uart_rx_buff.c_str());
+
+					if (uart_rx_buff[0] == 'S')
 					{
-						ble_uart.printf("%02X ", g_rx_lora_data[idx]);
+						ble_uart.printf("Alive and LoRaWAN %s", g_lorawan_initialized ? "initialized" : "not initialized");
+						ble_log_settings();
 					}
-					ble_uart.println("");
+					if (uart_rx_buff[0] == 'E')
+					{
+						ble_uart.printf("Erasing Flash content");
+						flash_reset();
+						ble_uart.printf("Reset device");
+						delay(5000);
+						sd_nvic_SystemReset();
+					}
+					if (uart_rx_buff[0] == 'R')
+					{
+						ble_uart.printf("Reset device");
+						delay(5000);
+						sd_nvic_SystemReset();
+					}
+				}
+				if ((g_task_event_type & LORA_DATA) == LORA_DATA)
+				{
+					g_task_event_type &= N_LORA_DATA;
+					MYLOG("APP", "Received package over LoRa");
+					if (g_rx_lora_data[0] > 0x1F)
+					{
+						MYLOG("APP", "%s", (char *)g_rx_lora_data);
+					}
+					else
+					{
+						char log_buff[g_rx_data_len * 3] = {0};
+						uint8_t log_idx = 0;
+						for (int idx = 0; idx < g_rx_data_len; idx++)
+						{
+							sprintf(&log_buff[log_idx], "%02X ", g_rx_lora_data[idx]);
+							log_idx += 3;
+						}
+						MYLOG("APP", "%s", log_buff);
+					}
+					if (ble_uart_is_connected)
+					{
+						for (int idx = 0; idx < g_rx_data_len; idx++)
+						{
+							ble_uart.printf("%02X ", g_rx_lora_data[idx]);
+						}
+						ble_uart.println("");
+					}
 				}
 			}
+			MYLOG("APP", "Loop goes to sleep");
+			g_task_event_type = 0;
+			// Go back to sleep
+			xSemaphoreTake(g_task_sem, 10);
+			// Switch off blue LED to show we go to sleep
+			digitalWrite(LED_BUILTIN, LOW);
+			delay(10);
 		}
-		MYLOG("APP", "Loop goes to sleep");
-		g_task_event_type = 0;
-		// Go back to sleep
-		xSemaphoreTake(g_task_sem, 10);
-		// Switch off blue LED to show we go to sleep
-		digitalWrite(LED_BUILTIN, LOW);
-		delay(10);
 	}
 }

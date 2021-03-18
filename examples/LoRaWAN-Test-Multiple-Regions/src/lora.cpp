@@ -269,14 +269,16 @@ static void lpwan_joined_handler(void)
 			delay(100); // Just to enable the serial port to send the message
 			xSemaphoreGive(g_task_sem);
 		}
+
+		lpwan_has_joined = true;
 	}
 
 	if (g_lorawan_settings.send_repeat_time != 0)
 	{
-		// Now we are connected, start the timer that will wakeup the loop frequently
-		g_task_wakeup_timer.begin(g_lorawan_settings.send_repeat_time, periodic_wakeup);
-		g_task_wakeup_timer.start();
-	}
+	// Now we are connected, start the timer that will wakeup the loop frequently
+	g_task_wakeup_timer.begin(g_lorawan_settings.send_repeat_time, periodic_wakeup);
+	g_task_wakeup_timer.start();
+}
 }
 
 /**
@@ -321,7 +323,7 @@ static void lpwan_rx_handler(lmh_app_data_t *app_data)
 		// Copy the data into loop data buffer
 		memcpy(g_rx_lora_data, app_data->buffer, app_data->buffsize);
 		g_rx_data_len = app_data->buffsize;
-		g_task_event_type |= STATUS;
+		g_task_event_type |= LORA_DATA;
 		// Notify task about the event
 		if (g_task_sem != NULL)
 		{

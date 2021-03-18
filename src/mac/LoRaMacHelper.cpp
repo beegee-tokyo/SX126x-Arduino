@@ -802,83 +802,84 @@ extern "C"
 		LoRaMacMibSetRequestConfirm(&mibReq);
 
 		LoRaMacTestSetDutyCycleOn(_dutyCycleEnabled);
-#if defined(REGION_EU868)
+		if (region == LORAMAC_REGION_EU868)
+		{
 #if (USE_SEMTECH_DEFAULT_CHANNEL_LINEUP == 1)
-		LoRaMacChannelAdd(3, (ChannelParams_t)LC4);
-		LoRaMacChannelAdd(4, (ChannelParams_t)LC5);
-		LoRaMacChannelAdd(5, (ChannelParams_t)LC6);
-		LoRaMacChannelAdd(6, (ChannelParams_t)LC7);
-		LoRaMacChannelAdd(7, (ChannelParams_t)LC8);
-		LoRaMacChannelAdd(8, (ChannelParams_t)LC9);
-		LoRaMacChannelAdd(9, (ChannelParams_t)LC10);
+			LoRaMacChannelAdd(3, (ChannelParams_t)LC4);
+			LoRaMacChannelAdd(4, (ChannelParams_t)LC5);
+			LoRaMacChannelAdd(5, (ChannelParams_t)LC6);
+			LoRaMacChannelAdd(6, (ChannelParams_t)LC7);
+			LoRaMacChannelAdd(7, (ChannelParams_t)LC8);
+			LoRaMacChannelAdd(8, (ChannelParams_t)LC9);
+			LoRaMacChannelAdd(9, (ChannelParams_t)LC10);
 
-		mibReq.Type = MIB_RX2_DEFAULT_CHANNEL;
-		mibReq.Param.Rx2DefaultChannel = (Rx2ChannelParams_t){869525000, DR_3};
-		LoRaMacMibSetRequestConfirm(&mibReq);
+			mibReq.Type = MIB_RX2_DEFAULT_CHANNEL;
+			mibReq.Param.Rx2DefaultChannel = (Rx2ChannelParams_t){869525000, DR_3};
+			LoRaMacMibSetRequestConfirm(&mibReq);
 
-		mibReq.Type = MIB_RX2_CHANNEL;
-		mibReq.Param.Rx2Channel = (Rx2ChannelParams_t){869525000, DR_3};
-		LoRaMacMibSetRequestConfirm(&mibReq);
+			mibReq.Type = MIB_RX2_CHANNEL;
+			mibReq.Param.Rx2Channel = (Rx2ChannelParams_t){869525000, DR_3};
+			LoRaMacMibSetRequestConfirm(&mibReq);
 #endif
-#endif
+		}
 
 		// Set default SubBandChannels matching with RAK definitions
 		switch (region)
 		{
 		case LORAMAC_REGION_AS923:
-		lmh_setSubBandChannels(1);
+			lmh_setSubBandChannels(1);
 			break;
 		case LORAMAC_REGION_AU915:
-		lmh_setSubBandChannels(2);
+			lmh_setSubBandChannels(2);
 			break;
 		case LORAMAC_REGION_CN470:
-		lmh_setSubBandChannels(11);
+			lmh_setSubBandChannels(11);
 			break;
 		case LORAMAC_REGION_CN779:
-		lmh_setSubBandChannels(1);
+			lmh_setSubBandChannels(1);
 			break;
 		case LORAMAC_REGION_EU433:
-		lmh_setSubBandChannels(1);
+			lmh_setSubBandChannels(1);
 			break;
 		case LORAMAC_REGION_IN865:
-		lmh_setSubBandChannels(1);
+			lmh_setSubBandChannels(1);
 			break;
 		case LORAMAC_REGION_EU868:
-		lmh_setSubBandChannels(1);
+			lmh_setSubBandChannels(1);
 			break;
 		case LORAMAC_REGION_KR920:
-		lmh_setSubBandChannels(1);
+			lmh_setSubBandChannels(1);
 			break;
 		case LORAMAC_REGION_US915:
-		lmh_setSubBandChannels(2);
+			lmh_setSubBandChannels(2);
 			break;
 		case LORAMAC_REGION_US915_HYBRID:
-		lmh_setSubBandChannels(2);
+			lmh_setSubBandChannels(2);
 			break;
 		}
-// #if defined(REGION_AS923)
-// 		lmh_setSubBandChannels(1);
-// #elif defined(REGION_AU915)
-// 		lmh_setSubBandChannels(2);
-// #elif defined(REGION_CN470)
-// 		lmh_setSubBandChannels(11);
-// #elif defined(REGION_CN779)
-// 		lmh_setSubBandChannels(1);
-// #elif defined(REGION_EU433)
-// 		lmh_setSubBandChannels(1);
-// #elif defined(REGION_IN865)
-// 		lmh_setSubBandChannels(1);
-// #elif defined(REGION_EU868)
-// 		lmh_setSubBandChannels(1);
-// #elif defined(REGION_KR920)
-// 		lmh_setSubBandChannels(1);
-// #elif defined(REGION_US915)
-// 		lmh_setSubBandChannels(2);
-// #elif defined(REGION_US915_HYBRID)
-// 		lmh_setSubBandChannels(2);
-// #else
-// #error "Please define a region in the compiler options."
-// #endif
+		// #if defined(REGION_AS923)
+		// 		lmh_setSubBandChannels(1);
+		// #elif defined(REGION_AU915)
+		// 		lmh_setSubBandChannels(2);
+		// #elif defined(REGION_CN470)
+		// 		lmh_setSubBandChannels(11);
+		// #elif defined(REGION_CN779)
+		// 		lmh_setSubBandChannels(1);
+		// #elif defined(REGION_EU433)
+		// 		lmh_setSubBandChannels(1);
+		// #elif defined(REGION_IN865)
+		// 		lmh_setSubBandChannels(1);
+		// #elif defined(REGION_EU868)
+		// 		lmh_setSubBandChannels(1);
+		// #elif defined(REGION_KR920)
+		// 		lmh_setSubBandChannels(1);
+		// #elif defined(REGION_US915)
+		// 		lmh_setSubBandChannels(2);
+		// #elif defined(REGION_US915_HYBRID)
+		// 		lmh_setSubBandChannels(2);
+		// #else
+		// #error "Please define a region in the compiler options."
+		// #endif
 		return LMH_SUCCESS;
 	}
 
@@ -1005,12 +1006,12 @@ extern "C"
 				if (region == LORAMAC_REGION_AS923)
 				// #if defined(REGION_AS923)
 				{
-				mcpsReq.Req.Confirmed.NbTrials = 1; //8;
+					mcpsReq.Req.Confirmed.NbTrials = 1; //8;
 				}
 				else
 				// #else
 				{
-				mcpsReq.Req.Confirmed.NbTrials = 8;
+					mcpsReq.Req.Confirmed.NbTrials = 8;
 				}
 				// #endif
 				mcpsReq.Req.Confirmed.Datarate = m_param.tx_data_rate;
