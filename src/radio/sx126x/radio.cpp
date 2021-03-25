@@ -448,7 +448,11 @@ extern "C"
 	PacketStatus_t RadioPktStatus;
 	uint8_t RadioRxPayload[255];
 
+#if defined(ESP32)
+	bool DRAM_ATTR IrqFired = false;
+#else
 	bool IrqFired = false;
+#endif
 
 	bool TimerRxTimeout = false;
 	bool TimerTxTimeout = false;
@@ -1219,8 +1223,10 @@ extern "C"
 		BoardEnableIrq();
 	}
 
-#ifdef ESP8266
+#if defined(ESP8266)
 	void ICACHE_RAM_ATTR RadioOnDioIrq(void)
+#elif defined(ESP32)
+	void IRAM_ATTR RadioOnDioIrq(void)
 #else
 	void RadioOnDioIrq(void)
 #endif

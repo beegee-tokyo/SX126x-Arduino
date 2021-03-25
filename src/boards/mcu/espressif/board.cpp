@@ -81,14 +81,26 @@ extern "C"
 #ifdef ESP32
 	portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
 #endif
+#if defined(ESP8266)
+	void ICACHE_RAM_ATTR BoardDisableIrq(void)
+#elif defined(ESP32)
+	void IRAM_ATTR BoardDisableIrq(void)
+#else
 	void BoardDisableIrq(void)
+#endif
 	{
 #ifdef ESP32
 		portENTER_CRITICAL(&mux);
 #endif
 	}
 
+#if defined(ESP8266)
+	void ICACHE_RAM_ATTR BoardEnableIrq(void)
+#elif defined(ESP32)
+	void IRAM_ATTR BoardEnableIrq(void)
+#else
 	void BoardEnableIrq(void)
+#endif
 	{
 #ifdef ESP32
 		portEXIT_CRITICAL(&mux);
