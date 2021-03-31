@@ -45,7 +45,7 @@ SPIClass SPI_LORA(NRF_SPIM2, PIN_LORA_MISO, PIN_LORA_SCLK, PIN_LORA_MOSI);
 #endif
 
 // Function declarations
-void OnTxDone(void);
+void OnTxDone(uint32_t);
 void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr);
 void OnTxTimeout(void);
 void OnRxTimeout(void);
@@ -203,7 +203,7 @@ void loop()
 
 /**@brief Function to be executed on Radio Tx Done event
  */
-void OnTxDone(void)
+void OnTxDone(uint32_t)
 {
 	Serial.println("OnTxDone");
 #ifdef NRF52_SERIES

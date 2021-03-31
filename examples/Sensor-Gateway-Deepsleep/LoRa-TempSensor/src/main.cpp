@@ -47,7 +47,7 @@ static RadioEvents_t RadioEvents;
 
 // LoRa callback functions
 /** LoRa transmit success */
-void OnTxDone(void);
+void OnTxDone(uint32_t);
 /** LoRa transmit timeout */
 void OnTxTimeout(void);
 /** LoRa CAD finished */
@@ -275,7 +275,7 @@ void goToSleep(void)
 
 /**@brief Function to be executed on Radio Tx Done event
  */
-void OnTxDone(void)
+void OnTxDone(uint32_t)
 {
 #if BATT_SAVE_ON == 0
 	Serial.println("Transmit finished");

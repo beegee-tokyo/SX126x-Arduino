@@ -54,7 +54,7 @@ uint8_t cadRepeat;
 
 // Event declarations
 /** LoRa transmit success */
-void OnTxDone(void);
+void OnTxDone(uint32_t);
 /** LoRa receive success */
 void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr);
 /** LoRa transmit timeout */
@@ -222,7 +222,7 @@ void loop()
 
 /**@brief Function to be executed on Radio Tx Done event
  */
-void OnTxDone(void)
+void OnTxDone(uint32_t)
 {
 #ifdef LOG_ON
 	Serial.println("Transmit finished");
