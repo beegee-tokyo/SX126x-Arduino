@@ -450,8 +450,10 @@ extern "C"
 
 #if defined(ESP32)
 	bool DRAM_ATTR IrqFired = false;
+	uint32_t DRAM_ATTR IrqTimestamp = 0;
 #else
 	bool IrqFired = false;
+	uint32_t IrqTimestamp = 0;
 #endif
 
 	bool TimerRxTimeout = false;
@@ -1233,6 +1235,7 @@ extern "C"
 	{
 		BoardDisableIrq();
 		IrqFired = true;
+		IrqTimestamp = millis();
 		BoardEnableIrq();
 	}
 
@@ -1254,7 +1257,7 @@ extern "C"
 				SX126xSetOperatingMode(MODE_STDBY_RC);
 				if ((RadioEvents != NULL) && (RadioEvents->TxDone != NULL))
 				{
-					RadioEvents->TxDone();
+					RadioEvents->TxDone(millis() - IrqTimestamp);
 				}
 			}
 

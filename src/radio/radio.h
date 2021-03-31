@@ -53,7 +53,7 @@ extern "C"
 		/*!
      * \brief  Tx Done callback prototype.
      */
-		void (*TxDone)(void);
+		void (*TxDone)(uint32_t ms_lag);
 		/*!
      * \brief  Tx Timeout callback prototype.
      */

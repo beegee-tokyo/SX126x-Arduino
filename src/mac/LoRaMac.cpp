@@ -412,7 +412,7 @@ extern "C"
 	/*!
  * \brief Function to be executed on Radio Tx Done event
  */
-	static void OnRadioTxDone(void);
+	static void OnRadioTxDone(uint32_t);
 
 	/*!
  * \brief This function prepares the MAC to abort the execution of function
@@ -604,13 +604,13 @@ extern "C"
  */
 	static void ResetMacParameters(void);
 
-	static void OnRadioTxDone(void)
+	static void OnRadioTxDone(uint32_t ms_lag)
 	{
 #ifdef ESP32
-		log_d("OnRadioTxDone");
+		log_d("OnRadioTxDone lag=%d ms", ms_lag);
 #endif
 #ifdef NRF52_SERIES
-		LOG_LV1("LM", "OnRadioTxDone");
+		LOG_LV1("LM", "OnRadioTxDone lag=%d ms", ms_lag);
 #endif
 		GetPhyParams_t getPhy;
 		PhyParam_t phyParam;
@@ -625,15 +625,21 @@ extern "C"
 		// Setup timers
 		if (IsRxWindowsEnabled == true)
 		{
+			uint32_t ms_lag_apply = ms_lag;
+			if (ms_lag_apply >= RxWindow1Delay)
+			{
+			    ms_lag_apply = RxWindow1Delay - 1;
+			}
+
 #ifdef ESP32
 			log_d("OnRadioTxDone => RX Windows #1 %d #2 %d", RxWindow1Delay, RxWindow2Delay);
 #endif
 #ifdef NRF52_SERIES
 			LOG_LV1("LM", "OnRadioTxDone => RX Windows #1 %d #2 %d", RxWindow1Delay, RxWindow2Delay);
 #endif
-			TimerSetValue(&RxWindowTimer1, RxWindow1Delay);
+			TimerSetValue(&RxWindowTimer1, RxWindow1Delay - ms_lag_apply);
 			TimerStart(&RxWindowTimer1);
-			TimerSetValue(&RxWindowTimer2, RxWindow2Delay);
+			TimerSetValue(&RxWindowTimer2, RxWindow2Delay - ms_lag_apply);
 			TimerStart(&RxWindowTimer2);
 			if ((LoRaMacDeviceClass == CLASS_C) || (NodeAckRequested == true))
 			{
