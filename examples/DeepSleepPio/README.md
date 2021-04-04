@@ -95,7 +95,7 @@ Initialize the radio and set the TX and RX parameters
                     LORA_SYMBOL_TIMEOUT, LORA_FIX_LENGTH_PAYLOAD_ON,
                     0, true, 0, 0, LORA_IQ_INVERSION_ON, true);
 ```
-Start listening for packages
+Start listening for packets
 ```
   Radio.Rx(RX_TIMEOUT_VALUE);
 ```
