@@ -17,7 +17,7 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 | &nbsp;&nbsp;[Chip selection](#chip-selection) | &nbsp;&nbsp;&nbsp;&nbsp;[Setup the callbacks for LoRa events](#setup-the-callbacks-for-lora-events) | &nbsp;&nbsp;&nbsp;&nbsp;[LoRaWan single channel gateway](#lolawan-single-channel-gateway) |
 | &nbsp;&nbsp;[LoRa parameters](#lora-parameters) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |  &nbsp;&nbsp;&nbsp;&nbsp;[Limit frequency hopping to a sub band](#limit-frequency-hopping-to-a-sub-band) |
 | &nbsp;&nbsp;[SPI definition](#mcu-to-sx126x-spi-definition) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |
-| &nbsp;&nbsp;[TXCO and antenna control](#explanation-for-txco-and-antenna-control) | &nbsp;&nbsp;&nbsp;&nbsp;[Start listening for packages](#start-listening-for-packages) | [Installation](#installation) |
+| &nbsp;&nbsp;[TXCO and antenna control](#explanation-for-txco-and-antenna-control) | &nbsp;&nbsp;&nbsp;&nbsp;[Start listening for packets](#start-listening-for-packets) | [Installation](#installation) |
 
 ----
 ## General info
@@ -349,7 +349,7 @@ Radio.IrqProcessAfterDeepSleep() is checking the reason for the wake-up IRQ and 
 ```
 
 ----
-#### Start listening for packages
+#### Start listening for packets
 ```cpp
   Radio.Rx(RX_TIMEOUT_VALUE);
 ```

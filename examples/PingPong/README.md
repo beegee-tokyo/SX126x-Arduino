@@ -2,16 +2,16 @@ PingPong for ArduinoIDE
 ===    
 Example to be used with ArduinoIDE. It is a simple Ping - Pong between two LoRa nodes. One node sends a PING and the other node responds with a PONG. It is a simple application that can be usefull to test the range your LoRa setup can reach.
 Principal of function:
-- Listen for incoming packages.
+- Listen for incoming packets.
 - If receive timeout (3s) occurs start a CAD (channel activity detection)
 - - If the CAD shows no activity, send a PING package
-- - Restart listening for incoming packages
+- - Restart listening for incoming packets
 - If a PING package was received start a CAD (channel activity detection)
 - - If the CAD shows no activity, send a PONG response
 - - Restart listening for incoming messages
 - If a PONG package was received start a CAD (channel activity detection)
 - - If the CAD shows no activity, send the next PING package
-- - Restart the listening for incoming packages
+- - Restart the listening for incoming packets
 
 If compiled for a nRF52832
 ---
@@ -99,7 +99,7 @@ Initialize the radio and set the TX and RX parameters
                     LORA_SYMBOL_TIMEOUT, LORA_FIX_LENGTH_PAYLOAD_ON,
                     0, true, 0, 0, LORA_IQ_INVERSION_ON, true);
 ```
-Start listening for packages
+Start listening for packets
 ```
   Radio.Rx(RX_TIMEOUT_VALUE);
 ```
