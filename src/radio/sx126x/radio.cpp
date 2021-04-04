@@ -26,6 +26,7 @@
 #include "radio/radio.h"
 #include "sx126x.h"
 #include "boards/sx126x/sx126x-board.h"
+#include "boards/mcu/timer.h"
 
 extern "C"
 {
@@ -448,11 +449,7 @@ extern "C"
 	PacketStatus_t RadioPktStatus;
 	uint8_t RadioRxPayload[255];
 
-#if defined(ESP32)
-	bool DRAM_ATTR IrqFired = false;
-#else
 	bool IrqFired = false;
-#endif
 
 	bool TimerRxTimeout = false;
 	bool TimerTxTimeout = false;
@@ -1223,6 +1220,12 @@ extern "C"
 		BoardEnableIrq();
 	}
 
+#if defined NRF52_SERIES || defined ESP32
+	/** Semaphore used by SX126x IRQ handler to wake up LoRaWAN task */
+	extern SemaphoreHandle_t lora_sem;
+	static BaseType_t xHigherPriorityTaskWoken = pdTRUE;
+#endif
+
 #if defined(ESP8266)
 	void ICACHE_RAM_ATTR RadioOnDioIrq(void)
 #elif defined(ESP32)
@@ -1234,6 +1237,10 @@ extern "C"
 		BoardDisableIrq();
 		IrqFired = true;
 		BoardEnableIrq();
+#if defined NRF52_SERIES || defined ESP32
+// Wake up LoRa event handler on nRF52 and ESP32
+		xSemaphoreGiveFromISR(lora_sem, &xHigherPriorityTaskWoken);
+#endif
 	}
 
 	void RadioIrqProcess(void)
@@ -1305,24 +1312,6 @@ extern "C"
 					}
 				}
 			}
-
-			// if ((irqRegs & IRQ_CRC_ERROR) == IRQ_CRC_ERROR)
-			// {
-			// 	uint8_t size;
-			// 	// Discard buffer
-			// 	memset(RadioRxPayload, 0, 255);
-			// 	SX126xGetPayload(RadioRxPayload, &size, 255);
-			// 	SX126xGetPacketStatus(&RadioPktStatus);
-			// 	if (RxContinuous == false)
-			// 	{
-			// 		//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
-			// 		SX126xSetOperatingMode(MODE_STDBY_RC);
-			// 	}
-			// 	if ((RadioEvents != NULL) && (RadioEvents->RxError))
-			// 	{
-			// 		RadioEvents->RxError();
-			// 	}
-			// }
 
 			if ((irqRegs & IRQ_CAD_DONE) == IRQ_CAD_DONE)
 			{

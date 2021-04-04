@@ -36,6 +36,15 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include "board.h"
 extern "C"
 {
+#if defined NRF52_SERIES || defined ESP32
+	/** Semaphore used by SX126x IRQ handler to wake up LoRaWAN task */
+	SemaphoreHandle_t lora_sem = NULL;
+
+	/** LoRa task handle */
+	TaskHandle_t loraTaskHandle;
+	/** GPS reading task */
+	void lora_task(void *pvParameters);
+#endif
 
 	hw_config _hwConfig;
 
@@ -61,6 +70,7 @@ extern "C"
 		_hwConfig.USE_DIO3_ANT_SWITCH = hwConfig.USE_DIO3_ANT_SWITCH; // LORA DIO3 controls antenna (e.g. Insight SIP ISP4520 module)
 		_hwConfig.USE_LDO = hwConfig.USE_LDO;						  // LORA usage of LDO or DCDC power regulator (defaults to DCDC)
 		_hwConfig.USE_RXEN_ANT_PWR = hwConfig.USE_RXEN_ANT_PWR;		  // RXEN used as power for antenna switch
+
 		TimerConfig();
 
 		SX126xIoInit();
@@ -69,9 +79,26 @@ extern "C"
 		// If we got something else, something is wrong.
 		uint16_t readSyncWord = 0;
 		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
+#ifdef ESP32
+		log_d("SyncWord = %04X\n", readSyncWord);
+#endif
+#ifdef NRF52_SERIES
+		LOG_LV1("LM", "SyncWord = %04X\n", readSyncWord);
+#endif
 		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 		{
+#if defined NRF52_SERIES || defined ESP32
+			if (start_lora_task())
+			{
+				return 0;
+			}
+			else
+			{
+				return 1;
+			}
+#else
 			return 0;
+#endif
 		}
 		return 1;
 	}
@@ -103,7 +130,18 @@ extern "C"
 		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
 		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 		{
+#if defined NRF52_SERIES || defined ESP32
+			if (start_lora_task())
+			{
+				return 0;
+			}
+			else
+			{
+				return 1;
+			}
+#else
 			return 0;
+#endif
 		}
 		return 1;
 	}
@@ -134,7 +172,18 @@ extern "C"
 		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
 		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 		{
+#if defined NRF52_SERIES || defined ESP32
+			if (start_lora_task())
+			{
 			return 0;
+		}
+			else
+			{
+				return 1;
+			}
+#else
+			return 0;
+#endif
 		}
 		return 1;
 	}
@@ -166,13 +215,61 @@ extern "C"
 		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
 		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 		{
+#if defined NRF52_SERIES || defined ESP32
+			if (start_lora_task())
+			{
+				return 0;
+			}
+			else
+			{
+				return 1;
+			}
+#else
 			return 0;
+#endif
 		}
 		return 1;
 	}
 
+#if defined NRF52_SERIES || defined ESP32
+	void lora_task(void *pvParameters)
+	{
+		while (1)
+		{
+			if (xSemaphoreTake(lora_sem, portMAX_DELAY) == pdTRUE)
+			{
+				// Handle Radio events
+				Radio.IrqProcess();
+			}
+		}
+	}
+
+	bool start_lora_task(void)
+	{
+		// Create the LoRaWan event semaphore
+		lora_sem = xSemaphoreCreateBinary();
+		// Initialize semaphore
+		xSemaphoreGive(lora_sem);
+
+		xSemaphoreTake(lora_sem, 10);
+#ifdef NRF52_SERIES
+		if (!xTaskCreate(lora_task, "LORA", 4096, NULL, TASK_PRIO_NORMAL, &loraTaskHandle))
+#else
+		if (!xTaskCreate(lora_task, "LORA", 4096, NULL, 1, &loraTaskHandle))
+#endif
+		{
+			return false;
+		}
+		return true;
+	}
+#endif
+
 	void lora_hardware_uninit(void)
 	{
+#if defined NRF52_SERIES || defined ESP32
+		vTaskSuspend(lora_task);
+
+#endif
 		SX126xIoDeInit();
 	}
 

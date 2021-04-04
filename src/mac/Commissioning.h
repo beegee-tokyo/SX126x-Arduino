@@ -37,7 +37,7 @@ extern "C"
  */
 
 #if !defined(REGION_AS923) && !defined(REGION_AU915) && !defined(REGION_CN470) && !defined(REGION_CN779) && !defined(REGION_EU433) && !defined(REGION_EU868) && !defined(REGION_IN865) && !defined(REGION_KR920) && !defined(REGION_US915) && !defined(REGION_US915_HYBRID)
-#define REGION_US915
+#define REGION_AS923
 #endif
 
 /**@brief Enable or disable duty cycle control
