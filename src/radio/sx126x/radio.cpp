@@ -329,6 +329,11 @@ extern "C"
 	uint32_t RadioGetWakeupTime(void);
 
 	/*!
+ * @brief Process radio irq in background task (nRF52 & ESP32)
+ */
+	void RadioBgIrqProcess(void);
+
+	/*!
  * @brief Process radio irq
  */
 	void RadioIrqProcess(void);
@@ -384,6 +389,7 @@ extern "C"
 			RadioSetMaxPayloadLength,
 			RadioSetPublicNetwork,
 			RadioGetWakeupTime,
+			RadioBgIrqProcess,
 			RadioIrqProcess,
 			RadioIrqProcessAfterDeepSleep,
 			// Available on SX126x only
@@ -1222,7 +1228,7 @@ extern "C"
 
 #if defined NRF52_SERIES || defined ESP32
 	/** Semaphore used by SX126x IRQ handler to wake up LoRaWAN task */
-	extern SemaphoreHandle_t lora_sem;
+	extern SemaphoreHandle_t _lora_sem;
 	static BaseType_t xHigherPriorityTaskWoken = pdTRUE;
 #endif
 
@@ -1239,11 +1245,11 @@ extern "C"
 		BoardEnableIrq();
 #if defined NRF52_SERIES || defined ESP32
 // Wake up LoRa event handler on nRF52 and ESP32
-		xSemaphoreGiveFromISR(lora_sem, &xHigherPriorityTaskWoken);
+		xSemaphoreGiveFromISR(_lora_sem, &xHigherPriorityTaskWoken);
 #endif
 	}
 
-	void RadioIrqProcess(void)
+	void RadioBgIrqProcess(void)
 	{
 		if (IrqFired == true)
 		{
@@ -1286,12 +1292,8 @@ extern "C"
 
 				if ((irqRegs & IRQ_CRC_ERROR) == IRQ_CRC_ERROR)
 				{
-#ifdef ESP32
-					log_d("RadioIrqProcess => IRQ_CRC_ERROR");
-#endif
-#ifdef NRF52_SERIES
-					LOG_LV1("RADIO", "RadioIrqProcess => IRQ_CRC_ERROR");
-#endif
+					LOG_LIB("RADIO", "RadioIrqProcess => IRQ_CRC_ERROR");
+
 					uint8_t size;
 					// Discard buffer
 					memset(RadioRxPayload, 0, 255);
@@ -1325,12 +1327,8 @@ extern "C"
 
 			if ((irqRegs & IRQ_RX_TX_TIMEOUT) == IRQ_RX_TX_TIMEOUT)
 			{
-#ifdef ESP32
-				log_d("RadioIrqProcess => IRQ_RX_TX_TIMEOUT");
-#endif
-#ifdef NRF52_SERIES
-				LOG_LV1("RADIO", "RadioIrqProcess => IRQ_RX_TX_TIMEOUT");
-#endif
+				LOG_LIB("RADIO", "RadioIrqProcess => IRQ_RX_TX_TIMEOUT");
+
 				if (SX126xGetOperatingMode() == MODE_TX)
 				{
 					TimerStop(&TxTimeoutTimer);
@@ -1373,12 +1371,8 @@ extern "C"
 
 			if ((irqRegs & IRQ_HEADER_ERROR) == IRQ_HEADER_ERROR)
 			{
-#ifdef ESP32
-				log_d("RadioIrqProcess => IRQ_HEADER_ERROR");
-#endif
-#ifdef NRF52_SERIES
-				LOG_LV1("RADIO", "RadioIrqProcess => IRQ_HEADER_ERROR");
-#endif
+				LOG_LIB("RADIO", "RadioIrqProcess => IRQ_HEADER_ERROR");
+
 				TimerStop(&RxTimeoutTimer);
 				if (RxContinuous == false)
 				{
@@ -1411,11 +1405,20 @@ extern "C"
 		}
 	}
 
+	void RadioIrqProcess(void)
+	{
+#if defined(ESP8266)
+		RadioBgIrqProcess();
+#endif
+	}
+
 	void RadioIrqProcessAfterDeepSleep(void)
 	{
+#if defined(ESP8266)
 		BoardDisableIrq();
 		IrqFired = true;
 		BoardEnableIrq();
-		RadioIrqProcess();
+		RadioBgIrqProcess();
+#endif
 	}
 };

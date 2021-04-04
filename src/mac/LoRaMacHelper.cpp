@@ -187,12 +187,6 @@ extern "C"
 										  0x0000,
 										  0x0000};
 		uint8_t maxBand = 9;
-#ifdef ESP32
-		log_i("[FREQ] REGION_US915_HYBRID");
-#endif
-#ifdef NRF52_SERIES
-		ADALOG("FREQ", "REGION_US915_HYBRID");
-#endif
 #else
 #error "Please define a region in the compiler options."
 #endif
@@ -202,12 +196,8 @@ extern "C"
 		// Check for valid sub band
 		if ((subBand == 0) || (subBand > maxBand))
 		{
-#ifdef ESP32
-			log_e("[LMH] Invalid subband");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LMH", "Invalid subband");
-#endif
+			LOG_LIB("LMH", "Invalid subband");
+
 			// Invalid sub band requested
 			return false;
 		}
@@ -284,12 +274,8 @@ extern "C"
 			}
 			break;
 		default:
-#ifdef ESP32
-			log_e("[LMH] Invalid subband");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LMH", "Invalid subband");
-#endif
+			LOG_LIB("LMH", "Invalid subband");
+
 			return false;
 		}
 		if (maxBand > 2)
@@ -305,12 +291,8 @@ extern "C"
 			RegionCommonChanMaskCopy(ChannelsMaskRemaining, subBandChannelMask, 1);
 		}
 
-#ifdef ESP32
-		log_e("[LMH] Selected subband %d", subBand);
-#endif
-#ifdef NRF52_SERIES
-		LOG_LV1("LMH", "Selected subband %d", subBand);
-#endif
+		LOG_LIB("LMH", "Selected subband %d", subBand);
+
 		return true;
 	}
 
@@ -730,12 +712,7 @@ extern "C"
 			sprintf(strlog3, "AppKey=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X",
 					AppKey[0], AppKey[1], AppKey[2], AppKey[3], AppKey[4], AppKey[5], AppKey[6], AppKey[7],
 					AppKey[8], AppKey[9], AppKey[10], AppKey[11], AppKey[12], AppKey[13], AppKey[14], AppKey[15]);
-#ifdef ESP32
-			log_i("OTAA\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("OTAA", "\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
-#endif
+			LOG_LIB("LMH", "OTAA \n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
 		}
 		else
 		{
@@ -752,12 +729,7 @@ extern "C"
 			sprintf(strlog3, "AppSKey=%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X",
 					AppSKey[0], AppSKey[1], AppSKey[2], AppSKey[3], AppSKey[4], AppSKey[5], AppSKey[6], AppSKey[7],
 					AppSKey[8], AppSKey[9], AppSKey[10], AppSKey[11], AppSKey[12], AppSKey[13], AppSKey[14], AppSKey[15]);
-#ifdef ESP32
-			log_i("ABP\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("ABP", "\n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
-#endif
+			LOG_LIB("LMH", "ABP \n%s\nDevAdd=%08X\n%s\n%s", strlog1, DevAddr, strlog2, strlog3);
 		}
 
 		LoRaMacPrimitives.MacMcpsConfirm = McpsConfirm;
@@ -957,12 +929,8 @@ extern "C"
 
 		if (LoRaMacQueryTxPossible(app_data->buffsize, &txInfo) != LORAMAC_STATUS_OK)
 		{
-#ifdef ESP32
-			log_d("lmh_send -> LoRaMacQueryTxPossible failed");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LMH", "lmh_send -> LoRaMacQueryTxPossible failed");
-#endif
+			LOG_LIB("LMH", "lmh_send -> LoRaMacQueryTxPossible failed");
+
 			// Send empty frame in order to flush MAC commands
 			mcpsReq.Type = MCPS_UNCONFIRMED;
 			mcpsReq.Req.Unconfirmed.fBuffer = NULL;
@@ -999,12 +967,7 @@ extern "C"
 			{
 				return LMH_SUCCESS;
 			}
-#ifdef ESP32
-			log_d("lmh_send -> LoRaMacMcpsRequest failed");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LMH", "lmh_send -> LoRaMacMcpsRequest failed");
-#endif
+			LOG_LIB("LMH", "lmh_send -> LoRaMacMcpsRequest failed");
 		}
 
 		return LMH_ERROR;

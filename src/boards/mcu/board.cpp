@@ -38,12 +38,12 @@ extern "C"
 {
 #if defined NRF52_SERIES || defined ESP32
 	/** Semaphore used by SX126x IRQ handler to wake up LoRaWAN task */
-	SemaphoreHandle_t lora_sem = NULL;
+	SemaphoreHandle_t _lora_sem = NULL;
 
 	/** LoRa task handle */
-	TaskHandle_t loraTaskHandle;
+	TaskHandle_t _loraTaskHandle;
 	/** GPS reading task */
-	void lora_task(void *pvParameters);
+	void _lora_task(void *pvParameters);
 #endif
 
 	hw_config _hwConfig;
@@ -79,12 +79,9 @@ extern "C"
 		// If we got something else, something is wrong.
 		uint16_t readSyncWord = 0;
 		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
-#ifdef ESP32
-		log_d("SyncWord = %04X\n", readSyncWord);
-#endif
-#ifdef NRF52_SERIES
-		LOG_LV1("LM", "SyncWord = %04X\n", readSyncWord);
-#endif
+
+		LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
+
 		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 		{
 #if defined NRF52_SERIES || defined ESP32
@@ -128,6 +125,9 @@ extern "C"
 		// If we got something else, something is wrong.
 		uint16_t readSyncWord = 0;
 		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
+
+		LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
+
 		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 		{
 #if defined NRF52_SERIES || defined ESP32
@@ -170,6 +170,9 @@ extern "C"
 		// If we got something else, something is wrong.
 		uint16_t readSyncWord = 0;
 		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
+
+		LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
+
 		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 		{
 #if defined NRF52_SERIES || defined ESP32
@@ -213,6 +216,9 @@ extern "C"
 		// If we got something else, something is wrong.
 		uint16_t readSyncWord = 0;
 		SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
+
+		LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
+
 		if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 		{
 #if defined NRF52_SERIES || defined ESP32
@@ -232,14 +238,16 @@ extern "C"
 	}
 
 #if defined NRF52_SERIES || defined ESP32
-	void lora_task(void *pvParameters)
+	void _lora_task(void *pvParameters)
 	{
+		LOG_LIB("BRD", "LoRa Task started");
+
 		while (1)
 		{
-			if (xSemaphoreTake(lora_sem, portMAX_DELAY) == pdTRUE)
+			if (xSemaphoreTake(_lora_sem, portMAX_DELAY) == pdTRUE)
 			{
 				// Handle Radio events
-				Radio.IrqProcess();
+				Radio.BgIrqProcess();
 			}
 		}
 	}
@@ -247,15 +255,15 @@ extern "C"
 	bool start_lora_task(void)
 	{
 		// Create the LoRaWan event semaphore
-		lora_sem = xSemaphoreCreateBinary();
+		_lora_sem = xSemaphoreCreateBinary();
 		// Initialize semaphore
-		xSemaphoreGive(lora_sem);
+		xSemaphoreGive(_lora_sem);
 
-		xSemaphoreTake(lora_sem, 10);
+		xSemaphoreTake(_lora_sem, 10);
 #ifdef NRF52_SERIES
-		if (!xTaskCreate(lora_task, "LORA", 4096, NULL, TASK_PRIO_NORMAL, &loraTaskHandle))
+		if (!xTaskCreate(_lora_task, "LORA", 4096, NULL, TASK_PRIO_NORMAL, &_loraTaskHandle))
 #else
-		if (!xTaskCreate(lora_task, "LORA", 4096, NULL, 1, &loraTaskHandle))
+		if (!xTaskCreate(_lora_task, "LORA", 4096, NULL, 1, &_loraTaskHandle))
 #endif
 		{
 			return false;
@@ -267,7 +275,7 @@ extern "C"
 	void lora_hardware_uninit(void)
 	{
 #if defined NRF52_SERIES || defined ESP32
-		vTaskSuspend(lora_task);
+		vTaskSuspend(_loraTaskHandle);
 
 #endif
 		SX126xIoDeInit();

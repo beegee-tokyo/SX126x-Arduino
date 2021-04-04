@@ -64,7 +64,7 @@ extern "C"
 				return;
 			}
 		}
-		/// \todo We run out of tickers, what do we do now???
+		LOG_LIB("TIM", "No more timers available!");
 	}
 
 	void timerCallback(TimerEvent_t *obj)

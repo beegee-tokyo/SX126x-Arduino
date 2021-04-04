@@ -606,12 +606,8 @@ extern "C"
 
 	static void OnRadioTxDone(void)
 	{
-#ifdef ESP32
-		log_d("OnRadioTxDone");
-#endif
-#ifdef NRF52_SERIES
-		LOG_LV1("LM", "OnRadioTxDone");
-#endif
+		LOG_LIB("LM", "OnRadioTxDone");
+
 		GetPhyParams_t getPhy;
 		PhyParam_t phyParam;
 		SetBandTxDoneParams_t txDone;
@@ -625,12 +621,8 @@ extern "C"
 		// Setup timers
 		if (IsRxWindowsEnabled == true)
 		{
-#ifdef ESP32
-			log_d("OnRadioTxDone => RX Windows #1 %d #2 %d", RxWindow1Delay, RxWindow2Delay);
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LM", "OnRadioTxDone => RX Windows #1 %d #2 %d", RxWindow1Delay, RxWindow2Delay);
-#endif
+			LOG_LIB("LM", "OnRadioTxDone => RX Windows #1 %d #2 %d", RxWindow1Delay, RxWindow2Delay);
+
 			TimerSetValue(&RxWindowTimer1, RxWindow1Delay);
 			TimerStart(&RxWindowTimer1);
 			TimerSetValue(&RxWindowTimer2, RxWindow2Delay);
@@ -658,12 +650,8 @@ extern "C"
 		// Verify if the last uplink was a join request
 		if ((LoRaMacFlags.Bits.MlmeReq == 1) && (MlmeConfirm.MlmeRequest == MLME_JOIN))
 		{
-#ifdef ESP32
-			log_d("OnRadioTxDone => TX was Join Request");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LM", "OnRadioTxDone => TX was Join Request");
-#endif
+			LOG_LIB("LM", "OnRadioTxDone => TX was Join Request");
+
 			LastTxIsJoinRequest = true;
 		}
 		else
@@ -708,12 +696,8 @@ extern "C"
 
 	static void OnRadioRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 	{
-#ifdef ESP32
-		log_d("OnRadioRxDone");
-#endif
-#ifdef NRF52_SERIES
-		LOG_LV1("LM", "OnRadioRxDone");
-#endif
+		LOG_LIB("LM", "OnRadioRxDone");
+
 		LoRaMacHeader_t macHdr;
 		LoRaMacFrameCtrl_t fCtrl;
 		ApplyCFListParams_t applyCFList;
@@ -764,12 +748,8 @@ extern "C"
 		switch (macHdr.Bits.MType)
 		{
 		case FRAME_TYPE_JOIN_ACCEPT:
-#ifdef ESP32
-			log_d("OnRadioRxDone => FRAME_TYPE_JOIN_ACCEPT");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LM", "OnRadioRxDone => FRAME_TYPE_JOIN_ACCEPT");
-#endif
+			LOG_LIB("LM", "OnRadioRxDone => FRAME_TYPE_JOIN_ACCEPT");
+
 			if (IsLoRaMacNetworkJoined == JOIN_OK)
 			{
 				McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_ERROR;
@@ -833,12 +813,8 @@ extern "C"
 		case FRAME_TYPE_DATA_CONFIRMED_DOWN:
 		case FRAME_TYPE_DATA_UNCONFIRMED_DOWN:
 		{
-#ifdef ESP32
-			log_d("OnRadioRxDone => FRAME_TYPE_DATA_(UN)CONFIRMED_DOWN");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LM", "OnRadioRxDone => FRAME_TYPE_DATA_(UN)CONFIRMED_DOWN");
-#endif
+			LOG_LIB("LM", "OnRadioRxDone => FRAME_TYPE_DATA_(UN)CONFIRMED_DOWN");
+
 			// Check if the received payload size is valid
 			getPhy.UplinkDwellTime = LoRaMacParams.DownlinkDwellTime;
 			getPhy.Datarate = McpsIndication.RxDatarate;
@@ -1122,12 +1098,8 @@ extern "C"
 		break;
 		case FRAME_TYPE_PROPRIETARY:
 		{
-#ifdef ESP32
-			log_d("OnRadioRxDone => FRAME_TYPE_PROPRIETARY");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LM", "OnRadioRxDone => FRAME_TYPE_PROPRIETARY");
-#endif
+			LOG_LIB("LM", "OnRadioRxDone => FRAME_TYPE_PROPRIETARY");
+
 			memcpy1(LoRaMacRxPayload, &payload[pktHeaderLen], size);
 
 			McpsIndication.McpsIndication = MCPS_PROPRIETARY;
@@ -1139,12 +1111,8 @@ extern "C"
 			break;
 		}
 		default:
-#ifdef ESP32
-			log_d("OnRadioRxDone => UNKNOWN FRAME TYPE");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LM", "OnRadioRxDone => UNKNOWN FRAME TYPE");
-#endif
+			LOG_LIB("LM", "OnRadioRxDone => UNKNOWN FRAME TYPE");
+
 			McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_ERROR;
 			PrepareRxDoneAbort();
 			break;
@@ -1158,12 +1126,8 @@ extern "C"
 
 	static void OnRadioTxTimeout(void)
 	{
-#ifdef ESP32
-		log_d("OnRadioTxTimeout");
-#endif
-#ifdef NRF52_SERIES
-		LOG_LV1("LM", "OnRadioTxTimeout");
-#endif
+		LOG_LIB("LM", "OnRadioTxTimeout");
+
 		if (LoRaMacDeviceClass != CLASS_C)
 		{
 			Radio.Sleep();
@@ -1180,12 +1144,8 @@ extern "C"
 
 	static void OnRadioRxError(void)
 	{
-#ifdef ESP32
-		log_d("OnRadioRxError");
-#endif
-#ifdef NRF52_SERIES
-		LOG_LV1("LM", "OnRadioRxError");
-#endif
+		LOG_LIB("LM", "OnRadioRxError");
+
 		if (LoRaMacDeviceClass != CLASS_C)
 		{
 			Radio.Sleep();
@@ -1221,12 +1181,8 @@ extern "C"
 
 	static void OnRadioRxTimeout(void)
 	{
-#ifdef ESP32
-		log_d("OnRadioRxTimeout");
-#endif
-#ifdef NRF52_SERIES
-		LOG_LV1("LM", "OnRadioRxTimeout");
-#endif
+		LOG_LIB("LM", "OnRadioRxTimeout");
+
 		if (LoRaMacDeviceClass != CLASS_C)
 		{
 			Radio.Sleep();
@@ -1311,12 +1267,8 @@ extern "C"
 						}
 						else
 						{
-#ifdef ESP32
-							log_d("Join network failed %d time(s)\n", JoinRequestTrials);
-#endif
-#ifdef NRF52_SERIES
-							LOG_LV1("LM", "Join network failed %d time(s)\n", JoinRequestTrials);
-#endif
+							LOG_LIB("LM", "Join network failed %d time(s)\n", JoinRequestTrials);
+
 							IsLoRaMacNetworkJoined = JOIN_FAILED;
 							if (JoinRequestTrials >= MaxJoinRequestTrials)
 							{
@@ -2594,12 +2546,8 @@ extern "C"
 		// Verify if the fOpts and the payload fit into the maximum payload
 		if (ValidatePayloadLength(size, datarate, fOptLen) == false)
 		{
-#ifdef ESP32
-			log_d("LoRaMacQueryTxPossible -> ValidatePayloadLength failed size = %d DR = %d", size, datarate);
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LM", "LoRaMacQueryTxPossible -> ValidatePayloadLength failed size = %d DR = %d", size, datarate);
-#endif
+			LOG_LIB("LM", "LoRaMacQueryTxPossible -> ValidatePayloadLength failed size = %d DR = %d", size, datarate);
+
 			return LORAMAC_STATUS_LENGTH_ERROR;
 		}
 		return LORAMAC_STATUS_OK;
@@ -3338,12 +3286,8 @@ extern "C"
 		if (((LoRaMacState & LORAMAC_TX_RUNNING) == LORAMAC_TX_RUNNING) ||
 			((LoRaMacState & LORAMAC_TX_DELAYED) == LORAMAC_TX_DELAYED))
 		{
-#ifdef ESP32
-			log_d("LoRaMacMcpsRequest LORAMAC_STATUS_BUSY");
-#endif
-#ifdef NRF52_SERIES
-			LOG_LV1("LM", "LoRaMacMcpsRequest LORAMAC_STATUS_BUSY");
-#endif
+			LOG_LIB("LM", "LoRaMacMcpsRequest LORAMAC_STATUS_BUSY");
+
 			return LORAMAC_STATUS_BUSY;
 		}
 
