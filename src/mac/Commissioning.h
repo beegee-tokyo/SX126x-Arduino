@@ -36,9 +36,26 @@ extern "C"
  * REGION_US915 -> US 915 MHz
  */
 
-#if !defined(REGION_AS923) && !defined(REGION_AU915) && !defined(REGION_CN470) && !defined(REGION_CN779) && !defined(REGION_EU433) && !defined(REGION_EU868) && !defined(REGION_IN865) && !defined(REGION_KR920) && !defined(REGION_US915) && !defined(REGION_US915_HYBRID)
-#define REGION_AS923
+// For transistion time from the old library (region specific) to the new library (support of all regions)
+// We throw an error here if any REGION is defined.
+#if defined(REGION_AS923) || defined(REGION_AU915) || defined(REGION_CN470) || defined(REGION_CN779) || defined(REGION_EU433) || defined(REGION_EU868) || defined(REGION_IN865) || defined(REGION_KR920) || defined(REGION_US915) || defined(REGION_US915_HYBRID)
+#error "SX126x-Arduino V2.0 does support all LoRaWAN regions without definition of 'REGION_XXYYY. Please read detailed information how to use it on https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README_V2.md"
 #endif
+
+// #if !defined(REGION_AS923) && !defined(REGION_AU915) && !defined(REGION_CN470) && !defined(REGION_CN779) && !defined(REGION_EU433) && !defined(REGION_EU868) && !defined(REGION_IN865) && !defined(REGION_KR920) && !defined(REGION_US915) && !defined(REGION_US915_HYBRID)
+// #define REGION_US915
+// #endif
+
+#define REGION_AS923
+#define REGION_AU915
+#define REGION_CN470
+#define REGION_CN779
+#define REGION_EU433
+#define REGION_EU868
+#define REGION_IN865
+#define REGION_KR920
+#define REGION_US915
+#define REGION_US915_HYBRID
 
 /**@brief Enable or disable duty cycle control
  * LoRaWAN ETSI duty cycle control enable/disable. 

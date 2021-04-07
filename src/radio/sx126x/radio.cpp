@@ -455,7 +455,11 @@ extern "C"
 	PacketStatus_t RadioPktStatus;
 	uint8_t RadioRxPayload[255];
 
+#if defined(ESP32)
+	bool DRAM_ATTR IrqFired = false;
+#else
 	bool IrqFired = false;
+#endif
 
 	bool TimerRxTimeout = false;
 	bool TimerTxTimeout = false;

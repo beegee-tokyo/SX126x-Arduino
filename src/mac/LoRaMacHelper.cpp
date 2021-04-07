@@ -28,9 +28,13 @@
 extern "C"
 {
 
-	extern uint16_t ChannelsMask[];
-	extern uint16_t ChannelsDefaultMask[];
-	extern uint16_t ChannelsMaskRemaining[];
+	uint16_t ChannelsMask[6];
+	uint16_t ChannelsDefaultMask[6];
+	uint16_t ChannelsMaskRemaining[6];
+
+	size_t ch_mask_size = sizeof(ChannelsMask);
+
+	LoRaMacRegion_t region;
 
 	bool _otaa = false;
 
@@ -137,59 +141,42 @@ extern "C"
 
 	bool lmh_setSubBandChannels(uint8_t subBand)
 	{
-#if defined(REGION_AS923)
-		uint16_t subBandChannelMask[1] = {0x0000};
+		uint16_t subBandChannelMask[6] = {0, 0, 0, 0, 0, 0};
 		uint8_t maxBand = 1;
-#elif defined(REGION_AU915)
-		uint16_t subBandChannelMask[6] = {0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000};
-		uint8_t maxBand = 9;
-#elif defined(REGION_CN470)
-		uint16_t subBandChannelMask[6] = {0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000};
-		uint8_t maxBand = 12;
-#elif defined(REGION_CN779)
-		uint16_t subBandChannelMask[1] = {0x0000};
-		uint8_t maxBand = 2;
-#elif defined(REGION_EU433)
-		uint16_t subBandChannelMask[1] = {0x0000};
-		uint8_t maxBand = 2;
-#elif defined(REGION_IN865)
-		uint16_t subBandChannelMask[1] = {0x0000};
-		uint8_t maxBand = 2;
-#elif defined(REGION_EU868)
-		uint16_t subBandChannelMask[1] = {0x0000};
-		uint8_t maxBand = 2;
-#elif defined(REGION_KR920)
-		uint16_t subBandChannelMask[1] = {0x0000};
-		uint8_t maxBand = 2;
-#elif defined(REGION_US915)
-		uint16_t subBandChannelMask[6] = {0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000};
-		uint8_t maxBand = 9;
-#elif defined(REGION_US915_HYBRID)
-		uint16_t subBandChannelMask[6] = {0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000,
-										  0x0000};
-		uint8_t maxBand = 9;
-#else
-#error "Please define a region in the compiler options."
-#endif
+		switch (region)
+		{
+		case LORAMAC_REGION_AS923:
+			maxBand = 1;
+			break;
+		case LORAMAC_REGION_AU915:
+			maxBand = 9;
+			break;
+		case LORAMAC_REGION_CN470:
+
+			maxBand = 12;
+			break;
+		case LORAMAC_REGION_CN779:
+			maxBand = 2;
+			break;
+		case LORAMAC_REGION_EU433:
+			maxBand = 2;
+			break;
+		case LORAMAC_REGION_IN865:
+			maxBand = 2;
+			break;
+		case LORAMAC_REGION_EU868:
+			maxBand = 2;
+			break;
+		case LORAMAC_REGION_KR920:
+			maxBand = 2;
+			break;
+		case LORAMAC_REGION_US915:
+			maxBand = 9;
+			break;
+		case LORAMAC_REGION_US915_HYBRID:
+			maxBand = 9;
+			break;
+		}
 		uint16_t upperMask = 0xFF00;
 		uint16_t lowerMask = 0x00FF;
 
@@ -687,8 +674,9 @@ extern "C"
 		}
 	}
 
-	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, eDeviceClass nodeClass)
+	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, eDeviceClass nodeClass, LoRaMacRegion_t user_region)
 	{
+		region = (LoRaMacRegion_t)user_region;
 		char strlog1[64];
 		char strlog2[64];
 		char strlog3[64];
@@ -737,30 +725,6 @@ extern "C"
 		LoRaMacPrimitives.MacMlmeConfirm = MlmeConfirm;
 		LoRaMacCallbacks.GetBatteryLevel = m_callbacks->BoardGetBatteryLevel;
 
-		LoRaMacRegion_t region;
-#if defined(REGION_AS923)
-		region = LORAMAC_REGION_AS923;
-#elif defined(REGION_AU915)
-		region = LORAMAC_REGION_AU915;
-#elif defined(REGION_CN470)
-		region = LORAMAC_REGION_CN470;
-#elif defined(REGION_CN779)
-		region = LORAMAC_REGION_CN779;
-#elif defined(REGION_EU433)
-		region = LORAMAC_REGION_EU433;
-#elif defined(REGION_IN865)
-		region = LORAMAC_REGION_IN865;
-#elif defined(REGION_EU868)
-		region = LORAMAC_REGION_EU868;
-#elif defined(REGION_KR920)
-		region = LORAMAC_REGION_KR920;
-#elif defined(REGION_US915)
-		region = LORAMAC_REGION_US915;
-#elif defined(REGION_US915_HYBRID)
-		region = LORAMAC_REGION_US915_HYBRID;
-#else
-#error "Please define a region in the compiler options."
-#endif
 		error_status = LoRaMacInitialization(&LoRaMacPrimitives, &LoRaMacCallbacks, region, nodeClass);
 		if (error_status != LORAMAC_STATUS_OK)
 		{
@@ -792,7 +756,8 @@ extern "C"
 		LoRaMacMibSetRequestConfirm(&mibReq);
 
 		LoRaMacTestSetDutyCycleOn(_dutyCycleEnabled);
-#if defined(REGION_EU868)
+		if (region == LORAMAC_REGION_EU868)
+		{
 #if (USE_SEMTECH_DEFAULT_CHANNEL_LINEUP == 1)
 		LoRaMacChannelAdd(3, (ChannelParams_t)LC4);
 		LoRaMacChannelAdd(4, (ChannelParams_t)LC5);
@@ -810,32 +775,43 @@ extern "C"
 		mibReq.Param.Rx2Channel = (Rx2ChannelParams_t){869525000, DR_3};
 		LoRaMacMibSetRequestConfirm(&mibReq);
 #endif
-#endif
+		}
 
 		// Set default SubBandChannels matching with RAK definitions
-#if defined(REGION_AS923)
+		switch (region)
+		{
+		case LORAMAC_REGION_AS923:
 		lmh_setSubBandChannels(1);
-#elif defined(REGION_AU915)
+			break;
+		case LORAMAC_REGION_AU915:
 		lmh_setSubBandChannels(2);
-#elif defined(REGION_CN470)
+			break;
+		case LORAMAC_REGION_CN470:
 		lmh_setSubBandChannels(11);
-#elif defined(REGION_CN779)
+			break;
+		case LORAMAC_REGION_CN779:
 		lmh_setSubBandChannels(1);
-#elif defined(REGION_EU433)
+			break;
+		case LORAMAC_REGION_EU433:
 		lmh_setSubBandChannels(1);
-#elif defined(REGION_IN865)
+			break;
+		case LORAMAC_REGION_IN865:
 		lmh_setSubBandChannels(1);
-#elif defined(REGION_EU868)
+			break;
+		case LORAMAC_REGION_EU868:
 		lmh_setSubBandChannels(1);
-#elif defined(REGION_KR920)
+			break;
+		case LORAMAC_REGION_KR920:
 		lmh_setSubBandChannels(1);
-#elif defined(REGION_US915)
+			break;
+		case LORAMAC_REGION_US915:
 		lmh_setSubBandChannels(2);
-#elif defined(REGION_US915_HYBRID)
+			break;
+		case LORAMAC_REGION_US915_HYBRID:
 		lmh_setSubBandChannels(2);
-#else
-#error "Please define a region in the compiler options."
-#endif
+			break;
+		}
+
 		return LMH_SUCCESS;
 	}
 
@@ -955,11 +931,14 @@ extern "C"
 				mcpsReq.Req.Confirmed.fPort = app_data->port;
 				mcpsReq.Req.Confirmed.fBufferSize = app_data->buffsize;
 				mcpsReq.Req.Confirmed.fBuffer = app_data->buffer;
-#if defined(REGION_AS923)
+				if (region == LORAMAC_REGION_AS923)
+				{
 				mcpsReq.Req.Confirmed.NbTrials = 1; //8;
-#else
+				}
+				else
+				{
 				mcpsReq.Req.Confirmed.NbTrials = 8;
-#endif
+				}
 				mcpsReq.Req.Confirmed.Datarate = m_param.tx_data_rate;
 			}
 
