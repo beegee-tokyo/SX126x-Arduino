@@ -46,8 +46,8 @@ static void lorawan_confirm_class_handler(DeviceClass_t Class);
 /** LoRaWan Function to send a package */
 bool sendLoRaFrame(void);
 
-/** Semaphore used by SX126x IRQ handler to wake up LoRaWan task */
-SemaphoreHandle_t loraEvent = NULL;
+// /** Semaphore used by SX126x IRQ handler to wake up LoRaWan task */
+// SemaphoreHandle_t loraEvent = NULL;
 
 /**@brief Structure containing LoRaWan parameters, needed for lmh_init()
 
@@ -83,26 +83,26 @@ uint8_t nodeAppsKey[16] = {0x3F, 0x6A, 0x66, 0x45, 0x9D, 0x5E, 0xDC, 0xA6, 0x3C,
 /** Flag whether to use OTAA or ABP network join method */
 bool doOTAA = true;
 
-/** LoRa task handle */
-TaskHandle_t loraTaskHandle;
-/** GPS reading task */
-void loraTask(void *pvParameters);
+// /** LoRa task handle */
+// TaskHandle_t loraTaskHandle;
+// /** GPS reading task */
+// void loraTask(void *pvParameters);
 
-/**
-   @brief SX126x interrupt handler
-   Called when DIO1 is set by SX126x
-   Gives loraEvent semaphore to wake up LoRaWan handler task
+// /**
+//    @brief SX126x interrupt handler
+//    Called when DIO1 is set by SX126x
+//    Gives loraEvent semaphore to wake up LoRaWan handler task
 
-*/
-void loraIntHandler(void)
-{
-	// SX126x set IRQ
-	if (loraEvent != NULL)
-	{
-		// Wake up LoRa task
-		xSemaphoreGive(loraEvent);
-	}
-}
+// */
+// void loraIntHandler(void)
+// {
+// 	// SX126x set IRQ
+// 	if (loraEvent != NULL)
+// 	{
+// 		// Wake up LoRa task
+// 		xSemaphoreGive(loraEvent);
+// 	}
+// }
 
 /**
    @brief Initialize LoRa HW and LoRaWan MAC layer
@@ -163,17 +163,17 @@ int8_t initLoRaWan(void)
 		return -3;
 	}
 
-	// In deep sleep we need to hijack the SX126x IRQ to trigger a wakeup of the nRF52
-	attachInterrupt(PIN_LORA_DIO_1, loraIntHandler, RISING);
+// 	// In deep sleep we need to hijack the SX126x IRQ to trigger a wakeup of the nRF52
+// 	attachInterrupt(PIN_LORA_DIO_1, loraIntHandler, RISING);
 
-	// Start the task that will handle the LoRaWan events
-#ifndef MAX_SAVE
-	Serial.println("Starting LoRaWan task");
-#endif
-	if (!xTaskCreate(loraTask, "LORA", 2048, NULL, TASK_PRIO_LOW, &loraTaskHandle))
-	{
-		return -4;
-	}
+// 	// Start the task that will handle the LoRaWan events
+// #ifndef MAX_SAVE
+// 	Serial.println("Starting LoRaWan task");
+// #endif
+// 	if (!xTaskCreate(loraTask, "LORA", 2048, NULL, TASK_PRIO_LOW, &loraTaskHandle))
+// 	{
+// 		return -4;
+// 	}
 
 	// Start Join procedure
 #ifndef MAX_SAVE
@@ -184,31 +184,31 @@ int8_t initLoRaWan(void)
 	return 0;
 }
 
-/**
-   @brief Independent task to handle LoRa events
+// /**
+//    @brief Independent task to handle LoRa events
 
-   @param pvParameters Unused
-*/
-void loraTask(void *pvParameters)
-{
-	while (1)
-	{
-		if (lmh_join_status_get() == LMH_SET)
-		{ // Switch off the indicator lights
-			digitalWrite(LED_CONN, LOW);
-		}
-		// Only if semaphore is available we need to handle LoRa events.
-		// Otherwise we sleep here until an event occurs
-		if (xSemaphoreTake(loraEvent, portMAX_DELAY) == pdTRUE)
-		{
-			// Switch off the indicator lights
-			digitalWrite(LED_CONN, HIGH);
+//    @param pvParameters Unused
+// */
+// void loraTask(void *pvParameters)
+// {
+// 	while (1)
+// 	{
+// 		if (lmh_join_status_get() == LMH_SET)
+// 		{ // Switch off the indicator lights
+// 			digitalWrite(LED_CONN, LOW);
+// 		}
+// 		// Only if semaphore is available we need to handle LoRa events.
+// 		// Otherwise we sleep here until an event occurs
+// 		if (xSemaphoreTake(loraEvent, portMAX_DELAY) == pdTRUE)
+// 		{
+// 			// Switch off the indicator lights
+// 			digitalWrite(LED_CONN, HIGH);
 
-			// Handle Radio events with special process command!!!!
-			Radio.IrqProcessAfterDeepSleep();
-		}
-	}
-}
+// 			// Handle Radio events with special process command!!!!
+// 			Radio.IrqProcessAfterDeepSleep();
+// 		}
+// 	}
+// }
 
 /**
    @brief LoRa function for handling HasJoined event.
@@ -284,8 +284,8 @@ static void lorawan_rx_handler(lmh_app_data_t *app_data)
 			}
 		}
 
-		// Send LoRaWan handler back to sleep
-		xSemaphoreTake(loraEvent, 10);
+		// // Send LoRaWan handler back to sleep
+		// xSemaphoreTake(loraEvent, 10);
 		break;
 	case LORAWAN_APP_PORT:
 		// Copy the data into loop data buffer
@@ -301,8 +301,8 @@ static void lorawan_rx_handler(lmh_app_data_t *app_data)
 			xSemaphoreGive(taskEvent);
 		}
 
-		// Send LoRa handler back to sleep
-		xSemaphoreTake(loraEvent, 10);
+		// // Send LoRa handler back to sleep
+		// xSemaphoreTake(loraEvent, 10);
 	}
 }
 
@@ -322,8 +322,8 @@ static void lorawan_confirm_class_handler(DeviceClass_t Class)
 	m_lora_app_data.port = LORAWAN_APP_PORT;
 	lmh_send(&m_lora_app_data, LMH_UNCONFIRMED_MSG);
 
-	// Send LoRa handler back to sleep
-	xSemaphoreTake(loraEvent, 10);
+	// // Send LoRa handler back to sleep
+	// xSemaphoreTake(loraEvent, 10);
 }
 
 /**
@@ -339,8 +339,8 @@ bool sendLoRaFrame(void)
 #ifndef MAX_SAVE
 		Serial.println("Did not join network, skip sending frame");
 #endif
-		// Send LoRa handler back to sleep
-		xSemaphoreTake(loraEvent, 10);
+		// // Send LoRa handler back to sleep
+		// xSemaphoreTake(loraEvent, 10);
 		return false;
 	}
 
@@ -361,8 +361,8 @@ bool sendLoRaFrame(void)
 
 	lmh_error_status error = lmh_send(&m_lora_app_data, LMH_UNCONFIRMED_MSG);
 
-	// Send LoRa handler back to sleep
-	xSemaphoreTake(loraEvent, 10);
+	// // Send LoRa handler back to sleep
+	// xSemaphoreTake(loraEvent, 10);
 
 	return (error == 0);
 }

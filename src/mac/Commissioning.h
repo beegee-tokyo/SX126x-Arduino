@@ -39,7 +39,7 @@ extern "C"
 // For transistion time from the old library (region specific) to the new library (support of all regions)
 // We throw an error here if any REGION is defined.
 #if defined(REGION_AS923) || defined(REGION_AU915) || defined(REGION_CN470) || defined(REGION_CN779) || defined(REGION_EU433) || defined(REGION_EU868) || defined(REGION_IN865) || defined(REGION_KR920) || defined(REGION_US915) || defined(REGION_US915_HYBRID)
-#error "SX126x-Arduino V2.0 does support all LoRaWAN regions without definition of 'REGION_XXYYY. Please read detailed information how to use it on https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README_V2.md"
+#error "SX126x-Arduino V2.0 does support all LoRaWAN regions without definition of 'REGION_XXYYY.\n\nPlease read detailed information how to use it on https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README_V2.md"
 #endif
 
 // #if !defined(REGION_AS923) && !defined(REGION_AU915) && !defined(REGION_CN470) && !defined(REGION_CN779) && !defined(REGION_EU433) && !defined(REGION_EU868) && !defined(REGION_IN865) && !defined(REGION_KR920) && !defined(REGION_US915) && !defined(REGION_US915_HYBRID)

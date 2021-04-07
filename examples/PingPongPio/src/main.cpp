@@ -193,9 +193,10 @@ void setup()
 
 void loop()
 {
+#ifdef ESP8266
 	// Handle Radio events
 	Radio.IrqProcess();
-
+#endif
 	// We are on FreeRTOS, give other tasks a chance to run
 	delay(100);
 	yield();

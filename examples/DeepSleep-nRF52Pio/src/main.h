@@ -22,7 +22,7 @@
 // LoRaWan stuff
 int8_t initLoRaWan(void);
 bool sendLoRaFrame(void);
-extern SemaphoreHandle_t loraEvent;
+// extern SemaphoreHandle_t loraEvent;
 
 // Main loop stuff
 void periodicWakeup(TimerHandle_t unused);

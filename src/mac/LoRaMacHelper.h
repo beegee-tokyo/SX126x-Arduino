@@ -140,6 +140,7 @@ extern "C"
  * @param lora_param	Pointer to structure containing the parameters
  * @param otaa Choose OTAA (true) or ABP (false) activation
  * @param nodeClass Choose node class CLASS_A, CLASS_B or CLASS_C, default to CLASS_A
+ * @param region Choose LoRaWAN region to set correct region parameters
  *
  * @retval error status
  */
