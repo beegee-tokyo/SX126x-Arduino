@@ -674,7 +674,8 @@ extern "C"
 		}
 	}
 
-	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, eDeviceClass nodeClass, LoRaMacRegion_t user_region)
+	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa,
+							  eDeviceClass nodeClass, LoRaMacRegion_t user_region)
 	{
 		region = (LoRaMacRegion_t)user_region;
 		char strlog1[64];

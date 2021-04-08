@@ -49,7 +49,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include "radio/sx126x/sx126x.h"
 #include "boards/sx126x/sx126x-board.h"
 #include "timer.h"
-#include "debug.h"
+#include "sx126x-debug.h"
 
 // SX126x chip type
 #define SX1261_CHIP 1

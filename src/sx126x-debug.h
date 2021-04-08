@@ -1,5 +1,5 @@
 /**
- * @file debug.h
+ * @file sx126x-debug.h
  * @author Bernd Giesecke (bernd.giesecke@rakwireless.com)
  * @brief Unified debug output for all platforms
  * 		Set LIB_DEBUG to 1 to enable debug output
@@ -15,17 +15,17 @@
 // If not on PIO or not defined in platformio.ini
 #ifndef LIB_DEBUG
 // Debug output set to 0 to disable app debug output
-#define LIB_DEBUG 0
+#define LIB_DEBUG 1
 #endif
 
 #if LIB_DEBUG > 0
-#define LOG_LIB(tag, ...)           \
-	do                            \
-	{                             \
-		if (tag)                  \
-			PRINTF("<%s> ", tag); \
-		PRINTF(__VA_ARGS__);      \
-		PRINTF("\n");             \
+#define LOG_LIB(tag, ...)                \
+	do                                   \
+	{                                    \
+		if (tag)                         \
+			Serial.printf("<%s> ", tag); \
+		Serial.printf(__VA_ARGS__);      \
+		Serial.printf("\n");             \
 	} while (0)
 #else
 #define LOG_LIB(...)

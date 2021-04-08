@@ -11,24 +11,8 @@
 
 #include "main.h"
 
-#ifdef _VARIANT_ISP4520_
-/** DIO1 GPIO pin for ISP4520 */
-#define PIN_LORA_DIO_1 11
-#else
-/** DIO1 GPIO pin for RAK4631 */
-#define PIN_LORA_DIO_1 47
-#endif
-
 /** LoRaWAN setting from flash */
 s_lorawan_settings g_lorawan_settings;
-
-// /** Semaphore used by SX126x IRQ handler to wake up LoRaWAN task */
-// static SemaphoreHandle_t lora_sem = NULL;
-
-// /** LoRa task handle */
-// TaskHandle_t loraTaskHandle;
-// /** GPS reading task */
-// void lora_task(void *pvParameters);
 
 /** Buffer for received LoRaWan data */
 uint8_t g_rx_lora_data[256];
@@ -84,22 +68,6 @@ bool lpwan_has_joined = false;
 
 String regionValues[] = {"AS923", "AU915", "CN470", "CN779", "EU433", "EU868", "KR920", "IN865", "US915", "US915H"};
 
-// /**
-//  * @brief SX126x interrupt handler
-//  * Called when DIO1 is set by SX126x
-//  * Gives lora_sem semaphore to wake up LoRaWan handler task
-//  * 
-//  */
-// void lora_interrupt_handler(void)
-// {
-// 	// SX126x set IRQ
-// 	if (lora_sem != NULL)
-// 	{
-// 		// Wake up LoRa task
-// 		xSemaphoreGive(lora_sem);
-// 	}
-// }
-
 /**
  * @brief Initialize LoRa HW and LoRaWan MAC layer
  * 
@@ -112,11 +80,6 @@ String regionValues[] = {"AS923", "AU915", "CN470", "CN779", "EU433", "EU868", "
  */
 int8_t init_lora(void)
 {
-	// // Create the LoRaWan event semaphore
-	// lora_sem = xSemaphoreCreateBinary();
-	// // Initialize semaphore
-	// xSemaphoreGive(lora_sem);
-
 	// Initialize LoRa chip.
 #ifdef _VARIANT_ISP4520_
 	if (lora_isp4520_init(SX1262) != 0)
@@ -146,7 +109,7 @@ int8_t init_lora(void)
 
 	// Initialize LoRaWan
 	MYLOG("LORA", "Initialize for region %s", regionValues[g_lorawan_settings.lora_region].c_str());
-	if (lmh_init(&lora_callbacks, lora_param_init, g_lorawan_settings.otaa_enabled, CLASS_A, g_lorawan_settings.lora_region) != 0)
+	if (lmh_init(&lora_callbacks, lora_param_init, g_lorawan_settings.otaa_enabled, CLASS_A, (LoRaMacRegion_t)g_lorawan_settings.lora_region) != 0)
 	{
 		MYLOG("LORA", "Failed to initialize LoRaWAN");
 		return -2;
@@ -160,62 +123,14 @@ int8_t init_lora(void)
 		return -3;
 	}
 
-// 	// Start the task that will handle the LoRaWan events
-// 	MYLOG("LORA", "Starting LoRaWan task");
-// #ifdef _VARIANT_ISP4520_
-// 	if (!xTaskCreate(lora_task, "LORA", 2048, NULL, TASK_PRIO_LOW, &loraTaskHandle))
-// #else
-// 	if (!xTaskCreate(lora_task, "LORA", 4096, NULL, TASK_PRIO_LOW, &loraTaskHandle))
-// #endif
-// 	{
-// 		MYLOG("LORA", "Failed to start LoRaWAN task");
-// 		return -4;
-// 	}
+	// Start Join procedure
+	MYLOG("LORA", "Start network join request");
+	delay(200);
+	lmh_join();
 
 	g_lorawan_initialized = true;
 	return 0;
 }
-
-// /**
-//  * @brief Independent task to handle LoRa events
-//  * 
-//  * @param pvParameters Unused
-//  */
-// void lora_task(void *pvParameters)
-// {
-// 	// Start Join procedure
-// 	MYLOG("LORA", "Start network join request");
-// 	delay(200);
-// 	lmh_join();
-
-// 	while (1)
-// 	{
-// 		if (!lpwan_has_joined)
-// 		{
-// 			Radio.IrqProcess();
-// 			delay(10);
-// 			if (lpwan_has_joined)
-// 			{
-// 				// In deep sleep we need to hijack the SX126x IRQ to trigger a wakeup of the nRF52
-// 				attachInterrupt(PIN_LORA_DIO_1, lora_interrupt_handler, RISING);
-// 			}
-// 		}
-// 		else
-// 		{
-// 			// Switch off the indicator lights
-// 			digitalWrite(LED_BUILTIN, LOW);
-// 			// Only if semaphore is available we need to handle LoRa events.
-// 			// Otherwise we sleep here until an event occurs
-// 			if (xSemaphoreTake(lora_sem, portMAX_DELAY) == pdTRUE)
-// 			{
-// 				// Switch off the indicator lights
-// 				digitalWrite(LED_BUILTIN, HIGH);
-// 				// Handle Radio events with special process command!!!!
-// 				Radio.IrqProcessAfterDeepSleep();
-// 			}
-// 		}
-// 	}
-// }
 
 /**************************************************************/
 /* LoRaWAN callback functions                                            */
@@ -275,10 +190,10 @@ static void lpwan_joined_handler(void)
 
 	if (g_lorawan_settings.send_repeat_time != 0)
 	{
-	// Now we are connected, start the timer that will wakeup the loop frequently
-	g_task_wakeup_timer.begin(g_lorawan_settings.send_repeat_time, periodic_wakeup);
-	g_task_wakeup_timer.start();
-}
+		// Now we are connected, start the timer that will wakeup the loop frequently
+		g_task_wakeup_timer.begin(g_lorawan_settings.send_repeat_time, periodic_wakeup);
+		g_task_wakeup_timer.start();
+	}
 }
 
 /**

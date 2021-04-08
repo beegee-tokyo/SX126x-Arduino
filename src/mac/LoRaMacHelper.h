@@ -144,7 +144,8 @@ extern "C"
  *
  * @retval error status
  */
-	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, eDeviceClass nodeClass = CLASS_A, LoRaMacRegion_t region = REGION_US915);
+	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param,
+							  bool otaa, eDeviceClass nodeClass = CLASS_A, LoRaMacRegion_t region = LORAMAC_REGION_AS923);
 
 	/**@brief Send data
  *

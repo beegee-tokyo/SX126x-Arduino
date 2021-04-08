@@ -72,12 +72,19 @@ This parameter selects the LoRaWAN region for your application. Allowed values f
 > `menu.region=Region`    
 
 **from the file.**    
+     
 **Edit the file**    
 `C:\Users\<YOUR_NAME>\AppData\Local\Arduino15\packages\raknrf\hardware\nrf52\0.21.11\platform.txt`    
-**and remove the line** 
-> `build.region_flags=-DREGION_US915`    
+**and replace the lines** 
+>`# build.logger_flags and build.sysview_flags and intentionally empty,`    
+>`# to allow modification via a user's own boards.local.txt or platform.local.txt files.`    
+>`build.flags.nrf= -DSOFTDEVICE_PRESENT -DARDUINO_NRF52_ADAFRUIT -DNRF52_SERIES -DLFS_NAME_MAX=64 {compiler.optimization_flag} {build.debug_flags} {build.region_flags} {build.logger_flags} {build.sysview_flags} "-I{build.core.path}/cmsis/Core/Include" "-I{nordic.path}" "-I{nordic.path}/nrfx" "-I{nordic.path}/nrfx/hal" "-I{nordic.path}/nrfx/mdk" "-I{nordic.path}/nrfx/soc" "-I{nordic.path}/nrfx/drivers/include" "-I{nordic.path}/nrfx/drivers/src" "-I{nordic.path}/softdevice/{build.sd_name}_nrf52_{build.sd_version}_API/include" "-I{nordic.path}/softdevice/{build.sd_name}_nrf52_{build.sd_version}_API/include/nrf52" "-I{rtos.path}/Source/include" "-I{rtos.path}/config" "-I{rtos.path}/portable/GCC/nrf52" "-I{rtos.path}/portable/CMSIS/nrf52" "-I{build.core.path}/sysview/SEGGER" "-I{build.core.path}/sysview/Config" "-I{build.core.path}/TinyUSB" "-I{build.core.path}/TinyUSB/Adafruit_TinyUSB_ArduinoCore" "-I{build.core.path}/TinyUSB/Adafruit_TinyUSB_ArduinoCore/tinyusb/src"`    
 
-**from the file.**
+**with the lines** 
+>`# build.logger_flags and build.sysview_flags and intentionally empty,`    
+>`# to allow modification via a user's own boards.local.txt or platform.local.txt files.`    
+>`build.flags.nrf= -DSOFTDEVICE_PRESENT -DARDUINO_NRF52_ADAFRUIT -DNRF52_SERIES -DLFS_NAME_MAX=64 {compiler.optimization_flag} {build.debug_flags} {build.logger_flags} {build.sysview_flags} "-I{build.core.path}/cmsis/Core/Include" "-I{nordic.path}" "-I{nordic.path}/nrfx" "-I{nordic.path}/nrfx/hal" "-I{nordic.path}/nrfx/mdk" "-I{nordic.path}/nrfx/soc" "-I{nordic.path}/nrfx/drivers/include" "-I{nordic.path}/nrfx/drivers/src" "-I{nordic.path}/softdevice/{build.sd_name}_nrf52_{build.sd_version}_API/include" "-I{nordic.path}/softdevice/{build.sd_name}_nrf52_{build.sd_version}_API/include/nrf52" "-I{rtos.path}/Source/include" "-I{rtos.path}/config" "-I{rtos.path}/portable/GCC/nrf52" "-I{rtos.path}/portable/CMSIS/nrf52" "-I{build.core.path}/sysview/SEGGER" "-I{build.core.path}/sysview/Config" "-I{build.core.path}/TinyUSB" "-I{build.core.path}/TinyUSB/Adafruit_TinyUSB_ArduinoCore" "-I{build.core.path}/TinyUSB/Adafruit_TinyUSB_ArduinoCore/tinyusb/src"`      
+
 
 ----
 ----

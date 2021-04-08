@@ -42,7 +42,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 #if defined(ESP32) || defined(ESP8266)
 #include <Ticker.h>
 #endif
-#include "debug.h"
+#include "sx126x-debug.h"
 
 extern "C"
 {

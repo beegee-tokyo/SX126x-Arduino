@@ -690,8 +690,10 @@ extern "C"
 		LoRaMacFlags.Bits.MacDone = 1;
 
 		// Trig OnMacCheckTimerEvent call as soon as possible
-		TimerSetValue(&MacStateCheckTimer, 1);
-		TimerStart(&MacStateCheckTimer);
+		// TimerSetValue(&MacStateCheckTimer, 100);
+		// TimerStart(&MacStateCheckTimer);
+		TimerStop(&MacStateCheckTimer);
+		OnMacStateCheckTimerEvent();
 	}
 
 	static void OnRadioRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
@@ -1120,8 +1122,10 @@ extern "C"
 		LoRaMacFlags.Bits.MacDone = 1;
 
 		// Trig OnMacCheckTimerEvent call as soon as possible
-		TimerSetValue(&MacStateCheckTimer, 1);
-		TimerStart(&MacStateCheckTimer);
+		// TimerSetValue(&MacStateCheckTimer, 100);
+		// TimerStart(&MacStateCheckTimer);
+		TimerStop(&MacStateCheckTimer);
+		OnMacStateCheckTimerEvent();
 	}
 
 	static void OnRadioTxTimeout(void)
@@ -1427,7 +1431,12 @@ extern "C"
 			}
 			if (LoRaMacFlags.Bits.McpsIndSkip == 0)
 			{
+				LOG_LIB("LM", "Calling MacMcpsIndication");
 				LoRaMacPrimitives->MacMcpsIndication(&McpsIndication);
+			}
+			else
+			{
+				LOG_LIB("LM", "Skipped MacMcpsIndication");
 			}
 			LoRaMacFlags.Bits.McpsIndSkip = 0;
 			LoRaMacFlags.Bits.McpsInd = 0;
