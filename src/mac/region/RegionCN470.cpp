@@ -57,7 +57,7 @@ extern "C"
 	/*!
  * LoRaMac channels mask
  */
-	extern uint16_t ChannelsMask[];
+	extern uint16_t ChannelsMask[6];
 
 	/*!
  * LoRaMac channels remaining
