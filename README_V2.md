@@ -31,13 +31,13 @@ The new definition of the function **`lmh_init()`** is:
  * @param lora_param  Pointer to structure containing the parameters
  * @param otaa        Choose OTAA (true) or ABP (false) activation
  * @param nodeClass   Choose node class CLASS_A, CLASS_B or CLASS_C, default to CLASS_A
- * @param region      Choose LoRaWAN region to set correct region parameters
+ * @param region      Choose LoRaWAN region to set correct region parameters, defaults to EU868
  *
  * @retval error status
  */
 	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, 
 	                          eDeviceClass nodeClass = CLASS_A, 
-	                          LoRaMacRegion_t region = REGION_US915);
+	                          LoRaMacRegion_t region = LORAMAC_REGION_EU868);
 ```
 The first three parameters are the same as before. Two new parameters have been added.
 
@@ -47,19 +47,19 @@ Now you can explicit set your node to **CLASS_A** or **CLASS_C**. Please take no
 
 ### LoRaMacRegion_t region
 This parameter selects the LoRaWAN region for your application. Allowed values for the region are:    
-- _**REGION_AS923**_    
-- _**REGION_AU915**_    
-- _**REGION_CN470**_    
-- _**REGION_CN779**_    
-- _**REGION_EU433**_    
-- _**REGION_EU868**_    
-- _**REGION_IN865**_    
-- _**REGION_KR920**_    
-- _**REGION_US915**_    
-- _**REGION_US915_HYBRID**_
+- _**LORAMAC_REGION_AS923**_    
+- _**LORAMAC_REGION_AU915**_    
+- _**LORAMAC_REGION_CN470**_    
+- _**LORAMAC_REGION_CN779**_    
+- _**LORAMAC_REGION_EU433**_    
+- _**LORAMAC_REGION_EU868**_    
+- _**LORAMAC_REGION_IN865**_    
+- _**LORAMAC_REGION_KR920**_    
+- _**LORAMAC_REGION_US915**_    
+- _**LORAMAC_REGION_US915_HYBRID**_
 
 # IMPORTANT NOTE 1: 
-**IF YOU DO NOT SET THE TWO NEW PARAMETERS, YOUR APPLICATION WILL BE SETUP AS _CLASS&nbsp;A_ NODE USING _US915&nbsp;REGION_ PARAMETERS!**
+**IF YOU DO NOT SET THE TWO NEW PARAMETERS, YOUR APPLICATION WILL BE SETUP AS _CLASS&nbsp;A_ NODE USING _EU868&nbsp;REGION_ PARAMETERS!**
 # IMPORTANT NOTE 2:
 **You can set the LoRaWAN region one time after an MCU reset or start-up. Changing the region during run-time is not (yet) supported. It is suggested that you store LoRaWAN settings in nonvolitale memory on the MCU. There is an example how to do this for nRF52 and how to setup the LoRaWAN region and other settings over BLE in the [RAK4631-LoRa-BLE-Config](https://github.com/beegee-tokyo/RAK4631-LoRa-BLE-Config) example. I will provide a similar example for the ESP32 in the future.**
 # IMPORTANT NOTE 3:

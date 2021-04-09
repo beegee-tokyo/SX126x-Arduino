@@ -140,12 +140,12 @@ extern "C"
  * @param lora_param	Pointer to structure containing the parameters
  * @param otaa Choose OTAA (true) or ABP (false) activation
  * @param nodeClass Choose node class CLASS_A, CLASS_B or CLASS_C, default to CLASS_A
- * @param region Choose LoRaWAN region to set correct region parameters
+ * @param region Choose LoRaWAN region to set correct region parameters, default to EU868
  *
  * @retval error status
  */
 	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param,
-							  bool otaa, eDeviceClass nodeClass = CLASS_A, LoRaMacRegion_t region = LORAMAC_REGION_AS923);
+							  bool otaa, eDeviceClass nodeClass = CLASS_A, LoRaMacRegion_t region = LORAMAC_REGION_EU868);
 
 	/**@brief Send data
  *
