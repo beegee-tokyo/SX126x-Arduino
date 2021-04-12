@@ -193,9 +193,9 @@ void setup()
 
 void loop()
 {
-	// Handle Radio events
+#ifdef ESP8266 // Handle Radio events
 	Radio.IrqProcess();
-
+#endif
 	// We are on FreeRTOS, give other tasks a chance to run
 	// delay(100);
 }
@@ -223,7 +223,6 @@ static void lorawan_has_joined_handler(void)
 
 	TimerSetValue(&appTimer, LORAWAN_APP_TX_DUTYCYCLE);
 	TimerStart(&appTimer);
-	// app_timer_start(lora_tx_timer_id, APP_TIMER_TICKS(LORAWAN_APP_TX_DUTYCYCLE), NULL);
 }
 
 /**@brief Function for handling LoRaWan received data from Gateway
@@ -330,18 +329,5 @@ static uint32_t timers_init(void)
 {
 	appTimer.timerNum = 3;
 	TimerInit(&appTimer, tx_lora_periodic_handler);
-
-	// ret_code_t err_code;
-
-	// APP_SCHED_INIT(SCHED_MAX_EVENT_DATA_SIZE, SCHED_QUEUE_SIZE);
-
-	// // Initialize timer module.
-	// err_code = app_timer_init();
-	// VERIFY_SUCCESS(err_code);
-
-	// // Initialize timers
-	// err_code = app_timer_create(&lora_tx_timer_id, APP_TIMER_MODE_REPEATED, tx_lora_periodic_handler);
-	// VERIFY_SUCCESS(err_code);
-
 	return 0;
 }

@@ -56,17 +56,17 @@ extern "C"
 	/*!
  * LoRaMac channels mask
  */
-	uint16_t ChannelsMask[CHANNELS_MASK_SIZE];
+	extern uint16_t ChannelsMask[6];
 
 	/*!
  * LoRaMac channels remaining
  */
-	uint16_t ChannelsMaskRemaining[CHANNELS_MASK_SIZE];
+	extern uint16_t ChannelsMaskRemaining[];
 
 	/*!
  * LoRaMac channels default mask
  */
-	uint16_t ChannelsDefaultMask[CHANNELS_MASK_SIZE];
+	extern uint16_t ChannelsDefaultMask[];
 
 	// Static functions
 	static int8_t GetNextLowerTxDr(int8_t dr, int8_t minDr)

@@ -39,6 +39,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 #define __SX126x_ARCH_H__
 
 #include <Arduino.h>
+#include "sx126x-debug.h"
 
 extern "C"
 {

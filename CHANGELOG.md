@@ -3,6 +3,14 @@
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32. ESP8266 and nRF52832. It will not work with other uC's like AVR.    
 
 # Release Notes
+## V2.0.0 Add new features to the library
+  - Add support for all LoRaWAN regions without recompilation of the code
+  - Add background handling of SX126x IRQ's for better performance
+  - Read [WHAT'S NEW IN V2](./README_V2.md) to migrate your application to V2
+
+----    
+----    
+
 ## V1.3.3 Fix OTAA problems
   - Fix AS923 join problem (use only default channels)
   - Fix OTAA problems (small code bug)

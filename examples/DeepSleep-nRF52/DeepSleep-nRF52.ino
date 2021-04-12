@@ -40,11 +40,11 @@ uint8_t eventType = -1;
  */
 void periodicWakeup(TimerHandle_t unused)
 {
-  // Switch on blue LED to show we are awake
-  digitalWrite(LED_CONN, HIGH);
-  eventType = 1;
+	// Switch on blue LED to show we are awake
+	digitalWrite(LED_CONN, HIGH);
+	eventType = 1;
 	// Give the semaphore, so the loop task will wake up
-  xSemaphoreGiveFromISR(taskEvent, pdFALSE);
+	xSemaphoreGiveFromISR(taskEvent, pdFALSE);
 }
 
 /**
@@ -53,84 +53,84 @@ void periodicWakeup(TimerHandle_t unused)
  */
 void setup(void)
 {
-  // Create the LoRaWan event semaphore
-  taskEvent = xSemaphoreCreateBinary();
-  // Initialize semaphore
-  xSemaphoreGive(taskEvent);
+	// Create the LoRaWan event semaphore
+	taskEvent = xSemaphoreCreateBinary();
+	// Initialize semaphore
+	xSemaphoreGive(taskEvent);
 
-  // Initialize the built in LED
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, LOW);
+	// Initialize the built in LED
+	pinMode(LED_BUILTIN, OUTPUT);
+	digitalWrite(LED_BUILTIN, LOW);
 
-  // Initialize the connection status LED
-  pinMode(LED_CONN, OUTPUT);
-  digitalWrite(LED_CONN, LOW);
-
-#ifndef MAX_SAVE
-  // Initialize Serial for debug output
-  Serial.begin(115200);
-
-  time_t timeout = millis();
-  // On nRF52840 the USB serial is not available immediately
-  while (!Serial)
-  {
-    if ((millis() - timeout) < 5000)
-    {
-      delay(100);
-      digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-    }
-    else
-    {
-      break;
-    }
-  }
-#endif
-
-  digitalWrite(LED_BUILTIN, LOW);
+	// Initialize the connection status LED
+	pinMode(LED_CONN, OUTPUT);
+	digitalWrite(LED_CONN, LOW);
 
 #ifndef MAX_SAVE
-  Serial.println("=====================================");
-  Serial.println("RAK4631 LoRaWan Deep Sleep Test");
-  Serial.println("=====================================");
+	// Initialize Serial for debug output
+	Serial.begin(115200);
+
+	time_t timeout = millis();
+	// On nRF52840 the USB serial is not available immediately
+	while (!Serial)
+	{
+		if ((millis() - timeout) < 5000)
+		{
+			delay(100);
+			digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+		}
+		else
+		{
+			break;
+		}
+	}
 #endif
 
-  // Initialize LoRaWan and start join request
-  int8_t loraInitResult = initLoRaWan();
+	digitalWrite(LED_BUILTIN, LOW);
 
 #ifndef MAX_SAVE
-  if (loraInitResult != 0)
-  {
-    switch (loraInitResult)
-    {
-    case -1:
-      Serial.println("SX126x init failed");
-      break;
-    case -2:
-      Serial.println("LoRaWan init failed");
-      break;
-    case -3:
-      Serial.println("Subband init error");
-      break;
-    case -4:
-      Serial.println("LoRa Task init error");
-      break;
-    default:
-      Serial.println("LoRa init unknown error");
-      break;
-    }
-
-    // Without working LoRa we just stop here
-    while (1)
-    {
-      Serial.println("Nothing I can do, just loving you");
-      delay(5000);
-    }
-  }
-  Serial.println("LoRaWan init success");
+	Serial.println("=====================================");
+	Serial.println("RAK4631 LoRaWan Deep Sleep Test");
+	Serial.println("=====================================");
 #endif
 
-  // Take the semaphore so the loop will go to sleep until an event happens
-  xSemaphoreTake(taskEvent, 10);
+	// Initialize LoRaWan and start join request
+	int8_t loraInitResult = initLoRaWan();
+
+#ifndef MAX_SAVE
+	if (loraInitResult != 0)
+	{
+		switch (loraInitResult)
+		{
+		case -1:
+			Serial.println("SX126x init failed");
+			break;
+		case -2:
+			Serial.println("LoRaWan init failed");
+			break;
+		case -3:
+			Serial.println("Subband init error");
+			break;
+		case -4:
+			Serial.println("LoRa Task init error");
+			break;
+		default:
+			Serial.println("LoRa init unknown error");
+			break;
+		}
+
+		// Without working LoRa we just stop here
+		while (1)
+		{
+			Serial.println("Nothing I can do, just loving you");
+			delay(5000);
+		}
+	}
+	Serial.println("LoRaWan init success");
+#endif
+
+	// Take the semaphore so the loop will go to sleep until an event happens
+	xSemaphoreTake(taskEvent, 10);
 }
 
 /**
@@ -139,70 +139,70 @@ void setup(void)
  */
 void loop(void)
 {
-  // Switch off blue LED to show we go to sleep
-  digitalWrite(LED_BUILTIN, LOW);
+	// Switch off blue LED to show we go to sleep
+	digitalWrite(LED_BUILTIN, LOW);
 
-  // Sleep until we are woken up by an event
-  if (xSemaphoreTake(taskEvent, portMAX_DELAY) == pdTRUE)
-  {
-    // Switch on blue LED to show we are awake
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(500); // Only so we can see the blue LED
+	// Sleep until we are woken up by an event
+	if (xSemaphoreTake(taskEvent, portMAX_DELAY) == pdTRUE)
+	{
+		// Switch on blue LED to show we are awake
+		digitalWrite(LED_BUILTIN, HIGH);
+		delay(500); // Only so we can see the blue LED
 
 		// Check the wake up reason
-    switch (eventType)
-    {
+		switch (eventType)
+		{
 		case 0: // Wakeup reason is package downlink arrived
 #ifndef MAX_SAVE
-      Serial.println("Received package over LoRaWan");
+			Serial.println("Received package over LoRaWan");
 #endif
-      if (rcvdLoRaData[0] > 0x1F)
-      {
+			if (rcvdLoRaData[0] > 0x1F)
+			{
 #ifndef MAX_SAVE
-        Serial.printf("%s\n", (char *)rcvdLoRaData);
+				Serial.printf("%s\n", (char *)rcvdLoRaData);
 #endif
-      }
-      else
-      {
+			}
+			else
+			{
 #ifndef MAX_SAVE
-        for (int idx = 0; idx < rcvdDataLen; idx++)
-        {
-          Serial.printf("%X ", rcvdLoRaData[idx]);
-        }
-        Serial.println("");
+				for (int idx = 0; idx < rcvdDataLen; idx++)
+				{
+					Serial.printf("%X ", rcvdLoRaData[idx]);
+				}
+				Serial.println("");
 #endif
-      }
+			}
 
-      break;
+			break;
 		case 1: // Wakeup reason is timer
 #ifndef MAX_SAVE
-      Serial.println("Timer wakeup");
+			Serial.println("Timer wakeup");
 #endif
-      /// \todo read sensor or whatever you need to do frequently
+			/// \todo read sensor or whatever you need to do frequently
 
-      // Send the data package
-      if (sendLoRaFrame())
-      {
+			// Send the data package
+			if (sendLoRaFrame())
+			{
 #ifndef MAX_SAVE
-        Serial.println("LoRaWan package sent successfully");
+				Serial.println("LoRaWan package sent successfully");
 #endif
-      }
-      else
-      {
+			}
+			else
+			{
 #ifndef MAX_SAVE
-        Serial.println("LoRaWan package send failed");
-        /// \todo maybe you need to retry here?
+				Serial.println("LoRaWan package send failed");
+				/// \todo maybe you need to retry here?
 #endif
-      }
+			}
 
-      break;
-    default:
+			break;
+		default:
 #ifndef MAX_SAVE
-      Serial.println("This should never happen ;-)");
+			Serial.println("This should never happen ;-)");
 #endif
-      break;
-    }
-    // Go back to sleep
-    xSemaphoreTake(taskEvent, 10);
-  }
+			break;
+		}
+		// Go back to sleep
+		xSemaphoreTake(taskEvent, 10);
+	}
 }

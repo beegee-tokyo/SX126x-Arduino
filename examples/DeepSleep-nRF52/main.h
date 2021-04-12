@@ -17,12 +17,12 @@
 #define MAX_SAVE
 
 /* Time the device is sleeping in milliseconds = 2 minutes * 60 seconds * 1000 milliseconds */
-#define SLEEP_TIME 2*60*1000
+#define SLEEP_TIME 2 * 60 * 1000
 
 // LoRaWan stuff
 int8_t initLoRaWan(void);
 bool sendLoRaFrame(void);
-extern SemaphoreHandle_t loraEvent;
+// extern SemaphoreHandle_t loraEvent;
 
 // Main loop stuff
 void periodicWakeup(TimerHandle_t unused);

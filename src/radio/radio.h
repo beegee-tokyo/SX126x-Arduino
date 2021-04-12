@@ -353,6 +353,10 @@ extern "C"
      */
 		uint32_t (*GetWakeupTime)(void);
 		/*!
+     * \brief Process radio irq in background task (nRF52 & ESP32)
+     */
+		void (*BgIrqProcess)(void);
+		/*!
      * \brief Process radio irq
      */
 		void (*IrqProcess)(void);

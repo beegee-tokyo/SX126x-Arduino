@@ -49,6 +49,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include "radio/sx126x/sx126x.h"
 #include "boards/sx126x/sx126x-board.h"
 #include "timer.h"
+#include "sx126x-debug.h"
 
 // SX126x chip type
 #define SX1261_CHIP 1
@@ -134,5 +135,11 @@ extern "C"
  * @remark IRQ nesting is managed
  */
 	void BoardEnableIrq(void);
+
+	/**@brief Initialize LoRa handler task (ESP32 & nRF52)
+	 * 
+	 * 
+	 */
+	bool start_lora_task(void);
 };
 #endif // __BOARD_H__

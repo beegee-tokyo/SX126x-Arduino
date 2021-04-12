@@ -15,14 +15,14 @@ hw_config hwConfig;
 
 // nRF52 - SX126x pin configuration
 int PIN_LORA_RESET = 31; // 4;  // LORA RESET
-int PIN_LORA_NSS = 20; // 28;   // LORA SPI CS
-int PIN_LORA_SCLK = 21; // 12;  // LORA SPI CLK
-int PIN_LORA_MISO = 23; // 14;  // LORA SPI MISO
+int PIN_LORA_NSS = 20;	 // 28;   // LORA SPI CS
+int PIN_LORA_SCLK = 21;	 // 12;  // LORA SPI CLK
+int PIN_LORA_MISO = 23;	 // 14;  // LORA SPI MISO
 int PIN_LORA_DIO_1 = 29; // 11; // LORA DIO_1
-int PIN_LORA_BUSY = 28; // 29;  // LORA SPI BUSY
-int PIN_LORA_MOSI = 22; // 13;  // LORA SPI MOSI
-int RADIO_TXEN = -1;   // LORA ANTENNA TX ENABLE
-int RADIO_RXEN = -1;   // LORA ANTENNA RX ENABLE
+int PIN_LORA_BUSY = 28;	 // 29;  // LORA SPI BUSY
+int PIN_LORA_MOSI = 22;	 // 13;  // LORA SPI MOSI
+int RADIO_TXEN = -1;	 // LORA ANTENNA TX ENABLE
+int RADIO_RXEN = -1;	 // LORA ANTENNA RX ENABLE
 // Replace PIN_SPI_MISO, PIN_LORA_SCLK, PIN_SPI_MOSI with your
 SPIClass SPI_LORA(NRF_SPIM2, PIN_LORA_MISO, PIN_LORA_SCLK, PIN_LORA_MOSI);
 
@@ -46,8 +46,8 @@ static void lorawan_confirm_class_handler(DeviceClass_t Class);
 /** LoRaWan Function to send a package */
 bool sendLoRaFrame(void);
 
-/** Semaphore used by SX126x IRQ handler to wake up LoRaWan task */
-SemaphoreHandle_t loraEvent = NULL;
+// /** Semaphore used by SX126x IRQ handler to wake up LoRaWan task */
+// SemaphoreHandle_t loraEvent = NULL;
 
 /**@brief Structure containing LoRaWan parameters, needed for lmh_init()
 
@@ -64,8 +64,7 @@ static lmh_param_t lora_param_init = {LORAWAN_ADR_OFF, DR_3, LORAWAN_PUBLIC_NETW
 
 /** Structure containing LoRaWan callback functions, needed for lmh_init() */
 static lmh_callback_t lora_callbacks = {BoardGetBatteryLevel, BoardGetUniqueId, BoardGetRandomSeed,
-                                        lorawan_rx_handler, lorawan_has_joined_handler, lorawan_confirm_class_handler
-                                       };
+										lorawan_rx_handler, lorawan_has_joined_handler, lorawan_confirm_class_handler};
 
 /** Device EUI required for OTAA network join */
 uint8_t nodeDeviceEUI[8] = {0x00, 0x0D, 0x75, 0xE6, 0x56, 0x4D, 0xC1, 0xF6};
@@ -83,26 +82,26 @@ uint8_t nodeAppsKey[16] = {0x3F, 0x6A, 0x66, 0x45, 0x9D, 0x5E, 0xDC, 0xA6, 0x3C,
 /** Flag whether to use OTAA or ABP network join method */
 bool doOTAA = true;
 
-/** LoRa task handle */
-TaskHandle_t loraTaskHandle;
-/** GPS reading task */
-void loraTask(void *pvParameters);
+// /** LoRa task handle */
+// TaskHandle_t loraTaskHandle;
+// /** GPS reading task */
+// void loraTask(void *pvParameters);
 
-/**
-   @brief SX126x interrupt handler
-   Called when DIO1 is set by SX126x
-   Gives loraEvent semaphore to wake up LoRaWan handler task
+// /**
+//    @brief SX126x interrupt handler
+//    Called when DIO1 is set by SX126x
+//    Gives loraEvent semaphore to wake up LoRaWan handler task
 
-*/
-void loraIntHandler(void)
-{
-  // SX126x set IRQ
-  if (loraEvent != NULL)
-  {
-    // Wake up LoRa task
-    xSemaphoreGive(loraEvent);
-  }
-}
+// */
+// void loraIntHandler(void)
+// {
+//   // SX126x set IRQ
+//   if (loraEvent != NULL)
+//   {
+//     // Wake up LoRa task
+//     xSemaphoreGive(loraEvent);
+//   }
+// }
 
 /**
    @brief Initialize LoRa HW and LoRaWan MAC layer
@@ -116,127 +115,127 @@ void loraIntHandler(void)
 */
 int8_t initLoRaWan(void)
 {
-  // Create the LoRaWan event semaphore
-  loraEvent = xSemaphoreCreateBinary();
-  // Initialize semaphore
-  xSemaphoreGive(loraEvent);
+	//   // Create the LoRaWan event semaphore
+	//   loraEvent = xSemaphoreCreateBinary();
+	//   // Initialize semaphore
+	//   xSemaphoreGive(loraEvent);
 
-  // Define the HW configuration between MCU and SX126x
-  hwConfig.CHIP_TYPE = SX1262_CHIP;     // Example uses an eByte E22 module with an SX1262
-  hwConfig.PIN_LORA_RESET = PIN_LORA_RESET; // LORA RESET
-  hwConfig.PIN_LORA_NSS = PIN_LORA_NSS;  // LORA SPI CS
-  hwConfig.PIN_LORA_SCLK = PIN_LORA_SCLK;   // LORA SPI CLK
-  hwConfig.PIN_LORA_MISO = PIN_LORA_MISO;   // LORA SPI MISO
-  hwConfig.PIN_LORA_DIO_1 = PIN_LORA_DIO_1; // LORA DIO_1
-  hwConfig.PIN_LORA_BUSY = PIN_LORA_BUSY;   // LORA SPI BUSY
-  hwConfig.PIN_LORA_MOSI = PIN_LORA_MOSI;   // LORA SPI MOSI
-  hwConfig.RADIO_TXEN = RADIO_TXEN;     // LORA ANTENNA TX ENABLE
-  hwConfig.RADIO_RXEN = RADIO_RXEN;     // LORA ANTENNA RX ENABLE
-  hwConfig.USE_DIO2_ANT_SWITCH = true;    // Example uses an CircuitRocks Alora RFM1262 which uses DIO2 pins as antenna control
-  hwConfig.USE_DIO3_TCXO = true;        // Example uses an CircuitRocks Alora RFM1262 which uses DIO3 to control oscillator voltage
-  hwConfig.USE_DIO3_ANT_SWITCH = false;  // Only Insight ISP4520 module uses DIO3 as antenna control
+	// Define the HW configuration between MCU and SX126x
+	hwConfig.CHIP_TYPE = SX1262_CHIP;		  // Example uses an eByte E22 module with an SX1262
+	hwConfig.PIN_LORA_RESET = PIN_LORA_RESET; // LORA RESET
+	hwConfig.PIN_LORA_NSS = PIN_LORA_NSS;	  // LORA SPI CS
+	hwConfig.PIN_LORA_SCLK = PIN_LORA_SCLK;	  // LORA SPI CLK
+	hwConfig.PIN_LORA_MISO = PIN_LORA_MISO;	  // LORA SPI MISO
+	hwConfig.PIN_LORA_DIO_1 = PIN_LORA_DIO_1; // LORA DIO_1
+	hwConfig.PIN_LORA_BUSY = PIN_LORA_BUSY;	  // LORA SPI BUSY
+	hwConfig.PIN_LORA_MOSI = PIN_LORA_MOSI;	  // LORA SPI MOSI
+	hwConfig.RADIO_TXEN = RADIO_TXEN;		  // LORA ANTENNA TX ENABLE
+	hwConfig.RADIO_RXEN = RADIO_RXEN;		  // LORA ANTENNA RX ENABLE
+	hwConfig.USE_DIO2_ANT_SWITCH = true;	  // Example uses an CircuitRocks Alora RFM1262 which uses DIO2 pins as antenna control
+	hwConfig.USE_DIO3_TCXO = true;			  // Example uses an CircuitRocks Alora RFM1262 which uses DIO3 to control oscillator voltage
+	hwConfig.USE_DIO3_ANT_SWITCH = false;	  // Only Insight ISP4520 module uses DIO3 as antenna control
 
-  // Initialize LoRa chip.
-  if (lora_hardware_init(hwConfig) != 0)
-  {
-    return -1;
-  }
+	// Initialize LoRa chip.
+	if (lora_hardware_init(hwConfig) != 0)
+	{
+		return -1;
+	}
 
-  // Setup the EUIs and Keys
-  lmh_setDevEui(nodeDeviceEUI);
-  lmh_setAppEui(nodeAppEUI);
-  lmh_setAppKey(nodeAppKey);
-  lmh_setNwkSKey(nodeNwsKey);
-  lmh_setAppSKey(nodeAppsKey);
-  lmh_setDevAddr(nodeDevAddr);
+	// Setup the EUIs and Keys
+	lmh_setDevEui(nodeDeviceEUI);
+	lmh_setAppEui(nodeAppEUI);
+	lmh_setAppKey(nodeAppKey);
+	lmh_setNwkSKey(nodeNwsKey);
+	lmh_setAppSKey(nodeAppsKey);
+	lmh_setDevAddr(nodeDevAddr);
 
-  // Initialize LoRaWan
-  if (lmh_init(&lora_callbacks, lora_param_init, doOTAA) != 0)
-  {
-    return -2;
-  }
+	// Initialize LoRaWan
+	if (lmh_init(&lora_callbacks, lora_param_init, doOTAA) != 0)
+	{
+		return -2;
+	}
 
-  // For some regions we might need to define the sub band the gateway is listening to
-  // This must be called AFTER lmh_init()
-  if (!lmh_setSubBandChannels(1))
-  {
-    return -3;
-  }
+	// For some regions we might need to define the sub band the gateway is listening to
+	// This must be called AFTER lmh_init()
+	if (!lmh_setSubBandChannels(1))
+	{
+		return -3;
+	}
 
-  // In deep sleep we need to hijack the SX126x IRQ to trigger a wakeup of the nRF52
-  attachInterrupt(PIN_LORA_DIO_1, loraIntHandler, RISING);
+	//   // In deep sleep we need to hijack the SX126x IRQ to trigger a wakeup of the nRF52
+	//   attachInterrupt(PIN_LORA_DIO_1, loraIntHandler, RISING);
 
-  // Start the task that will handle the LoRaWan events
+	//   // Start the task that will handle the LoRaWan events
+	// #ifndef MAX_SAVE
+	//   Serial.println("Starting LoRaWan task");
+	// #endif
+	//   if (!xTaskCreate(loraTask, "LORA", 2048, NULL, TASK_PRIO_LOW, &loraTaskHandle))
+	//   {
+	//     return -4;
+	//   }
+
+	// Start Join procedure
 #ifndef MAX_SAVE
-  Serial.println("Starting LoRaWan task");
+	Serial.println("Start network join request");
 #endif
-  if (!xTaskCreate(loraTask, "LORA", 2048, NULL, TASK_PRIO_LOW, &loraTaskHandle))
-  {
-    return -4;
-  }
+	lmh_join();
 
-  // Start Join procedure
-#ifndef MAX_SAVE
-  Serial.println("Start network join request");
-#endif
-  lmh_join();
-
-  return 0;
+	return 0;
 }
 
-/**
-   @brief Independent task to handle LoRa events
+// /**
+//    @brief Independent task to handle LoRa events
 
-   @param pvParameters Unused
-*/
-void loraTask(void *pvParameters)
-{
-  while (1)
-  {
-    if (lmh_join_status_get() == LMH_SET)
-    { // Switch off the indicator lights
-      digitalWrite(LED_CONN, LOW);
-    }
-    // Only if semaphore is available we need to handle LoRa events.
-    // Otherwise we sleep here until an event occurs
-    if (xSemaphoreTake(loraEvent, portMAX_DELAY) == pdTRUE)
-    {
-      // Switch off the indicator lights
-      digitalWrite(LED_CONN, HIGH);
+//    @param pvParameters Unused
+// */
+// void loraTask(void *pvParameters)
+// {
+//   while (1)
+//   {
+//     if (lmh_join_status_get() == LMH_SET)
+//     { // Switch off the indicator lights
+//       digitalWrite(LED_CONN, LOW);
+//     }
+//     // Only if semaphore is available we need to handle LoRa events.
+//     // Otherwise we sleep here until an event occurs
+//     if (xSemaphoreTake(loraEvent, portMAX_DELAY) == pdTRUE)
+//     {
+//       // Switch off the indicator lights
+//       digitalWrite(LED_CONN, HIGH);
 
-      // Handle Radio events with special process command!!!!
-      Radio.IrqProcessAfterDeepSleep();
-    }
-  }
-}
+//       // Handle Radio events with special process command!!!!
+//       Radio.IrqProcessAfterDeepSleep();
+//     }
+//   }
+// }
 
 /**
    @brief LoRa function for handling HasJoined event.
 */
 static void lorawan_has_joined_handler(void)
 {
-  if (doOTAA)
-  {
-    uint32_t otaaDevAddr = lmh_getDevAddr();
+	if (doOTAA)
+	{
+		uint32_t otaaDevAddr = lmh_getDevAddr();
 #ifndef MAX_SAVE
-    Serial.printf("OTAA joined and got dev address %08X\n", otaaDevAddr);
+		Serial.printf("OTAA joined and got dev address %08X\n", otaaDevAddr);
 #endif
-  }
-  else
-  {
+	}
+	else
+	{
 #ifndef MAX_SAVE
-    Serial.println("ABP joined");
+		Serial.println("ABP joined");
 #endif
-  }
+	}
 
-  // Default is Class A, where the SX1262 transceiver is in sleep mode unless a package is sent
-  // If switched to Class C the power consumption is higher because the SX1262 chip remains in RX mode
+	// Default is Class A, where the SX1262 transceiver is in sleep mode unless a package is sent
+	// If switched to Class C the power consumption is higher because the SX1262 chip remains in RX mode
 
-  // lmh_class_request(CLASS_C);
+	// lmh_class_request(CLASS_C);
 
-  // Now we are connected, start the timer that will wakeup the loop frequently
-  taskWakeupTimer.begin(SLEEP_TIME, periodicWakeup);
-  taskWakeupTimer.start();
+	// Now we are connected, start the timer that will wakeup the loop frequently
+	taskWakeupTimer.begin(SLEEP_TIME, periodicWakeup);
+	taskWakeupTimer.start();
 }
 
 /**
@@ -247,63 +246,63 @@ static void lorawan_has_joined_handler(void)
 static void lorawan_rx_handler(lmh_app_data_t *app_data)
 {
 #ifndef MAX_SAVE
-  Serial.printf("LoRa Packet received on port %d, size:%d, rssi:%d, snr:%d\n",
-                app_data->port, app_data->buffsize, app_data->rssi, app_data->snr);
+	Serial.printf("LoRa Packet received on port %d, size:%d, rssi:%d, snr:%d\n",
+				  app_data->port, app_data->buffsize, app_data->rssi, app_data->snr);
 #endif
-  switch (app_data->port)
-  {
-    case 3:
-      // Port 3 switches the class
-      if (app_data->buffsize == 1)
-      {
-        switch (app_data->buffer[0])
-        {
-          case 0:
-            lmh_class_request(CLASS_A);
+	switch (app_data->port)
+	{
+	case 3:
+		// Port 3 switches the class
+		if (app_data->buffsize == 1)
+		{
+			switch (app_data->buffer[0])
+			{
+			case 0:
+				lmh_class_request(CLASS_A);
 #ifndef MAX_SAVE
-            Serial.println("Request to switch to class A");
+				Serial.println("Request to switch to class A");
 #endif
-            break;
+				break;
 
-          case 1:
-            lmh_class_request(CLASS_B);
+			case 1:
+				lmh_class_request(CLASS_B);
 #ifndef MAX_SAVE
-            Serial.println("Request to switch to class B");
+				Serial.println("Request to switch to class B");
 #endif
-            break;
+				break;
 
-          case 2:
-            lmh_class_request(CLASS_C);
+			case 2:
+				lmh_class_request(CLASS_C);
 #ifndef MAX_SAVE
-            Serial.println("Request to switch to class C");
+				Serial.println("Request to switch to class C");
 #endif
-            break;
+				break;
 
-          default:
-            break;
-        }
-      }
+			default:
+				break;
+			}
+		}
 
-      // Send LoRaWan handler back to sleep
-      xSemaphoreTake(loraEvent, 10);
-      break;
-    case LORAWAN_APP_PORT:
-      // Copy the data into loop data buffer
-      memcpy(rcvdLoRaData, app_data->buffer, app_data->buffsize);
-      rcvdDataLen = app_data->buffsize;
-      eventType = 0;
-      // Notify task about the event
-      if (taskEvent != NULL)
-      {
+		//   // Send LoRaWan handler back to sleep
+		//   xSemaphoreTake(loraEvent, 10);
+		break;
+	case LORAWAN_APP_PORT:
+		// Copy the data into loop data buffer
+		memcpy(rcvdLoRaData, app_data->buffer, app_data->buffsize);
+		rcvdDataLen = app_data->buffsize;
+		eventType = 0;
+		// Notify task about the event
+		if (taskEvent != NULL)
+		{
 #ifndef MAX_SAVE
-        Serial.println("Waking up loop task");
+			Serial.println("Waking up loop task");
 #endif
-        xSemaphoreGive(taskEvent);
-      }
+			xSemaphoreGive(taskEvent);
+		}
 
-      // Send LoRa handler back to sleep
-      xSemaphoreTake(loraEvent, 10);
-  }
+		//   // Send LoRa handler back to sleep
+		//   xSemaphoreTake(loraEvent, 10);
+	}
 }
 
 /**
@@ -314,16 +313,16 @@ static void lorawan_rx_handler(lmh_app_data_t *app_data)
 static void lorawan_confirm_class_handler(DeviceClass_t Class)
 {
 #ifndef MAX_SAVE
-  Serial.printf("switch to class %c done\n", "ABC"[Class]);
+	Serial.printf("switch to class %c done\n", "ABC"[Class]);
 #endif
 
-  // Informs the server that switch has occurred ASAP
-  m_lora_app_data.buffsize = 0;
-  m_lora_app_data.port = LORAWAN_APP_PORT;
-  lmh_send(&m_lora_app_data, LMH_UNCONFIRMED_MSG);
+	// Informs the server that switch has occurred ASAP
+	m_lora_app_data.buffsize = 0;
+	m_lora_app_data.port = LORAWAN_APP_PORT;
+	lmh_send(&m_lora_app_data, LMH_UNCONFIRMED_MSG);
 
-  // Send LoRa handler back to sleep
-  xSemaphoreTake(loraEvent, 10);
+	//   // Send LoRa handler back to sleep
+	//   xSemaphoreTake(loraEvent, 10);
 }
 
 /**
@@ -333,36 +332,36 @@ static void lorawan_confirm_class_handler(DeviceClass_t Class)
 */
 bool sendLoRaFrame(void)
 {
-  if (lmh_join_status_get() != LMH_SET)
-  {
-    //Not joined, try again later
+	if (lmh_join_status_get() != LMH_SET)
+	{
+		//Not joined, try again later
 #ifndef MAX_SAVE
-    Serial.println("Did not join network, skip sending frame");
+		Serial.println("Did not join network, skip sending frame");
 #endif
-    // Send LoRa handler back to sleep
-    xSemaphoreTake(loraEvent, 10);
-    return false;
-  }
+		// // Send LoRa handler back to sleep
+		// xSemaphoreTake(loraEvent, 10);
+		return false;
+	}
 
-  m_lora_app_data.port = LORAWAN_APP_PORT;
+	m_lora_app_data.port = LORAWAN_APP_PORT;
 
-  //******************************************************************
-  /// \todo here some more usefull data should be put into the package
-  //******************************************************************
+	//******************************************************************
+	/// \todo here some more usefull data should be put into the package
+	//******************************************************************
 
-  uint8_t buffSize = 0;
-  m_lora_app_data_buffer[buffSize++] = 'H';
-  m_lora_app_data_buffer[buffSize++] = 'e';
-  m_lora_app_data_buffer[buffSize++] = 'l';
-  m_lora_app_data_buffer[buffSize++] = 'l';
-  m_lora_app_data_buffer[buffSize++] = 'o';
+	uint8_t buffSize = 0;
+	m_lora_app_data_buffer[buffSize++] = 'H';
+	m_lora_app_data_buffer[buffSize++] = 'e';
+	m_lora_app_data_buffer[buffSize++] = 'l';
+	m_lora_app_data_buffer[buffSize++] = 'l';
+	m_lora_app_data_buffer[buffSize++] = 'o';
 
-  m_lora_app_data.buffsize = buffSize;
+	m_lora_app_data.buffsize = buffSize;
 
-  lmh_error_status error = lmh_send(&m_lora_app_data, LMH_UNCONFIRMED_MSG);
+	lmh_error_status error = lmh_send(&m_lora_app_data, LMH_UNCONFIRMED_MSG);
 
-  // Send LoRa handler back to sleep
-  xSemaphoreTake(loraEvent, 10);
+	//   // Send LoRa handler back to sleep
+	//   xSemaphoreTake(loraEvent, 10);
 
-  return (error == 0);
+	return (error == 0);
 }

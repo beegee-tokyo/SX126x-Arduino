@@ -239,9 +239,10 @@ void setup()
 
 void loop()
 {
+#ifdef ESP8266
 	// Handle LoRa events
 	Radio.IrqProcess();
-
+#endif
 	// Check for LoRa timeout
 	if ((millis() - loraTimeout) > 120000)
 	{
