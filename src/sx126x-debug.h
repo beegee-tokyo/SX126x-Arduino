@@ -15,7 +15,7 @@
 // If not on PIO or not defined in platformio.ini
 #ifndef LIB_DEBUG
 // Debug output set to 0 to disable app debug output
-#define LIB_DEBUG 1
+#define LIB_DEBUG 0
 #endif
 
 #if LIB_DEBUG > 0
