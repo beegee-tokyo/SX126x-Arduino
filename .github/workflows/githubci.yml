@@ -4,20 +4,60 @@ on: [pull_request, push, repository_dispatch]
 
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        arduino-platform:
+        # Alphabetical order
+        - 'esp8266'
+        - 'esp32'
+        - 'nrf52832'
+        - 'nrf52840'
+
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/setup-python@v1
+    - name: Setup Python
+      uses: actions/setup-python@v1
       with:
         python-version: '3.x'
-    - uses: actions/checkout@v2
-    - uses: actions/checkout@v2
+        
+    - name: Checkout code
+      uses: actions/checkout@v2
       with:
-         repository: adafruit/ci-arduino
-         path: ci
+        submodules: 'true'
 
-    - name: pre-install
-      run: bash ci/actions_install.sh
-
-    - name: test platforms
-      run: python3 ci/build_platform.py esp8266 esp32 nrf52832 nrf52840
+    - name: Install Arduino CLI and Tools
+      run: |
+        pip3 install adafruit-nrfutil
+        # make all our directories we need for files and libraries
+        mkdir $HOME/.arduino15
+        mkdir $HOME/.arduino15/packages
+        mkdir $HOME/Arduino
+        mkdir $HOME/Arduino/libraries
+        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+        echo $GITHUB_WORKSPACE/bin >> $GITHUB_PATH
+        
+    - name: Install BSP and Libraries
+      env:
+        BSP_URL: https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
+        BSP_PATH: .arduino15/packages/adafruit/hardware/nrf52
+      run: |
+        arduino-cli config init
+        arduino-cli core update-index
+        arduino-cli core update-index --additional-urls $BSP_URL
+        arduino-cli core install adafruit:nrf52 --additional-urls $BSP_URL
+        # Repalce release BSP with our code
+        BSP_VERSION=`eval ls $HOME/$BSP_PATH`
+        rm -r $HOME/$BSP_PATH/*
+        ln -s $GITHUB_WORKSPACE $HOME/$BSP_PATH/$BSP_VERSION
+        # Install library dependency
+        arduino-cli lib install "Adafruit AHRS" "Adafruit APDS9960 Library" "Adafruit Arcada Library" "Adafruit BMP280 Library" "Adafruit Circuit Playground" "Adafruit EPD" "Adafruit GFX Library" "Adafruit HX8357 Library" "Adafruit ILI9341" "Adafruit LIS3MDL" "Adafruit LSM6DS" "Adafruit NeoPixel" "Adafruit NeoMatrix" "Adafruit Sensor Calibration" "Adafruit SHT31 Library" "Adafruit SSD1306" "Adafruit ST7735 and ST7789 Library" "MIDI Library" "SdFat - Adafruit Fork"
+        
+        # TODO use firmata master to prevent build error with gcc v9 (should be remove after 2.5.9 is released)
+        # https://github.com/firmata/arduino/pull/438
+        git clone --depth 1 https://github.com/firmata/arduino.git $HOME/Arduino/libraries/firmata
+        # Library summary
+        arduino-cli lib list
+    - name: Build examples
+      run: python3 tools/build_all.py ${{ matrix.arduino-platform }}
