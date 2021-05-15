@@ -799,7 +799,7 @@ extern "C"
 
 	bool RegionCN470ChannelsRemove(ChannelRemoveParams_t *channelRemove)
 	{
-		return LORAMAC_STATUS_PARAMETER_INVALID;
+		return false; // LORAMAC_STATUS_PARAMETER_INVALID;
 	}
 
 	void RegionCN470SetContinuousWave(ContinuousWaveParams_t *continuousWave)

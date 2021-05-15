@@ -4,12 +4,77 @@ __*Please confirm by yourself if this list is up-to-date*__
 
 ---
 ### Asia 923MHz band    
-### AS923
+### AS923(-1)
+_**REMARK**_  
+AS923 has only two default channels for the join process. Additional channels will be added by the LoRaWAN server after successful OTAA join.
 
 | Channel | Frequency |    
 | :-:     | :-:       |
 | 0       | 923200000 |   
-| 1       | 923400000 |
+| 1       | 923400000 |    
+
+|  Additional channels | Frequency |
+| :-:     | :-:       |
+| 2       | 923600000 |   
+| 3       | 923800000 |    
+| 4       | 924000000 |   
+| 5       | 924200000 |    
+| 6       | 924400000 |   
+| 7       | 924600000 |    
+
+### AS923-2
+_**REMARK**_  
+AS923-2 has only two default channels for the join process. Additional channels will be added by the LoRaWAN server after successful OTAA join.
+
+| Channel | Frequency |    
+| :-:     | :-:       |
+| 0       | 921400000 |   
+| 1       | 921600000 |    
+
+|  Additional channels | Frequency |
+| :-:     | :-:       |
+| 2       | 921800000 |   
+| 3       | 922000000 |    
+| 4       | 922200000 |   
+| 5       | 922400000 |    
+| 6       | 922600000 |   
+| 7       | 922800000 |    
+
+### AS923-3
+_**REMARK**_  
+AS923-3 has only two default channels for the join process. Additional channels will be added by the LoRaWAN server after successful OTAA join.
+
+| Channel | Frequency |    
+| :-:     | :-:       |
+| 0       | 916600000 |   
+| 1       | 916800000 |    
+
+|  Additional channels | Frequency |
+| :-:     | :-:       |
+| 2       | 917000000 |   
+| 3       | 917200000 |    
+| 4       | 917400000 |   
+| 5       | 917600000 |    
+| 6       | 917800000 |   
+| 7       | 918000000 |    
+
+### AS923-4
+_**REMARK**_  
+AS923-4 has only two default channels for the join process. Additional channels will be added by the LoRaWAN server after successful OTAA join.
+
+| Channel | Frequency |    
+| :-:     | :-:       |
+| 0       | 917300000 |   
+| 1       | 917500000 |    
+
+|  Additional channels | Frequency |
+| :-:     | :-:       |
+| 2       | 917700000 |   
+| 3       | 917900000 |    
+| 4       | 918100000 |   
+| 5       | 918300000 |    
+| 6       | 918500000 |   
+| 7       | 918700000 |    
 
 ---
 ### Australia
@@ -107,6 +172,25 @@ __*Please confirm by yourself if this list is up-to-date*__
 | 1 | 865402500 |
 | 2 | 865985000 |
 
+### Russia 864MHz band    
+### RU864
+_**REMARK**_  
+RU864 has only two default channels for the join process. Additional channels will be added by the LoRaWAN server after successful OTAA join.
+
+| Channel | Frequency |    
+| :-:     | :-:       |
+| 0       | 868900000 |   
+| 1       | 869100000 |    
+
+|  Additional channels | Frequency |
+| :-:     | :-:       |
+| 2       | 869300000 |   
+| 3       | 869500000 |    
+| 4       | 869700000 |   
+| 5       | 869900000 |    
+| 6       | 870100000 |   
+| 7       | 870300000 |    
+
 ---
 ### South Korea 920MHz
 ### KR920
@@ -119,7 +203,6 @@ __*Please confirm by yourself if this list is up-to-date*__
 
 ---
 ### USA 915 MHz
-### US915 & US915_HYBRID
 
 | Channel | Frequency | Channel | Frequency | Channel | Frequency | Channel | Frequency |
 | :-----: | :-------: | :-----: | :-------: | :-----: | :-------: | :-----: | :-------: |

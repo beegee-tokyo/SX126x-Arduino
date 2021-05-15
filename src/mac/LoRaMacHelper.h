@@ -27,6 +27,7 @@
 #include "boards/mcu/board.h"
 #include "mac/LoRaMac.h"
 #include "mac/region/Region.h"
+#include "mac/region/RegionAS923.h"
 
 extern "C"
 {
@@ -156,6 +157,15 @@ extern "C"
  */
 	lmh_error_status lmh_send(lmh_app_data_t *app_data, lmh_confirm is_txconfirmed);
 
+	/**@brief Send data and wait for RX2 window closed
+ *  or timeout occurs
+ * @param app_data Pointer to data structure to be sent
+ * @param is_txconfirmed do we need confirmation?
+ * @param time_out time to wait in milliseconds
+ * @retval error status
+ */
+	lmh_error_status lmh_send_blocking(lmh_app_data_t *app_data, lmh_confirm is_tx_confirmed, uint32_t time_out);
+
 	/**@brief Join a Lora Network in class A
  */
 	void lmh_join(void);
@@ -260,5 +270,15 @@ extern "C"
  * @param userDatarate Datarate to be used 
  */
 	void lmh_setSingleChannelGateway(uint8_t userSingleChannel, int8_t userDatarate);
+
+	/*!
+ * \brief Adjust frequency band to AS923-1, AS923-2, AS923-3
+ * \param version 1 => use default frequencies (AS923-1)
+ *                2 => adjust frequencies by substracting 1.8MHz (AS923-2)
+ *                3 => adjust frequencies by substracting 6.6MHz (AS923-3)
+ *                4 => adjust frequencies by substracting 5.9MHz (AS923-4), only lower 8 channels supported
+ * @retval true if success
+ *  */
+	bool lmh_setAS923Version(uint8_t version);
 };
 #endif

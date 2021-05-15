@@ -27,6 +27,8 @@ Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jae
 extern "C"
 {
 
+	extern bool lmh_mac_is_busy;
+
 /*!
  * Maximum PHY layer payload size
  */
@@ -45,7 +47,7 @@ extern "C"
 	/*!
  * LoRaMac region.
  */
-	static LoRaMacRegion_t LoRaMacRegion;
+	LoRaMacRegion_t LoRaMacRegion;
 
 /*!
  * LoRaMac duty cycle for the back-off procedure during the first hour.
@@ -813,9 +815,14 @@ extern "C"
 			}
 			break;
 		case FRAME_TYPE_DATA_CONFIRMED_DOWN:
+			/// \todo need callback for confirmed down
+			LOG_LIB("LM", "OnRadioRxDone => FRAME_TYPE_DATA_CONFIRMED_DOWN");
 		case FRAME_TYPE_DATA_UNCONFIRMED_DOWN:
 		{
+			if (macHdr.Bits.MType == FRAME_TYPE_DATA_UNCONFIRMED_DOWN)
+			{
 			LOG_LIB("LM", "OnRadioRxDone => FRAME_TYPE_DATA_(UN)CONFIRMED_DOWN");
+			}
 
 			// Check if the received payload size is valid
 			getPhy.UplinkDwellTime = LoRaMacParams.DownlinkDwellTime;
@@ -828,7 +835,7 @@ extern "C"
 				getPhy.Attribute = PHY_MAX_PAYLOAD_REPEATER;
 			}
 			phyParam = RegionGetPhyParam(LoRaMacRegion, &getPhy);
-			if (MAX(0, (int16_t)((int16_t)size - (int16_t)LORA_MAC_FRMPAYLOAD_OVERHEAD)) > phyParam.Value)
+			if (MAX(0, (uint16_t)((int16_t)size - (int16_t)LORA_MAC_FRMPAYLOAD_OVERHEAD)) > phyParam.Value)
 			{
 				McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_ERROR;
 				PrepareRxDoneAbort();
@@ -1394,6 +1401,8 @@ extern "C"
 		}
 		if (LoRaMacState == LORAMAC_IDLE)
 		{
+			LOG_LIB("LM", "LoRaMacState = idle");
+			lmh_mac_is_busy = false;
 			if (LoRaMacFlags.Bits.McpsReq == 1)
 			{
 				LoRaMacPrimitives->MacMcpsConfirm(&McpsConfirm);
@@ -3168,9 +3177,6 @@ extern "C"
 		LoRaMacStatus_t status = LORAMAC_STATUS_SERVICE_UNKNOWN;
 		LoRaMacHeader_t macHdr;
 		AlternateDrParams_t altDr;
-		VerifyParams_t verify;
-		GetPhyParams_t getPhy;
-		PhyParam_t phyParam;
 
 		if (mlmeRequest == NULL)
 		{
@@ -3203,7 +3209,7 @@ extern "C"
 			}
 
 			// Verify the parameter NbTrials for the join procedure
-			verify.NbJoinTrials = mlmeRequest->Req.Join.NbTrials;
+			// verify.NbJoinTrials = mlmeRequest->Req.Join.NbTrials;
 
 			// if (RegionVerify(LoRaMacRegion, &verify, PHY_NB_JOIN_TRIALS) == false)
 			// {
@@ -3354,7 +3360,7 @@ extern "C"
 		phyParam = RegionGetPhyParam(LoRaMacRegion, &getPhy);
 		// Apply the minimum possible datarate.
 		// Some regions have limitations for the minimum datarate.
-		datarate = MAX(datarate, phyParam.Value);
+		datarate = MAX((uint8_t)datarate, phyParam.Value);
 
 		if (readyToSend == true)
 		{

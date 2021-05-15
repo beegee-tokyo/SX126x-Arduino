@@ -14,14 +14,14 @@ _**This requires some code changes in your existing applications. Please read [W
 |      |      |      |
 | :---- | :---- | :---- |
 | [General Info](#general-info) | [LoRa](#usage) | &nbsp;&nbsp;[LoRaWan](#lorawan) |
-| &nbsp;&nbsp;[Based on](#based-on) | &nbsp;&nbsp;[Basic LoRa communication](#basic-lora-communication) | &nbsp;&nbsp;&nbsp;&nbsp;[ArduinoIDE LoRaWan definitions](#arduinoide-lorawan-definitions) |
-| &nbsp;&nbsp;[Licenses](#licenses) | &nbsp;&nbsp;&nbsp;&nbsp;[HW structure definition](#hw-structure-definition) | &nbsp;&nbsp;&nbsp;&nbsp;[PlatformIO LoRaWan definitions](#platformio-lorawan-definitions) |
-| [Changelog](#changelog) | &nbsp;&nbsp;&nbsp;&nbsp;[GPIO definitions](#gpio-definitions) | &nbsp;&nbsp;[LoRaWan functions](#lorawan-functions) |
-| [Features](#features) | &nbsp;&nbsp;&nbsp;&nbsp;[Example HW configuration](#example-hw-configuration) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize](#initialize) |
-| [Functions](#functions) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the LoRa HW](#initialize-the-lora-hw) | &nbsp;&nbsp;&nbsp;&nbsp;[Callbacks](#callbacks) |
-| &nbsp;&nbsp;[Module specific setup](#module-specific-setup) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialization for ISP4520 module](#simplified-lora-hw-initialization-for-isp4520-module) | &nbsp;&nbsp;&nbsp;&nbsp;[Join](#join) |
-| &nbsp;&nbsp;[Chip selection](#chip-selection) | &nbsp;&nbsp;&nbsp;&nbsp;[Setup the callbacks for LoRa events](#setup-the-callbacks-for-lora-events) | &nbsp;&nbsp;&nbsp;&nbsp;[LoRaWan single channel gateway](#lolawan-single-channel-gateway) |
-| &nbsp;&nbsp;[LoRa parameters](#lora-parameters) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |  &nbsp;&nbsp;&nbsp;&nbsp;[Limit frequency hopping to a sub band](#limit-frequency-hopping-to-a-sub-band) |
+| &nbsp;&nbsp;[Based on](#based-on) | &nbsp;&nbsp;[Basic LoRa communication](#basic-lora-communication) | &nbsp;&nbsp;&nbsp;&nbsp;[LoRaWAN region definitions](#lorawan-region-definitions) |
+| &nbsp;&nbsp;[Licenses](#licenses) | &nbsp;&nbsp;&nbsp;&nbsp;[HW structure definition](#hw-structure-definition) | &nbsp;&nbsp;[LoRaWan functions](#lorawan-functions)  |
+| [Changelog](#changelog) | &nbsp;&nbsp;&nbsp;&nbsp;[GPIO definitions](#gpio-definitions) |  &nbsp;&nbsp;&nbsp;&nbsp;[Initialize](#initialize) |
+| [Features](#features) | &nbsp;&nbsp;&nbsp;&nbsp;[Example HW configuration](#example-hw-configuration) | &nbsp;&nbsp;&nbsp;&nbsp;[Callbacks](#callbacks) |
+| [Functions](#functions) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the LoRa HW](#initialize-the-lora-hw) | &nbsp;&nbsp;&nbsp;&nbsp;[Join](#join) |
+| &nbsp;&nbsp;[Module specific setup](#module-specific-setup) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialization for ISP4520 module](#simplified-lora-hw-initialization-for-isp4520-module) | &nbsp;&nbsp;&nbsp;&nbsp;[LoRaWan single channel gateway](#lolawan-single-channel-gateway) |
+| &nbsp;&nbsp;[Chip selection](#chip-selection) | &nbsp;&nbsp;&nbsp;&nbsp;[Setup the callbacks for LoRa events](#setup-the-callbacks-for-lora-events) | &nbsp;&nbsp;&nbsp;&nbsp;[Limit frequency hopping to a sub band](#limit-frequency-hopping-to-a-sub-band) |
+| &nbsp;&nbsp;[LoRa parameters](#lora-parameters) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |   |
 | &nbsp;&nbsp;[SPI definition](#mcu-to-sx126x-spi-definition) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |
 | &nbsp;&nbsp;[TXCO and antenna control](#explanation-for-txco-and-antenna-control) | &nbsp;&nbsp;&nbsp;&nbsp;[Start listening for packets](#start-listening-for-packets) | [Installation](#installation) |
 
@@ -76,6 +76,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2021-05-15:
+  - Implement new regions AS923-2, AS923-3, AS923-4, RU864
+  - Test CF list to add additionals channesl on AS923 and RU864
 - 2021-04-10:
   - Add support for all LoRaWAN regions without recompilation of the code
   - Add background handling of SX126x IRQ's for better performance
@@ -369,15 +372,19 @@ Radio.IrqProcessAfterDeepSleep() is checking the reason for the wake-up IRQ and 
 **YOU NEED BELOW STEPS ONLY IF YOU WANT TO IMPLEMENT THE LORAWAN FUNCTIONALITY, IT IS NOT REQUIRED FOR BASIC LORA COMMUNICATION**   
 If you want to use [LoRaWan](https://lora-alliance.org/) communication some additional steps are required.    
 You need to define a region. The defined region tells the library which frequency and which channels should be used. Valid regions are:    
-- REGION_AS923 -> Asia 923 MHz
-- REGION_AU915 -> Australia 915 MHz
-- REGION_CN470 -> China 470 MHz
-- REGION_CN779 -> China 779 MHz
-- REGION_EU433 -> Europe 433 MHz
-- REGION_EU868 -> Europe 868 MHz
-- REGION_IN865 -> India 865 MHz
-- REGION_KR920 -> Korea 920 MHz
-- REGION_US915 -> US 915 MHz
+- _**LORAMAC_REGION_AS923**_ -> Asia 923 MHz    
+- _**LORAMAC_REGION_AU915**_ -> Australia 915 MHz    
+- _**LORAMAC_REGION_CN470**_ -> China 470 MHz    
+- _**LORAMAC_REGION_CN779**_ -> China 779 MHz    
+- _**LORAMAC_REGION_EU433**_ -> Europe 433 MHz    
+- _**LORAMAC_REGION_EU868**_ -> Europe 868 MHz    
+- _**LORAMAC_REGION_IN865**_ -> India 865 MHz    
+- _**LORAMAC_REGION_KR920**_ -> Korea 920 MHz    
+- _**LORAMAC_REGION_US915**_ -> US 915 MHz    
+- _**LORAMAC_REGION_AS923_2**_ -> Asia 923 MHz with frequency shift of -1.8MHz (not tested)   
+- _**LORAMAC_REGION_AS923_3**_ -> Asia 923 MHz with frequency shift of -6.6MHz (e.g. Philippines) (in use)    
+- _**LORAMAC_REGION_AS923_4**_ -> Asia 923 MHz with frequency shift of -5.9MHz (Israel) (not tested)    
+- _**LORAMAC_REGION_RU864**_ -> Russia 864 MHz (not tested)    
 
 More information:    
 - **[Channel plan per Region](./CHANNELS.MD)**    
@@ -408,17 +415,19 @@ You can find a lot of information about LoRaWan on the [LoRa Alliance](https://l
 
 ----
 #### ArduinoIDE LoRaWan region definitions 
-If you are using ArduinoIDE you need to edit the file ```/src/mac/Commissioning.h``` and define the region there.    
+_**Region definition has changed since library version 2.0.0**_    
+~~If you are using ArduinoIDE you need to edit the file ```/src/mac/Commissioning.h``` and define the region there.~~    
  
-In Arduino IDE you can find the file in _**`<arduinosketchfolder>/libraries/SX126x-Arduino/src/mac`**_    
-In PlatformIO this is usually _**`<user>/.platformio/lib/SX126x-Arduino/src/mac`**_    
+~~In Arduino IDE you can find the file in _**`<arduinosketchfolder>/libraries/SX126x-Arduino/src/mac`**_    
+In PlatformIO this is usually _**`<user>/.platformio/lib/SX126x-Arduino/src/mac`**_~~    
 
-The region is set right on the top of the file. Look for    
-```
+<!--
+~~The region is set right on the top of the file. Look for~~    
+~~```
 #if !defined(REGION_AS923) && !defined(REGION_AU915) && !defined(REGION_CN470) && !defined(REGION_CN779) && !defined(REGION_EU433) && !defined(REGION_EU868) && !defined(REGION_IN865) && !defined(REGION_KR920) && !defined(REGION_US915) && !defined(REGION_US915_HYBRID)
 #define REGION_US915
 #endif
-```
+```~~
 and change the line
 ```
 #define REGION_US915
@@ -429,11 +438,14 @@ to the region you want to use, e.g.
 ```
 **_RAKwireless RAK4630/RAK4631_**    
 If you installed the BSP for these modules you can set the region from the Tools -> Board menu. You do not need to change ```/src/mac/Commissioning.h```    
+-->
 
 ----
 #### PlatformIO LoRaWan region definitions 
-If you are using PlatformIO you must define the region in the platformio.ini file of your project.     
-Open the platformio.ini file and add a define for the region e.g.    
+_**Region definition has changed since library version 2.0.0**_    
+~~If you are using PlatformIO you must define the region in the platformio.ini file of your project.~~     
+<!--
+Open the platformio.ini file and add a define for the region e.g.~~    
 ```
 build_flags = -DREGION_AS923
 ```
@@ -449,6 +461,11 @@ build_flags =
 	-DCORE_DEBUG_LEVEL=ARDUHAL_LOG_LEVEL_ERROR
 	-DREGION_EU868
 ```
+-->
+#### LoRaWAN region definitions
+Since V2.0.0 the LoRaWAN region is selected during the initialization. It is no longer required to change any header files.
+See [lmh_init()](#initialize) for details.
+
 ----
 ### LoRaWan functions
 ----
@@ -489,10 +506,39 @@ If the node talks to a single channel gateway you can fix the frequency and data
 ```   
 ----
 #### Initialize
-Initialize LoRaWan. Select the join type OTAA by setting otaa to true. Select join type ABP by setting otaa to false.     
+Initialize LoRaWan.      
 ```cpp
- lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa)
+/**@brief Lora Initialisation
+ *
+ * @param callbacks   Pointer to structure containing the callback functions
+ * @param lora_param  Pointer to structure containing the parameters
+ * @param otaa        Choose OTAA (true) or ABP (false) activation
+ * @param nodeClass   Choose node class CLASS_A, CLASS_B or CLASS_C, default to CLASS_A
+ * @param region      Choose LoRaWAN region to set correct region parameters, defaults to EU868
+ *
+ * @retval error status
+ */
+	lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, bool otaa, 
+	                          eDeviceClass nodeClass = CLASS_A, 
+	                          LoRaMacRegion_t region = LORAMAC_REGION_EU868);
 ```   
+Valid regions are:
+LoRaMacRegion_t region
+This parameter selects the LoRaWAN region for your application. Allowed values for the region are:    
+- _**LORAMAC_REGION_AS923**_    
+- _**LORAMAC_REGION_AU915**_    
+- _**LORAMAC_REGION_CN470**_    
+- _**LORAMAC_REGION_CN779**_    
+- _**LORAMAC_REGION_EU433**_    
+- _**LORAMAC_REGION_EU868**_    
+- _**LORAMAC_REGION_IN865**_    
+- _**LORAMAC_REGION_KR920**_    
+- _**LORAMAC_REGION_US915**_    
+- _**LORAMAC_REGION_AS923_2**_
+- _**LORAMAC_REGION_AS923_3**_
+- _**LORAMAC_REGION_AS923_4**_
+- _**LORAMAC_REGION_RU864**_    
+
 ----
 #### Specifiy sub bands
 For some regions and some gateways you need to specifiy a sub band to be used.  See more info in [Limit frequency hopping to a sub band](#limit-frequency-hopping-to-a-sub-band)

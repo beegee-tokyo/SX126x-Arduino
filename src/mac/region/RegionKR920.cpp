@@ -895,7 +895,6 @@ extern "C"
 
 	bool RegionKR920NextChannel(NextChanParams_t *nextChanParams, uint8_t *channel, TimerTime_t *time, TimerTime_t *aggregatedTimeOff)
 	{
-		uint8_t channelNext = 0;
 		uint8_t nbEnabledChannels = 0;
 		uint8_t delayTx = 0;
 		uint8_t enabledChannels[KR920_MAX_NB_CHANNELS] = {0};
@@ -932,6 +931,8 @@ extern "C"
 
 			return true;
 #if 0
+			uint8_t channelNext = 0;
+			
             for (uint8_t i = 0, j = randr(0, nbEnabledChannels - 1); i < KR920_MAX_NB_CHANNELS; i++)
             {
                 channelNext = enabledChannels[j];

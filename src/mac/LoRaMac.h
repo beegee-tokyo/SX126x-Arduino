@@ -1625,11 +1625,24 @@ extern "C"
      */
 		LORAMAC_REGION_US915,
 		/*!
-     * North american band on 915MHz with a maximum of 16 channels
+     * AS band on 923MHz -1.8MHz
      */
-		LORAMAC_REGION_US915_HYBRID,
+		LORAMAC_REGION_AS923_2,
+		/*!
+     * AS band on 923MHz -6.6MHz
+     */
+		LORAMAC_REGION_AS923_3,
+		/*!
+     * AS band on 923MHz -5.9MHz
+     */
+		LORAMAC_REGION_AS923_4,
+		/*!
+     * Russia band on 864MHz
+     */
+		LORAMAC_REGION_RU864,
 	} LoRaMacRegion_t;
 
+	extern LoRaMacRegion_t LoRaMacRegion;
 	/*!
  * LoRaMAC events structure
  * Used to notify upper layers of MAC events

@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
-   &#160;<span id="projectnumber">1.3.0</span>
+   &#160;<span id="projectnumber">2.0.1</span>
    </div>
   </td>
  </tr>
@@ -64,7 +64,7 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
@@ -78,7 +78,7 @@ $(function() {
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
+Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionu_phy_param.html">uPhyParam</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs_get_phy_params.html">sGetPhyParams</a></td></tr>
@@ -122,6 +122,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:ga923ce7a4c13c8f6f7e8e3a630b52f7d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga923ce7a4c13c8f6f7e8e3a630b52f7d0">channel_mask_size</a>&#160;&#160;&#160;12</td></tr>
+<tr class="separator:ga923ce7a4c13c8f6f7e8e3a630b52f7d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga12fa17e5c1016e01a9d82c25027deb1b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga12fa17e5c1016e01a9d82c25027deb1b">LC</a>(channelIndex)&#160;&#160;&#160;(uint16_t)(1 &lt;&lt; (channelIndex - 1))</td></tr>
 <tr class="separator:ga12fa17e5c1016e01a9d82c25027deb1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6c4ef966b4f3d5eb7597b087f2b97095"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga6c4ef966b4f3d5eb7597b087f2b97095">DR_0</a>&#160;&#160;&#160;0</td></tr>
@@ -297,72 +299,72 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga3e5cf2322f71f8f9973718024b6fb782"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga3e5cf2322f71f8f9973718024b6fb782">RegionIsActive</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region)</td></tr>
+<tr class="memitem:ga3e5cf2322f71f8f9973718024b6fb782"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga3e5cf2322f71f8f9973718024b6fb782">RegionIsActive</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>)</td></tr>
 <tr class="memdesc:ga3e5cf2322f71f8f9973718024b6fb782"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function verifies if a region is active or not. If a region is not active, it cannot be used.  <a href="group___r_e_g_i_o_n.html#ga3e5cf2322f71f8f9973718024b6fb782">More...</a><br /></td></tr>
 <tr class="separator:ga3e5cf2322f71f8f9973718024b6fb782"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafbd084611ba512035a6cbe7f3aa5857b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___r_e_g_i_o_n.html#gaed159b26e5c4677236b6e8677019db30">PhyParam_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gafbd084611ba512035a6cbe7f3aa5857b">RegionGetPhyParam</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gab471483fff904f4f89bbc03f7fc380ab">GetPhyParams_t</a> *getPhy)</td></tr>
+<tr class="memitem:gafbd084611ba512035a6cbe7f3aa5857b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___r_e_g_i_o_n.html#gaed159b26e5c4677236b6e8677019db30">PhyParam_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gafbd084611ba512035a6cbe7f3aa5857b">RegionGetPhyParam</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gab471483fff904f4f89bbc03f7fc380ab">GetPhyParams_t</a> *getPhy)</td></tr>
 <tr class="memdesc:gafbd084611ba512035a6cbe7f3aa5857b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function gets a value of a specific phy attribute.  <a href="group___r_e_g_i_o_n.html#gafbd084611ba512035a6cbe7f3aa5857b">More...</a><br /></td></tr>
 <tr class="separator:gafbd084611ba512035a6cbe7f3aa5857b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabdd176dcf0b7e7900377b4c1e183613d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gabdd176dcf0b7e7900377b4c1e183613d">RegionSetBandTxDone</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gad0524aa0673c0814a71e7a4f9cade3fc">SetBandTxDoneParams_t</a> *txDone)</td></tr>
+<tr class="memitem:gabdd176dcf0b7e7900377b4c1e183613d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gabdd176dcf0b7e7900377b4c1e183613d">RegionSetBandTxDone</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gad0524aa0673c0814a71e7a4f9cade3fc">SetBandTxDoneParams_t</a> *txDone)</td></tr>
 <tr class="memdesc:gabdd176dcf0b7e7900377b4c1e183613d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the last TX done parameters of the current channel.  <a href="group___r_e_g_i_o_n.html#gabdd176dcf0b7e7900377b4c1e183613d">More...</a><br /></td></tr>
 <tr class="separator:gabdd176dcf0b7e7900377b4c1e183613d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga54b1b27a8431cd146b4dc33a894ee6db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga54b1b27a8431cd146b4dc33a894ee6db">RegionInitDefaults</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gaddc73ae10673ec925724e7870363bda9">InitType_t</a> type)</td></tr>
+<tr class="memitem:ga54b1b27a8431cd146b4dc33a894ee6db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga54b1b27a8431cd146b4dc33a894ee6db">RegionInitDefaults</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gaddc73ae10673ec925724e7870363bda9">InitType_t</a> type)</td></tr>
 <tr class="memdesc:ga54b1b27a8431cd146b4dc33a894ee6db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the channels masks and the channels.  <a href="group___r_e_g_i_o_n.html#ga54b1b27a8431cd146b4dc33a894ee6db">More...</a><br /></td></tr>
 <tr class="separator:ga54b1b27a8431cd146b4dc33a894ee6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7c1ff626bc1131889fa8de3197a1093a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga7c1ff626bc1131889fa8de3197a1093a">RegionVerify</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga966d97bc2f25df1c09e92e60ef652276">VerifyParams_t</a> *verify, <a class="el" href="group___r_e_g_i_o_n.html#ga9445b07fdf77581ecfaf389970e635f8">PhyAttribute_t</a> phyAttribute)</td></tr>
+<tr class="memitem:ga7c1ff626bc1131889fa8de3197a1093a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga7c1ff626bc1131889fa8de3197a1093a">RegionVerify</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga966d97bc2f25df1c09e92e60ef652276">VerifyParams_t</a> *verify, <a class="el" href="group___r_e_g_i_o_n.html#ga9445b07fdf77581ecfaf389970e635f8">PhyAttribute_t</a> phyAttribute)</td></tr>
 <tr class="memdesc:ga7c1ff626bc1131889fa8de3197a1093a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies a parameter.  <a href="group___r_e_g_i_o_n.html#ga7c1ff626bc1131889fa8de3197a1093a">More...</a><br /></td></tr>
 <tr class="separator:ga7c1ff626bc1131889fa8de3197a1093a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae3fdd82182ebb0704adb2a017d30e1f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gae3fdd82182ebb0704adb2a017d30e1f2">RegionApplyCFList</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga71588e9ad07e34b78fa91d51881fd3c6">ApplyCFListParams_t</a> *applyCFList)</td></tr>
+<tr class="memitem:gae3fdd82182ebb0704adb2a017d30e1f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gae3fdd82182ebb0704adb2a017d30e1f2">RegionApplyCFList</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga71588e9ad07e34b78fa91d51881fd3c6">ApplyCFListParams_t</a> *applyCFList)</td></tr>
 <tr class="memdesc:gae3fdd82182ebb0704adb2a017d30e1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function parses the input buffer and sets up the channels of the CF list.  <a href="group___r_e_g_i_o_n.html#gae3fdd82182ebb0704adb2a017d30e1f2">More...</a><br /></td></tr>
 <tr class="separator:gae3fdd82182ebb0704adb2a017d30e1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga795ed3c13f4c8d03e39298fd64e5b2df"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga795ed3c13f4c8d03e39298fd64e5b2df">RegionChanMaskSet</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga6d24f7da136006410827dfb29f6b9b9e">ChanMaskSetParams_t</a> *chanMaskSet)</td></tr>
+<tr class="memitem:ga795ed3c13f4c8d03e39298fd64e5b2df"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga795ed3c13f4c8d03e39298fd64e5b2df">RegionChanMaskSet</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga6d24f7da136006410827dfb29f6b9b9e">ChanMaskSetParams_t</a> *chanMaskSet)</td></tr>
 <tr class="memdesc:ga795ed3c13f4c8d03e39298fd64e5b2df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a channels mask.  <a href="group___r_e_g_i_o_n.html#ga795ed3c13f4c8d03e39298fd64e5b2df">More...</a><br /></td></tr>
 <tr class="separator:ga795ed3c13f4c8d03e39298fd64e5b2df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga08cac64beeadd0555460ca5e756a0792"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga08cac64beeadd0555460ca5e756a0792">RegionAdrNext</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga567c2742622326b350b4e91bbf61b4ce">AdrNextParams_t</a> *adrNext, int8_t *drOut, int8_t *txPowOut, uint32_t *adrAckCounter)</td></tr>
+<tr class="memitem:ga08cac64beeadd0555460ca5e756a0792"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga08cac64beeadd0555460ca5e756a0792">RegionAdrNext</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga567c2742622326b350b4e91bbf61b4ce">AdrNextParams_t</a> *adrNext, int8_t *drOut, int8_t *txPowOut, uint32_t *adrAckCounter)</td></tr>
 <tr class="memdesc:ga08cac64beeadd0555460ca5e756a0792"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the next datarate to set, when ADR is on or off.  <a href="group___r_e_g_i_o_n.html#ga08cac64beeadd0555460ca5e756a0792">More...</a><br /></td></tr>
 <tr class="separator:ga08cac64beeadd0555460ca5e756a0792"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf89984d30239d6597190409068031465"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gaf89984d30239d6597190409068031465">RegionRxConfig</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga375c038078dfcfc7ef14280021db719e">RxConfigParams_t</a> *rxConfig, int8_t *datarate)</td></tr>
+<tr class="memitem:gaf89984d30239d6597190409068031465"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gaf89984d30239d6597190409068031465">RegionRxConfig</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga375c038078dfcfc7ef14280021db719e">RxConfigParams_t</a> *rxConfig, int8_t *datarate)</td></tr>
 <tr class="memdesc:gaf89984d30239d6597190409068031465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration of the RX windows.  <a href="group___r_e_g_i_o_n.html#gaf89984d30239d6597190409068031465">More...</a><br /></td></tr>
 <tr class="separator:gaf89984d30239d6597190409068031465"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabd3eb4e7db9b7987fabb9568f733a2b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gabd3eb4e7db9b7987fabb9568f733a2b9">RegionComputeRxWindowParameters</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, <a class="el" href="group___r_e_g_i_o_n.html#ga375c038078dfcfc7ef14280021db719e">RxConfigParams_t</a> *rxConfigParams)</td></tr>
+<tr class="memitem:gabd3eb4e7db9b7987fabb9568f733a2b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gabd3eb4e7db9b7987fabb9568f733a2b9">RegionComputeRxWindowParameters</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, <a class="el" href="group___r_e_g_i_o_n.html#ga375c038078dfcfc7ef14280021db719e">RxConfigParams_t</a> *rxConfigParams)</td></tr>
 <tr class="separator:gabd3eb4e7db9b7987fabb9568f733a2b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9a4b01301e0f6f6880dc6a651c062ad0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga9a4b01301e0f6f6880dc6a651c062ad0">RegionTxConfig</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gabed730d4d04b0b60d4b6d1966d3f21d3">TxConfigParams_t</a> *txConfig, int8_t *txPower, <a class="el" href="timer_8h.html#a4215ca43d3e953099ea758ce428599d0">TimerTime_t</a> *txTimeOnAir)</td></tr>
+<tr class="memitem:ga9a4b01301e0f6f6880dc6a651c062ad0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga9a4b01301e0f6f6880dc6a651c062ad0">RegionTxConfig</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gabed730d4d04b0b60d4b6d1966d3f21d3">TxConfigParams_t</a> *txConfig, int8_t *txPower, <a class="el" href="timer_8h.html#a4215ca43d3e953099ea758ce428599d0">TimerTime_t</a> *txTimeOnAir)</td></tr>
 <tr class="memdesc:ga9a4b01301e0f6f6880dc6a651c062ad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX configuration.  <a href="group___r_e_g_i_o_n.html#ga9a4b01301e0f6f6880dc6a651c062ad0">More...</a><br /></td></tr>
 <tr class="separator:ga9a4b01301e0f6f6880dc6a651c062ad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae82a94e6d4141122e1a20b5ba1936c8e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gae82a94e6d4141122e1a20b5ba1936c8e">RegionLinkAdrReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gad4af503e8d4de1846129e26a799a1e8e">LinkAdrReqParams_t</a> *linkAdrReq, int8_t *drOut, int8_t *txPowOut, uint8_t *nbRepOut, uint8_t *nbBytesParsed)</td></tr>
+<tr class="memitem:gae82a94e6d4141122e1a20b5ba1936c8e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gae82a94e6d4141122e1a20b5ba1936c8e">RegionLinkAdrReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gad4af503e8d4de1846129e26a799a1e8e">LinkAdrReqParams_t</a> *linkAdrReq, int8_t *drOut, int8_t *txPowOut, uint8_t *nbRepOut, uint8_t *nbBytesParsed)</td></tr>
 <tr class="memdesc:gae82a94e6d4141122e1a20b5ba1936c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function processes a Link ADR Request.  <a href="group___r_e_g_i_o_n.html#gae82a94e6d4141122e1a20b5ba1936c8e">More...</a><br /></td></tr>
 <tr class="separator:gae82a94e6d4141122e1a20b5ba1936c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga485a820155fded42235a0d14d5918a7d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga485a820155fded42235a0d14d5918a7d">RegionRxParamSetupReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga7165f282c670c728c36d534df2285157">RxParamSetupReqParams_t</a> *rxParamSetupReq)</td></tr>
+<tr class="memitem:ga485a820155fded42235a0d14d5918a7d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga485a820155fded42235a0d14d5918a7d">RegionRxParamSetupReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga7165f282c670c728c36d534df2285157">RxParamSetupReqParams_t</a> *rxParamSetupReq)</td></tr>
 <tr class="memdesc:ga485a820155fded42235a0d14d5918a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function processes a RX Parameter Setup Request.  <a href="group___r_e_g_i_o_n.html#ga485a820155fded42235a0d14d5918a7d">More...</a><br /></td></tr>
 <tr class="separator:ga485a820155fded42235a0d14d5918a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadca654538335b4395c8d54642b83e2d4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gadca654538335b4395c8d54642b83e2d4">RegionNewChannelReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gae2abcdb6dbb843c9faf5fd3009eca9d6">NewChannelReqParams_t</a> *newChannelReq)</td></tr>
+<tr class="memitem:gadca654538335b4395c8d54642b83e2d4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gadca654538335b4395c8d54642b83e2d4">RegionNewChannelReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gae2abcdb6dbb843c9faf5fd3009eca9d6">NewChannelReqParams_t</a> *newChannelReq)</td></tr>
 <tr class="memdesc:gadca654538335b4395c8d54642b83e2d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function processes a New Channel Request.  <a href="group___r_e_g_i_o_n.html#gadca654538335b4395c8d54642b83e2d4">More...</a><br /></td></tr>
 <tr class="separator:gadca654538335b4395c8d54642b83e2d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga50dbaca7bf982330c183614302d525c4"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga50dbaca7bf982330c183614302d525c4">RegionTxParamSetupReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga26836ef2996e70410e42ef471073f855">TxParamSetupReqParams_t</a> *txParamSetupReq)</td></tr>
+<tr class="memitem:ga50dbaca7bf982330c183614302d525c4"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga50dbaca7bf982330c183614302d525c4">RegionTxParamSetupReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga26836ef2996e70410e42ef471073f855">TxParamSetupReqParams_t</a> *txParamSetupReq)</td></tr>
 <tr class="memdesc:ga50dbaca7bf982330c183614302d525c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function processes a TX ParamSetup Request.  <a href="group___r_e_g_i_o_n.html#ga50dbaca7bf982330c183614302d525c4">More...</a><br /></td></tr>
 <tr class="separator:ga50dbaca7bf982330c183614302d525c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga54f7c22677b2d0628e9914f53501d4b8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga54f7c22677b2d0628e9914f53501d4b8">RegionDlChannelReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gae0d608ff1f8ea0a430e4f9a4c38ec7f3">DlChannelReqParams_t</a> *dlChannelReq)</td></tr>
+<tr class="memitem:ga54f7c22677b2d0628e9914f53501d4b8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga54f7c22677b2d0628e9914f53501d4b8">RegionDlChannelReq</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gae0d608ff1f8ea0a430e4f9a4c38ec7f3">DlChannelReqParams_t</a> *dlChannelReq)</td></tr>
 <tr class="memdesc:ga54f7c22677b2d0628e9914f53501d4b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function processes a DlChannel Request.  <a href="group___r_e_g_i_o_n.html#ga54f7c22677b2d0628e9914f53501d4b8">More...</a><br /></td></tr>
 <tr class="separator:ga54f7c22677b2d0628e9914f53501d4b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4177d2eac64338ef073b43efa508e12a"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga4177d2eac64338ef073b43efa508e12a">RegionAlternateDr</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga001ea4338d1c83f4c785b49d7ad2d696">AlternateDrParams_t</a> *alternateDr)</td></tr>
+<tr class="memitem:ga4177d2eac64338ef073b43efa508e12a"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga4177d2eac64338ef073b43efa508e12a">RegionAlternateDr</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga001ea4338d1c83f4c785b49d7ad2d696">AlternateDrParams_t</a> *alternateDr)</td></tr>
 <tr class="memdesc:ga4177d2eac64338ef073b43efa508e12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alternates the datarate of the channel for the join request.  <a href="group___r_e_g_i_o_n.html#ga4177d2eac64338ef073b43efa508e12a">More...</a><br /></td></tr>
 <tr class="separator:ga4177d2eac64338ef073b43efa508e12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga07cfd135a3e8f85e15a5424c07f71d67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga07cfd135a3e8f85e15a5424c07f71d67">RegionCalcBackOff</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga7c5c9a8da174e6679eded8257dc92fd9">CalcBackOffParams_t</a> *calcBackOff)</td></tr>
+<tr class="memitem:ga07cfd135a3e8f85e15a5424c07f71d67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga07cfd135a3e8f85e15a5424c07f71d67">RegionCalcBackOff</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga7c5c9a8da174e6679eded8257dc92fd9">CalcBackOffParams_t</a> *calcBackOff)</td></tr>
 <tr class="memdesc:ga07cfd135a3e8f85e15a5424c07f71d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the back-off time.  <a href="group___r_e_g_i_o_n.html#ga07cfd135a3e8f85e15a5424c07f71d67">More...</a><br /></td></tr>
 <tr class="separator:ga07cfd135a3e8f85e15a5424c07f71d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2139de3f2832789797c8853764655398"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga2139de3f2832789797c8853764655398">RegionNextChannel</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#ga115f5e83afae352c0a3dcdc193374040">NextChanParams_t</a> *nextChanParams, uint8_t *channel, <a class="el" href="timer_8h.html#a4215ca43d3e953099ea758ce428599d0">TimerTime_t</a> *time, <a class="el" href="timer_8h.html#a4215ca43d3e953099ea758ce428599d0">TimerTime_t</a> *aggregatedTimeOff)</td></tr>
+<tr class="memitem:ga2139de3f2832789797c8853764655398"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga2139de3f2832789797c8853764655398">RegionNextChannel</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#ga115f5e83afae352c0a3dcdc193374040">NextChanParams_t</a> *nextChanParams, uint8_t *channel, <a class="el" href="timer_8h.html#a4215ca43d3e953099ea758ce428599d0">TimerTime_t</a> *time, <a class="el" href="timer_8h.html#a4215ca43d3e953099ea758ce428599d0">TimerTime_t</a> *aggregatedTimeOff)</td></tr>
 <tr class="memdesc:ga2139de3f2832789797c8853764655398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches and set the next random available channel.  <a href="group___r_e_g_i_o_n.html#ga2139de3f2832789797c8853764655398">More...</a><br /></td></tr>
 <tr class="separator:ga2139de3f2832789797c8853764655398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaa5767f33e988a641abf509ad278ae14"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___l_o_r_a_m_a_c.html#ga30bd25657e10480f8605ee951b0ecfbd">LoRaMacStatus_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gaaa5767f33e988a641abf509ad278ae14">RegionChannelAdd</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gab1c5f3aa06614283202906cef4417860">ChannelAddParams_t</a> *channelAdd)</td></tr>
+<tr class="memitem:gaaa5767f33e988a641abf509ad278ae14"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___l_o_r_a_m_a_c.html#ga30bd25657e10480f8605ee951b0ecfbd">LoRaMacStatus_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gaaa5767f33e988a641abf509ad278ae14">RegionChannelAdd</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gab1c5f3aa06614283202906cef4417860">ChannelAddParams_t</a> *channelAdd)</td></tr>
 <tr class="memdesc:gaaa5767f33e988a641abf509ad278ae14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a channel.  <a href="group___r_e_g_i_o_n.html#gaaa5767f33e988a641abf509ad278ae14">More...</a><br /></td></tr>
 <tr class="separator:gaaa5767f33e988a641abf509ad278ae14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga50b3505e13d8373fef6e2be6d48e150c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga50b3505e13d8373fef6e2be6d48e150c">RegionChannelsRemove</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gaa37468560d2fc81a977b57a48e5d72c0">ChannelRemoveParams_t</a> *channelRemove)</td></tr>
+<tr class="memitem:ga50b3505e13d8373fef6e2be6d48e150c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga50b3505e13d8373fef6e2be6d48e150c">RegionChannelsRemove</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gaa37468560d2fc81a977b57a48e5d72c0">ChannelRemoveParams_t</a> *channelRemove)</td></tr>
 <tr class="memdesc:ga50b3505e13d8373fef6e2be6d48e150c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a channel.  <a href="group___r_e_g_i_o_n.html#ga50b3505e13d8373fef6e2be6d48e150c">More...</a><br /></td></tr>
 <tr class="separator:ga50b3505e13d8373fef6e2be6d48e150c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga22327f217ed10d84c89b6785143be5b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga22327f217ed10d84c89b6785143be5b8">RegionSetContinuousWave</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, <a class="el" href="group___r_e_g_i_o_n.html#gaf39bb5ba06921139c6d17f88a8d518cd">ContinuousWaveParams_t</a> *continuousWave)</td></tr>
+<tr class="memitem:ga22327f217ed10d84c89b6785143be5b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#ga22327f217ed10d84c89b6785143be5b8">RegionSetContinuousWave</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, <a class="el" href="group___r_e_g_i_o_n.html#gaf39bb5ba06921139c6d17f88a8d518cd">ContinuousWaveParams_t</a> *continuousWave)</td></tr>
 <tr class="memdesc:ga22327f217ed10d84c89b6785143be5b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the radio into continuous wave mode.  <a href="group___r_e_g_i_o_n.html#ga22327f217ed10d84c89b6785143be5b8">More...</a><br /></td></tr>
 <tr class="separator:ga22327f217ed10d84c89b6785143be5b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab62221e1ca566a89f4b450b30bfb95a7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gab62221e1ca566a89f4b450b30bfb95a7">RegionApplyDrOffset</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> region, uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset)</td></tr>
+<tr class="memitem:gab62221e1ca566a89f4b450b30bfb95a7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___r_e_g_i_o_n.html#gab62221e1ca566a89f4b450b30bfb95a7">RegionApplyDrOffset</a> (<a class="el" href="group___l_o_r_a_m_a_c.html#ga80c48efda9ae02e14b58160d34a798dd">LoRaMacRegion_t</a> <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">region</a>, uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset)</td></tr>
 <tr class="memdesc:gab62221e1ca566a89f4b450b30bfb95a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes new datarate according to the given offset.  <a href="group___r_e_g_i_o_n.html#gab62221e1ca566a89f4b450b30bfb95a7">More...</a><br /></td></tr>
 <tr class="separator:gab62221e1ca566a89f4b450b30bfb95a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -384,6 +386,20 @@ Functions</h2></td></tr>
 </li>
 </ul>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ga923ce7a4c13c8f6f7e8e3a630b52f7d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga923ce7a4c13c8f6f7e8e3a630b52f7d0">&#9670;&nbsp;</a></span>channel_mask_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define channel_mask_size&#160;&#160;&#160;12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ga12fa17e5c1016e01a9d82c25027deb1b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga12fa17e5c1016e01a9d82c25027deb1b">&#9670;&nbsp;</a></span>LC</h2>
 
@@ -436,7 +452,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF10 - BW125  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF10 - BW125  </td></tr>
+<td class="markdownTableBodyNone">US923-2 </td><td class="markdownTableBodyCenter">SF12 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">US923-3 </td><td class="markdownTableBodyCenter">SF12 - BW125  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">US923-4 </td><td class="markdownTableBodyCenter">SF12 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">SF12 - BW125  </td></tr>
 </table>
 
 </div>
@@ -474,7 +496,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF9 - BW125  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF9 - BW125  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">SF11 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">SF11 - BW125  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">SF11 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">SF11 - BW125  </td></tr>
 </table>
 
 </div>
@@ -512,7 +540,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF8 - BW125  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF8 - BW125  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">SF10 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">SF10 - BW125  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">SF10 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">SF10 - BW125  </td></tr>
 </table>
 
 </div>
@@ -550,7 +584,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF7 - BW125  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF7 - BW125  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">SF9 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">SF9 - BW125  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">SF9 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">SF9 - BW125  </td></tr>
 </table>
 
 </div>
@@ -588,7 +628,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF8 - BW500  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF8 - BW500  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">SF8 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">SF8 - BW125  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">SF8 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">SF8 - BW125  </td></tr>
 </table>
 
 </div>
@@ -626,7 +672,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">SF7 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">SF7 - BW125  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">SF7 - BW125  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">SF7 - BW125  </td></tr>
 </table>
 
 </div>
@@ -664,7 +716,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">SF7 - BW250  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">SF7 - BW250  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">SF7 - BW250  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">SF7 - BW250  </td></tr>
 </table>
 
 </div>
@@ -702,7 +760,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">FSK  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">FSK  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">FSK  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">FSK  </td></tr>
 </table>
 
 </div>
@@ -740,7 +804,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF12 - BW500  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF12 - BW500  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 </table>
 
 </div>
@@ -778,7 +848,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF11 - BW500  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF11 - BW500  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 </table>
 
 </div>
@@ -816,7 +892,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF10 - BW500  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF10 - BW500  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 </table>
 
 </div>
@@ -854,7 +936,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF9 - BW500  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF9 - BW500  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 </table>
 
 </div>
@@ -892,7 +980,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF8 - BW500  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF8 - BW500  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 </table>
 
 </div>
@@ -930,7 +1024,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">SF7 - BW500  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">SF7 - BW500  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 </table>
 
 </div>
@@ -968,7 +1068,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 </table>
 
 </div>
@@ -1006,7 +1112,13 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">RFU  </td></tr>
 </table>
 
 </div>
@@ -1042,9 +1154,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">Max EIRP  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">Max EIRP  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">Max EIRP  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">Max EIRP  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">Max EIRP  </td></tr>
 </table>
 
 </div>
@@ -1080,9 +1198,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">Max EIRP - 2  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 2  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 2  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP - 2  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">Max EIRP - 2  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">Max EIRP - 2  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">Max EIRP - 2  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">Max EIRP - 2  </td></tr>
 </table>
 
 </div>
@@ -1118,9 +1242,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">Max EIRP - 4  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 4  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 4  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP - 4  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">Max EIRP - 4  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">Max EIRP - 4  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">Max EIRP - 4  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">Max EIRP - 4  </td></tr>
 </table>
 
 </div>
@@ -1156,9 +1286,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">Max EIRP - 6  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 6  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 6  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP - 6  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">Max EIRP - 6  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">Max EIRP - 6  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">Max EIRP - 6  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">Max EIRP - 6  </td></tr>
 </table>
 
 </div>
@@ -1194,9 +1330,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">Max EIRP - 8  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 8  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 8  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP - 8  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">Max EIRP - 8  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">Max EIRP - 8  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">Max EIRP - 8  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">Max EIRP - 8  </td></tr>
 </table>
 
 </div>
@@ -1232,9 +1374,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">Max EIRP - 10  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 10  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 10  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP - 10  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">Max EIRP - 10  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">Max EIRP - 10  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">Max EIRP - 10  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">Max EIRP - 10  </td></tr>
 </table>
 
 </div>
@@ -1270,9 +1418,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">Max EIRP - 12  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 12  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 12  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP - 12  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">Max EIRP - 12  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">Max EIRP - 12  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">Max EIRP - 12  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">Max EIRP - 12  </td></tr>
 </table>
 
 </div>
@@ -1308,9 +1462,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">Max EIRP - 14  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 14  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 14  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP - 14  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">Max EIRP - 14  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">Max EIRP - 14  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">Max EIRP - 14  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">Max EIRP - 14  </td></tr>
 </table>
 
 </div>
@@ -1346,9 +1506,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">-  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 16  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 16  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP -16  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">-  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">-  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">-  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">-  </td></tr>
 </table>
 
 </div>
@@ -1384,9 +1550,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">-  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 16  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 16  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP - 16  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">-  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">-  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">-  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">-  </td></tr>
 </table>
 
 </div>
@@ -1422,9 +1594,15 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">KR920 </td><td class="markdownTableBodyCenter">-  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max ERP - 10  </td></tr>
+<td class="markdownTableBodyNone">US915 </td><td class="markdownTableBodyCenter">Max EIRP - 10  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">US915_HYBRID </td><td class="markdownTableBodyCenter">Max ERP - 10  </td></tr>
+<td class="markdownTableBodyNone">AS923-2 </td><td class="markdownTableBodyCenter">-  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AS923-3 </td><td class="markdownTableBodyCenter">-  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">AS923-4 </td><td class="markdownTableBodyCenter">-  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RU864 </td><td class="markdownTableBodyCenter">-  </td></tr>
 </table>
 
 </div>

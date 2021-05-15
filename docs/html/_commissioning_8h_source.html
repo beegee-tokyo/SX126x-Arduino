@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
-   &#160;<span id="projectnumber">1.3.0</span>
+   &#160;<span id="projectnumber">2.0.1</span>
    </div>
   </td>
  </tr>
@@ -90,50 +90,66 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#if !defined(REGION_AS923) &amp;&amp; !defined(REGION_AU915) &amp;&amp; !defined(REGION_CN470) &amp;&amp; !defined(REGION_CN779) &amp;&amp; !defined(REGION_EU433) &amp;&amp; !defined(REGION_EU868) &amp;&amp; !defined(REGION_IN865) &amp;&amp; !defined(REGION_KR920) &amp;&amp; !defined(REGION_US915) &amp;&amp; !defined(REGION_US915_HYBRID)</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#define REGION_US915</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a644ae3cf0dcaf2d4c3961af0c4e53e47">   41</a></span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#define LORAWAN_DUTYCYCLE_ON true   </span></div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a2dcff1e8f5fe0a5147106c01decc9793">   49</a></span>&#160;<span class="preprocessor">#define LORAWAN_DUTYCYCLE_OFF false </span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define LORAWAN_PUBLIC_NETWORK true  </span></div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#aa3d87bc6a1dca396b576a8d83d3e3dbf">   54</a></span>&#160;<span class="preprocessor">#define LORAWAN_PRIVAT_NETWORK false </span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#define LORAWAN_ADR_ON true   </span></div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#adac4009d9987bc72cbd980c1cfed9d65">   59</a></span>&#160;<span class="preprocessor">#define LORAWAN_ADR_OFF false </span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#define STATIC_DEVICE_EUI 1</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a452370602b7ac7e04cd97897f20c7430">   66</a></span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#define LORAWAN_DEVICE_EUI                             \</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a5a5c7994de8b9eff4893f05a302d422a">   72</a></span>&#160;<span class="preprocessor">    {                                                  \</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 \</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">    }</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#define LORAWAN_APPLICATION_EUI                        \</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a894c642c5751f55fc9e4ab0bb99837fb">   79</a></span>&#160;<span class="preprocessor">    {                                                  \</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 \</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">    }</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#define LORAWAN_APPLICATION_KEY                                                                        \</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a92501d6f51636ba03a28cc3de9fad47e">   86</a></span>&#160;<span class="preprocessor">    {                                                                                                  \</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">        0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C \</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">    }</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#define LORAWAN_NETWORK_ID (uint32_t)0</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a03f526240cd528a75f0ba246be914055">   93</a></span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#define STATIC_DEVICE_ADDRESS 1</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a6cb91b99e532974fdacee266028b1f21">  101</a></span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#define LORAWAN_DEVICE_ADDRESS (uint32_t)0x00000000</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a8ac3365990a600b62d53ea1939635584">  109</a></span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#define LORAWAN_NWKSKEY                                                                                \</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a4cdf62d6a7d91dc335466647b864e9eb">  113</a></span>&#160;<span class="preprocessor">    {                                                                                                  \</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">        0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C \</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">    }</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#define LORAWAN_APPSKEY                                                                                \</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a1051d0f169249b2e36f8e82d11493916">  120</a></span>&#160;<span class="preprocessor">    {                                                                                                  \</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">        0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C \</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">    }</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;};</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#endif // __LORA_COMMISSIONING_H__</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">// For transistion time from the old library (region specific) to the new library (support of all regions)</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">// We throw an error here if any REGION is defined.</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#if defined(REGION_AS923) || defined(REGION_AU915) || defined(REGION_CN470) || defined(REGION_CN779) || defined(REGION_EU433) || defined(REGION_EU868) || defined(REGION_IN865) || defined(REGION_KR920) || defined(REGION_US915) || defined(REGION_AS923_1) || defined(REGION_AS923_2) || defined(REGION_AS923_3) || defined(REGION_RU864)</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#error &quot;SX126x-Arduino V2.0 does support all LoRaWAN regions without definition of &#39;REGION_XXYYY.\n\nPlease read detailed information how to use it on https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README_V2.md&quot;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#define REGION_AS923</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#af37a81b7979bbeb959887f58b5f27113">   46</a></span>&#160;<span class="preprocessor">#define REGION_AU915</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a8991e1f35632cc047a8728232b320da0">   47</a></span>&#160;<span class="preprocessor">#define REGION_CN470</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a77c7e9d3c7bffe3cec8c406b800ce885">   48</a></span>&#160;<span class="preprocessor">#define REGION_CN779</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#aadf06b266baaa64b7097e911a3f74377">   49</a></span>&#160;<span class="preprocessor">#define REGION_EU433</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a3c62fbe0f2c60ccda256366ac5dd0bd9">   50</a></span>&#160;<span class="preprocessor">#define REGION_EU868</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a7f70083ad638656ad2eb2415f0edede5">   51</a></span>&#160;<span class="preprocessor">#define REGION_IN865</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a33786a8d697cb65f80e653b521fc5edf">   52</a></span>&#160;<span class="preprocessor">#define REGION_KR920</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a9c4ca3f2477870c9239ee2584a1f8085">   53</a></span>&#160;<span class="preprocessor">#define REGION_US915</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a644ae3cf0dcaf2d4c3961af0c4e53e47">   54</a></span>&#160;<span class="preprocessor">#define REGION_AS923_1</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a09104251bed5373bd42576dafabcd577">   55</a></span>&#160;<span class="preprocessor">#define REGION_AS923_2</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a68c2e23ae031e99a4c13956a921b230c">   56</a></span>&#160;<span class="preprocessor">#define REGION_AS923_3</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a43b45823d0af48364be981fa978ecedd">   57</a></span>&#160;<span class="preprocessor">#define REGION_RU864</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a5a74a5860af92cedd23087777059d187">   58</a></span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#define LORAWAN_DUTYCYCLE_ON true   </span></div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a2dcff1e8f5fe0a5147106c01decc9793">   65</a></span>&#160;<span class="preprocessor">#define LORAWAN_DUTYCYCLE_OFF false </span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#define LORAWAN_PUBLIC_NETWORK true  </span></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#aa3d87bc6a1dca396b576a8d83d3e3dbf">   70</a></span>&#160;<span class="preprocessor">#define LORAWAN_PRIVAT_NETWORK false </span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#define LORAWAN_ADR_ON true   </span></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#adac4009d9987bc72cbd980c1cfed9d65">   75</a></span>&#160;<span class="preprocessor">#define LORAWAN_ADR_OFF false </span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#define STATIC_DEVICE_EUI 1</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a452370602b7ac7e04cd97897f20c7430">   82</a></span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#define LORAWAN_DEVICE_EUI                             \</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a5a5c7994de8b9eff4893f05a302d422a">   88</a></span>&#160;<span class="preprocessor">    {                                                  \</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 \</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#define LORAWAN_APPLICATION_EUI                        \</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a894c642c5751f55fc9e4ab0bb99837fb">   95</a></span>&#160;<span class="preprocessor">    {                                                  \</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 \</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#define LORAWAN_APPLICATION_KEY                                                                        \</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a92501d6f51636ba03a28cc3de9fad47e">  102</a></span>&#160;<span class="preprocessor">    {                                                                                                  \</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">        0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C \</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#define LORAWAN_NETWORK_ID (uint32_t)0</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a03f526240cd528a75f0ba246be914055">  109</a></span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#define STATIC_DEVICE_ADDRESS 1</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a6cb91b99e532974fdacee266028b1f21">  117</a></span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#define LORAWAN_DEVICE_ADDRESS (uint32_t)0x00000000</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a8ac3365990a600b62d53ea1939635584">  125</a></span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#define LORAWAN_NWKSKEY                                                                                \</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a4cdf62d6a7d91dc335466647b864e9eb">  129</a></span>&#160;<span class="preprocessor">    {                                                                                                  \</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">        0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C \</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#define LORAWAN_APPSKEY                                                                                \</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="_commissioning_8h.html#a1051d0f169249b2e36f8e82d11493916">  136</a></span>&#160;<span class="preprocessor">    {                                                                                                  \</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">        0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C \</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;};</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif // __LORA_COMMISSIONING_H__</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

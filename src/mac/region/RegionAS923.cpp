@@ -42,6 +42,11 @@ extern "C"
 
 	// Global attributes
 	/*!
+ * Second reception window channel frequency definition.
+ */
+	uint32_t AS923_RX_WND_2_FREQ = 923200000;
+
+	/*!
  * LoRaMAC channels
  */
 	static ChannelParams_t Channels[AS923_MAX_NB_CHANNELS];
@@ -372,9 +377,11 @@ extern "C"
 			Channels[7] = (ChannelParams_t)AS923_LC8;
 
 			// Initialize the channels default mask
-			ChannelsDefaultMask[0] = LC(1) + LC(2) + LC(3) + LC(4) + LC(5) + LC(6) + LC(7) + LC(8);
+			ChannelsDefaultMask[0] = LC(1) + LC(2);
 			// Update the channels mask
 			RegionCommonChanMaskCopy(ChannelsMask, ChannelsDefaultMask, 1);
+
+			AS923_RX_WND_2_FREQ = 923200000;
 			break;
 		}
 		case INIT_TYPE_RESTORE:
@@ -473,6 +480,7 @@ extern "C"
 
 				// Initialize alternative frequency to 0
 				newChannel.Rx1Frequency = 0;
+				LOG_LIB("AS923", "Apply CF list: new channel at Freq = %d", newChannel.Frequency);
 			}
 			else
 			{
@@ -940,7 +948,6 @@ extern "C"
 
 	bool RegionAS923NextChannel(NextChanParams_t *nextChanParams, uint8_t *channel, TimerTime_t *time, TimerTime_t *aggregatedTimeOff)
 	{
-		uint8_t channelNext = 0;
 		uint8_t nbEnabledChannels = 0;
 		uint8_t delayTx = 0;
 		uint8_t enabledChannels[AS923_MAX_NB_CHANNELS] = {0};
@@ -977,6 +984,8 @@ extern "C"
 
 			return true;
 #if 0
+			uint8_t channelNext = 0;
+
 			for (uint8_t i = 0, j = randr(0, nbEnabledChannels - 1); i < AS923_MAX_NB_CHANNELS; i++)
 			{
 				channelNext = enabledChannels[j];
@@ -1004,7 +1013,7 @@ extern "C"
 				return true;
 			}
 			// Datarate not supported by any channel, restore defaults
-			//ChannelsMask[0] |= LC(1) + LC(2);
+			ChannelsMask[0] |= LC(1) + LC(2);
 			*time = 0;
 			return false;
 		}
@@ -1132,6 +1141,69 @@ extern "C"
 
 		// Apply offset formula
 		return MIN(DR_5, MAX(minDr, dr - EffectiveRx1DrOffsetAS923[drOffset]));
+	}
+
+	bool RegionAS923SetVersion(uint8_t version)
+	{
+		// Channels
+		Channels[0] = (ChannelParams_t)AS923_LC1;
+		Channels[1] = (ChannelParams_t)AS923_LC2;
+		Channels[2] = (ChannelParams_t)AS923_LC3;
+		Channels[3] = (ChannelParams_t)AS923_LC4;
+		Channels[4] = (ChannelParams_t)AS923_LC5;
+		Channels[5] = (ChannelParams_t)AS923_LC6;
+		Channels[6] = (ChannelParams_t)AS923_LC7;
+		Channels[7] = (ChannelParams_t)AS923_LC8;
+
+		// Initialize the channels default mask
+		ChannelsDefaultMask[0] = LC(1) + LC(2);
+		// Update the channels mask
+		RegionCommonChanMaskCopy(ChannelsMask, ChannelsDefaultMask, 1);
+		AS923_RX_WND_2_FREQ = 923200000;
+
+		switch (version)
+		{
+		case 1:
+			LOG_LIB("AS923", "Switch to Version 1");
+			return true;
+			break;
+		case 2:
+			LOG_LIB("AS923", "Switch to Version 2");
+			for (int idx = 0; idx < 8; idx++)
+			{
+				Channels[idx].Frequency = Channels[idx].Frequency - 1800000;
+				// Channels[idx].Rx1Frequency = Channels[idx].Rx1Frequency - 1800000;
+			}
+			AS923_RX_WND_2_FREQ = AS923_RX_WND_2_FREQ - 1800000;
+			break;
+		case 3:
+			LOG_LIB("AS923", "Switch to Version 3");
+			for (int idx = 0; idx < 8; idx++)
+			{
+				Channels[idx].Frequency = Channels[idx].Frequency - 6600000;
+				// Channels[idx].Rx1Frequency = Channels[idx].Rx1Frequency - 6600000;
+			}
+			AS923_RX_WND_2_FREQ = AS923_RX_WND_2_FREQ - 6600000;
+			break;
+		case 4:
+			LOG_LIB("AS923", "Switch to Version 4");
+			for (int idx = 0; idx < 8; idx++)
+			{
+				Channels[idx].Frequency = Channels[idx].Frequency - 5900000;
+				// Channels[idx].Rx1Frequency = Channels[idx].Rx1Frequency - 6600000;
+			}
+			AS923_RX_WND_2_FREQ = AS923_RX_WND_2_FREQ - 5900000;
+			break;
+		default:
+			LOG_LIB("AS923", "Wrong version request");
+			return false;
+		}
+		for (int idx = 0; idx < 8; idx++)
+		{
+			LOG_LIB("AS923", "CH%d - TX %.1f", idx, Channels[idx].Frequency / 1000000.0);
+		}
+		LOG_LIB("AS923", "RX2 %.1f", AS923_RX_WND_2_FREQ / 1000000.0);
+		return true;
 	}
 };
 #endif

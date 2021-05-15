@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
-   &#160;<span id="projectnumber">1.3.0</span>
+   &#160;<span id="projectnumber">2.0.1</span>
    </div>
   </td>
  </tr>
@@ -64,8 +64,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="struct_timer_event__s-members.html">List of all members</a>  </div>
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">TimerEvent_s Struct Reference</div>  </div>
 </div><!--header-->
@@ -77,14 +76,14 @@ $(function() {
 <p><code>#include &lt;<a class="el" href="timer_8h_source.html">timer.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
+Data Fields</h2></td></tr>
 <tr class="memitem:a101da8603714e99cdaa4eb4e11250462"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_timer_event__s.html#a101da8603714e99cdaa4eb4e11250462">timerNum</a></td></tr>
 <tr class="separator:a101da8603714e99cdaa4eb4e11250462"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ef4ca853c522e2ece8c994afd853e7b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_timer_event__s.html#a2ef4ca853c522e2ece8c994afd853e7b">oneShot</a> = false</td></tr>
+<tr class="memitem:a2ef4ca853c522e2ece8c994afd853e7b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_timer_event__s.html#a2ef4ca853c522e2ece8c994afd853e7b">oneShot</a> = true</td></tr>
 <tr class="separator:a2ef4ca853c522e2ece8c994afd853e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f933d63b25c3416b42345b695872c59"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_timer_event__s.html#a9f933d63b25c3416b42345b695872c59">Timestamp</a></td></tr>
 <tr class="separator:a9f933d63b25c3416b42345b695872c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a2ffdc3bb2cebe3ab97250f6618f5ce"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_timer_event__s.html#a1a2ffdc3bb2cebe3ab97250f6618f5ce">ReloadValue</a></td></tr>
+<tr class="memitem:a1a2ffdc3bb2cebe3ab97250f6618f5ce"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_timer_event__s.html#a1a2ffdc3bb2cebe3ab97250f6618f5ce">ReloadValue</a> = 10000</td></tr>
 <tr class="separator:a1a2ffdc3bb2cebe3ab97250f6618f5ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dfdcda52c7bc3e408cb590ccbfdbe60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_timer_event__s.html#a6dfdcda52c7bc3e408cb590ccbfdbe60">IsRunning</a></td></tr>
 <tr class="separator:a6dfdcda52c7bc3e408cb590ccbfdbe60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -97,7 +96,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Timer object description. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_lo_ra_wan_pio_0csrc_0cmain_8cpp-example.html#_a2">LoRaWanPio\src\main.cpp</a>.</dd>
 </dl>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a101da8603714e99cdaa4eb4e11250462"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a101da8603714e99cdaa4eb4e11250462">&#9670;&nbsp;</a></span>timerNum</h2>
 
@@ -122,7 +121,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool TimerEvent_s::oneShot = false</td>
+          <td class="memname">bool TimerEvent_s::oneShot = true</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -152,7 +151,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t TimerEvent_s::ReloadValue</td>
+          <td class="memname">uint32_t TimerEvent_s::ReloadValue = 10000</td>
         </tr>
       </table>
 </div><div class="memdoc">

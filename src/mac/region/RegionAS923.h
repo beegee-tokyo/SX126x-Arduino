@@ -51,6 +51,7 @@ extern "C"
 /*!
  * Number of channels to apply for the CF list
  */
+/// \todo should be 6
 #define AS923_NUMB_CHANNELS_CF_LIST 5
 
 /*!
@@ -194,11 +195,6 @@ extern "C"
 #endif
 
 /*!
- * Second reception window channel frequency definition.
- */
-#define AS923_RX_WND_2_FREQ 923200000
-
-/*!
  * Second reception window channel datarate definition.
  */
 #define AS923_RX_WND_2_DR DR_2
@@ -306,7 +302,6 @@ extern "C"
 /*!
  * LoRaMac channels which are allowed for the join procedure
  */
-// #define AS923_JOIN_CHANNELS (uint16_t)(LC(1) | LC(2) | LC(3) | LC(4) | LC(5) | LC(6) | LC(7) | LC(8))
 #define AS923_JOIN_CHANNELS (uint16_t)(LC(1) | LC(2))
 
 /*!
@@ -593,6 +588,14 @@ extern "C"
  */
 	uint8_t RegionAS923ApplyDrOffset(uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset);
 
+	/*!
+ * \brief Adjust frequency band to AS923-1, AS923-2, AS923-3
+ * \param version 1 => use default frequencies (AS923-1)
+ *                2 => adjust frequencies by substracting 1.8MHz (AS923-2)
+ *                3 => adjust frequencies by substracting 6.6MHz (AS923-3)
+ *                4 => adjust frequencies by substracting 5.9MHz (AS923-4), only lower 8 channels supported
+ */
+	bool RegionAS923SetVersion(uint8_t version);
 	/*! \} defgroup REGIONAS923 */
 };
 #endif // __REGION_AS923_H__

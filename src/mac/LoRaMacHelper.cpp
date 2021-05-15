@@ -40,6 +40,8 @@ extern "C"
 
 	bool _dutyCycleEnabled = false;
 
+	bool lmh_mac_is_busy = false;
+
 #if defined(REGION_EU868)
 
 #include "LoRaMacTest.h"
@@ -146,6 +148,9 @@ extern "C"
 		switch (region)
 		{
 		case LORAMAC_REGION_AS923:
+		case LORAMAC_REGION_AS923_2:
+		case LORAMAC_REGION_AS923_3:
+		case LORAMAC_REGION_AS923_4:
 			maxBand = 1;
 			break;
 		case LORAMAC_REGION_AU915:
@@ -173,8 +178,8 @@ extern "C"
 		case LORAMAC_REGION_US915:
 			maxBand = 9;
 			break;
-		case LORAMAC_REGION_US915_HYBRID:
-			maxBand = 9;
+		case LORAMAC_REGION_RU864:
+			maxBand = 1;
 			break;
 		}
 		uint16_t upperMask = 0xFF00;
@@ -782,6 +787,9 @@ extern "C"
 		switch (region)
 		{
 		case LORAMAC_REGION_AS923:
+		case LORAMAC_REGION_AS923_2:
+		case LORAMAC_REGION_AS923_3:
+		case LORAMAC_REGION_AS923_4:
 		lmh_setSubBandChannels(1);
 			break;
 		case LORAMAC_REGION_AU915:
@@ -800,6 +808,7 @@ extern "C"
 		lmh_setSubBandChannels(1);
 			break;
 		case LORAMAC_REGION_EU868:
+		default:
 		lmh_setSubBandChannels(1);
 			break;
 		case LORAMAC_REGION_KR920:
@@ -808,11 +817,33 @@ extern "C"
 		case LORAMAC_REGION_US915:
 		lmh_setSubBandChannels(2);
 			break;
-		case LORAMAC_REGION_US915_HYBRID:
-		lmh_setSubBandChannels(2);
+		case LORAMAC_REGION_RU864:
+			lmh_setSubBandChannels(1);
 			break;
 		}
 
+		// Make channel shifts for AS923-2, AS923-3 and AS923-4
+		switch (region)
+		{
+		case LORAMAC_REGION_AS923:
+			lmh_setAS923Version(1);
+			LOG_LIB("LMH", "Using AS923-1");
+			break;
+		case LORAMAC_REGION_AS923_2:
+			lmh_setAS923Version(2);
+			LOG_LIB("LMH", "Using AS923-2");
+			break;
+		case LORAMAC_REGION_AS923_3:
+			lmh_setAS923Version(3);
+			LOG_LIB("LMH", "Using AS923-3");
+			break;
+		case LORAMAC_REGION_AS923_4:
+			lmh_setAS923Version(4);
+			LOG_LIB("LMH", "Using AS923-4");
+			break;
+		default:
+			break;
+		}
 		return LMH_SUCCESS;
 	}
 
@@ -945,11 +976,32 @@ extern "C"
 
 			if (LoRaMacMcpsRequest(&mcpsReq) == LORAMAC_STATUS_OK)
 			{
+				lmh_mac_is_busy = true;
 				return LMH_SUCCESS;
 			}
 			LOG_LIB("LMH", "lmh_send -> LoRaMacMcpsRequest failed");
 		}
 
+		return LMH_ERROR;
+	}
+
+	lmh_error_status lmh_send_blocking(lmh_app_data_t *app_data, lmh_confirm is_tx_confirmed, uint32_t time_out)
+	{
+		if (lmh_send(app_data, is_tx_confirmed) == LMH_SUCCESS)
+		{
+			uint32_t time_start = millis();
+			while (lmh_mac_is_busy)
+			{
+				if ((millis() - time_start) > time_out)
+				{
+					LOG_LIB("LMH", "timeout at %ld", (millis() - time_start));
+					return LMH_ERROR;
+				}
+				delay(250);
+			}
+			return LMH_SUCCESS;
+		}
+		LOG_LIB("LMH", "lmh_send returned LMH_ERROR");
 		return LMH_ERROR;
 	}
 
@@ -1046,4 +1098,9 @@ extern "C"
 	{
 		return LoRaMacGetOTAADevId();
 	}
+
+	bool lmh_setAS923Version(uint8_t version)
+	{
+		return RegionAS923SetVersion(version);
+	};
 };

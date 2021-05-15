@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['getphyparams_5ft_3356',['GetPhyParams_t',['../group___r_e_g_i_o_n.html#gab471483fff904f4f89bbc03f7fc380ab',1,'Region.h']]]
+  ['ejoinstatus_5ft_3481',['eJoinStatus_t',['../group___l_o_r_a_m_a_c.html#ga32bf835d14ee031f2254365917dc3950',1,'LoRaMac.h']]]
 ];

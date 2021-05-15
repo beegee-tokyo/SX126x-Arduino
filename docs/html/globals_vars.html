@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SX126x-Arduino: File Members</title>
+<title>SX126x-Arduino: Globals</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
-   &#160;<span id="projectnumber">1.3.0</span>
+   &#160;<span id="projectnumber">2.0.1</span>
    </div>
   </td>
  </tr>
@@ -159,27 +159,30 @@ $(function() {
 <li>BandwidthsKR920
 : <a class="el" href="group___r_e_g_i_o_n_k_r920.html#ga8f1abef3b467ea68edb452c7adcc8e08">RegionKR920.h</a>
 </li>
+<li>BandwidthsRU864
+: <a class="el" href="group___r_e_g_i_o_n_r_u864.html#gae1ed9e77a63c9dcaba2130c7664a8058">RegionRU864.h</a>
+</li>
 <li>BandwidthsUS915
 : <a class="el" href="group___r_e_g_i_o_n_u_s915.html#ga43866c304643f3a94e426a1a218ded00">RegionUS915.h</a>
-</li>
-<li>BandwidthsUS915_HYBRID
-: <a class="el" href="group___r_e_g_i_o_n_u_s915_h_y_b.html#gada3976d142cb9c990e9af2567ff8ecca">RegionUS915-Hybrid.h</a>
 </li>
 </ul>
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
+<li>ch_mask_size
+: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a26eeb5b44081ecbd43e0f9618bc8eb8f">LoRaMacHelper.cpp</a>
+</li>
 <li>Channel
 : <a class="el" href="_lo_ra_mac_8cpp.html#a1ca6f01ca18afe402de51babe8c95f5e">LoRaMac.cpp</a>
 </li>
 <li>ChannelsDefaultMask
-: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a9e5900c3c770687d77d98bb0987900a3">LoRaMacHelper.cpp</a>
+: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a4984b3225d4ced0086dfcfe383d66467">LoRaMacHelper.cpp</a>
 </li>
 <li>ChannelsMask
-: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a9961aad7ef44f773f9bb24b42b36bef3">LoRaMacHelper.cpp</a>
+: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a0052c3ee3598f8609137905d1dceeba9">LoRaMacHelper.cpp</a>
 </li>
 <li>ChannelsMaskRemaining
-: <a class="el" href="_lo_ra_mac_helper_8cpp.html#abbdaf2ccb6abe88b816e271697559b4d">LoRaMacHelper.cpp</a>
+: <a class="el" href="_lo_ra_mac_helper_8cpp.html#aadb55ef7e048b8c6300bf16aafd5661c">LoRaMacHelper.cpp</a>
 </li>
 <li>ChannelsNbRepCounter
 : <a class="el" href="_lo_ra_mac_8cpp.html#adac3fa8dc924333e009083733e3e089d">LoRaMac.cpp</a>
@@ -196,9 +199,6 @@ $(function() {
 </li>
 <li>DatarateOffsetsUS915
 : <a class="el" href="group___r_e_g_i_o_n_u_s915.html#ga0eb65060b81a140baf62758bd288d073">RegionUS915.h</a>
-</li>
-<li>DatarateOffsetsUS915_HYBRID
-: <a class="el" href="group___r_e_g_i_o_n_u_s915_h_y_b.html#ga5a529866ea886b5f171f6c49fb7fdbcd">RegionUS915-Hybrid.h</a>
 </li>
 <li>DataratesAS923
 : <a class="el" href="group___r_e_g_i_o_n_a_s923.html#gacf4d2f14a2de1119173ca9da02d446cf">RegionAS923.h</a>
@@ -224,11 +224,11 @@ $(function() {
 <li>DataratesKR920
 : <a class="el" href="group___r_e_g_i_o_n_k_r920.html#gad80bddd73920e3855ac0568c7e3fdbff">RegionKR920.h</a>
 </li>
+<li>DataratesRU864
+: <a class="el" href="group___r_e_g_i_o_n_r_u864.html#gabc5a6cfa6229881d63e06694eda170b2">RegionRU864.h</a>
+</li>
 <li>DataratesUS915
 : <a class="el" href="group___r_e_g_i_o_n_u_s915.html#ga715249ddef431b316389e6ddc55d903b">RegionUS915.h</a>
-</li>
-<li>DataratesUS915_HYBRID
-: <a class="el" href="group___r_e_g_i_o_n_u_s915_h_y_b.html#ga72c443cba5429b7ee2bff33f70fc8aec">RegionUS915-Hybrid.h</a>
 </li>
 <li>DevAddr
 : <a class="el" href="_lo_ra_mac_helper_8cpp.html#a8644153b1c46ffcaeb2b44b5544a2c1a">LoRaMacHelper.cpp</a>
@@ -254,6 +254,9 @@ $(function() {
 </li>
 <li>EffectiveRx1DrOffsetIN865
 : <a class="el" href="group___r_e_g_i_o_n_i_n865.html#ga3ea78d4c103e6cb89a5a573b0a3ae946">RegionIN865.h</a>
+</li>
+<li>EffectiveRx1DrOffsetRU864
+: <a class="el" href="group___r_e_g_i_o_n_r_u864.html#ga31009dcdbbd7591a968101b42f371095">RegionRU864.h</a>
 </li>
 </ul>
 
@@ -286,7 +289,7 @@ $(function() {
 : <a class="el" href="radio_8cpp.html#a44a53286ad950ee4fd4a6c48715b24f0">radio.cpp</a>
 </li>
 <li>IsLoRaMacNetworkJoined
-: <a class="el" href="_lo_ra_mac_8cpp.html#a17b05239ef8b6078a499010ede20ec54">LoRaMac.cpp</a>
+: <a class="el" href="_lo_ra_mac_8cpp.html#a93f4b7e3349ccda78be18080a70b8541">LoRaMac.cpp</a>
 </li>
 <li>IsRxWindowsEnabled
 : <a class="el" href="_lo_ra_mac_8cpp.html#a60695a58f371fb7e366c4059ecbf563a">LoRaMac.cpp</a>
@@ -313,6 +316,10 @@ $(function() {
 </li>
 <li>LastTxIsJoinRequest
 : <a class="el" href="_lo_ra_mac_8cpp.html#a4088d0ca2ff21fd5cdc110e14816dd53">LoRaMac.cpp</a>
+</li>
+<li>lmh_mac_is_busy
+: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a563252007aab577a7a6ffc7319d69e0e">LoRaMacHelper.cpp</a>
+, <a class="el" href="_lo_ra_mac_8cpp.html#a563252007aab577a7a6ffc7319d69e0e">LoRaMac.cpp</a>
 </li>
 <li>LoRaMacAppEui
 : <a class="el" href="_lo_ra_mac_8cpp.html#ae312edd6844ed16fe6bc8b57349476e0">LoRaMac.cpp</a>
@@ -367,11 +374,12 @@ $(function() {
 : <a class="el" href="_lo_ra_mac_8cpp.html#ade912e866cc955f089bb441a0f7d50b6">LoRaMac.cpp</a>
 </li>
 <li>LoRaMacPrimitives
-: <a class="el" href="_lo_ra_mac_helper_8cpp.html#a796121aa8a83d30f3d47961b67b53941">LoRaMacHelper.cpp</a>
-, <a class="el" href="_lo_ra_mac_8cpp.html#a18bac241dfa18d510ea2e53f0c740bd3">LoRaMac.cpp</a>
+: <a class="el" href="_lo_ra_mac_8cpp.html#a18bac241dfa18d510ea2e53f0c740bd3">LoRaMac.cpp</a>
+, <a class="el" href="_lo_ra_mac_helper_8cpp.html#a796121aa8a83d30f3d47961b67b53941">LoRaMacHelper.cpp</a>
 </li>
 <li>LoRaMacRegion
-: <a class="el" href="_lo_ra_mac_8cpp.html#ab3e53bd4a0f4e547c9dbf450406acfe5">LoRaMac.cpp</a>
+: <a class="el" href="group___l_o_r_a_m_a_c.html#gab3e53bd4a0f4e547c9dbf450406acfe5">LoRaMac.h</a>
+, <a class="el" href="group___l_o_r_a_m_a_c.html#gab3e53bd4a0f4e547c9dbf450406acfe5">LoRaMac.cpp</a>
 </li>
 <li>LoRaMacRxPayload
 : <a class="el" href="_lo_ra_mac_8cpp.html#a28178f91676f21531dfe16034396da77">LoRaMac.cpp</a>
@@ -479,17 +487,17 @@ $(function() {
 <li>MaxPayloadOfDatarateRepeaterKR920
 : <a class="el" href="group___r_e_g_i_o_n_k_r920.html#ga57cb41db0862ca11e76201e87843f2e0">RegionKR920.h</a>
 </li>
+<li>MaxPayloadOfDatarateRepeaterRU864
+: <a class="el" href="group___r_e_g_i_o_n_r_u864.html#ga5b21b6fb17eefaa957127f26be8f6d41">RegionRU864.h</a>
+</li>
 <li>MaxPayloadOfDatarateRepeaterUS915
 : <a class="el" href="group___r_e_g_i_o_n_u_s915.html#gac7ace356f70ba085abd9938dbc6f538b">RegionUS915.h</a>
 </li>
-<li>MaxPayloadOfDatarateRepeaterUS915_HYBRID
-: <a class="el" href="group___r_e_g_i_o_n_u_s915_h_y_b.html#ga57e0d330c0e1458e1523d826e1874b7a">RegionUS915-Hybrid.h</a>
+<li>MaxPayloadOfDatarateRU864
+: <a class="el" href="group___r_e_g_i_o_n_r_u864.html#ga83962b94ac7f7e213b2772396ec2017f">RegionRU864.h</a>
 </li>
 <li>MaxPayloadOfDatarateUS915
 : <a class="el" href="group___r_e_g_i_o_n_u_s915.html#ga3d3d7c7e8dd5ed69a5305b46e741773c">RegionUS915.h</a>
-</li>
-<li>MaxPayloadOfDatarateUS915_HYBRID
-: <a class="el" href="group___r_e_g_i_o_n_u_s915_h_y_b.html#ga0165d0e904aef148daa7b87353f58aca">RegionUS915-Hybrid.h</a>
 </li>
 <li>McpsConfirm
 : <a class="el" href="_lo_ra_mac_8cpp.html#a4d002492bf36a1dbb2a117e502bf7976">LoRaMac.cpp</a>
@@ -565,6 +573,9 @@ $(function() {
 </li>
 <li>RadioRxPayload
 : <a class="el" href="radio_8cpp.html#ad991210fa5777154fcb0030e4bed0bc3">radio.cpp</a>
+</li>
+<li>region
+: <a class="el" href="_lo_ra_mac_helper_8cpp.html#aac2f2aa205e21f7949db1f61855fc765">LoRaMacHelper.cpp</a>
 </li>
 <li>RepeaterSupport
 : <a class="el" href="_lo_ra_mac_8cpp.html#a037bdbc41e8b3deeaab3684cf4b23f66">LoRaMac.cpp</a>

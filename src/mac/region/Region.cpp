@@ -104,6 +104,222 @@ extern "C"
 	}
 #define AS923_APPLY_DR_OFFSET() \
 	AS923_CASE { return RegionAS923ApplyDrOffset(downlinkDwellTime, dr, drOffset); }
+// AS923_2 starts here
+#define AS923_2_CASE case LORAMAC_REGION_AS923_2:
+#define AS923_2_IS_ACTIVE() \
+	AS923_2_CASE { return true; }
+#define AS923_2_GET_PHY_PARAM() \
+	AS923_2_CASE { return RegionAS923GetPhyParam(getPhy); }
+#define AS923_2_SET_BAND_TX_DONE()        \
+	AS923_2_CASE                          \
+	{                                     \
+		RegionAS923SetBandTxDone(txDone); \
+		break;                            \
+	}
+#define AS923_2_INIT_DEFAULTS()        \
+	AS923_2_CASE                       \
+	{                                  \
+		RegionAS923InitDefaults(type); \
+		break;                         \
+	}
+#define AS923_2_VERIFY() \
+	AS923_2_CASE { return RegionAS923Verify(verify, phyAttribute); }
+#define AS923_2_APPLY_CF_LIST()              \
+	AS923_2_CASE                             \
+	{                                        \
+		RegionAS923ApplyCFList(applyCFList); \
+		break;                               \
+	}
+#define AS923_2_CHAN_MASK_SET() \
+	AS923_2_CASE { return RegionAS923ChanMaskSet(chanMaskSet); }
+#define AS923_2_ADR_NEXT() \
+	AS923_2_CASE { return RegionAS923AdrNext(adrNext, drOut, txPowOut, adrAckCounter); }
+#define AS923_2_COMPUTE_RX_WINDOW_PARAMETERS()                                                 \
+	AS923_2_CASE                                                                               \
+	{                                                                                          \
+		RegionAS923ComputeRxWindowParameters(datarate, minRxSymbols, rxError, rxConfigParams); \
+		break;                                                                                 \
+	}
+#define AS923_2_RX_CONFIG() \
+	AS923_2_CASE { return RegionAS923RxConfig(rxConfig, datarate); }
+#define AS923_2_TX_CONFIG() \
+	AS923_2_CASE { return RegionAS923TxConfig(txConfig, txPower, txTimeOnAir); }
+#define AS923_2_LINK_ADR_REQ() \
+	AS923_2_CASE { return RegionAS923LinkAdrReq(linkAdrReq, drOut, txPowOut, nbRepOut, nbBytesParsed); }
+#define AS923_2_RX_PARAM_SETUP_REQ() \
+	AS923_2_CASE { return RegionAS923RxParamSetupReq(rxParamSetupReq); }
+#define AS923_2_NEW_CHANNEL_REQ() \
+	AS923_2_CASE { return RegionAS923NewChannelReq(newChannelReq); }
+#define AS923_2_TX_PARAM_SETUP_REQ() \
+	AS923_2_CASE { return RegionAS923TxParamSetupReq(txParamSetupReq); }
+#define AS923_2_DL_CHANNEL_REQ() \
+	AS923_2_CASE { return RegionAS923DlChannelReq(dlChannelReq); }
+#define AS923_2_ALTERNATE_DR() \
+	AS923_2_CASE { return RegionAS923AlternateDr(alternateDr); }
+#define AS923_2_CALC_BACKOFF()               \
+	AS923_2_CASE                             \
+	{                                        \
+		RegionAS923CalcBackOff(calcBackOff); \
+		break;                               \
+	}
+#define AS923_2_NEXT_CHANNEL() \
+	AS923_2_CASE { return RegionAS923NextChannel(nextChanParams, channel, time, aggregatedTimeOff); }
+#define AS923_2_CHANNEL_ADD() \
+	AS923_2_CASE { return RegionAS923ChannelAdd(channelAdd); }
+#define AS923_2_CHANNEL_REMOVE() \
+	AS923_2_CASE { return RegionAS923ChannelsRemove(channelRemove); }
+#define AS923_2_SET_CONTINUOUS_WAVE()                 \
+	AS923_2_CASE                                      \
+	{                                                 \
+		RegionAS923SetContinuousWave(continuousWave); \
+		break;                                        \
+	}
+#define AS923_2_APPLY_DR_OFFSET() \
+	AS923_2_CASE { return RegionAS923ApplyDrOffset(downlinkDwellTime, dr, drOffset); }
+// AS923_3 starts here
+#define AS923_3_CASE case LORAMAC_REGION_AS923_3:
+#define AS923_3_IS_ACTIVE() \
+	AS923_3_CASE { return true; }
+#define AS923_3_GET_PHY_PARAM() \
+	AS923_3_CASE { return RegionAS923GetPhyParam(getPhy); }
+#define AS923_3_SET_BAND_TX_DONE()        \
+	AS923_3_CASE                          \
+	{                                     \
+		RegionAS923SetBandTxDone(txDone); \
+		break;                            \
+	}
+#define AS923_3_INIT_DEFAULTS()        \
+	AS923_3_CASE                       \
+	{                                  \
+		RegionAS923InitDefaults(type); \
+		break;                         \
+	}
+#define AS923_3_VERIFY() \
+	AS923_3_CASE { return RegionAS923Verify(verify, phyAttribute); }
+#define AS923_3_APPLY_CF_LIST()              \
+	AS923_3_CASE                             \
+	{                                        \
+		RegionAS923ApplyCFList(applyCFList); \
+		break;                               \
+	}
+#define AS923_3_CHAN_MASK_SET() \
+	AS923_3_CASE { return RegionAS923ChanMaskSet(chanMaskSet); }
+#define AS923_3_ADR_NEXT() \
+	AS923_3_CASE { return RegionAS923AdrNext(adrNext, drOut, txPowOut, adrAckCounter); }
+#define AS923_3_COMPUTE_RX_WINDOW_PARAMETERS()                                                 \
+	AS923_3_CASE                                                                               \
+	{                                                                                          \
+		RegionAS923ComputeRxWindowParameters(datarate, minRxSymbols, rxError, rxConfigParams); \
+		break;                                                                                 \
+	}
+#define AS923_3_RX_CONFIG() \
+	AS923_3_CASE { return RegionAS923RxConfig(rxConfig, datarate); }
+#define AS923_3_TX_CONFIG() \
+	AS923_3_CASE { return RegionAS923TxConfig(txConfig, txPower, txTimeOnAir); }
+#define AS923_3_LINK_ADR_REQ() \
+	AS923_3_CASE { return RegionAS923LinkAdrReq(linkAdrReq, drOut, txPowOut, nbRepOut, nbBytesParsed); }
+#define AS923_3_RX_PARAM_SETUP_REQ() \
+	AS923_3_CASE { return RegionAS923RxParamSetupReq(rxParamSetupReq); }
+#define AS923_3_NEW_CHANNEL_REQ() \
+	AS923_3_CASE { return RegionAS923NewChannelReq(newChannelReq); }
+#define AS923_3_TX_PARAM_SETUP_REQ() \
+	AS923_3_CASE { return RegionAS923TxParamSetupReq(txParamSetupReq); }
+#define AS923_3_DL_CHANNEL_REQ() \
+	AS923_3_CASE { return RegionAS923DlChannelReq(dlChannelReq); }
+#define AS923_3_ALTERNATE_DR() \
+	AS923_3_CASE { return RegionAS923AlternateDr(alternateDr); }
+#define AS923_3_CALC_BACKOFF()               \
+	AS923_3_CASE                             \
+	{                                        \
+		RegionAS923CalcBackOff(calcBackOff); \
+		break;                               \
+	}
+#define AS923_3_NEXT_CHANNEL() \
+	AS923_3_CASE { return RegionAS923NextChannel(nextChanParams, channel, time, aggregatedTimeOff); }
+#define AS923_3_CHANNEL_ADD() \
+	AS923_3_CASE { return RegionAS923ChannelAdd(channelAdd); }
+#define AS923_3_CHANNEL_REMOVE() \
+	AS923_3_CASE { return RegionAS923ChannelsRemove(channelRemove); }
+#define AS923_3_SET_CONTINUOUS_WAVE()                 \
+	AS923_3_CASE                                      \
+	{                                                 \
+		RegionAS923SetContinuousWave(continuousWave); \
+		break;                                        \
+	}
+#define AS923_3_APPLY_DR_OFFSET() \
+	AS923_3_CASE { return RegionAS923ApplyDrOffset(downlinkDwellTime, dr, drOffset); }
+// AS923_4 starts here
+#define AS923_4_CASE case LORAMAC_REGION_AS923_4:
+#define AS923_4_IS_ACTIVE() \
+	AS923_4_CASE { return true; }
+#define AS923_4_GET_PHY_PARAM() \
+	AS923_4_CASE { return RegionAS923GetPhyParam(getPhy); }
+#define AS923_4_SET_BAND_TX_DONE()        \
+	AS923_4_CASE                          \
+	{                                     \
+		RegionAS923SetBandTxDone(txDone); \
+		break;                            \
+	}
+#define AS923_4_INIT_DEFAULTS()        \
+	AS923_4_CASE                       \
+	{                                  \
+		RegionAS923InitDefaults(type); \
+		break;                         \
+	}
+#define AS923_4_VERIFY() \
+	AS923_4_CASE { return RegionAS923Verify(verify, phyAttribute); }
+#define AS923_4_APPLY_CF_LIST()              \
+	AS923_4_CASE                             \
+	{                                        \
+		RegionAS923ApplyCFList(applyCFList); \
+		break;                               \
+	}
+#define AS923_4_CHAN_MASK_SET() \
+	AS923_4_CASE { return RegionAS923ChanMaskSet(chanMaskSet); }
+#define AS923_4_ADR_NEXT() \
+	AS923_4_CASE { return RegionAS923AdrNext(adrNext, drOut, txPowOut, adrAckCounter); }
+#define AS923_4_COMPUTE_RX_WINDOW_PARAMETERS()                                                 \
+	AS923_4_CASE                                                                               \
+	{                                                                                          \
+		RegionAS923ComputeRxWindowParameters(datarate, minRxSymbols, rxError, rxConfigParams); \
+		break;                                                                                 \
+	}
+#define AS923_4_RX_CONFIG() \
+	AS923_4_CASE { return RegionAS923RxConfig(rxConfig, datarate); }
+#define AS923_4_TX_CONFIG() \
+	AS923_4_CASE { return RegionAS923TxConfig(txConfig, txPower, txTimeOnAir); }
+#define AS923_4_LINK_ADR_REQ() \
+	AS923_4_CASE { return RegionAS923LinkAdrReq(linkAdrReq, drOut, txPowOut, nbRepOut, nbBytesParsed); }
+#define AS923_4_RX_PARAM_SETUP_REQ() \
+	AS923_4_CASE { return RegionAS923RxParamSetupReq(rxParamSetupReq); }
+#define AS923_4_NEW_CHANNEL_REQ() \
+	AS923_4_CASE { return RegionAS923NewChannelReq(newChannelReq); }
+#define AS923_4_TX_PARAM_SETUP_REQ() \
+	AS923_4_CASE { return RegionAS923TxParamSetupReq(txParamSetupReq); }
+#define AS923_4_DL_CHANNEL_REQ() \
+	AS923_4_CASE { return RegionAS923DlChannelReq(dlChannelReq); }
+#define AS923_4_ALTERNATE_DR() \
+	AS923_4_CASE { return RegionAS923AlternateDr(alternateDr); }
+#define AS923_4_CALC_BACKOFF()               \
+	AS923_4_CASE                             \
+	{                                        \
+		RegionAS923CalcBackOff(calcBackOff); \
+		break;                               \
+	}
+#define AS923_4_NEXT_CHANNEL() \
+	AS923_4_CASE { return RegionAS923NextChannel(nextChanParams, channel, time, aggregatedTimeOff); }
+#define AS923_4_CHANNEL_ADD() \
+	AS923_4_CASE { return RegionAS923ChannelAdd(channelAdd); }
+#define AS923_4_CHANNEL_REMOVE() \
+	AS923_4_CASE { return RegionAS923ChannelsRemove(channelRemove); }
+#define AS923_4_SET_CONTINUOUS_WAVE()                 \
+	AS923_4_CASE                                      \
+	{                                                 \
+		RegionAS923SetContinuousWave(continuousWave); \
+		break;                                        \
+	}
+#define AS923_4_APPLY_DR_OFFSET() \
+	AS923_4_CASE { return RegionAS923ApplyDrOffset(downlinkDwellTime, dr, drOffset); }
 #else
 #define AS923_IS_ACTIVE()
 #define AS923_GET_PHY_PARAM()
@@ -128,6 +344,79 @@ extern "C"
 #define AS923_CHANNEL_REMOVE()
 #define AS923_SET_CONTINUOUS_WAVE()
 #define AS923_APPLY_DR_OFFSET()
+// AS923_2 starts here
+#define AS923_2_IS_ACTIVE()
+#define AS923_2_GET_PHY_PARAM()
+#define AS923_2_SET_BAND_TX_DONE()
+#define AS923_2_INIT_DEFAULTS()
+#define AS923_2_VERIFY()
+#define AS923_2_APPLY_CF_LIST()
+#define AS923_2_CHAN_MASK_SET()
+#define AS923_2_ADR_NEXT()
+#define AS923_2_COMPUTE_RX_WINDOW_PARAMETERS()
+#define AS923_2_RX_CONFIG()
+#define AS923_2_TX_CONFIG()
+#define AS923_2_LINK_ADR_REQ()
+#define AS923_2_RX_PARAM_SETUP_REQ()
+#define AS923_2_NEW_CHANNEL_REQ()
+#define AS923_2_TX_PARAM_SETUP_REQ()
+#define AS923_2_DL_CHANNEL_REQ()
+#define AS923_2_ALTERNATE_DR()
+#define AS923_2_CALC_BACKOFF()
+#define AS923_2_NEXT_CHANNEL()
+#define AS923_2_CHANNEL_ADD()
+#define AS923_2_CHANNEL_REMOVE()
+#define AS923_2_SET_CONTINUOUS_WAVE()
+#define AS923_2_APPLY_DR_OFFSET()
+//AS923_3 starts here
+#define AS923_3_IS_ACTIVE()
+#define AS923_3_GET_PHY_PARAM()
+#define AS923_3_SET_BAND_TX_DONE()
+#define AS923_3_INIT_DEFAULTS()
+#define AS923_3_VERIFY()
+#define AS923_3_APPLY_CF_LIST()
+#define AS923_3_CHAN_MASK_SET()
+#define AS923_3_ADR_NEXT()
+#define AS923_3_COMPUTE_RX_WINDOW_PARAMETERS()
+#define AS923_3_RX_CONFIG()
+#define AS923_3_TX_CONFIG()
+#define AS923_3_LINK_ADR_REQ()
+#define AS923_3_RX_PARAM_SETUP_REQ()
+#define AS923_3_NEW_CHANNEL_REQ()
+#define AS923_3_TX_PARAM_SETUP_REQ()
+#define AS923_3_DL_CHANNEL_REQ()
+#define AS923_3_ALTERNATE_DR()
+#define AS923_3_CALC_BACKOFF()
+#define AS923_3_NEXT_CHANNEL()
+#define AS923_3_CHANNEL_ADD()
+#define AS923_3_CHANNEL_REMOVE()
+#define AS923_3_SET_CONTINUOUS_WAVE()
+#define AS923_3_APPLY_DR_OFFSET()
+// AS923_4 starts here
+#define AS923_4_IS_ACTIVE()
+#define AS923_4_GET_PHY_PARAM()
+#define AS923_4_SET_BAND_TX_DONE()
+#define AS923_4_INIT_DEFAULTS()
+#define AS923_4_VERIFY()
+#define AS923_4_APPLY_CF_LIST()
+#define AS923_4_CHAN_MASK_SET()
+#define AS923_4_ADR_NEXT()
+#define AS923_4_COMPUTE_RX_WINDOW_PARAMETERS()
+#define AS923_4_RX_CONFIG()
+#define AS923_4_TX_CONFIG()
+#define AS923_4_LINK_ADR_REQ()
+#define AS923_4_RX_PARAM_SETUP_REQ()
+#define AS923_4_NEW_CHANNEL_REQ()
+#define AS923_4_TX_PARAM_SETUP_REQ()
+#define AS923_4_DL_CHANNEL_REQ()
+#define AS923_4_ALTERNATE_DR()
+#define AS923_4_CALC_BACKOFF()
+#define AS923_4_NEXT_CHANNEL()
+#define AS923_4_CHANNEL_ADD()
+#define AS923_4_CHANNEL_REMOVE()
+#define AS923_4_SET_CONTINUOUS_WAVE()
+#define AS923_4_APPLY_DR_OFFSET()
+
 #endif
 
 #ifdef REGION_AU915
@@ -922,103 +1211,103 @@ extern "C"
 #define US915_APPLY_DR_OFFSET()
 #endif
 
-#ifdef REGION_US915_HYBRID
-#include "RegionUS915-Hybrid.h"
-#define US915_HYBRID_CASE case LORAMAC_REGION_US915_HYBRID:
-#define US915_HYBRID_IS_ACTIVE() \
-	US915_HYBRID_CASE { return true; }
-#define US915_HYBRID_GET_PHY_PARAM() \
-	US915_HYBRID_CASE { return RegionUS915HybridGetPhyParam(getPhy); }
-#define US915_HYBRID_SET_BAND_TX_DONE()         \
-	US915_HYBRID_CASE                           \
-	{                                           \
-		RegionUS915HybridSetBandTxDone(txDone); \
-		break;                                  \
+#ifdef REGION_RU864
+#include "RegionRU864.h"
+#define RU864_CASE case LORAMAC_REGION_RU864:
+#define RU864_IS_ACTIVE() \
+	RU864_CASE { return true; }
+#define RU864_GET_PHY_PARAM() \
+	RU864_CASE { return RegionRU864GetPhyParam(getPhy); }
+#define RU864_SET_BAND_TX_DONE()          \
+	RU864_CASE                            \
+	{                                     \
+		RegionRU864SetBandTxDone(txDone); \
+		break;                            \
 	}
-#define US915_HYBRID_INIT_DEFAULTS()         \
-	US915_HYBRID_CASE                        \
+#define RU864_INIT_DEFAULTS()          \
+	RU864_CASE                         \
+	{                                  \
+		RegionRU864InitDefaults(type); \
+		break;                         \
+	}
+#define RU864_VERIFY() \
+	RU864_CASE { return RegionRU864Verify(verify, phyAttribute); }
+#define RU864_APPLY_CF_LIST()                \
+	RU864_CASE                               \
 	{                                        \
-		RegionUS915HybridInitDefaults(type); \
+		RegionRU864ApplyCFList(applyCFList); \
 		break;                               \
 	}
-#define US915_HYBRID_VERIFY() \
-	US915_HYBRID_CASE { return RegionUS915HybridVerify(verify, phyAttribute); }
-#define US915_HYBRID_APPLY_CF_LIST()               \
-	US915_HYBRID_CASE                              \
-	{                                              \
-		RegionUS915HybridApplyCFList(applyCFList); \
-		break;                                     \
+#define RU864_CHAN_MASK_SET() \
+	RU864_CASE { return RegionRU864ChanMaskSet(chanMaskSet); }
+#define RU864_ADR_NEXT() \
+	RU864_CASE { return RegionRU864AdrNext(adrNext, drOut, txPowOut, adrAckCounter); }
+#define RU864_COMPUTE_RX_WINDOW_PARAMETERS()                                                   \
+	RU864_CASE                                                                                 \
+	{                                                                                          \
+		RegionRU864ComputeRxWindowParameters(datarate, minRxSymbols, rxError, rxConfigParams); \
+		break;                                                                                 \
 	}
-#define US915_HYBRID_CHAN_MASK_SET() \
-	US915_HYBRID_CASE { return RegionUS915HybridChanMaskSet(chanMaskSet); }
-#define US915_HYBRID_ADR_NEXT() \
-	US915_HYBRID_CASE { return RegionUS915HybridAdrNext(adrNext, drOut, txPowOut, adrAckCounter); }
-#define US915_HYBRID_COMPUTE_RX_WINDOW_PARAMETERS()                                                  \
-	US915_HYBRID_CASE                                                                                \
-	{                                                                                                \
-		RegionUS915HybridComputeRxWindowParameters(datarate, minRxSymbols, rxError, rxConfigParams); \
-		break;                                                                                       \
+#define RU864_RX_CONFIG() \
+	RU864_CASE { return RegionRU864RxConfig(rxConfig, datarate); }
+#define RU864_TX_CONFIG() \
+	RU864_CASE { return RegionRU864TxConfig(txConfig, txPower, txTimeOnAir); }
+#define RU864_LINK_ADR_REQ() \
+	RU864_CASE { return RegionRU864LinkAdrReq(linkAdrReq, drOut, txPowOut, nbRepOut, nbBytesParsed); }
+#define RU864_RX_PARAM_SETUP_REQ() \
+	RU864_CASE { return RegionRU864RxParamSetupReq(rxParamSetupReq); }
+#define RU864_NEW_CHANNEL_REQ() \
+	RU864_CASE { return RegionRU864NewChannelReq(newChannelReq); }
+#define RU864_TX_PARAM_SETUP_REQ() \
+	RU864_CASE { return RegionRU864TxParamSetupReq(txParamSetupReq); }
+#define RU864_DL_CHANNEL_REQ() \
+	RU864_CASE { return RegionRU864DlChannelReq(dlChannelReq); }
+#define RU864_ALTERNATE_DR() \
+	RU864_CASE { return RegionRU864AlternateDr(alternateDr); }
+#define RU864_CALC_BACKOFF()                 \
+	RU864_CASE                               \
+	{                                        \
+		RegionRU864CalcBackOff(calcBackOff); \
+		break;                               \
 	}
-#define US915_HYBRID_RX_CONFIG() \
-	US915_HYBRID_CASE { return RegionUS915HybridRxConfig(rxConfig, datarate); }
-#define US915_HYBRID_TX_CONFIG() \
-	US915_HYBRID_CASE { return RegionUS915HybridTxConfig(txConfig, txPower, txTimeOnAir); }
-#define US915_HYBRID_LINK_ADR_REQ() \
-	US915_HYBRID_CASE { return RegionUS915HybridLinkAdrReq(linkAdrReq, drOut, txPowOut, nbRepOut, nbBytesParsed); }
-#define US915_HYBRID_RX_PARAM_SETUP_REQ() \
-	US915_HYBRID_CASE { return RegionUS915HybridRxParamSetupReq(rxParamSetupReq); }
-#define US915_HYBRID_NEW_CHANNEL_REQ() \
-	US915_HYBRID_CASE { return RegionUS915HybridNewChannelReq(newChannelReq); }
-#define US915_HYBRID_TX_PARAM_SETUP_REQ() \
-	US915_HYBRID_CASE { return RegionUS915HybridTxParamSetupReq(txParamSetupReq); }
-#define US915_HYBRID_DL_CHANNEL_REQ() \
-	US915_HYBRID_CASE { return RegionUS915HybridDlChannelReq(dlChannelReq); }
-#define US915_HYBRID_ALTERNATE_DR() \
-	US915_HYBRID_CASE { return RegionUS915HybridAlternateDr(alternateDr); }
-#define US915_HYBRID_CALC_BACKOFF()                \
-	US915_HYBRID_CASE                              \
-	{                                              \
-		RegionUS915HybridCalcBackOff(calcBackOff); \
-		break;                                     \
+#define RU864_NEXT_CHANNEL() \
+	RU864_CASE { return RegionRU864NextChannel(nextChanParams, channel, time, aggregatedTimeOff); }
+#define RU864_CHANNEL_ADD() \
+	RU864_CASE { return RegionRU864ChannelAdd(channelAdd); }
+#define RU864_CHANNEL_REMOVE() \
+	RU864_CASE { return RegionRU864ChannelsRemove(channelRemove); }
+#define RU864_SET_CONTINUOUS_WAVE()                   \
+	RU864_CASE                                        \
+	{                                                 \
+		RegionRU864SetContinuousWave(continuousWave); \
+		break;                                        \
 	}
-#define US915_HYBRID_NEXT_CHANNEL() \
-	US915_HYBRID_CASE { return RegionUS915HybridNextChannel(nextChanParams, channel, time, aggregatedTimeOff); }
-#define US915_HYBRID_CHANNEL_ADD() \
-	US915_HYBRID_CASE { return RegionUS915HybridChannelAdd(channelAdd); }
-#define US915_HYBRID_CHANNEL_REMOVE() \
-	US915_HYBRID_CASE { return RegionUS915HybridChannelsRemove(channelRemove); }
-#define US915_HYBRID_SET_CONTINUOUS_WAVE()                  \
-	US915_HYBRID_CASE                                       \
-	{                                                       \
-		RegionUS915HybridSetContinuousWave(continuousWave); \
-		break;                                              \
-	}
-#define US915_HYBRID_APPLY_DR_OFFSET() \
-	US915_HYBRID_CASE { return RegionUS915HybridApplyDrOffset(downlinkDwellTime, dr, drOffset); }
+#define RU864_APPLY_DR_OFFSET() \
+	RU864_CASE { return RegionRU864ApplyDrOffset(downlinkDwellTime, dr, drOffset); }
 #else
-#define US915_HYBRID_IS_ACTIVE()
-#define US915_HYBRID_GET_PHY_PARAM()
-#define US915_HYBRID_SET_BAND_TX_DONE()
-#define US915_HYBRID_INIT_DEFAULTS()
-#define US915_HYBRID_VERIFY()
-#define US915_HYBRID_APPLY_CF_LIST()
-#define US915_HYBRID_CHAN_MASK_SET()
-#define US915_HYBRID_ADR_NEXT()
-#define US915_HYBRID_COMPUTE_RX_WINDOW_PARAMETERS()
-#define US915_HYBRID_RX_CONFIG()
-#define US915_HYBRID_TX_CONFIG()
-#define US915_HYBRID_LINK_ADR_REQ()
-#define US915_HYBRID_RX_PARAM_SETUP_REQ()
-#define US915_HYBRID_NEW_CHANNEL_REQ()
-#define US915_HYBRID_TX_PARAM_SETUP_REQ()
-#define US915_HYBRID_DL_CHANNEL_REQ()
-#define US915_HYBRID_ALTERNATE_DR()
-#define US915_HYBRID_CALC_BACKOFF()
-#define US915_HYBRID_NEXT_CHANNEL()
-#define US915_HYBRID_CHANNEL_ADD()
-#define US915_HYBRID_CHANNEL_REMOVE()
-#define US915_HYBRID_SET_CONTINUOUS_WAVE()
-#define US915_HYBRID_APPLY_DR_OFFSET()
+#define RU864_IS_ACTIVE()
+#define RU864_GET_PHY_PARAM()
+#define RU864_SET_BAND_TX_DONE()
+#define RU864_INIT_DEFAULTS()
+#define RU864_VERIFY()
+#define RU864_APPLY_CF_LIST()
+#define RU864_CHAN_MASK_SET()
+#define RU864_ADR_NEXT()
+#define RU864_COMPUTE_RX_WINDOW_PARAMETERS()
+#define RU864_RX_CONFIG()
+#define RU864_TX_CONFIG()
+#define RU864_LINK_ADR_REQ()
+#define RU864_RX_PARAM_SETUP_REQ()
+#define RU864_NEW_CHANNEL_REQ()
+#define RU864_TX_PARAM_SETUP_REQ()
+#define RU864_DL_CHANNEL_REQ()
+#define RU864_ALTERNATE_DR()
+#define RU864_CALC_BACKOFF()
+#define RU864_NEXT_CHANNEL()
+#define RU864_CHANNEL_ADD()
+#define RU864_CHANNEL_REMOVE()
+#define RU864_SET_CONTINUOUS_WAVE()
+#define RU864_APPLY_DR_OFFSET()
 #endif
 
 	bool RegionIsActive(LoRaMacRegion_t region)
@@ -1034,7 +1323,10 @@ extern "C"
 			KR920_IS_ACTIVE();
 			IN865_IS_ACTIVE();
 			US915_IS_ACTIVE();
-			US915_HYBRID_IS_ACTIVE();
+			AS923_2_IS_ACTIVE();
+			AS923_3_IS_ACTIVE();
+			AS923_4_IS_ACTIVE();
+			RU864_IS_ACTIVE();
 		default:
 		{
 			return false;
@@ -1056,7 +1348,10 @@ extern "C"
 			KR920_GET_PHY_PARAM();
 			IN865_GET_PHY_PARAM();
 			US915_GET_PHY_PARAM();
-			US915_HYBRID_GET_PHY_PARAM();
+			AS923_2_GET_PHY_PARAM();
+			AS923_3_GET_PHY_PARAM();
+			AS923_4_GET_PHY_PARAM();
+			RU864_GET_PHY_PARAM();
 		default:
 		{
 			return phyParam;
@@ -1077,7 +1372,10 @@ extern "C"
 			KR920_SET_BAND_TX_DONE();
 			IN865_SET_BAND_TX_DONE();
 			US915_SET_BAND_TX_DONE();
-			US915_HYBRID_SET_BAND_TX_DONE();
+			AS923_2_SET_BAND_TX_DONE();
+			AS923_3_SET_BAND_TX_DONE();
+			AS923_4_SET_BAND_TX_DONE();
+			RU864_SET_BAND_TX_DONE();
 		default:
 		{
 			return;
@@ -1098,7 +1396,10 @@ extern "C"
 			KR920_INIT_DEFAULTS();
 			IN865_INIT_DEFAULTS();
 			US915_INIT_DEFAULTS();
-			US915_HYBRID_INIT_DEFAULTS();
+			AS923_2_INIT_DEFAULTS();
+			AS923_3_INIT_DEFAULTS();
+			AS923_4_INIT_DEFAULTS();
+			RU864_INIT_DEFAULTS();
 		default:
 		{
 			break;
@@ -1119,7 +1420,10 @@ extern "C"
 			KR920_VERIFY();
 			IN865_VERIFY();
 			US915_VERIFY();
-			US915_HYBRID_VERIFY();
+			AS923_2_VERIFY();
+			AS923_3_VERIFY();
+			AS923_4_VERIFY();
+			RU864_VERIFY();
 		default:
 		{
 			return false;
@@ -1140,7 +1444,10 @@ extern "C"
 			KR920_APPLY_CF_LIST();
 			IN865_APPLY_CF_LIST();
 			US915_APPLY_CF_LIST();
-			US915_HYBRID_APPLY_CF_LIST();
+			AS923_2_APPLY_CF_LIST();
+			AS923_3_APPLY_CF_LIST();
+			AS923_4_APPLY_CF_LIST();
+			RU864_APPLY_CF_LIST();
 		default:
 		{
 			break;
@@ -1161,7 +1468,10 @@ extern "C"
 			KR920_CHAN_MASK_SET();
 			IN865_CHAN_MASK_SET();
 			US915_CHAN_MASK_SET();
-			US915_HYBRID_CHAN_MASK_SET();
+			AS923_2_CHAN_MASK_SET();
+			AS923_3_CHAN_MASK_SET();
+			AS923_4_CHAN_MASK_SET();
+			RU864_CHAN_MASK_SET();
 		default:
 		{
 			return false;
@@ -1182,7 +1492,10 @@ extern "C"
 			KR920_ADR_NEXT();
 			IN865_ADR_NEXT();
 			US915_ADR_NEXT();
-			US915_HYBRID_ADR_NEXT();
+			AS923_2_ADR_NEXT();
+			AS923_3_ADR_NEXT();
+			AS923_4_ADR_NEXT();
+			RU864_ADR_NEXT();
 		default:
 		{
 			return false;
@@ -1203,7 +1516,10 @@ extern "C"
 			KR920_COMPUTE_RX_WINDOW_PARAMETERS();
 			IN865_COMPUTE_RX_WINDOW_PARAMETERS();
 			US915_COMPUTE_RX_WINDOW_PARAMETERS();
-			US915_HYBRID_COMPUTE_RX_WINDOW_PARAMETERS();
+			AS923_2_COMPUTE_RX_WINDOW_PARAMETERS();
+			AS923_3_COMPUTE_RX_WINDOW_PARAMETERS();
+			AS923_4_COMPUTE_RX_WINDOW_PARAMETERS();
+			RU864_COMPUTE_RX_WINDOW_PARAMETERS();
 		default:
 		{
 			break;
@@ -1224,7 +1540,10 @@ extern "C"
 			KR920_RX_CONFIG();
 			IN865_RX_CONFIG();
 			US915_RX_CONFIG();
-			US915_HYBRID_RX_CONFIG();
+			AS923_2_RX_CONFIG();
+			AS923_3_RX_CONFIG();
+			AS923_4_RX_CONFIG();
+			RU864_RX_CONFIG();
 		default:
 		{
 			return false;
@@ -1245,7 +1564,10 @@ extern "C"
 			KR920_TX_CONFIG();
 			IN865_TX_CONFIG();
 			US915_TX_CONFIG();
-			US915_HYBRID_TX_CONFIG();
+			AS923_2_TX_CONFIG();
+			AS923_3_TX_CONFIG();
+			AS923_4_TX_CONFIG();
+			RU864_TX_CONFIG();
 		default:
 		{
 			return false;
@@ -1266,7 +1588,10 @@ extern "C"
 			KR920_LINK_ADR_REQ();
 			IN865_LINK_ADR_REQ();
 			US915_LINK_ADR_REQ();
-			US915_HYBRID_LINK_ADR_REQ();
+			AS923_2_LINK_ADR_REQ();
+			AS923_3_LINK_ADR_REQ();
+			AS923_4_LINK_ADR_REQ();
+			RU864_LINK_ADR_REQ();
 		default:
 		{
 			return 0;
@@ -1287,7 +1612,10 @@ extern "C"
 			KR920_RX_PARAM_SETUP_REQ();
 			IN865_RX_PARAM_SETUP_REQ();
 			US915_RX_PARAM_SETUP_REQ();
-			US915_HYBRID_RX_PARAM_SETUP_REQ();
+			AS923_2_RX_PARAM_SETUP_REQ();
+			AS923_3_RX_PARAM_SETUP_REQ();
+			AS923_4_RX_PARAM_SETUP_REQ();
+			RU864_RX_PARAM_SETUP_REQ();
 		default:
 		{
 			return 0;
@@ -1308,7 +1636,10 @@ extern "C"
 			KR920_NEW_CHANNEL_REQ();
 			IN865_NEW_CHANNEL_REQ();
 			US915_NEW_CHANNEL_REQ();
-			US915_HYBRID_NEW_CHANNEL_REQ();
+			AS923_2_NEW_CHANNEL_REQ();
+			AS923_3_NEW_CHANNEL_REQ();
+			AS923_4_NEW_CHANNEL_REQ();
+			RU864_NEW_CHANNEL_REQ();
 		default:
 		{
 			return 0;
@@ -1329,7 +1660,10 @@ extern "C"
 			KR920_TX_PARAM_SETUP_REQ();
 			IN865_TX_PARAM_SETUP_REQ();
 			US915_TX_PARAM_SETUP_REQ();
-			US915_HYBRID_TX_PARAM_SETUP_REQ();
+			AS923_2_TX_PARAM_SETUP_REQ();
+			AS923_3_TX_PARAM_SETUP_REQ();
+			AS923_4_TX_PARAM_SETUP_REQ();
+			RU864_TX_PARAM_SETUP_REQ();
 		default:
 		{
 			return 0;
@@ -1350,7 +1684,10 @@ extern "C"
 			KR920_DL_CHANNEL_REQ();
 			IN865_DL_CHANNEL_REQ();
 			US915_DL_CHANNEL_REQ();
-			US915_HYBRID_DL_CHANNEL_REQ();
+			AS923_2_DL_CHANNEL_REQ();
+			AS923_3_DL_CHANNEL_REQ();
+			AS923_4_DL_CHANNEL_REQ();
+			RU864_DL_CHANNEL_REQ();
 		default:
 		{
 			return 0;
@@ -1371,7 +1708,10 @@ extern "C"
 			KR920_ALTERNATE_DR();
 			IN865_ALTERNATE_DR();
 			US915_ALTERNATE_DR();
-			US915_HYBRID_ALTERNATE_DR();
+			AS923_2_ALTERNATE_DR();
+			AS923_3_ALTERNATE_DR();
+			AS923_4_ALTERNATE_DR();
+			RU864_ALTERNATE_DR();
 		default:
 		{
 			return 0;
@@ -1392,7 +1732,10 @@ extern "C"
 			KR920_CALC_BACKOFF();
 			IN865_CALC_BACKOFF();
 			US915_CALC_BACKOFF();
-			US915_HYBRID_CALC_BACKOFF();
+			AS923_2_CALC_BACKOFF();
+			AS923_3_CALC_BACKOFF();
+			AS923_4_CALC_BACKOFF();
+			RU864_CALC_BACKOFF();
 		default:
 		{
 			break;
@@ -1413,7 +1756,10 @@ extern "C"
 			KR920_NEXT_CHANNEL();
 			IN865_NEXT_CHANNEL();
 			US915_NEXT_CHANNEL();
-			US915_HYBRID_NEXT_CHANNEL();
+			AS923_2_NEXT_CHANNEL();
+			AS923_3_NEXT_CHANNEL();
+			AS923_4_NEXT_CHANNEL();
+			RU864_NEXT_CHANNEL();
 		default:
 		{
 			return false;
@@ -1434,7 +1780,10 @@ extern "C"
 			KR920_CHANNEL_ADD();
 			IN865_CHANNEL_ADD();
 			US915_CHANNEL_ADD();
-			US915_HYBRID_CHANNEL_ADD();
+			AS923_2_CHANNEL_ADD();
+			AS923_3_CHANNEL_ADD();
+			AS923_4_CHANNEL_ADD();
+			RU864_CHANNEL_ADD();
 		default:
 		{
 			return LORAMAC_STATUS_PARAMETER_INVALID;
@@ -1455,7 +1804,10 @@ extern "C"
 			KR920_CHANNEL_REMOVE();
 			IN865_CHANNEL_REMOVE();
 			US915_CHANNEL_REMOVE();
-			US915_HYBRID_CHANNEL_REMOVE();
+			AS923_2_CHANNEL_REMOVE();
+			AS923_3_CHANNEL_REMOVE();
+			AS923_4_CHANNEL_REMOVE();
+			RU864_CHANNEL_REMOVE();
 		default:
 		{
 			return false;
@@ -1476,7 +1828,10 @@ extern "C"
 			KR920_SET_CONTINUOUS_WAVE();
 			IN865_SET_CONTINUOUS_WAVE();
 			US915_SET_CONTINUOUS_WAVE();
-			US915_HYBRID_SET_CONTINUOUS_WAVE();
+			AS923_2_SET_CONTINUOUS_WAVE();
+			AS923_3_SET_CONTINUOUS_WAVE();
+			AS923_4_SET_CONTINUOUS_WAVE();
+			RU864_SET_CONTINUOUS_WAVE();
 		default:
 		{
 			break;
@@ -1497,7 +1852,10 @@ extern "C"
 			KR920_APPLY_DR_OFFSET();
 			IN865_APPLY_DR_OFFSET();
 			US915_APPLY_DR_OFFSET();
-			US915_HYBRID_APPLY_DR_OFFSET();
+			AS923_2_APPLY_DR_OFFSET();
+			AS923_3_APPLY_DR_OFFSET();
+			AS923_4_APPLY_DR_OFFSET();
+			RU864_APPLY_DR_OFFSET();
 		default:
 		{
 			return dr;

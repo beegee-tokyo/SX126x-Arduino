@@ -1418,11 +1418,9 @@ extern "C"
 
 	void RadioIrqProcessAfterDeepSleep(void)
 	{
-#if defined(ESP8266)
 		BoardDisableIrq();
 		IrqFired = true;
 		BoardEnableIrq();
 		RadioBgIrqProcess();
-#endif
 	}
 };

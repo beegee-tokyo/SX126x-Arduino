@@ -261,7 +261,11 @@ extern "C"
 
 		xSemaphoreTake(_lora_sem, 10);
 #ifdef NRF52_SERIES
+#ifdef ISP4520
+		if (!xTaskCreate(_lora_task, "LORA", 2048, NULL, TASK_PRIO_NORMAL, &_loraTaskHandle))
+#else
 		if (!xTaskCreate(_lora_task, "LORA", 4096, NULL, TASK_PRIO_NORMAL, &_loraTaskHandle))
+#endif
 #else
 		if (!xTaskCreate(_lora_task, "LORA", 4096, NULL, 1, &_loraTaskHandle))
 #endif

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['phyattribute_5ft_3395',['PhyAttribute_t',['../group___r_e_g_i_o_n.html#ga9445b07fdf77581ecfaf389970e635f8',1,'Region.h']]],
-  ['phyparam_5ft_3396',['PhyParam_t',['../group___r_e_g_i_o_n.html#gaed159b26e5c4677236b6e8677019db30',1,'Region.h']]]
+  ['newchannelreqparams_5ft_3519',['NewChannelReqParams_t',['../group___r_e_g_i_o_n.html#gae2abcdb6dbb843c9faf5fd3009eca9d6',1,'Region.h']]],
+  ['nextchanparams_5ft_3520',['NextChanParams_t',['../group___r_e_g_i_o_n.html#ga115f5e83afae352c0a3dcdc193374040',1,'Region.h']]]
 ];

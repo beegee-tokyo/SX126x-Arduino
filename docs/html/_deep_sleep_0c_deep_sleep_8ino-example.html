@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="Yin_yang-48x48.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SX126x-Arduino
-   &#160;<span id="projectnumber">1.3.0</span>
+   &#160;<span id="projectnumber">2.0.1</span>
    </div>
   </td>
  </tr>
@@ -153,14 +153,14 @@ $(function() {
 <div class="line">                          IRQ_RADIO_NONE, IRQ_RADIO_NONE);</div>
 <div class="line">    // To get maximum power savings we use Radio.SetRxDutyCycle instead of Radio.Rx(0)</div>
 <div class="line">    // This function keeps the SX1261/2 chip most of the time in sleep and only wakes up short times</div>
-<div class="line">    // to catch incoming data packages </div>
+<div class="line">    // to catch incoming data packages</div>
 <div class="line">    Radio.SetRxDutyCycle(2 * 1024 * 1000 * 15.625, 10 * 1024 * 15.625);</div>
 <div class="line"> </div>
 <div class="line">    // Go back to bed</div>
 <div class="line">#ifdef LOG_ON</div>
 <div class="line">    Serial.println(&quot;Start sleeping&quot;);</div>
 <div class="line">#endif</div>
-<div class="line">    // Make sure the DIO1, RESET and NSS GPIOs are hold on required levels during deep sleep </div>
+<div class="line">    // Make sure the DIO1, RESET and NSS GPIOs are hold on required levels during deep sleep</div>
 <div class="line">    rtc_gpio_pulldown_en((gpio_num_t)PIN_LORA_DIO_1);</div>
 <div class="line">    rtc_gpio_pullup_en((gpio_num_t)PIN_LORA_RESET);</div>
 <div class="line">    rtc_gpio_pullup_en((gpio_num_t)PIN_LORA_NSS);</div>
@@ -200,7 +200,7 @@ $(function() {
 <div class="line">    // Define the HW configuration between MCU and SX126x</div>
 <div class="line">    hwConfig.CHIP_TYPE = SX1262_CHIP;         // Example uses an eByte E22 module with an SX1262</div>
 <div class="line">    hwConfig.PIN_LORA_RESET = PIN_LORA_RESET; // LORA RESET</div>
-<div class="line">    hwConfig.PIN_LORA_NSS = PIN_LORA_NSS;    // LORA SPI CS</div>
+<div class="line">    hwConfig.PIN_LORA_NSS = PIN_LORA_NSS;     // LORA SPI CS</div>
 <div class="line">    hwConfig.PIN_LORA_SCLK = PIN_LORA_SCLK;   // LORA SPI CLK</div>
 <div class="line">    hwConfig.PIN_LORA_MISO = PIN_LORA_MISO;   // LORA SPI MISO</div>
 <div class="line">    hwConfig.PIN_LORA_DIO_1 = PIN_LORA_DIO_1; // LORA DIO_1</div>
@@ -210,9 +210,9 @@ $(function() {
 <div class="line">    hwConfig.RADIO_RXEN = -1;                 // LORA ANTENNA RX ENABLE</div>
 <div class="line">    hwConfig.USE_DIO2_ANT_SWITCH = true;      // Example uses an CircuitRocks Alora RFM1262 which uses DIO2 pins as antenna control</div>
 <div class="line">    hwConfig.USE_DIO3_TCXO = true;            // Example uses an CircuitRocks Alora RFM1262 which uses DIO3 to control oscillator voltage</div>
-<div class="line">    hwConfig.USE_DIO3_ANT_SWITCH = false;    // Only Insight ISP4520 module uses DIO3 as antenna control</div>
+<div class="line">    hwConfig.USE_DIO3_ANT_SWITCH = false;     // Only Insight ISP4520 module uses DIO3 as antenna control</div>
 <div class="line"> </div>
-<div class="line">    // Slowing down the ESP32 to 1/4 of its speed saves more energy </div>
+<div class="line">    // Slowing down the ESP32 to 1/4 of its speed saves more energy</div>
 <div class="line">    setCpuFrequencyMhz(80);</div>
 <div class="line"> </div>
 <div class="line">    // Initialize the LoRa chip</div>

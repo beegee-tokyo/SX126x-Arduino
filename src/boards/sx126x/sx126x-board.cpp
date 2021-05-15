@@ -62,7 +62,7 @@ extern "C"
 		pinMode(_hwConfig.PIN_LORA_RESET, OUTPUT);
 		digitalWrite(_hwConfig.PIN_LORA_RESET, HIGH);
 
-		// Use RADIO_TXEN as power for the antenna switch
+		// Use RADIO_RXEN as power for the antenna switch
 		if (_hwConfig.USE_RXEN_ANT_PWR)
 		{
 			pinMode(_hwConfig.RADIO_TXEN, INPUT);
@@ -94,7 +94,7 @@ extern "C"
 		// pinMode(_hwConfig.PIN_LORA_RESET, OUTPUT);
 		// digitalWrite(_hwConfig.PIN_LORA_RESET, HIGH);
 
-		// If only RADIO_TXEN is defined, it is the power control for the antenna switch
+		// If only RADIO_RXEN is defined, it is the power control for the antenna switch
 		if (_hwConfig.USE_RXEN_ANT_PWR)
 		{
 			pinMode(_hwConfig.RADIO_TXEN, INPUT);
@@ -501,7 +501,7 @@ extern "C"
 			SX126xDio3Control(true);
 		}
 
-		// Use if RADIO_TXEN is used as antenna switch power control
+		// Use if RADIO_RXEN is used as antenna switch power control
 		if (_hwConfig.USE_RXEN_ANT_PWR)
 		{
 			digitalWrite(_hwConfig.RADIO_RXEN, HIGH);
@@ -515,7 +515,7 @@ extern "C"
 		{
 			SX126xDio3Control(false);
 		}
-		// Use if RADIO_TXEN is used as antenna switch power control
+		// Use if RADIO_RXEN is used as antenna switch power control
 		if (_hwConfig.USE_RXEN_ANT_PWR)
 		{
 			digitalWrite(_hwConfig.RADIO_RXEN, LOW);
