@@ -65,6 +65,8 @@ This parameter selects the LoRaWAN region for your application. Allowed values f
 IF YOU DO NOT SET THE TWO NEW PARAMETERS, YOUR APPLICATION WILL BE SETUP AS _CLASS&nbsp;A_ NODE USING _EU868&nbsp;REGION_ PARAMETERS!
 # IMPORTANT NOTE 2:
 You can set the LoRaWAN region one time after an MCU reset or start-up. Changing the region during run-time is not (yet) supported. It is suggested that you store LoRaWAN settings in non-volitale memory on the MCU. There is an example how to do this for nRF52 and how to setup the LoRaWAN region and other settings over BLE in the [RAK4631-LoRa-BLE-Config](https://github.com/beegee-tokyo/RAK4631-LoRa-BLE-Config) example. I will provide a similar example for the ESP32 in the future.
+# IMPORTANT NOTE 4 (FOR PLATFORMIO USERS):  
+If you are using PlatformIO, the entry for the region in platformio.ini **must** be removed!     
 # IMPORTANT NOTE 3:
 For users of the Arduino BSP _`RAK-nRF52-Arduino`_    
 The old **`RAK nRF52 Arduino BSP`** sets automatically the region that you selected from the Tools menu. This will cause a compile error when using the **`SX126x-Arduino V2 library`**. To get around this problem, please update the **`RAK nRF52 Arduino BSP`** to version **`0.21.20`** or newer! You can find the installation instructions in the [BSP repository](https://github.com/RAKWireless/RAKwireless-Arduino-BSP-Index)    

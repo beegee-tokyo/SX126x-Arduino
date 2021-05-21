@@ -184,12 +184,12 @@ RU864 has only two default channels for the join process. Additional channels wi
 
 |  Additional channels | Frequency |
 | :-:     | :-:       |
-| 2       | 869300000 |   
-| 3       | 869500000 |    
-| 4       | 869700000 |   
-| 5       | 869900000 |    
-| 6       | 870100000 |   
-| 7       | 870300000 |    
+| 2       | 864100000 |   
+| 3       | 864300000 |    
+| 4       | 864500000 |   
+| 5       | 864700000 |    
+| 6       | 864900000 |   
+| 7       | 865100000 |    
 
 ---
 ### South Korea 920MHz
