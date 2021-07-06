@@ -27,9 +27,6 @@ Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jae
 // Regional includes
 #include "Region.h"
 
-extern "C"
-{
-
 // Setup regions
 #ifdef REGION_AS923
 #include "RegionAS923.h"
@@ -1310,556 +1307,555 @@ extern "C"
 #define RU864_APPLY_DR_OFFSET()
 #endif
 
-	bool RegionIsActive(LoRaMacRegion_t region)
+bool RegionIsActive(LoRaMacRegion_t region)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_IS_ACTIVE();
-			AU915_IS_ACTIVE();
-			CN470_IS_ACTIVE();
-			CN779_IS_ACTIVE();
-			EU433_IS_ACTIVE();
-			EU868_IS_ACTIVE();
-			KR920_IS_ACTIVE();
-			IN865_IS_ACTIVE();
-			US915_IS_ACTIVE();
-			AS923_2_IS_ACTIVE();
-			AS923_3_IS_ACTIVE();
-			AS923_4_IS_ACTIVE();
-			RU864_IS_ACTIVE();
-		default:
-		{
-			return false;
-		}
-		}
+		AS923_IS_ACTIVE();
+		AU915_IS_ACTIVE();
+		CN470_IS_ACTIVE();
+		CN779_IS_ACTIVE();
+		EU433_IS_ACTIVE();
+		EU868_IS_ACTIVE();
+		KR920_IS_ACTIVE();
+		IN865_IS_ACTIVE();
+		US915_IS_ACTIVE();
+		AS923_2_IS_ACTIVE();
+		AS923_3_IS_ACTIVE();
+		AS923_4_IS_ACTIVE();
+		RU864_IS_ACTIVE();
+	default:
+	{
+		return false;
 	}
+	}
+}
 
-	PhyParam_t RegionGetPhyParam(LoRaMacRegion_t region, GetPhyParams_t *getPhy)
+PhyParam_t RegionGetPhyParam(LoRaMacRegion_t region, GetPhyParams_t *getPhy)
+{
+	PhyParam_t phyParam = {0};
+	switch (region)
 	{
-		PhyParam_t phyParam = {0};
-		switch (region)
-		{
-			AS923_GET_PHY_PARAM();
-			AU915_GET_PHY_PARAM();
-			CN470_GET_PHY_PARAM();
-			CN779_GET_PHY_PARAM();
-			EU433_GET_PHY_PARAM();
-			EU868_GET_PHY_PARAM();
-			KR920_GET_PHY_PARAM();
-			IN865_GET_PHY_PARAM();
-			US915_GET_PHY_PARAM();
-			AS923_2_GET_PHY_PARAM();
-			AS923_3_GET_PHY_PARAM();
-			AS923_4_GET_PHY_PARAM();
-			RU864_GET_PHY_PARAM();
-		default:
-		{
-			return phyParam;
-		}
-		}
+		AS923_GET_PHY_PARAM();
+		AU915_GET_PHY_PARAM();
+		CN470_GET_PHY_PARAM();
+		CN779_GET_PHY_PARAM();
+		EU433_GET_PHY_PARAM();
+		EU868_GET_PHY_PARAM();
+		KR920_GET_PHY_PARAM();
+		IN865_GET_PHY_PARAM();
+		US915_GET_PHY_PARAM();
+		AS923_2_GET_PHY_PARAM();
+		AS923_3_GET_PHY_PARAM();
+		AS923_4_GET_PHY_PARAM();
+		RU864_GET_PHY_PARAM();
+	default:
+	{
+		return phyParam;
 	}
+	}
+}
 
-	void RegionSetBandTxDone(LoRaMacRegion_t region, SetBandTxDoneParams_t *txDone)
+void RegionSetBandTxDone(LoRaMacRegion_t region, SetBandTxDoneParams_t *txDone)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_SET_BAND_TX_DONE();
-			AU915_SET_BAND_TX_DONE();
-			CN470_SET_BAND_TX_DONE();
-			CN779_SET_BAND_TX_DONE();
-			EU433_SET_BAND_TX_DONE();
-			EU868_SET_BAND_TX_DONE();
-			KR920_SET_BAND_TX_DONE();
-			IN865_SET_BAND_TX_DONE();
-			US915_SET_BAND_TX_DONE();
-			AS923_2_SET_BAND_TX_DONE();
-			AS923_3_SET_BAND_TX_DONE();
-			AS923_4_SET_BAND_TX_DONE();
-			RU864_SET_BAND_TX_DONE();
-		default:
-		{
-			return;
-		}
-		}
+		AS923_SET_BAND_TX_DONE();
+		AU915_SET_BAND_TX_DONE();
+		CN470_SET_BAND_TX_DONE();
+		CN779_SET_BAND_TX_DONE();
+		EU433_SET_BAND_TX_DONE();
+		EU868_SET_BAND_TX_DONE();
+		KR920_SET_BAND_TX_DONE();
+		IN865_SET_BAND_TX_DONE();
+		US915_SET_BAND_TX_DONE();
+		AS923_2_SET_BAND_TX_DONE();
+		AS923_3_SET_BAND_TX_DONE();
+		AS923_4_SET_BAND_TX_DONE();
+		RU864_SET_BAND_TX_DONE();
+	default:
+	{
+		return;
 	}
+	}
+}
 
-	void RegionInitDefaults(LoRaMacRegion_t region, InitType_t type)
+void RegionInitDefaults(LoRaMacRegion_t region, InitType_t type)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_INIT_DEFAULTS();
-			AU915_INIT_DEFAULTS();
-			CN470_INIT_DEFAULTS();
-			CN779_INIT_DEFAULTS();
-			EU433_INIT_DEFAULTS();
-			EU868_INIT_DEFAULTS();
-			KR920_INIT_DEFAULTS();
-			IN865_INIT_DEFAULTS();
-			US915_INIT_DEFAULTS();
-			AS923_2_INIT_DEFAULTS();
-			AS923_3_INIT_DEFAULTS();
-			AS923_4_INIT_DEFAULTS();
-			RU864_INIT_DEFAULTS();
-		default:
-		{
-			break;
-		}
-		}
+		AS923_INIT_DEFAULTS();
+		AU915_INIT_DEFAULTS();
+		CN470_INIT_DEFAULTS();
+		CN779_INIT_DEFAULTS();
+		EU433_INIT_DEFAULTS();
+		EU868_INIT_DEFAULTS();
+		KR920_INIT_DEFAULTS();
+		IN865_INIT_DEFAULTS();
+		US915_INIT_DEFAULTS();
+		AS923_2_INIT_DEFAULTS();
+		AS923_3_INIT_DEFAULTS();
+		AS923_4_INIT_DEFAULTS();
+		RU864_INIT_DEFAULTS();
+	default:
+	{
+		break;
 	}
+	}
+}
 
-	bool RegionVerify(LoRaMacRegion_t region, VerifyParams_t *verify, PhyAttribute_t phyAttribute)
+bool RegionVerify(LoRaMacRegion_t region, VerifyParams_t *verify, PhyAttribute_t phyAttribute)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_VERIFY();
-			AU915_VERIFY();
-			CN470_VERIFY();
-			CN779_VERIFY();
-			EU433_VERIFY();
-			EU868_VERIFY();
-			KR920_VERIFY();
-			IN865_VERIFY();
-			US915_VERIFY();
-			AS923_2_VERIFY();
-			AS923_3_VERIFY();
-			AS923_4_VERIFY();
-			RU864_VERIFY();
-		default:
-		{
-			return false;
-		}
-		}
+		AS923_VERIFY();
+		AU915_VERIFY();
+		CN470_VERIFY();
+		CN779_VERIFY();
+		EU433_VERIFY();
+		EU868_VERIFY();
+		KR920_VERIFY();
+		IN865_VERIFY();
+		US915_VERIFY();
+		AS923_2_VERIFY();
+		AS923_3_VERIFY();
+		AS923_4_VERIFY();
+		RU864_VERIFY();
+	default:
+	{
+		return false;
 	}
+	}
+}
 
-	void RegionApplyCFList(LoRaMacRegion_t region, ApplyCFListParams_t *applyCFList)
+void RegionApplyCFList(LoRaMacRegion_t region, ApplyCFListParams_t *applyCFList)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_APPLY_CF_LIST();
-			AU915_APPLY_CF_LIST();
-			CN470_APPLY_CF_LIST();
-			CN779_APPLY_CF_LIST();
-			EU433_APPLY_CF_LIST();
-			EU868_APPLY_CF_LIST();
-			KR920_APPLY_CF_LIST();
-			IN865_APPLY_CF_LIST();
-			US915_APPLY_CF_LIST();
-			AS923_2_APPLY_CF_LIST();
-			AS923_3_APPLY_CF_LIST();
-			AS923_4_APPLY_CF_LIST();
-			RU864_APPLY_CF_LIST();
-		default:
-		{
-			break;
-		}
-		}
+		AS923_APPLY_CF_LIST();
+		AU915_APPLY_CF_LIST();
+		CN470_APPLY_CF_LIST();
+		CN779_APPLY_CF_LIST();
+		EU433_APPLY_CF_LIST();
+		EU868_APPLY_CF_LIST();
+		KR920_APPLY_CF_LIST();
+		IN865_APPLY_CF_LIST();
+		US915_APPLY_CF_LIST();
+		AS923_2_APPLY_CF_LIST();
+		AS923_3_APPLY_CF_LIST();
+		AS923_4_APPLY_CF_LIST();
+		RU864_APPLY_CF_LIST();
+	default:
+	{
+		break;
 	}
+	}
+}
 
-	bool RegionChanMaskSet(LoRaMacRegion_t region, ChanMaskSetParams_t *chanMaskSet)
+bool RegionChanMaskSet(LoRaMacRegion_t region, ChanMaskSetParams_t *chanMaskSet)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_CHAN_MASK_SET();
-			AU915_CHAN_MASK_SET();
-			CN470_CHAN_MASK_SET();
-			CN779_CHAN_MASK_SET();
-			EU433_CHAN_MASK_SET();
-			EU868_CHAN_MASK_SET();
-			KR920_CHAN_MASK_SET();
-			IN865_CHAN_MASK_SET();
-			US915_CHAN_MASK_SET();
-			AS923_2_CHAN_MASK_SET();
-			AS923_3_CHAN_MASK_SET();
-			AS923_4_CHAN_MASK_SET();
-			RU864_CHAN_MASK_SET();
-		default:
-		{
-			return false;
-		}
-		}
+		AS923_CHAN_MASK_SET();
+		AU915_CHAN_MASK_SET();
+		CN470_CHAN_MASK_SET();
+		CN779_CHAN_MASK_SET();
+		EU433_CHAN_MASK_SET();
+		EU868_CHAN_MASK_SET();
+		KR920_CHAN_MASK_SET();
+		IN865_CHAN_MASK_SET();
+		US915_CHAN_MASK_SET();
+		AS923_2_CHAN_MASK_SET();
+		AS923_3_CHAN_MASK_SET();
+		AS923_4_CHAN_MASK_SET();
+		RU864_CHAN_MASK_SET();
+	default:
+	{
+		return false;
 	}
+	}
+}
 
-	bool RegionAdrNext(LoRaMacRegion_t region, AdrNextParams_t *adrNext, int8_t *drOut, int8_t *txPowOut, uint32_t *adrAckCounter)
+bool RegionAdrNext(LoRaMacRegion_t region, AdrNextParams_t *adrNext, int8_t *drOut, int8_t *txPowOut, uint32_t *adrAckCounter)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_ADR_NEXT();
-			AU915_ADR_NEXT();
-			CN470_ADR_NEXT();
-			CN779_ADR_NEXT();
-			EU433_ADR_NEXT();
-			EU868_ADR_NEXT();
-			KR920_ADR_NEXT();
-			IN865_ADR_NEXT();
-			US915_ADR_NEXT();
-			AS923_2_ADR_NEXT();
-			AS923_3_ADR_NEXT();
-			AS923_4_ADR_NEXT();
-			RU864_ADR_NEXT();
-		default:
-		{
-			return false;
-		}
-		}
+		AS923_ADR_NEXT();
+		AU915_ADR_NEXT();
+		CN470_ADR_NEXT();
+		CN779_ADR_NEXT();
+		EU433_ADR_NEXT();
+		EU868_ADR_NEXT();
+		KR920_ADR_NEXT();
+		IN865_ADR_NEXT();
+		US915_ADR_NEXT();
+		AS923_2_ADR_NEXT();
+		AS923_3_ADR_NEXT();
+		AS923_4_ADR_NEXT();
+		RU864_ADR_NEXT();
+	default:
+	{
+		return false;
 	}
+	}
+}
 
-	void RegionComputeRxWindowParameters(LoRaMacRegion_t region, int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams)
+void RegionComputeRxWindowParameters(LoRaMacRegion_t region, int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_COMPUTE_RX_WINDOW_PARAMETERS();
-			AU915_COMPUTE_RX_WINDOW_PARAMETERS();
-			CN470_COMPUTE_RX_WINDOW_PARAMETERS();
-			CN779_COMPUTE_RX_WINDOW_PARAMETERS();
-			EU433_COMPUTE_RX_WINDOW_PARAMETERS();
-			EU868_COMPUTE_RX_WINDOW_PARAMETERS();
-			KR920_COMPUTE_RX_WINDOW_PARAMETERS();
-			IN865_COMPUTE_RX_WINDOW_PARAMETERS();
-			US915_COMPUTE_RX_WINDOW_PARAMETERS();
-			AS923_2_COMPUTE_RX_WINDOW_PARAMETERS();
-			AS923_3_COMPUTE_RX_WINDOW_PARAMETERS();
-			AS923_4_COMPUTE_RX_WINDOW_PARAMETERS();
-			RU864_COMPUTE_RX_WINDOW_PARAMETERS();
-		default:
-		{
-			break;
-		}
-		}
+		AS923_COMPUTE_RX_WINDOW_PARAMETERS();
+		AU915_COMPUTE_RX_WINDOW_PARAMETERS();
+		CN470_COMPUTE_RX_WINDOW_PARAMETERS();
+		CN779_COMPUTE_RX_WINDOW_PARAMETERS();
+		EU433_COMPUTE_RX_WINDOW_PARAMETERS();
+		EU868_COMPUTE_RX_WINDOW_PARAMETERS();
+		KR920_COMPUTE_RX_WINDOW_PARAMETERS();
+		IN865_COMPUTE_RX_WINDOW_PARAMETERS();
+		US915_COMPUTE_RX_WINDOW_PARAMETERS();
+		AS923_2_COMPUTE_RX_WINDOW_PARAMETERS();
+		AS923_3_COMPUTE_RX_WINDOW_PARAMETERS();
+		AS923_4_COMPUTE_RX_WINDOW_PARAMETERS();
+		RU864_COMPUTE_RX_WINDOW_PARAMETERS();
+	default:
+	{
+		break;
 	}
+	}
+}
 
-	bool RegionRxConfig(LoRaMacRegion_t region, RxConfigParams_t *rxConfig, int8_t *datarate)
+bool RegionRxConfig(LoRaMacRegion_t region, RxConfigParams_t *rxConfig, int8_t *datarate)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_RX_CONFIG();
-			AU915_RX_CONFIG();
-			CN470_RX_CONFIG();
-			CN779_RX_CONFIG();
-			EU433_RX_CONFIG();
-			EU868_RX_CONFIG();
-			KR920_RX_CONFIG();
-			IN865_RX_CONFIG();
-			US915_RX_CONFIG();
-			AS923_2_RX_CONFIG();
-			AS923_3_RX_CONFIG();
-			AS923_4_RX_CONFIG();
-			RU864_RX_CONFIG();
-		default:
-		{
-			return false;
-		}
-		}
+		AS923_RX_CONFIG();
+		AU915_RX_CONFIG();
+		CN470_RX_CONFIG();
+		CN779_RX_CONFIG();
+		EU433_RX_CONFIG();
+		EU868_RX_CONFIG();
+		KR920_RX_CONFIG();
+		IN865_RX_CONFIG();
+		US915_RX_CONFIG();
+		AS923_2_RX_CONFIG();
+		AS923_3_RX_CONFIG();
+		AS923_4_RX_CONFIG();
+		RU864_RX_CONFIG();
+	default:
+	{
+		return false;
 	}
+	}
+}
 
-	bool RegionTxConfig(LoRaMacRegion_t region, TxConfigParams_t *txConfig, int8_t *txPower, TimerTime_t *txTimeOnAir)
+bool RegionTxConfig(LoRaMacRegion_t region, TxConfigParams_t *txConfig, int8_t *txPower, TimerTime_t *txTimeOnAir)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_TX_CONFIG();
-			AU915_TX_CONFIG();
-			CN470_TX_CONFIG();
-			CN779_TX_CONFIG();
-			EU433_TX_CONFIG();
-			EU868_TX_CONFIG();
-			KR920_TX_CONFIG();
-			IN865_TX_CONFIG();
-			US915_TX_CONFIG();
-			AS923_2_TX_CONFIG();
-			AS923_3_TX_CONFIG();
-			AS923_4_TX_CONFIG();
-			RU864_TX_CONFIG();
-		default:
-		{
-			return false;
-		}
-		}
+		AS923_TX_CONFIG();
+		AU915_TX_CONFIG();
+		CN470_TX_CONFIG();
+		CN779_TX_CONFIG();
+		EU433_TX_CONFIG();
+		EU868_TX_CONFIG();
+		KR920_TX_CONFIG();
+		IN865_TX_CONFIG();
+		US915_TX_CONFIG();
+		AS923_2_TX_CONFIG();
+		AS923_3_TX_CONFIG();
+		AS923_4_TX_CONFIG();
+		RU864_TX_CONFIG();
+	default:
+	{
+		return false;
 	}
+	}
+}
 
-	uint8_t RegionLinkAdrReq(LoRaMacRegion_t region, LinkAdrReqParams_t *linkAdrReq, int8_t *drOut, int8_t *txPowOut, uint8_t *nbRepOut, uint8_t *nbBytesParsed)
+uint8_t RegionLinkAdrReq(LoRaMacRegion_t region, LinkAdrReqParams_t *linkAdrReq, int8_t *drOut, int8_t *txPowOut, uint8_t *nbRepOut, uint8_t *nbBytesParsed)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_LINK_ADR_REQ();
-			AU915_LINK_ADR_REQ();
-			CN470_LINK_ADR_REQ();
-			CN779_LINK_ADR_REQ();
-			EU433_LINK_ADR_REQ();
-			EU868_LINK_ADR_REQ();
-			KR920_LINK_ADR_REQ();
-			IN865_LINK_ADR_REQ();
-			US915_LINK_ADR_REQ();
-			AS923_2_LINK_ADR_REQ();
-			AS923_3_LINK_ADR_REQ();
-			AS923_4_LINK_ADR_REQ();
-			RU864_LINK_ADR_REQ();
-		default:
-		{
-			return 0;
-		}
-		}
+		AS923_LINK_ADR_REQ();
+		AU915_LINK_ADR_REQ();
+		CN470_LINK_ADR_REQ();
+		CN779_LINK_ADR_REQ();
+		EU433_LINK_ADR_REQ();
+		EU868_LINK_ADR_REQ();
+		KR920_LINK_ADR_REQ();
+		IN865_LINK_ADR_REQ();
+		US915_LINK_ADR_REQ();
+		AS923_2_LINK_ADR_REQ();
+		AS923_3_LINK_ADR_REQ();
+		AS923_4_LINK_ADR_REQ();
+		RU864_LINK_ADR_REQ();
+	default:
+	{
+		return 0;
 	}
+	}
+}
 
-	uint8_t RegionRxParamSetupReq(LoRaMacRegion_t region, RxParamSetupReqParams_t *rxParamSetupReq)
+uint8_t RegionRxParamSetupReq(LoRaMacRegion_t region, RxParamSetupReqParams_t *rxParamSetupReq)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_RX_PARAM_SETUP_REQ();
-			AU915_RX_PARAM_SETUP_REQ();
-			CN470_RX_PARAM_SETUP_REQ();
-			CN779_RX_PARAM_SETUP_REQ();
-			EU433_RX_PARAM_SETUP_REQ();
-			EU868_RX_PARAM_SETUP_REQ();
-			KR920_RX_PARAM_SETUP_REQ();
-			IN865_RX_PARAM_SETUP_REQ();
-			US915_RX_PARAM_SETUP_REQ();
-			AS923_2_RX_PARAM_SETUP_REQ();
-			AS923_3_RX_PARAM_SETUP_REQ();
-			AS923_4_RX_PARAM_SETUP_REQ();
-			RU864_RX_PARAM_SETUP_REQ();
-		default:
-		{
-			return 0;
-		}
-		}
+		AS923_RX_PARAM_SETUP_REQ();
+		AU915_RX_PARAM_SETUP_REQ();
+		CN470_RX_PARAM_SETUP_REQ();
+		CN779_RX_PARAM_SETUP_REQ();
+		EU433_RX_PARAM_SETUP_REQ();
+		EU868_RX_PARAM_SETUP_REQ();
+		KR920_RX_PARAM_SETUP_REQ();
+		IN865_RX_PARAM_SETUP_REQ();
+		US915_RX_PARAM_SETUP_REQ();
+		AS923_2_RX_PARAM_SETUP_REQ();
+		AS923_3_RX_PARAM_SETUP_REQ();
+		AS923_4_RX_PARAM_SETUP_REQ();
+		RU864_RX_PARAM_SETUP_REQ();
+	default:
+	{
+		return 0;
 	}
+	}
+}
 
-	uint8_t RegionNewChannelReq(LoRaMacRegion_t region, NewChannelReqParams_t *newChannelReq)
+uint8_t RegionNewChannelReq(LoRaMacRegion_t region, NewChannelReqParams_t *newChannelReq)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_NEW_CHANNEL_REQ();
-			AU915_NEW_CHANNEL_REQ();
-			CN470_NEW_CHANNEL_REQ();
-			CN779_NEW_CHANNEL_REQ();
-			EU433_NEW_CHANNEL_REQ();
-			EU868_NEW_CHANNEL_REQ();
-			KR920_NEW_CHANNEL_REQ();
-			IN865_NEW_CHANNEL_REQ();
-			US915_NEW_CHANNEL_REQ();
-			AS923_2_NEW_CHANNEL_REQ();
-			AS923_3_NEW_CHANNEL_REQ();
-			AS923_4_NEW_CHANNEL_REQ();
-			RU864_NEW_CHANNEL_REQ();
-		default:
-		{
-			return 0;
-		}
-		}
+		AS923_NEW_CHANNEL_REQ();
+		AU915_NEW_CHANNEL_REQ();
+		CN470_NEW_CHANNEL_REQ();
+		CN779_NEW_CHANNEL_REQ();
+		EU433_NEW_CHANNEL_REQ();
+		EU868_NEW_CHANNEL_REQ();
+		KR920_NEW_CHANNEL_REQ();
+		IN865_NEW_CHANNEL_REQ();
+		US915_NEW_CHANNEL_REQ();
+		AS923_2_NEW_CHANNEL_REQ();
+		AS923_3_NEW_CHANNEL_REQ();
+		AS923_4_NEW_CHANNEL_REQ();
+		RU864_NEW_CHANNEL_REQ();
+	default:
+	{
+		return 0;
 	}
+	}
+}
 
-	int8_t RegionTxParamSetupReq(LoRaMacRegion_t region, TxParamSetupReqParams_t *txParamSetupReq)
+int8_t RegionTxParamSetupReq(LoRaMacRegion_t region, TxParamSetupReqParams_t *txParamSetupReq)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_TX_PARAM_SETUP_REQ();
-			AU915_TX_PARAM_SETUP_REQ();
-			CN470_TX_PARAM_SETUP_REQ();
-			CN779_TX_PARAM_SETUP_REQ();
-			EU433_TX_PARAM_SETUP_REQ();
-			EU868_TX_PARAM_SETUP_REQ();
-			KR920_TX_PARAM_SETUP_REQ();
-			IN865_TX_PARAM_SETUP_REQ();
-			US915_TX_PARAM_SETUP_REQ();
-			AS923_2_TX_PARAM_SETUP_REQ();
-			AS923_3_TX_PARAM_SETUP_REQ();
-			AS923_4_TX_PARAM_SETUP_REQ();
-			RU864_TX_PARAM_SETUP_REQ();
-		default:
-		{
-			return 0;
-		}
-		}
+		AS923_TX_PARAM_SETUP_REQ();
+		AU915_TX_PARAM_SETUP_REQ();
+		CN470_TX_PARAM_SETUP_REQ();
+		CN779_TX_PARAM_SETUP_REQ();
+		EU433_TX_PARAM_SETUP_REQ();
+		EU868_TX_PARAM_SETUP_REQ();
+		KR920_TX_PARAM_SETUP_REQ();
+		IN865_TX_PARAM_SETUP_REQ();
+		US915_TX_PARAM_SETUP_REQ();
+		AS923_2_TX_PARAM_SETUP_REQ();
+		AS923_3_TX_PARAM_SETUP_REQ();
+		AS923_4_TX_PARAM_SETUP_REQ();
+		RU864_TX_PARAM_SETUP_REQ();
+	default:
+	{
+		return 0;
 	}
+	}
+}
 
-	uint8_t RegionDlChannelReq(LoRaMacRegion_t region, DlChannelReqParams_t *dlChannelReq)
+uint8_t RegionDlChannelReq(LoRaMacRegion_t region, DlChannelReqParams_t *dlChannelReq)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_DL_CHANNEL_REQ();
-			AU915_DL_CHANNEL_REQ();
-			CN470_DL_CHANNEL_REQ();
-			CN779_DL_CHANNEL_REQ();
-			EU433_DL_CHANNEL_REQ();
-			EU868_DL_CHANNEL_REQ();
-			KR920_DL_CHANNEL_REQ();
-			IN865_DL_CHANNEL_REQ();
-			US915_DL_CHANNEL_REQ();
-			AS923_2_DL_CHANNEL_REQ();
-			AS923_3_DL_CHANNEL_REQ();
-			AS923_4_DL_CHANNEL_REQ();
-			RU864_DL_CHANNEL_REQ();
-		default:
-		{
-			return 0;
-		}
-		}
+		AS923_DL_CHANNEL_REQ();
+		AU915_DL_CHANNEL_REQ();
+		CN470_DL_CHANNEL_REQ();
+		CN779_DL_CHANNEL_REQ();
+		EU433_DL_CHANNEL_REQ();
+		EU868_DL_CHANNEL_REQ();
+		KR920_DL_CHANNEL_REQ();
+		IN865_DL_CHANNEL_REQ();
+		US915_DL_CHANNEL_REQ();
+		AS923_2_DL_CHANNEL_REQ();
+		AS923_3_DL_CHANNEL_REQ();
+		AS923_4_DL_CHANNEL_REQ();
+		RU864_DL_CHANNEL_REQ();
+	default:
+	{
+		return 0;
 	}
+	}
+}
 
-	int8_t RegionAlternateDr(LoRaMacRegion_t region, AlternateDrParams_t *alternateDr)
+int8_t RegionAlternateDr(LoRaMacRegion_t region, AlternateDrParams_t *alternateDr)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_ALTERNATE_DR();
-			AU915_ALTERNATE_DR();
-			CN470_ALTERNATE_DR();
-			CN779_ALTERNATE_DR();
-			EU433_ALTERNATE_DR();
-			EU868_ALTERNATE_DR();
-			KR920_ALTERNATE_DR();
-			IN865_ALTERNATE_DR();
-			US915_ALTERNATE_DR();
-			AS923_2_ALTERNATE_DR();
-			AS923_3_ALTERNATE_DR();
-			AS923_4_ALTERNATE_DR();
-			RU864_ALTERNATE_DR();
-		default:
-		{
-			return 0;
-		}
-		}
+		AS923_ALTERNATE_DR();
+		AU915_ALTERNATE_DR();
+		CN470_ALTERNATE_DR();
+		CN779_ALTERNATE_DR();
+		EU433_ALTERNATE_DR();
+		EU868_ALTERNATE_DR();
+		KR920_ALTERNATE_DR();
+		IN865_ALTERNATE_DR();
+		US915_ALTERNATE_DR();
+		AS923_2_ALTERNATE_DR();
+		AS923_3_ALTERNATE_DR();
+		AS923_4_ALTERNATE_DR();
+		RU864_ALTERNATE_DR();
+	default:
+	{
+		return 0;
 	}
+	}
+}
 
-	void RegionCalcBackOff(LoRaMacRegion_t region, CalcBackOffParams_t *calcBackOff)
+void RegionCalcBackOff(LoRaMacRegion_t region, CalcBackOffParams_t *calcBackOff)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_CALC_BACKOFF();
-			AU915_CALC_BACKOFF();
-			CN470_CALC_BACKOFF();
-			CN779_CALC_BACKOFF();
-			EU433_CALC_BACKOFF();
-			EU868_CALC_BACKOFF();
-			KR920_CALC_BACKOFF();
-			IN865_CALC_BACKOFF();
-			US915_CALC_BACKOFF();
-			AS923_2_CALC_BACKOFF();
-			AS923_3_CALC_BACKOFF();
-			AS923_4_CALC_BACKOFF();
-			RU864_CALC_BACKOFF();
-		default:
-		{
-			break;
-		}
-		}
+		AS923_CALC_BACKOFF();
+		AU915_CALC_BACKOFF();
+		CN470_CALC_BACKOFF();
+		CN779_CALC_BACKOFF();
+		EU433_CALC_BACKOFF();
+		EU868_CALC_BACKOFF();
+		KR920_CALC_BACKOFF();
+		IN865_CALC_BACKOFF();
+		US915_CALC_BACKOFF();
+		AS923_2_CALC_BACKOFF();
+		AS923_3_CALC_BACKOFF();
+		AS923_4_CALC_BACKOFF();
+		RU864_CALC_BACKOFF();
+	default:
+	{
+		break;
 	}
+	}
+}
 
-	bool RegionNextChannel(LoRaMacRegion_t region, NextChanParams_t *nextChanParams, uint8_t *channel, TimerTime_t *time, TimerTime_t *aggregatedTimeOff)
+bool RegionNextChannel(LoRaMacRegion_t region, NextChanParams_t *nextChanParams, uint8_t *channel, TimerTime_t *time, TimerTime_t *aggregatedTimeOff)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_NEXT_CHANNEL();
-			AU915_NEXT_CHANNEL();
-			CN470_NEXT_CHANNEL();
-			CN779_NEXT_CHANNEL();
-			EU433_NEXT_CHANNEL();
-			EU868_NEXT_CHANNEL();
-			KR920_NEXT_CHANNEL();
-			IN865_NEXT_CHANNEL();
-			US915_NEXT_CHANNEL();
-			AS923_2_NEXT_CHANNEL();
-			AS923_3_NEXT_CHANNEL();
-			AS923_4_NEXT_CHANNEL();
-			RU864_NEXT_CHANNEL();
-		default:
-		{
-			return false;
-		}
-		}
+		AS923_NEXT_CHANNEL();
+		AU915_NEXT_CHANNEL();
+		CN470_NEXT_CHANNEL();
+		CN779_NEXT_CHANNEL();
+		EU433_NEXT_CHANNEL();
+		EU868_NEXT_CHANNEL();
+		KR920_NEXT_CHANNEL();
+		IN865_NEXT_CHANNEL();
+		US915_NEXT_CHANNEL();
+		AS923_2_NEXT_CHANNEL();
+		AS923_3_NEXT_CHANNEL();
+		AS923_4_NEXT_CHANNEL();
+		RU864_NEXT_CHANNEL();
+	default:
+	{
+		return false;
 	}
+	}
+}
 
-	LoRaMacStatus_t RegionChannelAdd(LoRaMacRegion_t region, ChannelAddParams_t *channelAdd)
+LoRaMacStatus_t RegionChannelAdd(LoRaMacRegion_t region, ChannelAddParams_t *channelAdd)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_CHANNEL_ADD();
-			AU915_CHANNEL_ADD();
-			CN470_CHANNEL_ADD();
-			CN779_CHANNEL_ADD();
-			EU433_CHANNEL_ADD();
-			EU868_CHANNEL_ADD();
-			KR920_CHANNEL_ADD();
-			IN865_CHANNEL_ADD();
-			US915_CHANNEL_ADD();
-			AS923_2_CHANNEL_ADD();
-			AS923_3_CHANNEL_ADD();
-			AS923_4_CHANNEL_ADD();
-			RU864_CHANNEL_ADD();
-		default:
-		{
-			return LORAMAC_STATUS_PARAMETER_INVALID;
-		}
-		}
+		AS923_CHANNEL_ADD();
+		AU915_CHANNEL_ADD();
+		CN470_CHANNEL_ADD();
+		CN779_CHANNEL_ADD();
+		EU433_CHANNEL_ADD();
+		EU868_CHANNEL_ADD();
+		KR920_CHANNEL_ADD();
+		IN865_CHANNEL_ADD();
+		US915_CHANNEL_ADD();
+		AS923_2_CHANNEL_ADD();
+		AS923_3_CHANNEL_ADD();
+		AS923_4_CHANNEL_ADD();
+		RU864_CHANNEL_ADD();
+	default:
+	{
+		return LORAMAC_STATUS_PARAMETER_INVALID;
 	}
+	}
+}
 
-	bool RegionChannelsRemove(LoRaMacRegion_t region, ChannelRemoveParams_t *channelRemove)
+bool RegionChannelsRemove(LoRaMacRegion_t region, ChannelRemoveParams_t *channelRemove)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_CHANNEL_REMOVE();
-			AU915_CHANNEL_REMOVE();
-			CN470_CHANNEL_REMOVE();
-			CN779_CHANNEL_REMOVE();
-			EU433_CHANNEL_REMOVE();
-			EU868_CHANNEL_REMOVE();
-			KR920_CHANNEL_REMOVE();
-			IN865_CHANNEL_REMOVE();
-			US915_CHANNEL_REMOVE();
-			AS923_2_CHANNEL_REMOVE();
-			AS923_3_CHANNEL_REMOVE();
-			AS923_4_CHANNEL_REMOVE();
-			RU864_CHANNEL_REMOVE();
-		default:
-		{
-			return false;
-		}
-		}
+		AS923_CHANNEL_REMOVE();
+		AU915_CHANNEL_REMOVE();
+		CN470_CHANNEL_REMOVE();
+		CN779_CHANNEL_REMOVE();
+		EU433_CHANNEL_REMOVE();
+		EU868_CHANNEL_REMOVE();
+		KR920_CHANNEL_REMOVE();
+		IN865_CHANNEL_REMOVE();
+		US915_CHANNEL_REMOVE();
+		AS923_2_CHANNEL_REMOVE();
+		AS923_3_CHANNEL_REMOVE();
+		AS923_4_CHANNEL_REMOVE();
+		RU864_CHANNEL_REMOVE();
+	default:
+	{
+		return false;
 	}
+	}
+}
 
-	void RegionSetContinuousWave(LoRaMacRegion_t region, ContinuousWaveParams_t *continuousWave)
+void RegionSetContinuousWave(LoRaMacRegion_t region, ContinuousWaveParams_t *continuousWave)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_SET_CONTINUOUS_WAVE();
-			AU915_SET_CONTINUOUS_WAVE();
-			CN470_SET_CONTINUOUS_WAVE();
-			CN779_SET_CONTINUOUS_WAVE();
-			EU433_SET_CONTINUOUS_WAVE();
-			EU868_SET_CONTINUOUS_WAVE();
-			KR920_SET_CONTINUOUS_WAVE();
-			IN865_SET_CONTINUOUS_WAVE();
-			US915_SET_CONTINUOUS_WAVE();
-			AS923_2_SET_CONTINUOUS_WAVE();
-			AS923_3_SET_CONTINUOUS_WAVE();
-			AS923_4_SET_CONTINUOUS_WAVE();
-			RU864_SET_CONTINUOUS_WAVE();
-		default:
-		{
-			break;
-		}
-		}
+		AS923_SET_CONTINUOUS_WAVE();
+		AU915_SET_CONTINUOUS_WAVE();
+		CN470_SET_CONTINUOUS_WAVE();
+		CN779_SET_CONTINUOUS_WAVE();
+		EU433_SET_CONTINUOUS_WAVE();
+		EU868_SET_CONTINUOUS_WAVE();
+		KR920_SET_CONTINUOUS_WAVE();
+		IN865_SET_CONTINUOUS_WAVE();
+		US915_SET_CONTINUOUS_WAVE();
+		AS923_2_SET_CONTINUOUS_WAVE();
+		AS923_3_SET_CONTINUOUS_WAVE();
+		AS923_4_SET_CONTINUOUS_WAVE();
+		RU864_SET_CONTINUOUS_WAVE();
+	default:
+	{
+		break;
 	}
+	}
+}
 
-	uint8_t RegionApplyDrOffset(LoRaMacRegion_t region, uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset)
+uint8_t RegionApplyDrOffset(LoRaMacRegion_t region, uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset)
+{
+	switch (region)
 	{
-		switch (region)
-		{
-			AS923_APPLY_DR_OFFSET();
-			AU915_APPLY_DR_OFFSET();
-			CN470_APPLY_DR_OFFSET();
-			CN779_APPLY_DR_OFFSET();
-			EU433_APPLY_DR_OFFSET();
-			EU868_APPLY_DR_OFFSET();
-			KR920_APPLY_DR_OFFSET();
-			IN865_APPLY_DR_OFFSET();
-			US915_APPLY_DR_OFFSET();
-			AS923_2_APPLY_DR_OFFSET();
-			AS923_3_APPLY_DR_OFFSET();
-			AS923_4_APPLY_DR_OFFSET();
-			RU864_APPLY_DR_OFFSET();
-		default:
-		{
-			return dr;
-		}
-		}
+		AS923_APPLY_DR_OFFSET();
+		AU915_APPLY_DR_OFFSET();
+		CN470_APPLY_DR_OFFSET();
+		CN779_APPLY_DR_OFFSET();
+		EU433_APPLY_DR_OFFSET();
+		EU868_APPLY_DR_OFFSET();
+		KR920_APPLY_DR_OFFSET();
+		IN865_APPLY_DR_OFFSET();
+		US915_APPLY_DR_OFFSET();
+		AS923_2_APPLY_DR_OFFSET();
+		AS923_3_APPLY_DR_OFFSET();
+		AS923_4_APPLY_DR_OFFSET();
+		RU864_APPLY_DR_OFFSET();
+	default:
+	{
+		return dr;
 	}
-};
+	}
+}

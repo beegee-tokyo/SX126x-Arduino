@@ -35,76 +35,75 @@ Maintainer: Miguel Luis and Gregory Cristian
  *****************************************************************************/
 #if defined ESP32 || defined ESP8266
 #include "boards/mcu/board.h"
-extern "C"
+
+uint32_t BoardGetRandomSeed(void)
 {
-	uint32_t BoardGetRandomSeed(void)
-	{
-		return random(255);
-	}
+	return random(255);
+}
 
-	void BoardGetUniqueId(uint8_t *id)
-	{
+void BoardGetUniqueId(uint8_t *id)
+{
 #ifdef ESP8266
-		uint32_t uniqueId = ESP.getChipId();
-		// Using ESP8266 chip ID (32 bytes only, so we use it twice
-		id[7] = (uint8_t)(uniqueId >> 24);
-		id[6] = (uint8_t)(uniqueId >> 16);
-		id[5] = (uint8_t)(uniqueId >> 8);
-		id[4] = (uint8_t)(uniqueId);
-		id[3] = (uint8_t)(uniqueId >> 24);
-		id[2] = (uint8_t)(uniqueId >> 16);
-		id[1] = (uint8_t)(uniqueId >> 8);
-		id[0] = (uint8_t)(uniqueId);
+	uint32_t uniqueId = ESP.getChipId();
+	// Using ESP8266 chip ID (32 bytes only, so we use it twice
+	id[7] = (uint8_t)(uniqueId >> 24);
+	id[6] = (uint8_t)(uniqueId >> 16);
+	id[5] = (uint8_t)(uniqueId >> 8);
+	id[4] = (uint8_t)(uniqueId);
+	id[3] = (uint8_t)(uniqueId >> 24);
+	id[2] = (uint8_t)(uniqueId >> 16);
+	id[1] = (uint8_t)(uniqueId >> 8);
+	id[0] = (uint8_t)(uniqueId);
 #else
-		uint64_t uniqueId = ESP.getEfuseMac();
-		// Using ESP32 MAC (48 bytes only, so upper 2 bytes will be 0)
-		id[7] = (uint8_t)(uniqueId >> 56);
-		id[6] = (uint8_t)(uniqueId >> 48);
-		id[5] = (uint8_t)(uniqueId >> 40);
-		id[4] = (uint8_t)(uniqueId >> 32);
-		id[3] = (uint8_t)(uniqueId >> 24);
-		id[2] = (uint8_t)(uniqueId >> 16);
-		id[1] = (uint8_t)(uniqueId >> 8);
-		id[0] = (uint8_t)(uniqueId);
+	uint64_t uniqueId = ESP.getEfuseMac();
+	// Using ESP32 MAC (48 bytes only, so upper 2 bytes will be 0)
+	id[7] = (uint8_t)(uniqueId >> 56);
+	id[6] = (uint8_t)(uniqueId >> 48);
+	id[5] = (uint8_t)(uniqueId >> 40);
+	id[4] = (uint8_t)(uniqueId >> 32);
+	id[3] = (uint8_t)(uniqueId >> 24);
+	id[2] = (uint8_t)(uniqueId >> 16);
+	id[1] = (uint8_t)(uniqueId >> 8);
+	id[0] = (uint8_t)(uniqueId);
 #endif
-	}
+}
 
-	uint8_t BoardGetBatteryLevel(void)
-	{
-		uint8_t batteryLevel = 0;
+uint8_t BoardGetBatteryLevel(void)
+{
+	uint8_t batteryLevel = 0;
 
-		//TO BE IMPLEMENTED
+	//TO BE IMPLEMENTED
 
-		return batteryLevel;
-	}
+	return batteryLevel;
+}
 
 #ifdef ESP32
-	portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
+portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
 #endif
 #if defined(ESP8266)
-	void ICACHE_RAM_ATTR BoardDisableIrq(void)
+void ICACHE_RAM_ATTR BoardDisableIrq(void)
 #elif defined(ESP32)
-	void IRAM_ATTR BoardDisableIrq(void)
+void IRAM_ATTR BoardDisableIrq(void)
 #else
-	void BoardDisableIrq(void)
+void BoardDisableIrq(void)
 #endif
-	{
+{
 #ifdef ESP32
-		portENTER_CRITICAL(&mux);
+	portENTER_CRITICAL(&mux);
 #endif
-	}
+}
 
 #if defined(ESP8266)
-	void ICACHE_RAM_ATTR BoardEnableIrq(void)
+void ICACHE_RAM_ATTR BoardEnableIrq(void)
 #elif defined(ESP32)
-	void IRAM_ATTR BoardEnableIrq(void)
+void IRAM_ATTR BoardEnableIrq(void)
 #else
-	void BoardEnableIrq(void)
+void BoardEnableIrq(void)
 #endif
-	{
+{
 #ifdef ESP32
-		portEXIT_CRITICAL(&mux);
+	portEXIT_CRITICAL(&mux);
 #endif
-	}
-};
+}
+
 #endif

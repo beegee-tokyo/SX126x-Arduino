@@ -41,127 +41,125 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include <Arduino.h>
 #include "sx126x-debug.h"
 
-extern "C"
-{
-	/**@brief Initializes the radio I/Os pins interface
+/**@brief Initializes the radio I/Os pins interface
  */
-	void SX126xIoInit(void);
+void SX126xIoInit(void);
 
-	/**@brief Initializes the radio I/Os pins interface after deep sleep wake
+/**@brief Initializes the radio I/Os pins interface after deep sleep wake
  */
-	void SX126xIoReInit(void);
+void SX126xIoReInit(void);
 
-	/**@brief Initializes DIO IRQ handlers
+/**@brief Initializes DIO IRQ handlers
  *
  * \param  dioIrq Array containing the IRQ callback functions
  */
-	void SX126xIoIrqInit(DioIrqHandler dioIrq);
+void SX126xIoIrqInit(DioIrqHandler dioIrq);
 
-	/**@brief De-initializes the radio I/Os pins interface.
+/**@brief De-initializes the radio I/Os pins interface.
  *
  * \remark Useful when going in MCU low power modes
  */
-	void SX126xIoDeInit(void);
+void SX126xIoDeInit(void);
 
-	/**@brief HW Reset of the radio
+/**@brief HW Reset of the radio
  */
-	void SX126xReset(void);
+void SX126xReset(void);
 
-	/**@brief Blocking loop to wait while the Busy pin in high
+/**@brief Blocking loop to wait while the Busy pin in high
  */
-	void SX126xWaitOnBusy(void);
+void SX126xWaitOnBusy(void);
 
-	/**@brief Wakes up the radio
+/**@brief Wakes up the radio
  */
-	void SX126xWakeup(void);
+void SX126xWakeup(void);
 
-	/**@brief Send a command that write data to the radio
+/**@brief Send a command that write data to the radio
  *
  * \param   opcode        Opcode of the command
  * \param   buffer        Buffer to be send to the radio
  * \param   size          Size of the buffer to send
  */
-	void SX126xWriteCommand(RadioCommands_t opcode, uint8_t *buffer, uint16_t size);
+void SX126xWriteCommand(RadioCommands_t opcode, uint8_t *buffer, uint16_t size);
 
-	/**@brief Send a command that read data from the radio
+/**@brief Send a command that read data from the radio
  *
  * \param   opcode        Opcode of the command
  * \param  buffer        Buffer holding data from the radio
  * \param   size          Size of the buffer
  */
-	void SX126xReadCommand(RadioCommands_t opcode, uint8_t *buffer, uint16_t size);
+void SX126xReadCommand(RadioCommands_t opcode, uint8_t *buffer, uint16_t size);
 
-	/**@brief Write a single byte of data to the radio memory
+/**@brief Write a single byte of data to the radio memory
  *
  * \param   address       The address of the first byte to write in the radio
  * \param   value         The data to be written in radio's memory
  */
-	void SX126xWriteRegister(uint16_t address, uint8_t value);
+void SX126xWriteRegister(uint16_t address, uint8_t value);
 
-	/**@brief Read a single byte of data from the radio memory
+/**@brief Read a single byte of data from the radio memory
  *
  * \param   address       The address of the first byte to write in the radio
  *
  * \retval      value         The value of the byte at the given address in radio's memory
  */
-	uint8_t SX126xReadRegister(uint16_t address);
+uint8_t SX126xReadRegister(uint16_t address);
 
-	/**@brief Sets the radio output power.
+/**@brief Sets the radio output power.
  *
  * \param  power Sets the RF output power
  */
-	void SX126xSetRfTxPower(int8_t power);
+void SX126xSetRfTxPower(int8_t power);
 
-	/**@brief Gets the board PA selection configuration
+/**@brief Gets the board PA selection configuration
  *
  * \param  channel Channel frequency in Hz
  * \retval PaSelect RegPaConfig PaSelect value
  */
-	uint8_t SX126xGetPaSelect(uint32_t channel);
+uint8_t SX126xGetPaSelect(uint32_t channel);
 
-	/**@brief Initializes the RF Switch I/Os pins interface
+/**@brief Initializes the RF Switch I/Os pins interface
  */
-	void SX126xAntSwOn(void);
+void SX126xAntSwOn(void);
 
-	/**@brief De-initializes the RF Switch I/Os pins interface
+/**@brief De-initializes the RF Switch I/Os pins interface
  *
  * \remark Needed to decrease the power consumption in MCU low power modes
  */
-	void SX126xAntSwOff(void);
+void SX126xAntSwOff(void);
 
-	/**@brief Set the RF antenna switch to receiving mode
+/**@brief Set the RF antenna switch to receiving mode
  *
  * \remark Used only on some modules e.g. eByte E22
  */
-	void SX126xRXena(void);
+void SX126xRXena(void);
 
-	/**@brief Set the RF antenna switch to transmitting mode
+/**@brief Set the RF antenna switch to transmitting mode
  *
  * \remark Used only on some modules e.g. eByte E22
  */
-	void SX126xTXena(void);
+void SX126xTXena(void);
 
-	/**@brief Checks if the given RF frequency is supported by the hardware
+/**@brief Checks if the given RF frequency is supported by the hardware
  *
  * \param  frequency RF frequency to be checked
  * \retval isSupported [true: supported, false: unsupported]
  */
-	bool SX126xCheckRfFrequency(uint32_t frequency);
+bool SX126xCheckRfFrequency(uint32_t frequency);
 
-	/**@brief Gets info on the number of packets received
+/**@brief Gets info on the number of packets received
  *
  * \param  nb_pkt_received     Number of received packets with CRC OK
  * \param  nb_pkt_crc_error    Number of received packets with CRC error
  * \param  nb_pkt_length_error Number of received packets with length error
  */
-	void SX126xGetStats(uint16_t *nb_pkt_received, uint16_t *nb_pkt_crc_error, uint16_t *nb_pkt_length_error);
+void SX126xGetStats(uint16_t *nb_pkt_received, uint16_t *nb_pkt_crc_error, uint16_t *nb_pkt_length_error);
 
-	/**@brief Resets values read by GetStats
+/**@brief Resets values read by GetStats
  */
-	void SX126xResetStats(void);
+void SX126xResetStats(void);
 
-	/**@brief Radio hardware and global parameters
+/**@brief Radio hardware and global parameters
  */
-	extern SX126x_t SX126x;
-};
+extern SX126x_t SX126x;
+
 #endif // __SX126x_ARCH_H__

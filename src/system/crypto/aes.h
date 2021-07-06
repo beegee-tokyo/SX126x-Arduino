@@ -31,8 +31,6 @@
 #ifndef AES_H
 #define AES_H
 
-extern "C"
-{
 #if 1
 #define AES_ENC_PREKEYED /* AES encryption with a precomputed key schedule  */
 #endif
@@ -57,21 +55,21 @@ extern "C"
 #define N_BLOCK (N_ROW * N_COL)
 #define N_MAX_ROUNDS 14
 
-	typedef uint8_t return_type;
+typedef uint8_t return_type;
 
-	/*  Warning: The key length for 256 bit keys overflows a byte
+/*  Warning: The key length for 256 bit keys overflows a byte
     (see comment below)
 */
 
-	typedef uint8_t length_type;
+typedef uint8_t length_type;
 
-	typedef struct
-	{
-		uint8_t ksch[(N_MAX_ROUNDS + 1) * N_BLOCK];
-		uint8_t rnd;
-	} lora_aes_context;
+typedef struct
+{
+	uint8_t ksch[(N_MAX_ROUNDS + 1) * N_BLOCK];
+	uint8_t rnd;
+} lora_aes_context;
 
-	/*  The following calls are for a precomputed key schedule
+/*  The following calls are for a precomputed key schedule
 
     NOTE: If the length_type used for the key length is an
     unsigned 8-bit character, a key length of 256 bits must
@@ -81,38 +79,38 @@ extern "C"
 
 #if defined(AES_ENC_PREKEYED) || defined(AES_DEC_PREKEYED)
 
-	return_type lora_aes_set_key(const uint8_t key[],
-								 length_type keylen,
-								 lora_aes_context ctx[1]);
+return_type lora_aes_set_key(const uint8_t key[],
+							 length_type keylen,
+							 lora_aes_context ctx[1]);
 #endif
 
 #if defined(AES_ENC_PREKEYED)
 
-	return_type lora_aes_encrypt(const uint8_t in[N_BLOCK],
-								 uint8_t out[N_BLOCK],
-								 const lora_aes_context ctx[1]);
+return_type lora_aes_encrypt(const uint8_t in[N_BLOCK],
+							 uint8_t out[N_BLOCK],
+							 const lora_aes_context ctx[1]);
 
-	return_type lora_aes_cbc_encrypt(const uint8_t *in,
-									 uint8_t *out,
-									 int32_t n_block,
-									 uint8_t iv[N_BLOCK],
-									 const lora_aes_context ctx[1]);
+return_type lora_aes_cbc_encrypt(const uint8_t *in,
+								 uint8_t *out,
+								 int32_t n_block,
+								 uint8_t iv[N_BLOCK],
+								 const lora_aes_context ctx[1]);
 #endif
 
 #if defined(AES_DEC_PREKEYED)
 
-	return_type lora_aes_decrypt(const uint8_t in[N_BLOCK],
-								 uint8_t out[N_BLOCK],
-								 const lora_aes_context ctx[1]);
+return_type lora_aes_decrypt(const uint8_t in[N_BLOCK],
+							 uint8_t out[N_BLOCK],
+							 const lora_aes_context ctx[1]);
 
-	return_type lora_aes_cbc_decrypt(const uint8_t *in,
-									 uint8_t *out,
-									 int32_t n_block,
-									 uint8_t iv[N_BLOCK],
-									 const lora_aes_context ctx[1]);
+return_type lora_aes_cbc_decrypt(const uint8_t *in,
+								 uint8_t *out,
+								 int32_t n_block,
+								 uint8_t iv[N_BLOCK],
+								 const lora_aes_context ctx[1]);
 #endif
 
-	/*  The following calls are for 'on the fly' keying.  In this case the
+/*  The following calls are for 'on the fly' keying.  In this case the
     encryption and decryption keys are different.
 
     The encryption subroutines take a key in an array of bytes in
@@ -133,32 +131,31 @@ extern "C"
 */
 
 #if defined(AES_ENC_128_OTFK)
-	void lora_aes_encrypt_128(const uint8_t in[N_BLOCK],
-							  uint8_t out[N_BLOCK],
-							  const uint8_t key[N_BLOCK],
-							  uint8_t o_key[N_BLOCK]);
+void lora_aes_encrypt_128(const uint8_t in[N_BLOCK],
+						  uint8_t out[N_BLOCK],
+						  const uint8_t key[N_BLOCK],
+						  uint8_t o_key[N_BLOCK]);
 #endif
 
 #if defined(AES_DEC_128_OTFK)
-	void lora_aes_decrypt_128(const uint8_t in[N_BLOCK],
-							  uint8_t out[N_BLOCK],
-							  const uint8_t key[N_BLOCK],
-							  uint8_t o_key[N_BLOCK]);
+void lora_aes_decrypt_128(const uint8_t in[N_BLOCK],
+						  uint8_t out[N_BLOCK],
+						  const uint8_t key[N_BLOCK],
+						  uint8_t o_key[N_BLOCK]);
 #endif
 
 #if defined(AES_ENC_256_OTFK)
-	void lora_aes_encrypt_256(const uint8_t in[N_BLOCK],
-							  uint8_t out[N_BLOCK],
-							  const uint8_t key[2 * N_BLOCK],
-							  uint8_t o_key[2 * N_BLOCK]);
+void lora_aes_encrypt_256(const uint8_t in[N_BLOCK],
+						  uint8_t out[N_BLOCK],
+						  const uint8_t key[2 * N_BLOCK],
+						  uint8_t o_key[2 * N_BLOCK]);
 #endif
 
 #if defined(AES_DEC_256_OTFK)
-	void lora_aes_decrypt_256(const uint8_t in[N_BLOCK],
-							  uint8_t out[N_BLOCK],
-							  const uint8_t key[2 * N_BLOCK],
-							  uint8_t o_key[2 * N_BLOCK]);
+void lora_aes_decrypt_256(const uint8_t in[N_BLOCK],
+						  uint8_t out[N_BLOCK],
+						  const uint8_t key[2 * N_BLOCK],
+						  uint8_t o_key[2 * N_BLOCK]);
 #endif
-};
 
 #endif

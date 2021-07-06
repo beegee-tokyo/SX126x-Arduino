@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For SX126x-ESP32
+# Syntax Coloring Map For SX126x-Arduino
 #######################################
 
 #######################################
@@ -9,11 +9,11 @@
 lora_hardware_init	KEYWORD1
 lora_hardware_re_init	KEYWORD1
 lora_hardware_uninit	KEYWORD1
+lora_isp4520_init	KEYWORD1
+lora_rak4630_init	KEYWORD1
 BoardGetRandomSeed	KEYWORD1
 BoardGetUniqueId	KEYWORD1
 BoardGetBatteryLevel	KEYWORD1
-BoardDisableIrq	KEYWORD1
-BoardEnableIrq	KEYWORD1
 
 #######################################
 # Datatypes (KEYWORD1) Radio
@@ -21,6 +21,13 @@ BoardEnableIrq	KEYWORD1
 
 Radio 	KEYWORD1
 RadioEvents 	KEYWORD1
+TxDone 	KEYWORD2
+RxDone 	KEYWORD2
+RxTimeout 	KEYWORD2
+RxError 	KEYWORD2
+PreAmpDetect 	KEYWORD2
+FhssChangeChannel 	KEYWORD2
+CadDone 	KEYWORD2
 
 #######################################
 # Datatypes (KEYWORD1) SX126x board
@@ -160,4 +167,14 @@ LORA_IQ_INVERSION_ON	LITERAL1
 RX_TIMEOUT_VALUE	LITERAL1
 TX_TIMEOUT_VALUE	LITERAL1
 
+LMH_ERROR	LITERAL1
+LMH_SUCCESS	LITERAL1
+LMH_BUSY	LITERAL1
 
+LMH_UNCONFIRMED_MSG	LITERAL1
+LMH_CONFIRMED_MSG	LITERAL1
+
+LMH_RESET	LITERAL1
+LMH_SET	LITERAL1
+LMH_ONGOING	LITERAL1
+LMH_FAILED	LITERAL1

@@ -61,6 +61,13 @@ This parameter selects the LoRaWAN region for your application. Allowed values f
 - _**LORAMAC_REGION_AS923_4**_
 - _**LORAMAC_REGION_RU864**_
 
+
+----
+
+**REMARK**    
+> **`CN779-787 devices may not be produced, imported or installed after 2021-01-01; deployed devices may continue to operate through their normal end-of-life.`**    
+
+----
 # IMPORTANT NOTE 1: 
 IF YOU DO NOT SET THE TWO NEW PARAMETERS, YOUR APPLICATION WILL BE SETUP AS _CLASS&nbsp;A_ NODE USING _EU868&nbsp;REGION_ PARAMETERS!
 # IMPORTANT NOTE 2:

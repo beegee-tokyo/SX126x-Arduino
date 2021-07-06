@@ -15,7 +15,8 @@
       "espressif32",
       "nordicnrf52",
       "espressif8266",
-      "nordicnrf52"
+      "nordicnrf52",
+	  "mbed_rp2040"
    ],
    "license":"MIT",
    "authors":[

@@ -35,9 +35,6 @@
 #ifndef __REGION_RU864_H__
 #define __REGION_RU864_H__
 
-extern "C"
-{
-
 /*!
  * LoRaMac maximum number of channels
  */
@@ -52,7 +49,7 @@ extern "C"
  * Number of channels to apply for the CF list
  */
 /// \todo should be 6
-#define RU864_NUMB_CHANNELS_CF_LIST 5 
+#define RU864_NUMB_CHANNELS_CF_LIST 5
 
 /*!
  * Minimal datarate that can be used by the node
@@ -197,7 +194,7 @@ extern "C"
 		100, RU864_MAX_TX_POWER, 0, 0, 0 \
 	} //  1.0 %
 
-	/*!
+/*!
  * LoRaMac default channel 1
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
@@ -206,7 +203,7 @@ extern "C"
 		868900000, 0, {((DR_5 << 4) | DR_0)}, 0 \
 	}
 
-	/*!
+/*!
  * LoRaMac default channel 2
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
@@ -244,58 +241,58 @@ extern "C"
  */
 #define RU864_JOIN_CHANNELS (uint16_t)(LC(1) | LC(2))
 
-	/*!
+/*!
  * Data rates table definition
  */
-	static const uint8_t DataratesRU864[] = {12, 11, 10, 9, 8, 7, 7, 50};
+static const uint8_t DataratesRU864[] = {12, 11, 10, 9, 8, 7, 7, 50};
 
-	/*!
+/*!
  * Bandwidths table definition in Hz
  */
-	static const uint32_t BandwidthsRU864[] = {125000, 125000, 125000, 125000, 125000, 125000, 250000, 0};
+static const uint32_t BandwidthsRU864[] = {125000, 125000, 125000, 125000, 125000, 125000, 250000, 0};
 
-	/*!
+/*!
  * Maximum payload with respect to the datarate index. Cannot operate with repeater.
  * The table is valid for uplinks and downlinks.
  */
-	static const uint8_t MaxPayloadOfDatarateRU864[] = {59, 59, 59, 123, 230, 230, 230, 230};
+static const uint8_t MaxPayloadOfDatarateRU864[] = {59, 59, 59, 123, 230, 230, 230, 230};
 
-	/*!
+/*!
  * Maximum payload with respect to the datarate index. Can operate with repeater.
  * The table provides
  * repeater support.
  */
-	static const uint8_t MaxPayloadOfDatarateRepeaterRU864[] = {59, 59, 59, 123, 250, 250, 250, 250};
+static const uint8_t MaxPayloadOfDatarateRepeaterRU864[] = {59, 59, 59, 123, 250, 250, 250, 250};
 
-	/*!
+/*!
  * Effective datarate offsets for receive window 1.
  */
-	static const int8_t EffectiveRx1DrOffsetRU864[] = {0, 1, 2, 3, 4, 5, -1, -2};
+static const int8_t EffectiveRx1DrOffsetRU864[] = {0, 1, 2, 3, 4, 5, -1, -2};
 
-	/*!
+/*!
  * \brief The function gets a value of a specific phy attribute.
  *
  * \param  getPhy Pointer to the function parameters.
  *
  * \retval Returns a structure containing the PHY parameter.
  */
-	PhyParam_t RegionRU864GetPhyParam(GetPhyParams_t *getPhy);
+PhyParam_t RegionRU864GetPhyParam(GetPhyParams_t *getPhy);
 
-	/*!
+/*!
  * \brief Updates the last TX done parameters of the current channel.
  *
  * \param  txDone Pointer to the function parameters.
  */
-	void RegionRU864SetBandTxDone(SetBandTxDoneParams_t *txDone);
+void RegionRU864SetBandTxDone(SetBandTxDoneParams_t *txDone);
 
-	/*!
+/*!
  * \brief Initializes the channels masks and the channels.
  *
  * \param  type Sets the initialization type.
  */
-	void RegionRU864InitDefaults(InitType_t type);
+void RegionRU864InitDefaults(InitType_t type);
 
-	/*!
+/*!
  * \brief Verifies a parameter.
  *
  * \param  verify Pointer to the function parameters.
@@ -304,26 +301,26 @@ extern "C"
  *
  * \retval Returns true, if the parameter is valid.
  */
-	bool RegionRU864Verify(VerifyParams_t *verify, PhyAttribute_t phyAttribute);
+bool RegionRU864Verify(VerifyParams_t *verify, PhyAttribute_t phyAttribute);
 
-	/*!
+/*!
  * \brief The function parses the input buffer and sets up the channels of the
  *        CF list.
  *
  * \param  applyCFList Pointer to the function parameters.
  */
-	void RegionRU864ApplyCFList(ApplyCFListParams_t *applyCFList);
+void RegionRU864ApplyCFList(ApplyCFListParams_t *applyCFList);
 
-	/*!
+/*!
  * \brief Sets a channels mask.
  *
  * \param  chanMaskSet Pointer to the function parameters.
  *
  * \retval Returns true, if the channels mask could be set.
  */
-	bool RegionRU864ChanMaskSet(ChanMaskSetParams_t *chanMaskSet);
+bool RegionRU864ChanMaskSet(ChanMaskSetParams_t *chanMaskSet);
 
-	/*!
+/*!
  * \brief Calculates the next datarate to set, when ADR is on or off.
  *
  * \param  adrNext Pointer to the function parameters.
@@ -336,9 +333,9 @@ extern "C"
  *
  * \retval Returns true, if an ADR request should be performed.
  */
-	bool RegionRU864AdrNext(AdrNextParams_t *adrNext, int8_t *drOut, int8_t *txPowOut, uint32_t *adrAckCounter);
+bool RegionRU864AdrNext(AdrNextParams_t *adrNext, int8_t *drOut, int8_t *txPowOut, uint32_t *adrAckCounter);
 
-	/*!
+/*!
  * Computes the Rx window timeout and offset.
  *
  * \param  datarate     Rx window datarate index to be used
@@ -351,9 +348,9 @@ extern "C"
  *
  * \param rxConfigParams Returns updated WindowTimeout and WindowOffset fields.
  */
-	void RegionRU864ComputeRxWindowParameters(int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams);
+void RegionRU864ComputeRxWindowParameters(int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams);
 
-	/*!
+/*!
  * \brief Configuration of the RX windows.
  *
  * \param  rxConfig Pointer to the function parameters.
@@ -362,9 +359,9 @@ extern "C"
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-	bool RegionRU864RxConfig(RxConfigParams_t *rxConfig, int8_t *datarate);
+bool RegionRU864RxConfig(RxConfigParams_t *rxConfig, int8_t *datarate);
 
-	/*!
+/*!
  * \brief TX configuration.
  *
  * \param  txConfig Pointer to the function parameters.
@@ -375,9 +372,9 @@ extern "C"
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-	bool RegionRU864TxConfig(TxConfigParams_t *txConfig, int8_t *txPower, TimerTime_t *txTimeOnAir);
+bool RegionRU864TxConfig(TxConfigParams_t *txConfig, int8_t *txPower, TimerTime_t *txTimeOnAir);
 
-	/*!
+/*!
  * \brief The function processes a Link ADR Request.
  *
  * \param  linkAdrReq Pointer to the function parameters.
@@ -392,27 +389,27 @@ extern "C"
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-	uint8_t RegionRU864LinkAdrReq(LinkAdrReqParams_t *linkAdrReq, int8_t *drOut, int8_t *txPowOut, uint8_t *nbRepOut, uint8_t *nbBytesParsed);
+uint8_t RegionRU864LinkAdrReq(LinkAdrReqParams_t *linkAdrReq, int8_t *drOut, int8_t *txPowOut, uint8_t *nbRepOut, uint8_t *nbBytesParsed);
 
-	/*!
+/*!
  * \brief The function processes a RX Parameter Setup Request.
  *
  * \param  rxParamSetupReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-	uint8_t RegionRU864RxParamSetupReq(RxParamSetupReqParams_t *rxParamSetupReq);
+uint8_t RegionRU864RxParamSetupReq(RxParamSetupReqParams_t *rxParamSetupReq);
 
-	/*!
+/*!
  * \brief The function processes a Channel Request.
  *
  * \param  newChannelReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-	uint8_t RegionRU864NewChannelReq(NewChannelReqParams_t *newChannelReq);
+uint8_t RegionRU864NewChannelReq(NewChannelReqParams_t *newChannelReq);
 
-	/*!
+/*!
  * \brief The function processes a TX ParamSetup Request.
  *
  * \param  txParamSetupReq Pointer to the function parameters.
@@ -421,34 +418,34 @@ extern "C"
  *         Returns -1, if the functionality is not implemented. In this case, the end node
  *         shall not process the command.
  */
-	int8_t RegionRU864TxParamSetupReq(TxParamSetupReqParams_t *txParamSetupReq);
+int8_t RegionRU864TxParamSetupReq(TxParamSetupReqParams_t *txParamSetupReq);
 
-	/*!
+/*!
  * \brief The function processes a DlChannel Request.
  *
  * \param  dlChannelReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-	uint8_t RegionRU864DlChannelReq(DlChannelReqParams_t *dlChannelReq);
+uint8_t RegionRU864DlChannelReq(DlChannelReqParams_t *dlChannelReq);
 
-	/*!
+/*!
  * \brief Alternates the datarate of the channel for the join request.
  *
  * \param  alternateDr Pointer to the function parameters.
  *
  * \retval Datarate to apply.
  */
-	int8_t RegionRU864AlternateDr(AlternateDrParams_t *alternateDr);
+int8_t RegionRU864AlternateDr(AlternateDrParams_t *alternateDr);
 
-	/*!
+/*!
  * \brief Calculates the back-off time.
  *
  * \param  calcBackOff Pointer to the function parameters.
  */
-	void RegionRU864CalcBackOff(CalcBackOffParams_t *calcBackOff);
+void RegionRU864CalcBackOff(CalcBackOffParams_t *calcBackOff);
 
-	/*!
+/*!
  * \brief Searches and set the next random available channel
  *
  * \param  nextChanParams Parameters of next channel to use for TX.
@@ -462,34 +459,34 @@ extern "C"
  *
  * \retval Function status [1: OK, 0: Unable to find a channel on the current datarate]
  */
-	bool RegionRU864NextChannel(NextChanParams_t *nextChanParams, uint8_t *channel, TimerTime_t *time, TimerTime_t *aggregatedTimeOff);
+bool RegionRU864NextChannel(NextChanParams_t *nextChanParams, uint8_t *channel, TimerTime_t *time, TimerTime_t *aggregatedTimeOff);
 
-	/*!
+/*!
  * \brief Adds a channel.
  *
  * \param  channelAdd Pointer to the function parameters.
  *
  * \retval Status of the operation.
  */
-	LoRaMacStatus_t RegionRU864ChannelAdd(ChannelAddParams_t *channelAdd);
+LoRaMacStatus_t RegionRU864ChannelAdd(ChannelAddParams_t *channelAdd);
 
-	/*!
+/*!
  * \brief Removes a channel.
  *
  * \param  channelRemove Pointer to the function parameters.
  *
  * \retval Returns true, if the channel was removed successfully.
  */
-	bool RegionRU864ChannelsRemove(ChannelRemoveParams_t *channelRemove);
+bool RegionRU864ChannelsRemove(ChannelRemoveParams_t *channelRemove);
 
-	/*!
+/*!
  * \brief Sets the radio into continuous wave mode.
  *
  * \param  continuousWave Pointer to the function parameters.
  */
-	void RegionRU864SetContinuousWave(ContinuousWaveParams_t *continuousWave);
+void RegionRU864SetContinuousWave(ContinuousWaveParams_t *continuousWave);
 
-	/*!
+/*!
  * \brief Computes new datarate according to the given offset
  *
  * \param  downlinkDwellTime Downlink dwell time configuration. 0: No limit, 1: 400ms
@@ -500,16 +497,15 @@ extern "C"
  *
  * \retval newDr Computed datarate.
  */
-	uint8_t RegionRU864ApplyDrOffset(uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset);
+uint8_t RegionRU864ApplyDrOffset(uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset);
 
-	/*!
+/*!
  * \brief Adjust frequency band to RU864-1, RU864-2, RU864-3
  * \param version 1 => use default frequencies (RU864-1)
  *                2 => adjust frequencies by substracting 1.8MHz (RU864-2)
  *                3 => adjust frequencies by substracting 6.6MHz (RU864-3)
  *                4 => adjust frequencies by substracting 5.9MHz (RU864-4), only lower 8 channels supported
  */
-	bool RegionRU864SetVersion(uint8_t version);
-	/*! \} defgroup REGIONRU864 */
-};
+bool RegionRU864SetVersion(uint8_t version);
+
 #endif // __REGION_RU864_H__

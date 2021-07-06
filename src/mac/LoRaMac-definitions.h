@@ -15,9 +15,6 @@ Maintainer: Miguel Luis and Gregory Cristian
 #ifndef __LORAMAC_BOARD_H__
 #define __LORAMAC_BOARD_H__
 
-extern "C"
-{
-
 /*!
  * Returns individual channel mask
  *
@@ -481,17 +478,17 @@ extern "C"
  */
 #define LORA_MAX_NB_BANDS 5
 
-	/*!
+/*!
  * LoRaMac EU868 default bands
  */
-	typedef enum
-	{
-		BAND_G1_0,
-		BAND_G1_1,
-		BAND_G1_2,
-		BAND_G1_3,
-		BAND_G1_4,
-	} BandId_t;
+typedef enum
+{
+	BAND_G1_0,
+	BAND_G1_1,
+	BAND_G1_2,
+	BAND_G1_3,
+	BAND_G1_4,
+} BandId_t;
 
 // Band = { DutyCycle, TxMaxPower, LastTxDoneTime, TimeOff }
 #define BAND0                      \
@@ -675,5 +672,5 @@ extern "C"
 #else
 #error "Please define a frequency band in the compiler options."
 #endif
-};
+
 #endif // __LORAMAC_BOARD_H__

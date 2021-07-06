@@ -1,11 +1,12 @@
 # SX126x-Arduino [![Build Status](https://github.com/beegee-tokyo/SX126x-Arduino/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/beegee-tokyo/SX126x-Arduino/actions)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](https://beegee-tokyo.github.io/SX126x-Arduino/)
 ----
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266 and nRF52832. It will not work with other uC's like AVR.    
+LoRaWAN version: **`MAC V1.0.2`** and Regional Parameters version: **`PHY V1.0.2 REV B`**    
 
-# _**IMPORTANT: READ [WHAT'S NEW IN V2](./README_V2.md)**_
+_**IMPORTANT: READ [WHAT'S NEW IN V2](./README_V2.md)**_
 _**Some major changes are made in V2 of the SX126x-Arduino library:**_    
 _**- The library now supports all LoRaWAN regions without re-compiling**_    
-_**- The interrupt handling for SX126x IRQ's are taken into separate tasks for ESP32 and nRF52**_    
+_**- The interrupt handling for SX126x IRQ's are taken into separate tasks for ESP32, nRF52 and RP2040**_    
 _**This requires some code changes in your existing applications. Please read [WHAT'S NEW IN V2](./README_V2.md) to learn how to migrate your application to use SX126x-Arduino V2**_
 
 ----
@@ -19,7 +20,7 @@ _**This requires some code changes in your existing applications. Please read [W
 | [Changelog](#changelog) | &nbsp;&nbsp;&nbsp;&nbsp;[GPIO definitions](#gpio-definitions) |  &nbsp;&nbsp;&nbsp;&nbsp;[Initialize](#initialize) |
 | [Features](#features) | &nbsp;&nbsp;&nbsp;&nbsp;[Example HW configuration](#example-hw-configuration) | &nbsp;&nbsp;&nbsp;&nbsp;[Callbacks](#callbacks) |
 | [Functions](#functions) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the LoRa HW](#initialize-the-lora-hw) | &nbsp;&nbsp;&nbsp;&nbsp;[Join](#join) |
-| &nbsp;&nbsp;[Module specific setup](#module-specific-setup) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialization for ISP4520 module](#simplified-lora-hw-initialization-for-isp4520-module) | &nbsp;&nbsp;&nbsp;&nbsp;[LoRaWan single channel gateway](#lolawan-single-channel-gateway) |
+| &nbsp;&nbsp;[Module specific setup](#module-specific-setup) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialization for specific modules](#simplified-lora-hw-initialization-for-specific-modules) | &nbsp;&nbsp;&nbsp;&nbsp;[LoRaWan single channel gateway](#lolawan-single-channel-gateway) |
 | &nbsp;&nbsp;[Chip selection](#chip-selection) | &nbsp;&nbsp;&nbsp;&nbsp;[Setup the callbacks for LoRa events](#setup-the-callbacks-for-lora-events) | &nbsp;&nbsp;&nbsp;&nbsp;[Limit frequency hopping to a sub band](#limit-frequency-hopping-to-a-sub-band) |
 | &nbsp;&nbsp;[LoRa parameters](#lora-parameters) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |   |
 | &nbsp;&nbsp;[SPI definition](#mcu-to-sx126x-spi-definition) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |
@@ -76,6 +77,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2021-06-30:  
+  - Add callbacks for LoRaWAN TX finished (both confirmed and unconfirmed)
+  - Add addional bandwidths for LoRa transmissions. _**Breaks `Radio.TimeOnAir()` for bandwidths other than BW 125, 250 and 500**_
+  - Fix minor problem in CF list handling for AS923-x regions
 - 2021-05-15:
   - Implement new regions AS923-2, AS923-3, AS923-4, RU864
   - Test CF list to add additionals channesl on AS923 and RU864
@@ -160,8 +165,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## Features
   - Support SX1261, SX1262 and SX1268 chips    
   - Support of LoRa protocol and FSK protocol (theoretical, I did not test FSK at all)    
-  - Flexible setup for different modules (antenna control, TXCO control)    
-  - Support LoRaWan node class A, B and C tested with single channel LoRaWan gateway    
+  - Flexible setup for different modules (antenna control, TCXO control)    
+  - Support LoRaWan node class A and C tested with single channel LoRaWan gateway    
 ----
 ## Functions
 WORK IN PROGRESS    
@@ -303,14 +308,17 @@ Fill the structure with the HW configuration
   lora_hardware_init(hwConfig);
 ```
 ----
+#### Simplified LoRa HW initialization for specific modules
+Some modules integrate an MCU and the SX126x LoRa transceiver and have a fixed connection between them. In these cases a simplified initialization can be used.
+
 #### Simplified LoRa HW initialization for ISP4520 module
-The ISP4520 module has the nRF52832 and SX1261 or 1262 chips integrated in a module. Therefore the hardware configuration is fixed. To initialize the LoRa chip you need only to specify if the module is based on a SX1261 (ISP4520 EU version) or on a SX1262 (ISP4520 US version).
+The ISP4520 module has the nRF52832 and SX1261 or SX1262 chips integrated in a module. Therefore the hardware configuration is fixed. To initialize the LoRa chip you need only to specify if the module is based on a SX1261 (ISP4520 EU version) or on a SX1262 (ISP4520 US version).
 ```cpp
   lora_isp4520_init(SX1262);
 ```
 ----
 #### Simplified LoRa HW initialization for RAK4630/4631 module
-The RAK4630/4631 module has the nRF52840 and 1262 chips integrated in a module. Therefore the hardware configuration is fixed.    
+The RAK4630/4631 module has the nRF52840 and SX1262 chips integrated in a module. Therefore the hardware configuration is fixed.    
 ```cpp
   lora_rak4630_init();
 ```
@@ -421,47 +429,11 @@ _**Region definition has changed since library version 2.0.0**_
 ~~In Arduino IDE you can find the file in _**`<arduinosketchfolder>/libraries/SX126x-Arduino/src/mac`**_    
 In PlatformIO this is usually _**`<user>/.platformio/lib/SX126x-Arduino/src/mac`**_~~    
 
-<!--
-~~The region is set right on the top of the file. Look for~~    
-~~```
-#if !defined(REGION_AS923) && !defined(REGION_AU915) && !defined(REGION_CN470) && !defined(REGION_CN779) && !defined(REGION_EU433) && !defined(REGION_EU868) && !defined(REGION_IN865) && !defined(REGION_KR920) && !defined(REGION_US915) && !defined(REGION_US915_HYBRID)
-#define REGION_US915
-#endif
-```~~
-and change the line
-```
-#define REGION_US915
-```
-to the region you want to use, e.g.    
-```
-#define REGION_EU868
-```
-**_RAKwireless RAK4630/RAK4631_**    
-If you installed the BSP for these modules you can set the region from the Tools -> Board menu. You do not need to change ```/src/mac/Commissioning.h```    
--->
-
 ----
 #### PlatformIO LoRaWan region definitions 
 _**Region definition has changed since library version 2.0.0**_    
 ~~If you are using PlatformIO you must define the region in the platformio.ini file of your project.~~     
-<!--
-Open the platformio.ini file and add a define for the region e.g.~~    
-```
-build_flags = -DREGION_AS923
-```
-Here a example for a complete platformio.ini file
-```
-[env:esp32dev]
-platform = https://github.com/platformio/platform-espressif32.git#feature/stage
-board = esp32dev
-framework = arduino
-upload_port = COM6
-upload_speed = 921600
-build_flags = 
-	-DCORE_DEBUG_LEVEL=ARDUHAL_LOG_LEVEL_ERROR
-	-DREGION_EU868
-```
--->
+
 #### LoRaWAN region definitions
 Since V2.0.0 the LoRaWAN region is selected during the initialization. It is no longer required to change any header files.
 See [lmh_init()](#initialize) for details.
@@ -540,6 +512,11 @@ This parameter selects the LoRaWAN region for your application. Allowed values f
 - _**LORAMAC_REGION_RU864**_    
 
 ----
+
+**REMARK**    
+> **`CN779-787 devices may not be produced, imported or installed after 2021-01-01; deployed devices may continue to operate through their normal end-of-life.`**    
+
+----
 #### Specifiy sub bands
 For some regions and some gateways you need to specifiy a sub band to be used.  See more info in [Limit frequency hopping to a sub band](#limit-frequency-hopping-to-a-sub-band)
 ```cpp
@@ -575,9 +552,26 @@ static lmh_param_t lora_param_init = {LORAWAN_ADR_ON,
 /**@brief Structure containing LoRaWan callback functions, needed for lmh_init() */
 
 static lmh_callback_t lora_callbacks = {BoardGetBatteryLevel, BoardGetUniqueId, BoardGetRandomSeed,
-	lorawan_rx_handler, lorawan_has_joined_handler, lorawan_confirm_class_handler, lpwan_joined_failed};
+			lorawan_rx_handler, lorawan_has_joined_handler, lorawan_confirm_class_handler,
+			lorawan_join_failed_handler, lorawan_unconfirmed_finished, lorawan_confirmed_finished};
 ```    
-The last callback function was added in library version 1.3.1. Before the app had to poll the status to see if OTAA join request had failed. The new callback is an addition to the `lorawan_has_joined_handler` callback. If the OTAA join request was successful, `lorawan_has_joined_handler` is called. If the OTAA join request fails (wrong EUI's, wrong Keys, or other reason), `lpwan_joined_failed` is called and the app can retry to join or notify an error.
+
+_**The following callbacks are implemented in the library, but you can override them in your application code:**_    
+`BoardGetBatteryLevel` is an empty pre-defined callback in the library. Every board has a different method to read the battery level (or none at all). If you want the LoRaWAN node to report it's battery level, you should write your own function to read and return the battery level. Keep in mind that the LoRaWAN server expects the battery level as a value between 0 and 255. 100% battery level equals 255.     
+`BoardGetUniqueId` is a pre-defined callback used by the library to get a unique ID of the board. This is used when the device EUI is assigned automatically. In most use cases this is not used.    
+`BoardGetRandomSeed` is used together with `BoardGetUniqueId`. In most use cases this is not used.    
+_**The following callbacks have to be implemented in your application code:**_    
+`lorawan_rx_handler` is called when a Downlink was received from the LoRaWAN server. See examples how to implement it.    
+`lorawan_has_joined_handler` is called after the node has successfully joined the network. Keep in mind that when ABP join method is used, this callback is called immediately after `lmh_join()`.    
+`lorawan_confirm_class_handler` is called if you change the nodes class with `lmh_class_request()`.    
+`lorawan_join_failed_handler` is called if the join process failed. Failing te join process can have multiple reasons. A few can be      
+- No gateway in range
+- Gateway not connected to a LoRaWAN server
+- Wrong DevEUI, AppEUI or AppKey
+
+`lorawan_unconfirmed_finished` is called after a unconfirmed packet send is finished. It is called after RX1 window and RX2 window timed out or after a downlink from the LoRaWAN server was received.     
+`lorawan_confirmed_finished` is called after a confirmed packet send is finished. It has a paramter that tells if a confirmation (`ACK`) was received from the LoRaWAN server or not.
+
 
 ----
 #### Join

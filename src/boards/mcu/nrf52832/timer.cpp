@@ -38,91 +38,88 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
 #include "boards/mcu/board.h"
 #include "app_util.h"
 
-extern "C"
+SoftwareTimer timerTickers[10];
+uint32_t timerTimes[10];
+bool timerInUse[10] = {false, false, false, false, false, false, false, false, false, false};
+
+// External functions
+
+void TimerConfig(void)
 {
+	/// \todo Nothing to do here for nRF52
+}
 
-	SoftwareTimer timerTickers[10];
-	uint32_t timerTimes[10];
-	bool timerInUse[10] = {false, false, false, false, false, false, false, false, false, false};
-
-	// External functions
-
-	void TimerConfig(void)
+void TimerInit(TimerEvent_t *obj, void (*callback)(void))
+{
+	// Look for an available Ticker
+	for (int idx = 0; idx < 10; idx++)
 	{
-		/// \todo Nothing to do here for nRF52
-	}
-
-	void TimerInit(TimerEvent_t *obj, void (*callback)(void))
-	{
-		// Look for an available Ticker
-		for (int idx = 0; idx < 10; idx++)
+		if (timerInUse[idx] == false)
 		{
-			if (timerInUse[idx] == false)
+			timerInUse[idx] = true;
+			obj->timerNum = idx;
+			obj->Callback = callback;
+			if (obj->oneShot)
 			{
-				timerInUse[idx] = true;
-				obj->timerNum = idx;
-				obj->Callback = callback;
-				if (obj->oneShot)
-				{
-					timerTickers[idx].begin(10000, (TimerCallbackFunction_t)obj->Callback, NULL, false);
-				}
-				else
-				{
-					timerTickers[idx].begin(10000, (TimerCallbackFunction_t)obj->Callback, NULL, true);
-				}
-				return;
+				timerTickers[idx].begin(10000, (TimerCallbackFunction_t)obj->Callback, NULL, false);
 			}
+			else
+			{
+				timerTickers[idx].begin(10000, (TimerCallbackFunction_t)obj->Callback, NULL, true);
+			}
+			return;
 		}
-		LOG_LIB("TIM", "No more timers available!");
-		/// \todo We run out of tickers, what do we do now???
 	}
+	LOG_LIB("TIM", "No more timers available!");
+	/// \todo We run out of tickers, what do we do now???
+}
 
-	void timerCallback(TimerEvent_t *obj)
-	{
-		// Nothing to do here for the nRF52
-	}
+void timerCallback(TimerEvent_t *obj)
+{
+	// Nothing to do here for the nRF52
+}
 
-	void TimerStart(TimerEvent_t *obj)
-	{
-		int idx = obj->timerNum;
+void TimerStart(TimerEvent_t *obj)
+{
+	int idx = obj->timerNum;
 
-		timerTickers[idx].stop();
-		timerTickers[idx].start();
-	}
+	timerTickers[idx].stop();
+	timerTickers[idx].start();
+}
 
-	void TimerStop(TimerEvent_t *obj)
-	{
-		int idx = obj->timerNum;
-		timerTickers[idx].stop();
-	}
+void TimerStop(TimerEvent_t *obj)
+{
+	int idx = obj->timerNum;
+	timerTickers[idx].stop();
+}
 
-	void TimerReset(TimerEvent_t *obj)
-	{
-		int idx = obj->timerNum;
+void TimerReset(TimerEvent_t *obj)
+{
+	int idx = obj->timerNum;
 
-		timerTickers[idx].stop();
-		timerTickers[idx].reset();
-	}
+	timerTickers[idx].stop();
+	timerTickers[idx].reset();
+}
 
-	void TimerSetValue(TimerEvent_t *obj, uint32_t value)
-	{
-		int idx = obj->timerNum;
-		timerTimes[idx] = value;
-		timerTickers[idx].setPeriod(value);
-	}
+void TimerSetValue(TimerEvent_t *obj, uint32_t value)
+{
+	int idx = obj->timerNum;
+	timerTimes[idx] = value;
+	timerTickers[idx].setPeriod(value);
+}
 
-	TimerTime_t TimerGetCurrentTime(void)
-	{
-		return millis();
-	}
+TimerTime_t TimerGetCurrentTime(void)
+{
+	return millis();
+}
 
-	TimerTime_t TimerGetElapsedTime(TimerTime_t past)
-	{
-		uint32_t nowInTicks = millis();
-		uint32_t pastInTicks = past;
-		TimerTime_t diff = nowInTicks - pastInTicks;
+TimerTime_t TimerGetElapsedTime(TimerTime_t past)
+{
+	uint32_t nowInTicks = millis();
+	uint32_t pastInTicks = past;
+	TimerTime_t diff = nowInTicks - pastInTicks;
 
-		return diff;
-	}
-};
+	return diff;
+}
+
 #endif

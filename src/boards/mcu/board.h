@@ -73,73 +73,74 @@ struct hw_config
 	bool USE_DIO3_TCXO = false;		  // Whether DIO3 is used to control the oscillator
 	bool USE_DIO3_ANT_SWITCH = false; // Whether DIO2 is used to control the antenna
 	bool USE_LDO = false;			  // Whether SX126x uses LDO or DCDC power regulator
-	bool USE_RXEN_ANT_PWR = false;    // Whether RX_EN is used as antenna power
+	bool USE_RXEN_ANT_PWR = false;	  // Whether RX_EN is used as antenna power
 };
 
-extern "C"
-{
+extern hw_config _hwConfig;
 
-	extern hw_config _hwConfig;
-
-	/**@brief Initializes the target board peripherals.
+/**@brief Initializes the target board peripherals.
  *
  * @param [hwConfig] hw_config describes the HW connection between the MCU and the SX126x
  */
-	uint32_t lora_hardware_init(hw_config hwConfig);
+uint32_t lora_hardware_init(hw_config hwConfig);
 
-	/**@brief Initializes the target board peripherals after deep sleep wake up.
+/**@brief Initializes the target board peripherals after deep sleep wake up.
  *
  * @param [hwConfig] hw_config describes the HW connection between the MCU and the SX126x
  */
-	uint32_t lora_hardware_re_init(hw_config hwConfig);
+uint32_t lora_hardware_re_init(hw_config hwConfig);
 
-	/**@brief Initializes the ISP4520 board peripherals.
+/**@brief Initializes the ISP4520 board peripherals.
  *
  * @param [chipType] chipType selects either SX1262/1268 or SX1261
  */
-	uint32_t lora_isp4520_init(int chipType);
+uint32_t lora_isp4520_init(int chipType);
 
-	/**@brief Initializes the RAK4630 board peripherals.
+/**@brief Initializes the RAK4630 board peripherals.
  */
-	uint32_t lora_rak4630_init(void);
+uint32_t lora_rak4630_init(void);
 
-	/**@brief De-initializes the target board peripherals to decrease power
+/**@brief Initializes the RAK11300 board peripherals.
+ */
+uint32_t lora_rak11300_init(void);
+
+/**@brief De-initializes the target board peripherals to decrease power
  *        consumption.
  */
-	void lora_hardware_uninit(void);
+void lora_hardware_uninit(void);
 
-	/**@brief Returns a pseudo random seed generated using the MCU Unique ID
+/**@brief Returns a pseudo random seed generated using the MCU Unique ID
  *
  * @retval seed Generated pseudo random seed
  */
-	uint32_t BoardGetRandomSeed(void);
+uint32_t BoardGetRandomSeed(void);
 
-	/**@brief Gets the board 64 bits unique ID
+/**@brief Gets the board 64 bits unique ID
  *
  * @param [id] id Pointer to an array that will contain the Unique ID
  */
-	void BoardGetUniqueId(uint8_t *id);
+void BoardGetUniqueId(uint8_t *id);
 
-	/**@brief   Get batttery value TO BE IMPLEMENTED
+/**@brief   Get batttery value TO BE IMPLEMENTED
  */
-	uint8_t BoardGetBatteryLevel(void);
+uint8_t BoardGetBatteryLevel(void);
 
-	/**@brief Disable interrupts
+/**@brief Disable interrupts
  *
  * @remark IRQ nesting is managed
  */
-	void BoardDisableIrq(void);
+void BoardDisableIrq(void);
 
-	/**@brief Enable interrupts
+/**@brief Enable interrupts
  *
  * @remark IRQ nesting is managed
  */
-	void BoardEnableIrq(void);
+void BoardEnableIrq(void);
 
-	/**@brief Initialize LoRa handler task (ESP32 & nRF52)
+/**@brief Initialize LoRa handler task (ESP32 & nRF52)
 	 * 
 	 * 
 	 */
-	bool start_lora_task(void);
-};
+bool start_lora_task(void);
+
 #endif // __BOARD_H__

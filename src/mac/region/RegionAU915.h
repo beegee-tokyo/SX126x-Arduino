@@ -35,9 +35,6 @@
 #ifndef __REGION_AU915_H__
 #define __REGION_AU915_H__
 
-extern "C"
-{
-
 /*!
  * LoRaMac maximum number of channels
  */
@@ -202,64 +199,64 @@ extern "C"
  */
 #define AU915_STEPWIDTH_RX1_CHANNEL ((uint32_t)600000)
 
-	/*!
+/*!
  * Data rates table definition
  */
-	static const uint8_t DataratesAU915[] = {12, 11, 10, 9, 8, 7, 8, 0, 12, 11, 10, 9, 8, 7, 0, 0};
+static const uint8_t DataratesAU915[] = {12, 11, 10, 9, 8, 7, 8, 0, 12, 11, 10, 9, 8, 7, 0, 0};
 
-	/*!
+/*!
  * Bandwidths table definition in Hz
  */
-	static const uint32_t BandwidthsAU915[] = {125000, 125000, 125000, 125000, 125000, 125000, 500000, 0, 500000, 500000, 500000, 500000, 500000, 500000, 0, 0};
+static const uint32_t BandwidthsAU915[] = {125000, 125000, 125000, 125000, 125000, 125000, 500000, 0, 500000, 500000, 500000, 500000, 500000, 500000, 0, 0};
 
-	/*!
+/*!
  * Up/Down link data rates offset definition
  */
-	static const int8_t DatarateOffsetsAU915[7][6] =
-		{
-			{DR_8, DR_8, DR_8, DR_8, DR_8, DR_8},	   // DR_0
-			{DR_9, DR_8, DR_8, DR_8, DR_8, DR_8},	   // DR_1
-			{DR_10, DR_9, DR_8, DR_8, DR_8, DR_8},	   // DR_2
-			{DR_11, DR_10, DR_9, DR_8, DR_8, DR_8},	   // DR_3
-			{DR_12, DR_11, DR_10, DR_9, DR_8, DR_8},   // DR_4
-			{DR_13, DR_12, DR_11, DR_10, DR_9, DR_8},  // DR_5
-			{DR_13, DR_13, DR_12, DR_11, DR_10, DR_9}, // DR_6
-	};
+static const int8_t DatarateOffsetsAU915[7][6] =
+	{
+		{DR_8, DR_8, DR_8, DR_8, DR_8, DR_8},	   // DR_0
+		{DR_9, DR_8, DR_8, DR_8, DR_8, DR_8},	   // DR_1
+		{DR_10, DR_9, DR_8, DR_8, DR_8, DR_8},	   // DR_2
+		{DR_11, DR_10, DR_9, DR_8, DR_8, DR_8},	   // DR_3
+		{DR_12, DR_11, DR_10, DR_9, DR_8, DR_8},   // DR_4
+		{DR_13, DR_12, DR_11, DR_10, DR_9, DR_8},  // DR_5
+		{DR_13, DR_13, DR_12, DR_11, DR_10, DR_9}, // DR_6
+};
 
-	/*!
+/*!
  * Maximum payload with respect to the datarate index. Cannot operate with repeater.
  */
-	static const uint8_t MaxPayloadOfDatarateAU915[] = {51, 51, 51, 115, 242, 242, 242, 0, 53, 129, 242, 242, 242, 242};
+static const uint8_t MaxPayloadOfDatarateAU915[] = {51, 51, 51, 115, 242, 242, 242, 0, 53, 129, 242, 242, 242, 242};
 
-	/*!
+/*!
  * Maximum payload with respect to the datarate index. Can operate with repeater.
  */
-	static const uint8_t MaxPayloadOfDatarateRepeaterAU915[] = {0, 0, 11, 53, 125, 242, 242, 0, 53, 129, 242, 242, 242, 242};
+static const uint8_t MaxPayloadOfDatarateRepeaterAU915[] = {0, 0, 11, 53, 125, 242, 242, 0, 53, 129, 242, 242, 242, 242};
 
-	/*!
+/*!
  * \brief The function gets a value of a specific phy attribute.
  *
  * \param  getPhy Pointer to the function parameters.
  *
  * \retval Returns a structure containing the PHY parameter.
  */
-	PhyParam_t RegionAU915GetPhyParam(GetPhyParams_t *getPhy);
+PhyParam_t RegionAU915GetPhyParam(GetPhyParams_t *getPhy);
 
-	/*!
+/*!
  * \brief Updates the last TX done parameters of the current channel.
  *
  * \param  txDone Pointer to the function parameters.
  */
-	void RegionAU915SetBandTxDone(SetBandTxDoneParams_t *txDone);
+void RegionAU915SetBandTxDone(SetBandTxDoneParams_t *txDone);
 
-	/*!
+/*!
  * \brief Initializes the channels masks and the channels.
  *
  * \param  type Sets the initialization type.
  */
-	void RegionAU915InitDefaults(InitType_t type);
+void RegionAU915InitDefaults(InitType_t type);
 
-	/*!
+/*!
  * \brief Verifies a parameter.
  *
  * \param  verify Pointer to the function parameters.
@@ -268,26 +265,26 @@ extern "C"
  *
  * \retval Returns true, if the parameter is valid.
  */
-	bool RegionAU915Verify(VerifyParams_t *verify, PhyAttribute_t phyAttribute);
+bool RegionAU915Verify(VerifyParams_t *verify, PhyAttribute_t phyAttribute);
 
-	/*!
+/*!
  * \brief The function parses the input buffer and sets up the channels of the
  *        CF list.
  *
  * \param  applyCFList Pointer to the function parameters.
  */
-	void RegionAU915ApplyCFList(ApplyCFListParams_t *applyCFList);
+void RegionAU915ApplyCFList(ApplyCFListParams_t *applyCFList);
 
-	/*!
+/*!
  * \brief Sets a channels mask.
  *
  * \param  chanMaskSet Pointer to the function parameters.
  *
  * \retval Returns true, if the channels mask could be set.
  */
-	bool RegionAU915ChanMaskSet(ChanMaskSetParams_t *chanMaskSet);
+bool RegionAU915ChanMaskSet(ChanMaskSetParams_t *chanMaskSet);
 
-	/*!
+/*!
  * \brief Calculates the next datarate to set, when ADR is on or off.
  *
  * \param  adrNext Pointer to the function parameters.
@@ -300,9 +297,9 @@ extern "C"
  *
  * \retval Returns true, if an ADR request should be performed.
  */
-	bool RegionAU915AdrNext(AdrNextParams_t *adrNext, int8_t *drOut, int8_t *txPowOut, uint32_t *adrAckCounter);
+bool RegionAU915AdrNext(AdrNextParams_t *adrNext, int8_t *drOut, int8_t *txPowOut, uint32_t *adrAckCounter);
 
-	/*!
+/*!
  * Computes the Rx window timeout and offset.
  *
  * \param  datarate     Rx window datarate index to be used
@@ -315,9 +312,9 @@ extern "C"
  *
  * \param rxConfigParams Returns updated WindowTimeout and WindowOffset fields.
  */
-	void RegionAU915ComputeRxWindowParameters(int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams);
+void RegionAU915ComputeRxWindowParameters(int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams);
 
-	/*!
+/*!
  * \brief Configuration of the RX windows.
  *
  * \param  rxConfig Pointer to the function parameters.
@@ -326,9 +323,9 @@ extern "C"
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-	bool RegionAU915RxConfig(RxConfigParams_t *rxConfig, int8_t *datarate);
+bool RegionAU915RxConfig(RxConfigParams_t *rxConfig, int8_t *datarate);
 
-	/*!
+/*!
  * \brief TX configuration.
  *
  * \param  txConfig Pointer to the function parameters.
@@ -339,9 +336,9 @@ extern "C"
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-	bool RegionAU915TxConfig(TxConfigParams_t *txConfig, int8_t *txPower, TimerTime_t *txTimeOnAir);
+bool RegionAU915TxConfig(TxConfigParams_t *txConfig, int8_t *txPower, TimerTime_t *txTimeOnAir);
 
-	/*!
+/*!
  * \brief The function processes a Link ADR Request.
  *
  * \param  linkAdrReq Pointer to the function parameters.
@@ -356,27 +353,27 @@ extern "C"
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-	uint8_t RegionAU915LinkAdrReq(LinkAdrReqParams_t *linkAdrReq, int8_t *drOut, int8_t *txPowOut, uint8_t *nbRepOut, uint8_t *nbBytesParsed);
+uint8_t RegionAU915LinkAdrReq(LinkAdrReqParams_t *linkAdrReq, int8_t *drOut, int8_t *txPowOut, uint8_t *nbRepOut, uint8_t *nbBytesParsed);
 
-	/*!
+/*!
  * \brief The function processes a RX Parameter Setup Request.
  *
  * \param  rxParamSetupReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-	uint8_t RegionAU915RxParamSetupReq(RxParamSetupReqParams_t *rxParamSetupReq);
+uint8_t RegionAU915RxParamSetupReq(RxParamSetupReqParams_t *rxParamSetupReq);
 
-	/*!
+/*!
  * \brief The function processes a Channel Request.
  *
  * \param  newChannelReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-	uint8_t RegionAU915NewChannelReq(NewChannelReqParams_t *newChannelReq);
+uint8_t RegionAU915NewChannelReq(NewChannelReqParams_t *newChannelReq);
 
-	/*!
+/*!
  * \brief The function processes a TX ParamSetup Request.
  *
  * \param  txParamSetupReq Pointer to the function parameters.
@@ -385,34 +382,34 @@ extern "C"
  *         Returns -1, if the functionality is not implemented. In this case, the end node
  *         shall not process the command.
  */
-	int8_t RegionAU915TxParamSetupReq(TxParamSetupReqParams_t *txParamSetupReq);
+int8_t RegionAU915TxParamSetupReq(TxParamSetupReqParams_t *txParamSetupReq);
 
-	/*!
+/*!
  * \brief The function processes a DlChannel Request.
  *
  * \param  dlChannelReq Pointer to the function parameters.
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-	uint8_t RegionAU915DlChannelReq(DlChannelReqParams_t *dlChannelReq);
+uint8_t RegionAU915DlChannelReq(DlChannelReqParams_t *dlChannelReq);
 
-	/*!
+/*!
  * \brief Alternates the datarate of the channel for the join request.
  *
  * \param  alternateDr Pointer to the function parameters.
  *
  * \retval Datarate to apply.
  */
-	int8_t RegionAU915AlternateDr(AlternateDrParams_t *alternateDr);
+int8_t RegionAU915AlternateDr(AlternateDrParams_t *alternateDr);
 
-	/*!
+/*!
  * \brief Calculates the back-off time.
  *
  * \param  calcBackOff Pointer to the function parameters.
  */
-	void RegionAU915CalcBackOff(CalcBackOffParams_t *calcBackOff);
+void RegionAU915CalcBackOff(CalcBackOffParams_t *calcBackOff);
 
-	/*!
+/*!
  * \brief Searches and set the next random available channel
  *
  * \param  nextChanParams Parameters of next channel to use for TX.
@@ -426,34 +423,34 @@ extern "C"
  *
  * \retval Function status [1: OK, 0: Unable to find a channel on the current datarate]
  */
-	bool RegionAU915NextChannel(NextChanParams_t *nextChanParams, uint8_t *channel, TimerTime_t *time, TimerTime_t *aggregatedTimeOff);
+bool RegionAU915NextChannel(NextChanParams_t *nextChanParams, uint8_t *channel, TimerTime_t *time, TimerTime_t *aggregatedTimeOff);
 
-	/*!
+/*!
  * \brief Adds a channel.
  *
  * \param  channelAdd Pointer to the function parameters.
  *
  * \retval Status of the operation.
  */
-	LoRaMacStatus_t RegionAU915ChannelAdd(ChannelAddParams_t *channelAdd);
+LoRaMacStatus_t RegionAU915ChannelAdd(ChannelAddParams_t *channelAdd);
 
-	/*!
+/*!
  * \brief Removes a channel.
  *
  * \param  channelRemove Pointer to the function parameters.
  *
  * \retval Returns true, if the channel was removed successfully.
  */
-	bool RegionAU915ChannelsRemove(ChannelRemoveParams_t *channelRemove);
+bool RegionAU915ChannelsRemove(ChannelRemoveParams_t *channelRemove);
 
-	/*!
+/*!
  * \brief Sets the radio into continuous wave mode.
  *
  * \param  continuousWave Pointer to the function parameters.
  */
-	void RegionAU915SetContinuousWave(ContinuousWaveParams_t *continuousWave);
+void RegionAU915SetContinuousWave(ContinuousWaveParams_t *continuousWave);
 
-	/*!
+/*!
  * \brief Computes new datarate according to the given offset
  *
  * \param  downlinkDwellTime Downlink dwell time configuration. 0: No limit, 1: 400ms
@@ -464,8 +461,6 @@ extern "C"
  *
  * \retval newDr Computed datarate.
  */
-	uint8_t RegionAU915ApplyDrOffset(uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset);
+uint8_t RegionAU915ApplyDrOffset(uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset);
 
-	/*! \} defgroup REGIONAU915 */
-};
 #endif // __REGION_AU915_H__

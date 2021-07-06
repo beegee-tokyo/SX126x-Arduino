@@ -142,6 +142,11 @@ AS923-4 has only two default channels for the join process. Additional channels 
 | 1 | 779700000 |
 | 2 | 779900000 |
 
+----
+
+**REMARK**    
+> **`CN779-787 devices may not be produced, imported or installed after 2021-01-01; deployed devices may continue to operate through their normal end-of-life.`**    
+
 ---
 ### Europe 433MHz
 ### EU433

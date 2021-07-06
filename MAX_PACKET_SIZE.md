@@ -25,3 +25,11 @@ The maximum size of a packet that you can send when using LoRaWAN depends on the
 **Remarks**      
 _`ND`_ Data rate not defined    
 For _`AS923`_ first value is DwellTime = disabled, second value is DwellTime enabled    
+
+
+----
+
+**REMARK**    
+> **`CN779-787 devices may not be produced, imported or installed after 2021-01-01; deployed devices may continue to operate through their normal end-of-life.`**    
+
+----

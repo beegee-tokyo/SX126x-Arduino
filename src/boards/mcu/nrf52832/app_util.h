@@ -56,13 +56,6 @@
 #include "nrf_soc.h"
 #include "nrf_nvic.h"
 #endif
-// #include "nrf_assert.h"
-// #include "app_error.h"
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #if __CORTEX_M == (0x00U)
 #define _PRIO_SD_HIGH 0
@@ -86,33 +79,33 @@ extern "C"
 #error "No platform defined"
 #endif
 
-	//lint -save -e113 -e452
-	/**@brief The interrupt priorities available to the application while the SoftDevice is active. */
-	typedef enum
-	{
+//lint -save -e113 -e452
+/**@brief The interrupt priorities available to the application while the SoftDevice is active. */
+typedef enum
+{
 #ifndef SOFTDEVICE_PRESENT
-		APP_IRQ_PRIORITY_HIGHEST = _PRIO_SD_HIGH,
+	APP_IRQ_PRIORITY_HIGHEST = _PRIO_SD_HIGH,
 #else
 	APP_IRQ_PRIORITY_HIGHEST = _PRIO_APP_HIGH,
 #endif
-		APP_IRQ_PRIORITY_HIGH = _PRIO_APP_HIGH,
+	APP_IRQ_PRIORITY_HIGH = _PRIO_APP_HIGH,
 #ifndef SOFTDEVICE_PRESENT
-		APP_IRQ_PRIORITY_MID = _PRIO_SD_LOW,
+	APP_IRQ_PRIORITY_MID = _PRIO_SD_LOW,
 #else
 	APP_IRQ_PRIORITY_MID = _PRIO_APP_MID,
 #endif
-		APP_IRQ_PRIORITY_LOW = _PRIO_APP_LOW,
-		APP_IRQ_PRIORITY_LOWEST = _PRIO_APP_LOWEST,
-		APP_IRQ_PRIORITY_THREAD = _PRIO_THREAD /**< "Interrupt level" when running in Thread Mode. */
-	} app_irq_priority_t;
-	//lint -restore
+	APP_IRQ_PRIORITY_LOW = _PRIO_APP_LOW,
+	APP_IRQ_PRIORITY_LOWEST = _PRIO_APP_LOWEST,
+	APP_IRQ_PRIORITY_THREAD = _PRIO_THREAD /**< "Interrupt level" when running in Thread Mode. */
+} app_irq_priority_t;
+//lint -restore
 
-	/*@brief The privilege levels available to applications in Thread Mode */
-	typedef enum
-	{
-		APP_LEVEL_UNPRIVILEGED,
-		APP_LEVEL_PRIVILEGED
-	} app_level_t;
+/*@brief The privilege levels available to applications in Thread Mode */
+typedef enum
+{
+	APP_LEVEL_UNPRIVILEGED,
+	APP_LEVEL_PRIVILEGED
+} app_level_t;
 
 /**@cond NO_DOXYGEN */
 #define EXTERNAL_INT_VECTOR_OFFSET 16
@@ -156,8 +149,8 @@ extern "C"
 #define PACKED_STRUCT __packed struct
 #endif
 
-	void app_util_critical_region_enter(uint8_t *p_nested);
-	void app_util_critical_region_exit(uint8_t nested);
+void app_util_critical_region_enter(uint8_t *p_nested);
+void app_util_critical_region_exit(uint8_t nested);
 
 /**@brief Macro for entering a critical region.
  *
@@ -233,26 +226,22 @@ extern "C"
 #define CONTROL_nPRIV_Msk (1UL /*<< CONTROL_nPRIV_Pos*/) /*!< CONTROL: nPRIV Mask */
 #endif
 
-	/**@brief Function for finding the current interrupt level.
+/**@brief Function for finding the current interrupt level.
  *
  * @return   Current interrupt level.
  * @retval   APP_IRQ_PRIORITY_HIGH    We are running in Application High interrupt level.
  * @retval   APP_IRQ_PRIORITY_LOW     We are running in Application Low interrupt level.
  * @retval   APP_IRQ_PRIORITY_THREAD  We are running in Thread Mode.
  */
-	uint8_t current_int_priority_get(void);
+uint8_t current_int_priority_get(void);
 
-	/**@brief Function for finding out the current privilege level.
+/**@brief Function for finding out the current privilege level.
  *
  * @return   Current privilege level.
  * @retval   APP_LEVEL_UNPRIVILEGED    We are running in unprivileged level.
  * @retval   APP_LEVEL_PRIVILEGED    We are running in privileged level.
  */
-	uint8_t privilege_level_get(void);
-
-#ifdef __cplusplus
-}
-#endif
+uint8_t privilege_level_get(void);
 
 #endif // APP_UTIL_PLATFORM_H__
 #endif

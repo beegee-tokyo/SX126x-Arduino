@@ -36,9 +36,7 @@
 #ifndef __LORAMACTEST_H__
 #define __LORAMACTEST_H__
 
-extern "C"
-{
-	/*!
+/*!
  * \brief   Enabled or disables the reception windows
  *
  * \details This is a test function. It shall be used for testing purposes only.
@@ -46,9 +44,9 @@ extern "C"
  *
  * \param    enable - Enabled or disables the reception windows
  */
-	void LoRaMacTestRxWindowsOn(bool enable);
+void LoRaMacTestRxWindowsOn(bool enable);
 
-	/*!
+/*!
  * \brief   Enables the MIC field test
  *
  * \details This is a test function. It shall be used for testing purposes only.
@@ -56,9 +54,9 @@ extern "C"
  *
  * \param    txPacketCounter - Fixed Tx packet counter value
  */
-	void LoRaMacTestSetMic(uint16_t txPacketCounter);
+void LoRaMacTestSetMic(uint16_t txPacketCounter);
 
-	/*!
+/*!
  * \brief   Enabled or disables the duty cycle
  *
  * \details This is a test function. It shall be used for testing purposes only.
@@ -66,9 +64,9 @@ extern "C"
  *
  * \param    enable - Enabled or disables the duty cycle
  */
-	void LoRaMacTestSetDutyCycleOn(bool enable);
+void LoRaMacTestSetDutyCycleOn(bool enable);
 
-	/*!
+/*!
  * \brief   Sets the channel index
  *
  * \details This is a test function. It shall be used for testing purposes only.
@@ -76,8 +74,6 @@ extern "C"
  *
  * \param    channel - Channel index
  */
-	void LoRaMacTestSetChannel(uint8_t channel);
+void LoRaMacTestSetChannel(uint8_t channel);
 
-	/*! \} defgroup LORAMACTEST */
-};
 #endif // __LORAMACTEST_H__

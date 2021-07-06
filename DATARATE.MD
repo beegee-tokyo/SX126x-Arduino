@@ -54,3 +54,10 @@
 | KR920         | RFU             |
 | US915         | RFU             |
 | US915_HYBRID  | RFU             |
+
+----
+
+**REMARK**    
+> **`CN779-787 devices may not be produced, imported or installed after 2021-01-01; deployed devices may continue to operate through their normal end-of-life.`**    
+
+----

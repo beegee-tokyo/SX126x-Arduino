@@ -15,9 +15,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 #ifndef __LORA_COMMISSIONING_H__
 #define __LORA_COMMISSIONING_H__
 
-extern "C"
-{
-	/**@brief Define your region here 
+/**@brief Define your region here 
  * Required because each region has different regulations
  * The LoRa Alliance offers documentation for the regional parameters
  * Latest revision when this library was created
@@ -136,5 +134,5 @@ extern "C"
 	{                                                                                                  \
 		0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C \
 	}
-};
+
 #endif // __LORA_COMMISSIONING_H__

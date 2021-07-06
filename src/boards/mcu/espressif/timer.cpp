@@ -37,93 +37,90 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
 #include "boards/mcu/timer.h"
 #include "boards/mcu/board.h"
 
-extern "C"
+Ticker timerTickers[10];
+uint32_t timerTimes[10];
+bool timerInUse[10] = {false, false, false, false, false, false, false, false, false, false};
+
+// External functions
+
+void TimerConfig(void)
 {
+	/// \todo Nothing to do here for ESP32
+}
 
-	Ticker timerTickers[10];
-	uint32_t timerTimes[10];
-	bool timerInUse[10] = {false, false, false, false, false, false, false, false, false, false};
-
-	// External functions
-
-	void TimerConfig(void)
+void TimerInit(TimerEvent_t *obj, void (*callback)(void))
+{
+	// Look for an available Ticker
+	for (int idx = 0; idx < 10; idx++)
 	{
-		/// \todo Nothing to do here for ESP32
-	}
-
-	void TimerInit(TimerEvent_t *obj, void (*callback)(void))
-	{
-		// Look for an available Ticker
-		for (int idx = 0; idx < 10; idx++)
+		if (timerInUse[idx] == false)
 		{
-			if (timerInUse[idx] == false)
-			{
-				timerInUse[idx] = true;
-				obj->timerNum = idx;
-				obj->Callback = callback;
-				return;
-			}
-		}
-		LOG_LIB("TIM", "No more timers available!");
-		/// \todo We run out of tickers, what do we do now???
-	}
-
-	void timerCallback(TimerEvent_t *obj)
-	{
-		// Nothing to do here for the ESP32
-	}
-
-	void TimerStart(TimerEvent_t *obj)
-	{
-		int idx = obj->timerNum;
-		if (obj->oneShot)
-		{
-			timerTickers[idx].once_ms(timerTimes[idx], obj->Callback);
-		}
-		else
-		{
-			timerTickers[idx].attach_ms(timerTimes[idx], obj->Callback);
+			timerInUse[idx] = true;
+			obj->timerNum = idx;
+			obj->Callback = callback;
+			return;
 		}
 	}
+	LOG_LIB("TIM", "No more timers available!");
+	/// \todo We run out of tickers, what do we do now???
+}
 
-	void TimerStop(TimerEvent_t *obj)
+void timerCallback(TimerEvent_t *obj)
+{
+	// Nothing to do here for the ESP32
+}
+
+void TimerStart(TimerEvent_t *obj)
+{
+	int idx = obj->timerNum;
+	if (obj->oneShot)
 	{
-		int idx = obj->timerNum;
-		timerTickers[idx].detach();
+		timerTickers[idx].once_ms(timerTimes[idx], obj->Callback);
 	}
-
-	void TimerReset(TimerEvent_t *obj)
+	else
 	{
-		int idx = obj->timerNum;
-		timerTickers[idx].detach();
-		if (obj->oneShot)
-		{
-			timerTickers[idx].once_ms(timerTimes[idx], obj->Callback);
-		}
-		else
-		{
-			timerTickers[idx].attach_ms(timerTimes[idx], obj->Callback);
-		}
+		timerTickers[idx].attach_ms(timerTimes[idx], obj->Callback);
 	}
+}
 
-	void TimerSetValue(TimerEvent_t *obj, uint32_t value)
+void TimerStop(TimerEvent_t *obj)
+{
+	int idx = obj->timerNum;
+	timerTickers[idx].detach();
+}
+
+void TimerReset(TimerEvent_t *obj)
+{
+	int idx = obj->timerNum;
+	timerTickers[idx].detach();
+	if (obj->oneShot)
 	{
-		int idx = obj->timerNum;
-		timerTimes[idx] = value;
+		timerTickers[idx].once_ms(timerTimes[idx], obj->Callback);
 	}
-
-	TimerTime_t TimerGetCurrentTime(void)
+	else
 	{
-		return millis();
+		timerTickers[idx].attach_ms(timerTimes[idx], obj->Callback);
 	}
+}
 
-	TimerTime_t TimerGetElapsedTime(TimerTime_t past)
-	{
-		uint32_t nowInTicks = millis();
-		uint32_t pastInTicks = past;
-		TimerTime_t diff = nowInTicks - pastInTicks;
+void TimerSetValue(TimerEvent_t *obj, uint32_t value)
+{
+	int idx = obj->timerNum;
+	timerTimes[idx] = value;
+}
 
-		return diff;
-	}
-};
+TimerTime_t TimerGetCurrentTime(void)
+{
+	return millis();
+}
+
+TimerTime_t TimerGetElapsedTime(TimerTime_t past)
+{
+	uint32_t nowInTicks = millis();
+	uint32_t pastInTicks = past;
+	TimerTime_t diff = nowInTicks - pastInTicks;
+
+	return diff;
+}
+
 #endif
