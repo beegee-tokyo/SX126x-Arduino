@@ -214,7 +214,7 @@ void lmh_class_get(DeviceClass_t *currentClass);
  * @param data_rate data rate
  * @param enable_adr  enable adaptative data rate
  */
-void lmh_datarate_set(uint8_t data_rate, uint8_t enable_adr);
+void lmh_datarate_set(uint8_t data_rate, bool enable_adr);
 
 /**@brief Configure tx power
  *

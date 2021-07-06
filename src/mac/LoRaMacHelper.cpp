@@ -339,6 +339,7 @@ static bool compliance_test_tx(void)
 			mcpsReq.Req.Confirmed.fPort = LORAWAN_CERTIF_PORT;
 			mcpsReq.Req.Confirmed.fBufferSize = m_compliance_test.data_buffer_size;
 			mcpsReq.Req.Confirmed.fBuffer = &(m_compliance_test.data_buffer);
+			/// \todo make nbTrials configurable
 			mcpsReq.Req.Confirmed.NbTrials = 8;
 			mcpsReq.Req.Confirmed.Datarate = LORAWAN_DEFAULT_DATARATE;
 		}
@@ -419,7 +420,7 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 			// Check Datarate
 			// Check TxPower
 			// Report unconfirmed TX finished
-			LOG_LIB("LMH", "TX + RX finished");
+			LOG_LIB("LMH", "Timeout TX + RX finished");
 			if (m_callbacks->lmh_unconf_finished != 0)
 			{
 				m_callbacks->lmh_unconf_finished();
@@ -434,6 +435,7 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 			// Check NbTrials
 
 			// Report confirmed TX finished with result
+			LOG_LIB("LMH", "Timeout Conf TX finished %s", mcpsConfirm->AckReceived ? "SUCC" : "FAIL");
 			if (m_callbacks->lmh_conf_result != 0)
 			{
 				m_callbacks->lmh_conf_result(mcpsConfirm->AckReceived);
@@ -892,7 +894,7 @@ lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param, boo
 	return LMH_SUCCESS;
 }
 
-void lmh_datarate_set(uint8_t data_rate, uint8_t enable_adr)
+void lmh_datarate_set(uint8_t data_rate, bool enable_adr)
 {
 	m_param.adr_enable = enable_adr;
 	m_param.tx_data_rate = data_rate;
@@ -980,6 +982,11 @@ lmh_error_status lmh_send(lmh_app_data_t *app_data, lmh_confirm is_tx_confirmed)
 		return LMH_ERROR;
 	}
 
+	if (lmh_mac_is_busy)
+	{
+		return LMH_BUSY;
+	}
+
 	if (LoRaMacQueryTxPossible(app_data->buffsize, &txInfo) != LORAMAC_STATUS_OK)
 	{
 		LOG_LIB("LMH", "lmh_send -> LoRaMacQueryTxPossible failed");
@@ -1041,6 +1048,7 @@ lmh_error_status lmh_send_blocking(lmh_app_data_t *app_data, lmh_confirm is_tx_c
 			if ((millis() - time_start) > time_out)
 			{
 				LOG_LIB("LMH", "timeout at %ld", (millis() - time_start));
+				lmh_mac_is_busy = false;
 				return LMH_ERROR;
 			}
 			delay(250);
