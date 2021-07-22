@@ -11,6 +11,7 @@ lora_hardware_re_init	KEYWORD1
 lora_hardware_uninit	KEYWORD1
 lora_isp4520_init	KEYWORD1
 lora_rak4630_init	KEYWORD1
+lora_rak11300_init	KEYWORD1
 BoardGetRandomSeed	KEYWORD1
 BoardGetUniqueId	KEYWORD1
 BoardGetBatteryLevel	KEYWORD1

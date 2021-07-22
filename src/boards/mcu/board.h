@@ -76,6 +76,13 @@ struct hw_config
 	bool USE_RXEN_ANT_PWR = false;	  // Whether RX_EN is used as antenna power
 };
 
+#ifdef ARDUINO_ARCH_RP2040
+#include <mbed.h>
+#include <rtos.h>
+// Wake up LoRa event handler on RP2040
+extern osThreadId _lora_task_thread;
+#endif
+
 extern hw_config _hwConfig;
 
 /**@brief Initializes the target board peripherals.

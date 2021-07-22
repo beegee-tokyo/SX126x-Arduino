@@ -5,6 +5,6 @@
 #elif defined(NRF52_SERIES)
 #include "boards/mcu/nrf52832/spi_board.h"
 #else
-#error "Unsupported MCU"
+#include "boards/mcu/rp2040/spi_board.h"
 #endif
 #endif

@@ -3,6 +3,8 @@
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266 and nRF52832. It will not work with other uC's like AVR.    
 LoRaWAN version: **`MAC V1.0.2`** and Regional Parameters version: **`PHY V1.0.2 REV B`**    
 
+# _**IMPORTANT: RAK11300 module (RP2040) support is only tested with the [ArduinoCore Mbed BSP](https://github.com/arduino/ArduinoCore-mbed). It will not work with other BSP's for the Raspberry RP2040.**_
+
 _**IMPORTANT: READ [WHAT'S NEW IN V2](./README_V2.md)**_
 _**Some major changes are made in V2 of the SX126x-Arduino library:**_    
 _**- The library now supports all LoRaWAN regions without re-compiling**_    
@@ -77,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2021-07-22:
+  - Add support for RAKwireless RAK11300 module (Raspberry RP2040 + SX1262 module)
 - 2021-06-30:  
   - Add callbacks for LoRaWAN TX finished (both confirmed and unconfirmed)
   - Add addional bandwidths for LoRa transmissions. _**Breaks `Radio.TimeOnAir()` for bandwidths other than BW 125, 250 and 500**_
@@ -321,6 +325,12 @@ The ISP4520 module has the nRF52832 and SX1261 or SX1262 chips integrated in a m
 The RAK4630/4631 module has the nRF52840 and SX1262 chips integrated in a module. Therefore the hardware configuration is fixed.    
 ```cpp
   lora_rak4630_init();
+```
+----
+#### Simplified LoRa HW initialization for RAK11300/11310 module
+The RAK11300/11310 module has the Rp2040 and SX1262 chips integrated in a module. Therefore the hardware configuration is fixed.    
+```cpp
+  lora_rak11300_init();
 ```
 ----
 #### Initialize the LoRa HW after CPU woke up from deep sleep

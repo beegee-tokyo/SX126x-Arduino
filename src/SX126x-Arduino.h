@@ -20,4 +20,9 @@
 #include "boards/mcu/board.h"
 #include "radio/radio.h"
 
+#ifdef NRF52_SERIES
+#include <SPI.h>
+extern SPIClass SPI_LORA;
+#endif
+
 #endif // _SX126X_ARDUINO_H
