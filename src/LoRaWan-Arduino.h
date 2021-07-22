@@ -16,4 +16,9 @@
 #include "radio/radio.h"
 #include "mac/LoRaMacHelper.h"
 
+#ifdef NRF52_SERIES
+#include <SPI.h>
+extern SPIClass SPI_LORA;
+#endif
+
 #endif // _LORAWAN_ARDUINO_H

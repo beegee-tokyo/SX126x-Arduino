@@ -1016,6 +1016,10 @@ lmh_error_status lmh_send(lmh_app_data_t *app_data, lmh_confirm is_tx_confirmed)
 			mcpsReq.Req.Confirmed.fBufferSize = app_data->buffsize;
 			mcpsReq.Req.Confirmed.fBuffer = app_data->buffer;
 			/// \todo make nbTrials configurable
+			// if ((region == LORAMAC_REGION_AS923) ||
+			// 	(region == LORAMAC_REGION_AS923_2) ||
+			// 	(region == LORAMAC_REGION_AS923_3) ||
+			// 	(region == LORAMAC_REGION_AS923_4))
 			if (region == LORAMAC_REGION_AS923)
 			{
 				mcpsReq.Req.Confirmed.NbTrials = 1; //8;

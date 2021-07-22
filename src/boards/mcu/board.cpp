@@ -236,6 +236,62 @@ uint32_t lora_rak4630_init(void)
 	return 1;
 }
 
+uint32_t lora_rak11300_init(void)
+{
+	_hwConfig.CHIP_TYPE = SX1262;		   // Chip type, SX1261 or SX1262
+	_hwConfig.PIN_LORA_SCLK = 10;		   // LORA SPI CLK
+	_hwConfig.PIN_LORA_MOSI = 11;		   // LORA SPI MOSI
+	_hwConfig.PIN_LORA_MISO = 12;		   // LORA SPI MISO
+	_hwConfig.PIN_LORA_NSS = 13;		   // LORA SPI CS
+	_hwConfig.PIN_LORA_RESET = 14;		   // LORA RESET
+	_hwConfig.PIN_LORA_BUSY = 15;		   // LORA SPI BUSY
+	_hwConfig.RADIO_TXEN = -1;			   // LORA ANTENNA TX ENABLE (e.g. eByte E22 module)
+	_hwConfig.RADIO_RXEN = 25;			   // LORA ANTENNA RX ENABLE (e.g. eByte E22 module)
+	_hwConfig.USE_DIO2_ANT_SWITCH = true;  // LORA DIO2 controls antenna
+	_hwConfig.USE_DIO3_TCXO = true;		   // LORA DIO3 controls oscillator voltage (e.g. eByte E22 module)
+	_hwConfig.USE_DIO3_ANT_SWITCH = false; // LORA DIO3 controls antenna (e.g. Insight SIP ISP4520 module)
+// #ifdef PICO
+// 	_hwConfig.PIN_LORA_DIO_1 = 28;		// 28 on Pico, 29 on RAK11300; // LORA DIO_1
+// 	_hwConfig.USE_RXEN_ANT_PWR = false; // false on Pico, true on RAK11300, RXEN is used as power for antenna switch
+// 	_hwConfig.USE_LDO = false;
+// #else
+	_hwConfig.PIN_LORA_DIO_1 = 29;	   // 28 on Pico, 29 on RAK11300; // LORA DIO_1
+	_hwConfig.USE_RXEN_ANT_PWR = true; // false on Pico, true on RAK11300, RXEN is used as power for antenna switch
+	_hwConfig.USE_LDO = true;		   // True on RAK11300 prototypes
+// #endif
+	LOG_LIB("BRD", "TimerConfig()");
+	TimerConfig();
+
+	LOG_LIB("BRD", "SX126xIoInit()");
+	SX126xIoInit();
+
+	// After power on the sync word should be 2414. 4434 could be possible on a restart
+	// If we got something else, something is wrong.
+	uint16_t readSyncWord = 0;
+	LOG_LIB("BRD", "SX126xReadRegisters()");
+	SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
+
+	LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
+
+	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	{
+		// If we are compiling for ESP32, nRF52 or RP2040 we start background task
+#if defined NRF52_SERIES || defined ESP32 || ARDUINO_ARCH_RP2040
+		if (start_lora_task())
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+#else
+		return 0;
+#endif
+	}
+	return 1;
+}
+
 #if defined NRF52_SERIES || defined ESP32
 void _lora_task(void *pvParameters)
 {
@@ -267,6 +323,45 @@ bool start_lora_task(void)
 	{
 		return false;
 	}
+	return true;
+}
+#endif
+
+#ifdef ARDUINO_ARCH_RP2040
+#include <mbed.h>
+#include <rtos.h>
+using namespace rtos;
+using namespace mbed;
+
+/** The event handler thread */
+Thread _thread_handle_lora(osPriorityAboveNormal, 4096);
+
+/** Thread id for lora event thread */
+osThreadId _lora_task_thread = NULL;
+
+// Task to handle timer events
+void _lora_task()
+{
+	_lora_task_thread = osThreadGetId();
+	while (true)
+	{
+		// Wait for event
+		osSignalWait(0x1, osWaitForever);
+
+		// LOG_LIB("TIM", "LoRa IRQ");
+		// Handle Radio events
+		Radio.BgIrqProcess();
+
+		yield();
+	}
+}
+
+bool start_lora_task(void)
+{
+	_thread_handle_lora.start(_lora_task);
+	_thread_handle_lora.set_priority(osPriorityAboveNormal);
+
+	/// \todo how to detect that the task is really created
 	return true;
 }
 #endif
