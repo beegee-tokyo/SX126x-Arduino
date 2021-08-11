@@ -250,15 +250,13 @@ uint32_t lora_rak11300_init(void)
 	_hwConfig.USE_DIO2_ANT_SWITCH = true;  // LORA DIO2 controls antenna
 	_hwConfig.USE_DIO3_TCXO = true;		   // LORA DIO3 controls oscillator voltage (e.g. eByte E22 module)
 	_hwConfig.USE_DIO3_ANT_SWITCH = false; // LORA DIO3 controls antenna (e.g. Insight SIP ISP4520 module)
-// #ifdef PICO
-// 	_hwConfig.PIN_LORA_DIO_1 = 28;		// 28 on Pico, 29 on RAK11300; // LORA DIO_1
-// 	_hwConfig.USE_RXEN_ANT_PWR = false; // false on Pico, true on RAK11300, RXEN is used as power for antenna switch
-// 	_hwConfig.USE_LDO = false;
-// #else
-	_hwConfig.PIN_LORA_DIO_1 = 29;	   // 28 on Pico, 29 on RAK11300; // LORA DIO_1
-	_hwConfig.USE_RXEN_ANT_PWR = true; // false on Pico, true on RAK11300, RXEN is used as power for antenna switch
-	_hwConfig.USE_LDO = true;		   // True on RAK11300 prototypes
-// #endif
+	_hwConfig.PIN_LORA_DIO_1 = 29;		   // LORA DIO_1
+	_hwConfig.USE_RXEN_ANT_PWR = true;	   // RXEN is used as power for antenna switch
+#ifdef RAK11310_PROTO
+	_hwConfig.USE_LDO = true;		   // True on RAK11300 prototypes because of DCDC regulator problem
+#else
+	_hwConfig.USE_LDO = false;
+#endif
 	LOG_LIB("BRD", "TimerConfig()");
 	TimerConfig();
 

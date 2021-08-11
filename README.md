@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2021-08-11:
+  - Correct power regulator setting for RAKwireless RAK11300 module from LDO to DCDC
 - 2021-07-22:
   - Add support for RAKwireless RAK11300 module (Raspberry RP2040 + SX1262 module)
 - 2021-06-30:  
