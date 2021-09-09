@@ -129,7 +129,7 @@ uint32_t lora_hardware_re_init(hw_config hwConfig)
 
 	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 	{
-#if defined NRF52_SERIES || defined ESP32
+#if defined NRF52_SERIES || defined ESP32 || ARDUINO_ARCH_RP2040
 		if (start_lora_task())
 		{
 			return 0;
@@ -174,7 +174,7 @@ uint32_t lora_isp4520_init(int chipType)
 
 	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 	{
-#if defined NRF52_SERIES || defined ESP32
+#if defined NRF52_SERIES || defined ESP32 || ARDUINO_ARCH_RP2040
 		if (start_lora_task())
 		{
 			return 0;
@@ -220,7 +220,7 @@ uint32_t lora_rak4630_init(void)
 
 	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 	{
-#if defined NRF52_SERIES || defined ESP32
+#if defined NRF52_SERIES || defined ESP32 || ARDUINO_ARCH_RP2040
 		if (start_lora_task())
 		{
 			return 0;
@@ -253,7 +253,7 @@ uint32_t lora_rak11300_init(void)
 	_hwConfig.PIN_LORA_DIO_1 = 29;		   // LORA DIO_1
 	_hwConfig.USE_RXEN_ANT_PWR = true;	   // RXEN is used as power for antenna switch
 #ifdef RAK11310_PROTO
-	_hwConfig.USE_LDO = true;		   // True on RAK11300 prototypes because of DCDC regulator problem
+	_hwConfig.USE_LDO = true; // True on RAK11300 prototypes because of DCDC regulator problem
 #else
 	_hwConfig.USE_LDO = false;
 #endif
@@ -274,6 +274,65 @@ uint32_t lora_rak11300_init(void)
 	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 	{
 		// If we are compiling for ESP32, nRF52 or RP2040 we start background task
+#if defined NRF52_SERIES || defined ESP32 || ARDUINO_ARCH_RP2040
+		if (start_lora_task())
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+#else
+		return 0;
+#endif
+	}
+	return 1;
+}
+
+#ifndef WB_IO3
+#define WB_IO3 -1
+#endif
+#ifndef WB_IO4
+#define WB_IO4 -1
+#endif
+#ifndef WB_IO5
+#define WB_IO5 -1
+#endif
+#ifndef WB_IO6
+#define WB_IO6 -1
+#endif
+
+uint32_t lora_rak13300_init(void)
+{
+	_hwConfig.CHIP_TYPE = SX1262;		   // Chip type, SX1261 or SX1262
+	_hwConfig.PIN_LORA_RESET = WB_IO4;	   // LORA RESET
+	_hwConfig.PIN_LORA_NSS = SS;		   // LORA SPI CS
+	_hwConfig.PIN_LORA_SCLK = SCK;		   // LORA SPI CLK
+	_hwConfig.PIN_LORA_MISO = MISO;		   // LORA SPI MISO
+	_hwConfig.PIN_LORA_DIO_1 = WB_IO6;	   // LORA DIO_1
+	_hwConfig.PIN_LORA_BUSY = WB_IO5;	   // LORA SPI BUSY
+	_hwConfig.PIN_LORA_MOSI = MOSI;		   // LORA SPI MOSI
+	_hwConfig.RADIO_TXEN = -1;			   // LORA ANTENNA TX ENABLE (e.g. eByte E22 module)
+	_hwConfig.RADIO_RXEN = WB_IO3;		   // LORA ANTENNA RX ENABLE (e.g. eByte E22 module)
+	_hwConfig.USE_DIO2_ANT_SWITCH = true;  // LORA DIO2 controls antenna
+	_hwConfig.USE_DIO3_TCXO = true;		   // LORA DIO3 controls oscillator voltage (e.g. eByte E22 module)
+	_hwConfig.USE_DIO3_ANT_SWITCH = false; // LORA DIO3 controls antenna (e.g. Insight SIP ISP4520 module)
+	_hwConfig.USE_RXEN_ANT_PWR = true;	   // RXEN is used as power for antenna switch
+
+	TimerConfig();
+
+	SX126xIoInit();
+
+	// After power on the sync word should be 2414. 4434 could be possible on a restart
+	// If we got something else, something is wrong.
+	uint16_t readSyncWord = 0;
+	SX126xReadRegisters(REG_LR_SYNCWORD, (uint8_t *)&readSyncWord, 2);
+
+	LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
+
+	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	{
 #if defined NRF52_SERIES || defined ESP32 || ARDUINO_ARCH_RP2040
 		if (start_lora_task())
 		{
