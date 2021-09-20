@@ -1,36 +1,38 @@
 {
-   "name":"SX126x-Arduino",
-   "version":"2.0.4",
-   "keywords":[
-      "lora",
-      "Semtech",
-      "SX126x",
-      "RAK4630",
-	  "RAK11300"
-   ],
-   "description":"READ MIGRATION INFORMATION ON GITHUB FOR CHANGES BETWEEN LIBRARY VERSIONS V1.X and V2. Arduino library to use Semtech SX126x LoRa chips and modules to communicate",
-   "frameworks":[
-      "arduino"
-   ],
-   "platforms":[
-      "espressif32",
-      "nordicnrf52",
-      "espressif8266",
-      "nordicnrf52",
-	  "mbed_rp2040"
-   ],
-   "license":"MIT",
-   "authors":[
-      {
-         "email":"beegee@giesecke.tk",
-         "url":"https://www.desire.giesecke.tk",
-         "maintainer":true,
-         "name":"Bernd Giesecke"
-      }
-   ],
-   "repository":{
-      "type":"git",
-      "url":"https://github.com/beegee-tokyo/SX126x-Arduino"
-   },
-   "homepage":"https://github.com/beegee-tokyo/SX126x-Arduino"
+	"name": "SX126x-Arduino",
+	"version": "2.0.5",
+	"keywords": [
+		"lora",
+		"Semtech",
+		"SX126x",
+		"RAK4630",
+		"RAK11200",
+		"RAK11300",
+		"RAK13300"
+	],
+	"description": "READ MIGRATION INFORMATION ON GITHUB FOR CHANGES BETWEEN LIBRARY VERSIONS V1.X and V2. Arduino library to use Semtech SX126x LoRa chips and modules to communicate",
+	"frameworks": [
+		"arduino"
+	],
+	"platforms": [
+		"espressif32",
+		"nordicnrf52",
+		"espressif8266",
+		"nordicnrf52",
+		"mbed_rp2040"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"email": "beegee@giesecke.tk",
+			"url": "https://www.desire.giesecke.tk",
+			"maintainer": true,
+			"name": "Bernd Giesecke"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/beegee-tokyo/SX126x-Arduino"
+	},
+	"homepage": "https://github.com/beegee-tokyo/SX126x-Arduino"
 }
