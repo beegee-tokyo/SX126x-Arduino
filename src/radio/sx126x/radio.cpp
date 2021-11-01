@@ -1421,7 +1421,7 @@ void RadioBgIrqProcess(void)
 	if (TimerTxTimeout)
 	{
 		TimerTxTimeout = false;
-		if (!rx_timeout_handled)
+		if (!tx_timeout_handled)
 		{
 			TimerStop(&TxTimeoutTimer);
 			if ((RadioEvents != NULL) && (RadioEvents->TxTimeout != NULL))

@@ -79,6 +79,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2021-11-01
+  - Correct handling of TX timeout in Radio callbacks
+- 2021-09-20
+  - Add missing declaration for lora_rak13300_init()
 - 2021-08-11:
   - Correct power regulator setting for RAKwireless RAK11300 module from LDO to DCDC
 - 2021-07-22:

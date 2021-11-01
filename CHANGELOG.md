@@ -3,6 +3,12 @@
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266, nRF52832 and RP2040. It will not work with other uC's like AVR.    
 
 # Release Notes
+## V2.0.6 Bug fix
+  - Correct handling of TX timeout in Radio callbacks
+  
+## V2.0.5 Bug Fix
+  - Add missing declaration for lora_rak13300_init()
+
 ## V2.0.4 Bug Fix
   - Correct power regulator setting for RAKwireless RAK11300 module from LDO to DCDC
 
