@@ -1,3 +1,23 @@
+/**
+ * @file DeepSleep.ino
+ * @author Bernd Giesecke (bernd.giesecke@rakwireless.com)
+ * @brief Low power example for ESP32 and SX1262
+ * 
+ * This examples shows LoRa P2P communication with a ESP32 using the 
+ * sleep function of the ESP32 to lower the power consumption.
+ * The ESP32 goes into sleep after initializing the SX1262 to listen
+ * using the RxDutyCycle mode. In this mode, the SX1262 is sleeping as
+ * well, only waking up to check if any preamble signal is detected.
+ * If a preamble is detected, the SX1262 starts receiving and sets
+ * an interrupt to wake up the ESP32.
+ * 
+ * @version 0.1
+ * @date 2021-11-26
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include <Arduino.h>
 #include <SPI.h>
 #include <Ticker.h>

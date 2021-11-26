@@ -1,10 +1,18 @@
+/**
+ * @file LoRaWan.ino
+ * @author Bernd Giesecke (bernd.giesecke@rakwireless.com)
+ * @brief 
+ * @version 0.1
+ * @date 2021-11-26
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include <Arduino.h>
 
-#ifndef RAK4630
 #include <LoRaWan-Arduino.h>
-#else
-#include <LoRaWan-RAK4630.h>
-#endif
+
 #include <SPI.h>
 
 #define SCHED_MAX_EVENT_DATA_SIZE APP_TIMER_SCHED_EVENT_DATA_SIZE /**< Maximum size of scheduler events. */
@@ -180,7 +188,7 @@ void setup()
 	lmh_setDevAddr(nodeDevAddr);
 
 	// Initialize LoRaWan
-	err_code = lmh_init(&lora_callbacks, lora_param_init, false);
+	err_code = lmh_init(&lora_callbacks, lora_param_init, true, CLASS_A, LORAMAC_REGION_AS923_3);
 	if (err_code != 0)
 	{
 		Serial.printf("lmh_init failed - %d\n", err_code);

@@ -23,15 +23,13 @@ I am here citing the [FreeRTOS documentation](https://www.freertos.org/Embedded-
 > Consider the case where a task is used to service a peripheral. Polling the peripheral would be wasteful of CPU resources, and prevent other tasks from executing. It is therefore preferable that the task spends most of its time in the Blocked state (allowing other tasks to execute) and only execute itself when there is actually something for it to do. This is achieved using a binary semaphore by having the task Block while attempting to ‘take’ the semaphore. An interrupt routine is then written for the peripheral that just ‘gives’ the semaphore when the peripheral requires servicing. The task always ‘takes’ the semaphore (reads from the queue to make the queue empty), but never ‘gives’ it. The interrupt always ‘gives’ the semaphore (writes to the queue to make it full) but never takes it.
 
 ### How do we use semaphores in this low power example?
-This example will use separate tasks. One is the Arduino `loop()` function (referred to in the following parts as `loopTask`), which is actually a task on FreeRTOS. A second task is created to handle all LoRa events. We call this second task `loraTask`.
+This example will use separate tasks. One is the Arduino `loop()` function (referred to in the following parts as `loopTask`), which is actually a task on FreeRTOS. A second task is created by the SX126x-Arduino library and handles all LoRa events. As this is done automatically by the library, we do not need to care about it. Same as shown below for the `loopTask` the LoRa handler task is controlled by a semaphore and is sleeping until the SX1262 LoRa transceiver triggers an event.
 
 For the `loopTask`, we create a semaphore called `taskEvent`, that is given by two different events:
 - a timer event, which wakes up the `loopTask` every 2 minutes to send a status message to the LoRaWan server
 - a LoRaWAN downlink event, that is triggered if a downlink package from the LoRaWAN server has arrived
 
-And for the `loraTask`, we create a second semaphore, called `loraEvent`, that is given by only one event. This event is the interrupt signal of the SX1262 transceiver. Only if the SX1262 transceiver is setting the interrupt signal the `loraTask` has to wakeup and handle the event.
-
-In the example code both `taskEvent` and the `loraEvent` semaphores are taken by the setup functions before the `loopTask` and the `loraTask` are started. Once the two tasks are started, they will call `xSemaphoreTake(semaphore, portMAX_DELAY)`. The first parameter is the semaphore the task wants to take, the second parameter is the time the task will wait for the semaphore to be available. `portMAX_DELAY` means that the function will not return until the semaphore is given ==> the task goes to sleep!
+In the example code the `taskEvent` semaphore is taken by the setup functions before the `loopTask` is started. Once the task is started, it will call `xSemaphoreTake(semaphore, portMAX_DELAY)`. The first parameter is the semaphore the task wants to take, the second parameter is the time the task will wait for the semaphore to be available. `portMAX_DELAY` means that the function will not return until the semaphore is given ==> the task goes to sleep!
 
 ### Code explanation
 #### Important to know
@@ -67,82 +65,14 @@ Then after some GPIO setup, we call the function that initializes the SX1262 tra
 ```
 
 #### The LoRaWan setup function `initLoRaWan()`
-In the `initLoRaWan()` function the first thing is to create the semaphore that will later hold the `loraTask` in sleep mode.
-```cpp
-	// Create the LoRaWan event semaphore
-	loraEvent = xSemaphoreCreateBinary();
-	// Initialize semaphore
-	xSemaphoreGive(loraEvent);
-```
-Then the usual setup calls to initiate the LoRaWan library are done. Details about this can be found in the other examples. The more important parts are at the end of the function.
-In normal mode, the SX1262 interrupt would call a function inside the SX126x-Arduino library. This interrupt handler sets a flag, that is used by the library function `Radio.IrqProcess` to handle different LoRa events. But we do not want to poll this interrupt handler flag in an endless loop, because that would prevent the MCU from going into sleep. The workaround here is to _**steal**_ the interrupt handler from the SX126x-Arduino library and point it to our own interrupt handler.
-```cpp
-	// In deep sleep we need to hijack the SX126x IRQ to trigger a wakeup of the nRF52
-	attachInterrupt(PIN_LORA_DIO_1, loraIntHandler, RISING);
-```
-This interrupt handler `loraIntHandler` will be explained later.
-Next is to start the `loraTask`. 
-```cpp
-	// Start the task that will handle the LoRaWan events
-#ifndef MAX_SAVE
-	Serial.println("Starting LoRaWan task");
-#endif
-	if (!xTaskCreate(loraTask, "LORA", 2048, NULL, TASK_PRIO_LOW, &loraTaskHandle))
-	{
-		return -4;
-	}
-```
-And then we can start the LoRaWAN join process.
+In the `initLoRaWan()` function the usual setup calls to initiate the LoRaWan library are done. Details about this can be found in the other examples.    
+Then we can start the LoRaWAN join process.
 ```cpp
 	// Start Join procedure
 #ifndef MAX_SAVE
 	Serial.println("Start network join request");
 #endif
 	lmh_join();
-```
-As you might have seen, here we do not block the `loraTask` immediately by taking the `loraEvent` semaphore. This is because until the _**join network process**_ is finished, it is required to keep the `loraTask` running.
-
-#### The function that wakes up the `loraTask`.
-If the SX1262 sets its interrupt to inform the MCU about an event (can be RX, TX or error events), the function `loraIntHandler` is called.
-This function gives (frees) the `loraEvent` semaphore, which wakes up the `loraTask` and lets the task handle the event.
-```cpp
-void loraIntHandler(void)
-{
-	// SX126x set IRQ
-	if (loraEvent != NULL)
-	{
-		// Wake up LoRa task
-		xSemaphoreGive(loraEvent);
-	}
-}
-```
-
-#### The task `loraTask` to handle LoRa events
-The task is quite simple. After starting the task it will run in an endless loop
-```cpp
-	while (1)
-	{
-	}
-```
-Just for some info, once the node has joined the LoRaWAN network, we switch off the blue LED
-```cpp
-		if (lmh_join_status_get() == LMH_SET)
-		{ // Switch off the indicator lights
-			digitalWrite(LED_CONN, LOW);
-		}
-```
-And next the `loraTask` will go to sleep and wait for the `loraEvent` semaphore be given by the above `loraIntHandler`. Once the `loraEvent` semaphore is available we call `Radio.IrqProcessAfterDeepSleep()` to check what event the SX1262 has reported and to handle it.
-```cpp
-		// Only if semaphore is available we need to handle LoRa events.
-		// Otherwise we sleep here until an event occurs
-		if (xSemaphoreTake(loraEvent, portMAX_DELAY) == pdTRUE)
-		{
-			// Switch off the indicator lights
-			digitalWrite(LED_CONN, HIGH);
-
-			// Handle Radio events with special process command!!!!
-			Radio.IrqProcessAfterDeepSleep();
-		}
 ```
 Handling the LoRa events is done in the functions `lorawan_has_joined_handler()`, `lorawan_rx_handler()`, `lorawan_confirm_class_handler()`, ... that are similar to the same functions in the "normal" LoRaWAN example.     
 There are only a few differences:    
@@ -167,13 +97,6 @@ If we received a downlink package from the LoRaWAN server, we wake up the `taskL
 		}
 ```
 Beside of giving the `taskEvent` semaphore, we set as well the flag `eventType = 0;` which tells the `taskLoop` that it woke up because a data package has arrived.    
-**All LoRa event handler functions**    
-In every LoRa event handler function, you can find the lines
-```cpp
-	// Send LoRa handler back to sleep
-	xSemaphoreTake(loraEvent, 10);
-```
-which takes the `loraEvent` semaphore. That causes the `loraTask` to go back to sleep again until the next event happens.
 
 ### The function that wakes up the `loopTask` frequently
 As already mentioned, the `loopTask` sleeps until either a downlink package is received, or wakes up every 2 minutes to send a status package.    
@@ -274,3 +197,6 @@ After the event is handled, the `taskLoop` goes back to sleep.
 
 ## Notes
 This code is written as an example and is not perfect in all parts. The goal was to show how to minimize the power consumption of a system that is based on a nRF52 and a SX1262.
+
+## LowPower applications with WisBlock API
+If you own a WisBlock Core RAK4631 you can as well look into the [WisBlock API](https://github.com/beegee-tokyo/WisBlock-API) which implements above functions in a library.

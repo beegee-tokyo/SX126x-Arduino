@@ -2,8 +2,10 @@
  * @file DeepSleep-nRF52.ino
  * @author Bernd Giesecke (bernd.giesecke@rakwireless.com)
  * @brief LoRaWan deep sleep example
+ * 
  * Device goes into sleep after successful OTAA network join.
  * Wake up every SLEEP_TIME seconds. Set time in main.h 
+ * 
  * @version 0.1
  * @date 2020-09-05
  * 
