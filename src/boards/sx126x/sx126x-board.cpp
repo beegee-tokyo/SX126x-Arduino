@@ -532,6 +532,10 @@ void SX126xRXena(void)
 			digitalWrite(_hwConfig.RADIO_TXEN, LOW);
 		}
 	}
+	else
+	{
+		digitalWrite(_hwConfig.RADIO_RXEN, HIGH);
+	}
 }
 
 void SX126xTXena(void)
@@ -543,6 +547,10 @@ void SX126xTXena(void)
 			digitalWrite(_hwConfig.RADIO_RXEN, LOW);
 			digitalWrite(_hwConfig.RADIO_TXEN, HIGH);
 		}
+	}
+	else
+	{
+		digitalWrite(_hwConfig.RADIO_RXEN, HIGH);
 	}
 }
 
