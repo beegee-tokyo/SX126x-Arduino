@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2021-12-18
+  - Fix bug in lmh_datarate_set. Function did change only ADR, but did not update the datarate setting
 - 2021-12-09
   - Make antenna switch control compatible with different switches
 - 2021-11-26

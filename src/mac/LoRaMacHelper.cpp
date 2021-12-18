@@ -902,6 +902,14 @@ void lmh_datarate_set(uint8_t data_rate, bool enable_adr)
 	mibReq.Type = MIB_ADR;
 	mibReq.Param.AdrEnable = enable_adr;
 	LoRaMacMibSetRequestConfirm(&mibReq);
+
+	mibReq.Type = MIB_CHANNELS_DEFAULT_DATARATE;
+	mibReq.Param.ChannelsDefaultDatarate = data_rate;
+	LoRaMacMibSetRequestConfirm(&mibReq);
+
+	mibReq.Type = MIB_CHANNELS_DATARATE;
+	mibReq.Param.ChannelsDefaultDatarate = data_rate;
+	LoRaMacMibSetRequestConfirm(&mibReq);
 }
 
 void lmh_tx_power_set(uint8_t tx_power)

@@ -3,6 +3,9 @@
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266, nRF52832 and RP2040. It will not work with other uC's like AVR.    
 
 # Release Notes
+## V2.0.8 Fix bug in lmh_datarate_set
+  - Function did change only ADR, but did not update the datarate setting
+  
 ## V2.0.7 Support different antenna switch correct
   - Change antenna switch handling
   
