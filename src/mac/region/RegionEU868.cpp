@@ -162,6 +162,7 @@ static uint8_t CountNbOfEnabledChannels(bool joined, uint8_t datarate, uint16_t 
 		{
 			if ((channelsMask[k] & (1 << j)) != 0)
 			{
+				LOG_LIB("EU868", "Channel count ch# %d, freq %ld", i + j, channels[i + j].Frequency);
 				if (channels[i + j].Frequency == 0)
 				{ // Check if the channel is enabled
 					continue;
@@ -184,6 +185,7 @@ static uint8_t CountNbOfEnabledChannels(bool joined, uint8_t datarate, uint16_t 
 					continue;
 				}
 				enabledChannels[nbEnabledChannels++] = i + j;
+				LOG_LIB("EU868", "Set channel %d, frequency %ld", nbEnabledChannels - 1, channels[i + j].Frequency);
 			}
 		}
 	}
@@ -446,6 +448,7 @@ void RegionEU868ApplyCFList(ApplyCFListParams_t *applyCFList)
 			newChannel.Frequency |= ((uint32_t)applyCFList->Payload[i + 2] << 16);
 			newChannel.Frequency *= 100;
 
+			LOG_LIB("EU868", "Apply CF list: new channel at Freq = %d", newChannel.Frequency);
 			// Initialize alternative frequency to 0
 			newChannel.Rx1Frequency = 0;
 		}
@@ -814,6 +817,15 @@ uint8_t RegionEU868NewChannelReq(NewChannelReqParams_t *newChannelReq)
 	}
 	else
 	{
+		// Workaround Chirpstack bug that requests wrong max DR
+		LOG_LIB("EU868", "Requested DR was %d", newChannelReq->NewChannel->DrRange.Fields.Max);
+
+		if (newChannelReq->NewChannel->DrRange.Fields.Max < 0)
+		{
+			LOG_LIB("EU868", "Requested DR was %d, changed to %d", newChannelReq->NewChannel->DrRange.Fields.Max, abs(newChannelReq->NewChannel->DrRange.Fields.Max));
+			newChannelReq->NewChannel->DrRange.Fields.Max = abs(newChannelReq->NewChannel->DrRange.Fields.Max);
+		}
+
 		channelAdd.NewChannel = newChannelReq->NewChannel;
 		channelAdd.ChannelId = newChannelReq->ChannelId;
 
@@ -821,25 +833,30 @@ uint8_t RegionEU868NewChannelReq(NewChannelReqParams_t *newChannelReq)
 		{
 		case LORAMAC_STATUS_OK:
 		{
+			LOG_LIB("EU868", "New Channel Request accepted");
 			break;
 		}
 		case LORAMAC_STATUS_FREQUENCY_INVALID:
 		{
+			LOG_LIB("EU868", "New Channel Request frequency invalid");
 			status &= 0xFE;
 			break;
 		}
 		case LORAMAC_STATUS_DATARATE_INVALID:
 		{
+			LOG_LIB("EU868", "New Channel Request DR invalid");
 			status &= 0xFD;
 			break;
 		}
 		case LORAMAC_STATUS_FREQ_AND_DR_INVALID:
 		{
+			LOG_LIB("EU868", "New Channel Request frequency & DR invalid");
 			status &= 0xFC;
 			break;
 		}
 		default:
 		{
+			LOG_LIB("EU868", "New Channel Request unknown failure");
 			status &= 0xFC;
 			break;
 		}
@@ -962,7 +979,7 @@ bool RegionEU868NextChannel(NextChanParams_t *nextChanParams, uint8_t *channel, 
 	{
 		// We found a valid channel
 		*channel = enabledChannels[randr(0, nbEnabledChannels - 1)];
-
+		LOG_LIB("EU868", "Using channel %d, frequency %ld", channel[0], Channels[channel[0]].Frequency);
 		*time = 0;
 		return true;
 	}

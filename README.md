@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2022-02-09
+  - Fix EU868 bug that enabled always all 8 channels
 - 2021-12-18
   - Fix bug in lmh_datarate_set. Function did change only ADR, but did not update the datarate setting
 - 2021-12-09

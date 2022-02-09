@@ -42,7 +42,7 @@ bool lmh_mac_is_busy = false;
 #if defined(REGION_EU868)
 
 #include "LoRaMacTest.h"
-#define USE_SEMTECH_DEFAULT_CHANNEL_LINEUP 1
+#define USE_SEMTECH_DEFAULT_CHANNEL_LINEUP 0
 #if (USE_SEMTECH_DEFAULT_CHANNEL_LINEUP == 1)
 #define LC4                                     \
 	{                                           \
