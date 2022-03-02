@@ -4,7 +4,7 @@
  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
  _____) ) ____| | | || |_| ____( (___| | | |
 (______/|_____)_|_|_| \__)_____)\____)_| |_|
-    (C)2013 Semtech
+	(C)2013 Semtech
  ___ _____ _   ___ _  _____ ___  ___  ___ ___
 / __|_   _/_\ / __| |/ / __/ _ \| _ \/ __| __|
 \__ \ | |/ _ \ (__| ' <| _| (_) |   / (__| _|
@@ -366,12 +366,6 @@ void RegionAS923InitDefaults(InitType_t type)
 		// Channels
 		Channels[0] = (ChannelParams_t)AS923_LC1;
 		Channels[1] = (ChannelParams_t)AS923_LC2;
-		Channels[2] = (ChannelParams_t)AS923_LC3;
-		Channels[3] = (ChannelParams_t)AS923_LC4;
-		Channels[4] = (ChannelParams_t)AS923_LC5;
-		Channels[5] = (ChannelParams_t)AS923_LC6;
-		Channels[6] = (ChannelParams_t)AS923_LC7;
-		Channels[7] = (ChannelParams_t)AS923_LC8;
 
 		// Initialize the channels default mask
 		ChannelsDefaultMask[0] = LC(1) + LC(2);
@@ -751,6 +745,8 @@ uint8_t RegionAS923LinkAdrReq(LinkAdrReqParams_t *linkAdrReq, int8_t *drOut, int
 		{
 			for (uint8_t i = 0; i < AS923_MAX_NB_CHANNELS; i++)
 			{
+				LOG_LIB("AS923", "ADR: New channel mask: Channel: %d Frequency: %lu", i, Channels[i].Frequency);
+
 				if (linkAdrParams.ChMaskCtrl == 6)
 				{
 					if (Channels[i].Frequency != 0)
@@ -858,25 +854,31 @@ uint8_t RegionAS923NewChannelReq(NewChannelReqParams_t *newChannelReq)
 		channelAdd.NewChannel = newChannelReq->NewChannel;
 		channelAdd.ChannelId = newChannelReq->ChannelId;
 
+		LOG_LIB("AS923", "NewChannelReq: Channel: %d Frequency: %lu", newChannelReq->ChannelId, newChannelReq->NewChannel->Frequency);
+
 		switch (RegionAS923ChannelAdd(&channelAdd))
 		{
 		case LORAMAC_STATUS_OK:
 		{
+			LOG_LIB("AS923", "NewChannelReq: [OK] Channel: %d Frequency: %lu", newChannelReq->ChannelId, newChannelReq->NewChannel->Frequency);
 			break;
 		}
 		case LORAMAC_STATUS_FREQUENCY_INVALID:
 		{
 			status &= 0xFE;
+			LOG_LIB("AS923", "NewChannelReq: [FREQUENCY_INVALID] Channel: %d Frequency: %lu", newChannelReq->ChannelId, newChannelReq->NewChannel->Frequency);
 			break;
 		}
 		case LORAMAC_STATUS_DATARATE_INVALID:
 		{
 			status &= 0xFD;
+			LOG_LIB("AS923", "NewChannelReq: [DATARATE_INVALID] Channel: %d Frequency: %lu", newChannelReq->ChannelId, newChannelReq->NewChannel->Frequency);
 			break;
 		}
 		case LORAMAC_STATUS_FREQ_AND_DR_INVALID:
 		{
 			status &= 0xFC;
+			LOG_LIB("AS923", "NewChannelReq: [FREQUENCY_AND_DR_INVALID] Channel: %d Frequency: %lu", newChannelReq->ChannelId, newChannelReq->NewChannel->Frequency);
 			break;
 		}
 		default:
@@ -951,8 +953,8 @@ bool RegionAS923NextChannel(NextChanParams_t *nextChanParams, uint8_t *channel, 
 	TimerTime_t nextTxDelay = 0;
 
 	if (RegionCommonCountChannels(ChannelsMask, 0, 1) == 0)
-	{	// Reactivate default channels
-		// ChannelsMask[0] |= LC( 1 ) + LC( 2 )+ LC( 3 )+ LC( 4 )+ LC( 5 )+ LC( 6 )+ LC( 7 )+ LC( 8 );
+	{ // Reactivate default channels
+	  // ChannelsMask[0] |= LC( 1 ) + LC( 2 )+ LC( 3 )+ LC( 4 )+ LC( 5 )+ LC( 6 )+ LC( 7 )+ LC( 8 );
 	}
 
 	if (nextChanParams->AggrTimeOff <= TimerGetElapsedTime(nextChanParams->LastAggrTx))
@@ -1061,11 +1063,6 @@ LoRaMacStatus_t RegionAS923ChannelAdd(ChannelAddParams_t *channelAdd)
 		if (RegionCommonValueInRange(channelAdd->NewChannel->DrRange.Fields.Max, DR_5, AS923_TX_MAX_DATARATE) == false)
 		{
 			drInvalid = true;
-		}
-		// We are not allowed to change the frequency
-		if (channelAdd->NewChannel->Frequency != Channels[id].Frequency)
-		{
-			freqInvalid = true;
 		}
 	}
 
