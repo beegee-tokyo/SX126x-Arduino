@@ -366,12 +366,12 @@ void RegionAS923InitDefaults(InitType_t type)
 		// Channels
 		Channels[0] = (ChannelParams_t)AS923_LC1;
 		Channels[1] = (ChannelParams_t)AS923_LC2;
-		Channels[2] = (ChannelParams_t)AS923_LC3;
-		Channels[3] = (ChannelParams_t)AS923_LC4;
-		Channels[4] = (ChannelParams_t)AS923_LC5;
-		Channels[5] = (ChannelParams_t)AS923_LC6;
-		Channels[6] = (ChannelParams_t)AS923_LC7;
-		Channels[7] = (ChannelParams_t)AS923_LC8;
+		// Channels[2] = (ChannelParams_t)AS923_LC3;
+		// Channels[3] = (ChannelParams_t)AS923_LC4;
+		// Channels[4] = (ChannelParams_t)AS923_LC5;
+		// Channels[5] = (ChannelParams_t)AS923_LC6;
+		// Channels[6] = (ChannelParams_t)AS923_LC7;
+		// Channels[7] = (ChannelParams_t)AS923_LC8;
 
 		// Initialize the channels default mask
 		ChannelsDefaultMask[0] = LC(1) + LC(2);
@@ -687,7 +687,7 @@ bool RegionAS923TxConfig(TxConfigParams_t *txConfig, int8_t *txPower, TimerTime_
 
 	// Setup the radio frequency
 	Radio.SetChannel(Channels[txConfig->Channel].Frequency);
-
+	LOG_LIB("AS923", "Using TX Frequency %.1f", Channels[txConfig->Channel].Frequency/1000000.0);
 	if (txConfig->Datarate == DR_7)
 	{ // High Speed FSK channel
 		modem = MODEM_FSK;
@@ -1049,24 +1049,29 @@ LoRaMacStatus_t RegionAS923ChannelAdd(ChannelAddParams_t *channelAdd)
 #if AS923_DEFAULT_UPLINK_DWELL_TIME
 		if (channelAdd->NewChannel->DrRange.Fields.Min != DR_2)
 		{
-			drInvalid = true;
+			LOG_LIB("AS923", "DR to low %d", channelAdd->NewChannel->DrRange.Fields.Min);
+			channelAdd->NewChannel->DrRange.Fields.Min = DR_2;
+			// drInvalid = true;
 		}
 #else
 		if (channelAdd->NewChannel->DrRange.Fields.Min > DR_0)
 		{
+			LOG_LIB("AS923", "DR to low %d", channelAdd->NewChannel->DrRange.Fields.Min);
 			drInvalid = true;
 		}
 #endif
 		// Validate the datarate range for max: must be DR_5 <= Max <= TX_MAX_DATARATE
 		if (RegionCommonValueInRange(channelAdd->NewChannel->DrRange.Fields.Max, DR_5, AS923_TX_MAX_DATARATE) == false)
 		{
+			LOG_LIB("AS923", "DR to high %d", channelAdd->NewChannel->DrRange.Fields.Max);
 			drInvalid = true;
 		}
 		// We are not allowed to change the frequency
-		if (channelAdd->NewChannel->Frequency != Channels[id].Frequency)
-		{
-			freqInvalid = true;
-		}
+		// if (channelAdd->NewChannel->Frequency != Channels[id].Frequency)
+		// {
+		// 	LOG_LIB("AS923", "New channel change frequency failed %.1f", (channelAdd->NewChannel->Frequency)/100000);
+		// 	freqInvalid = true;
+		// }
 	}
 
 	// Check frequency
@@ -1074,6 +1079,7 @@ LoRaMacStatus_t RegionAS923ChannelAdd(ChannelAddParams_t *channelAdd)
 	{
 		if (VerifyTxFreq(channelAdd->NewChannel->Frequency) == false)
 		{
+			LOG_LIB("AS923", "New channel not accepted %.1f", (float)((channelAdd->NewChannel->Frequency)/1000000.0));
 			freqInvalid = true;
 		}
 	}
@@ -1081,17 +1087,21 @@ LoRaMacStatus_t RegionAS923ChannelAdd(ChannelAddParams_t *channelAdd)
 	// Check status
 	if ((drInvalid == true) && (freqInvalid == true))
 	{
+		LOG_LIB("AS923", "New channel not accepted FREQ_AND_DR_INVALID");
 		return LORAMAC_STATUS_FREQ_AND_DR_INVALID;
 	}
 	if (drInvalid == true)
 	{
+		LOG_LIB("AS923", "New channel not accepted DATARATE_INVALID");
 		return LORAMAC_STATUS_DATARATE_INVALID;
 	}
 	if (freqInvalid == true)
 	{
+		LOG_LIB("AS923", "New channel not accepted FREQUENCY_INVALID");
 		return LORAMAC_STATUS_FREQUENCY_INVALID;
 	}
 
+	LOG_LIB("AS923", "New channel added %.1f", (float)((channelAdd->NewChannel->Frequency)/1000000.0));
 	memcpy(&(Channels[id]), channelAdd->NewChannel, sizeof(Channels[id]));
 	Channels[id].Band = band;
 	ChannelsMask[0] |= (1 << id);

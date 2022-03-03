@@ -3,6 +3,9 @@
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266, nRF52832 and RP2040. It will not work with other uC's like AVR.    
 
 # Release Notes
+## V2.0.10 Fix AS923 bug
+  - Fix AS923 CFlist channel assignment bug
+  
 ## V2.0.9 Fix EU868 bug
   - In EU868 always the first 8 channels were enabled, even without CFlist or NewChannelReq from LNS
 

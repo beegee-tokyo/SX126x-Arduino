@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2022-03-03
+  - Fix AS923 CFlist channel assignment bug
 - 2022-02-09
   - Fix EU868 bug that enabled always all 8 channels
 - 2021-12-18
