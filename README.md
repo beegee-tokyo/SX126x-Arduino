@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2022-03-21
+  - Fix RAK11310 timer problem
 - 2022-03-03
   - Fix AS923 CFlist channel assignment bug
 - 2022-02-09

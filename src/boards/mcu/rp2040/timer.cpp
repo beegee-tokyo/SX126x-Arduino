@@ -4,7 +4,7 @@
  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
  _____) ) ____| | | || |_| ____( (___| | | |
 (______/|_____)_|_|_| \__)_____)\____)_| |_|
-    (C)2013 Semtech
+	(C)2013 Semtech
 
 Description: Generic lora driver implementation
 
@@ -35,6 +35,7 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
  *****************************************************************************/
 // #define ARDUINO_ARCH_RP2040
 #ifdef ARDUINO_ARCH_RP2040
+
 #include "boards/mcu/timer.h"
 #include "boards/mcu/board.h"
 
@@ -43,10 +44,10 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
 #include <cmsis_os.h>
 #include <pico/time.h>
 
+using namespace std::chrono_literals;
+using namespace std::chrono;
 using namespace rtos;
 using namespace mbed;
-
-#define USE_HW_TIMER
 
 /** The event handler thread */
 Thread thread_handle_timers(osPriorityAboveNormal, 4096);
@@ -62,51 +63,51 @@ struct s_timer
 	void (*callback)();
 };
 
-/** The hardware timer used to trigger the timer handle thread */
-repeating_timer_t timer_500us;
-
 /** Array to hold the timers */
 s_timer timer[10];
+mbed::Ticker timerTickers[10];
 
-// Timer callback
-bool cb_timer(repeating_timer_t *rt);
+// Timer callbacks
+void cb_timer_1(void);
+void cb_timer_2(void);
+void cb_timer_3(void);
+void cb_timer_4(void);
+void cb_timer_5(void);
+void cb_timer_6(void);
+void cb_timer_7(void);
+void cb_timer_8(void);
+void cb_timer_9(void);
+void cb_timer_10(void);
+
+void (*cb_callback[])() = {cb_timer_1, cb_timer_2, cb_timer_3, cb_timer_5, cb_timer_5, cb_timer_6, cb_timer_7, cb_timer_8, cb_timer_9, cb_timer_10};
 
 /** Thread id for timer thread */
 osThreadId timer_event_thread = NULL;
-
-/** Alarm pool for low level timer function */
-alarm_pool_t *my_alarm_pool;
 
 /**
  * @brief Thread to handle timer events
  * Called every 500 us to check if any timer
  * has to be handled
- * 
+ *
  */
 void handle_timer_events(void)
 {
 	timer_event_thread = osThreadGetId();
 	while (true)
 	{
-#ifdef USE_HW_TIMER
 		// Wait for event
-		osSignalWait(0, osWaitForever);
-#else
-		delay(1);
-#endif
-		for (int idx = 0; idx < 10; idx++)
+		osEvent event = osSignalWait(0, osWaitForever);
+
+		if (event.status == osEventSignal)
 		{
-			if (timer[idx].active)
+			// Serial.printf("Signal %02X\n", event.value.signals);
+			uint16_t mask = 0x01;
+			for (int idx = 0; idx < 10; idx++)
 			{
-				if ((unsigned long)(micros() - (unsigned long)timer[idx].start_time) >= (unsigned long)timer[idx].duration)
+				if ((event.value.signals & (mask << idx)) == (mask << idx))
 				{
-					if (idx == 0)
-					{
-						// digitalWrite(LED_BLUE, !digitalRead(LED_BLUE));
-						// LOG_LIB("TIM", "Handling timer %d", idx);
-					}
+					// Serial.printf("Callback %d", idx);
 					timer[idx].callback();
-					timer[idx].start_time = micros();
 				}
 			}
 		}
@@ -115,29 +116,84 @@ void handle_timer_events(void)
 }
 
 /**
- * @brief Hardware timer callback
- * Triggers the thread to check all active timers
- * Called every 500 us
- * 
- * @param rt unused
- * @return true retrigger the timer
- * @return false cancel the timer
+ * @brief Hardware timer callbacks
  */
-bool cb_timer(repeating_timer_t *rt)
+void cb_timer_1(void)
 {
 	if (timer_event_thread != NULL)
 	{
 		osSignalSet(timer_event_thread, 0x01);
 	}
-	// keep it running
-	return true;
+}
+void cb_timer_2(void)
+{
+	if (timer_event_thread != NULL)
+	{
+		osSignalSet(timer_event_thread, 0x02);
+	}
+}
+void cb_timer_3(void)
+{
+	if (timer_event_thread != NULL)
+	{
+		osSignalSet(timer_event_thread, 0x04);
+	}
+}
+void cb_timer_4(void)
+{
+	if (timer_event_thread != NULL)
+	{
+		osSignalSet(timer_event_thread, 0x08);
+	}
+}
+void cb_timer_5(void)
+{
+	if (timer_event_thread != NULL)
+	{
+		osSignalSet(timer_event_thread, 0x10);
+	}
+}
+void cb_timer_6(void)
+{
+	if (timer_event_thread != NULL)
+	{
+		osSignalSet(timer_event_thread, 0x20);
+	}
+}
+void cb_timer_7(void)
+{
+	if (timer_event_thread != NULL)
+	{
+		osSignalSet(timer_event_thread, 0x40);
+	}
+}
+void cb_timer_8(void)
+{
+	if (timer_event_thread != NULL)
+	{
+		osSignalSet(timer_event_thread, 0x80);
+	}
+}
+void cb_timer_9(void)
+{
+	if (timer_event_thread != NULL)
+	{
+		osSignalSet(timer_event_thread, 0x100);
+	}
+}
+void cb_timer_10(void)
+{
+	if (timer_event_thread != NULL)
+	{
+		osSignalSet(timer_event_thread, 0x200);
+	}
 }
 
 /**
  * @brief Configure the RP2040 timers
  * Starts the background thread to handle timer events
  * Starts the Hardware timer to wakeup the handler thread
- * 
+ *
  */
 void TimerConfig(void)
 {
@@ -149,26 +205,12 @@ void TimerConfig(void)
 	// LOG_LIB("TIM", "threads start");
 	thread_handle_timers.start(handle_timer_events);
 	thread_handle_timers.set_priority(osPriorityAboveNormal);
-
-	// Create the default alarm pool (if not already created or disabled)
-	my_alarm_pool = alarm_pool_create(1, 12);
-
-	if (my_alarm_pool == NULL)
-	{
-		LOG_LIB("TIM", "Failed to create alarm pool");
-	}
-
-	// Start the 500us timer to handle the different alarm events
-	if (!alarm_pool_add_repeating_timer_us(my_alarm_pool, 500, cb_timer, NULL, &timer_500us))
-	{
-		LOG_LIB("TIM", "Failed to add timer");
-	}
 }
 
 /**
  * @brief Initialize a new timer
  * Checks for available timer slot (limited to 10)
- * 
+ *
  * @param obj structure with timer settings
  * @param callback callback that the timer should call
  */
@@ -196,63 +238,68 @@ void TimerInit(TimerEvent_t *obj, void (*callback)(void))
 /**
  * @brief Activate a timer
  * CAUTION requires the timer was initialized before
- * 
- * @param obj structure with timer settings 
+ *
+ * @param obj structure with timer settings
  */
 void TimerStart(TimerEvent_t *obj)
 {
 	int idx = obj->timerNum;
 
-	timer[idx].start_time = micros();
-	timer[idx].active = true;
+	// t_attach(idx);
+	timerTickers[idx].attach(cb_callback[idx], (microseconds)timer[idx].duration);
+
 	// LOG_LIB("TIM", "Timer %d started with %d ms", idx, timer[idx].duration);
 }
 
 /**
  * @brief Deactivate a timer
  * CAUTION requires the timer was initialized before
- * 
- * @param obj structure with timer settings 
+ *
+ * @param obj structure with timer settings
  */
 void TimerStop(TimerEvent_t *obj)
 {
 	int idx = obj->timerNum;
-	timer[idx].active = false;
+
+	timerTickers[idx].detach();
+
 	// LOG_LIB("TIM", "Timer %d stopped", idx);
 }
 
 /**
  * @brief Restart a timer
  * CAUTION requires the timer was initialized before
- * 
- * @param obj structure with timer settings 
+ *
+ * @param obj structure with timer settings
  */
 void TimerReset(TimerEvent_t *obj)
 {
 	int idx = obj->timerNum;
-	timer[idx].active = false;
-	timer[idx].start_time = micros();
-	timer[idx].active = true;
+
+	timerTickers[idx].detach();
+	timerTickers[idx].attach(cb_callback[idx], (microseconds)timer[idx].duration);
+
 	// LOG_LIB("TIM", "Timer %d reset with %d ms", idx, timerTimes[idx]);
 }
 
 /**
  * @brief Set the duration time of a timer
  * CAUTION requires the timer was initialized before
- * 
- * @param obj structure with timer settings 
- * @param value duration time in milliseconds 
+ *
+ * @param obj structure with timer settings
+ * @param value duration time in milliseconds
  */
 void TimerSetValue(TimerEvent_t *obj, uint32_t value)
 {
 	int idx = obj->timerNum;
 	timer[idx].duration = value * 1000;
+
 	// LOG_LIB("TIM", "Timer %d setup to %d ms", idx, value);
 }
 
 /**
  * @brief Get current time in milliseconds
- * 
+ *
  * @return TimerTime_t time in milliseconds
  */
 TimerTime_t TimerGetCurrentTime(void)
@@ -262,7 +309,7 @@ TimerTime_t TimerGetCurrentTime(void)
 
 /**
  * @brief Get timers elapsed time
- * 
+ *
  * @param past last time the check was done
  * @return TimerTime_t difference between now and last check
  */
