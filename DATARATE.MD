@@ -3,7 +3,7 @@
 | ------        | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
 | Region        | SF - BW         | SF - BW         | SF - BW         | SF - BW         | SF - BW         |
 | AS923         | SF12 - BW125    | SF11 - BW125    | SF10 - BW125    | SF9  - BW125    | SF8  - BW125    |
-| AU915         | SF10 - BW125    | SF9  - BW125    | SF8  - BW125    | SF7  - BW125    | SF8  - BW500    |
+| AU915         | SF12 - BW125    | SF11 - BW125    | SF10 - BW125    | SF9  - BW125    | SF8  - BW125    |
 | CN470         | SF12 - BW125    | SF11 - BW125    | SF10 - BW125    | SF9  - BW125    | SF8  - BW125    |
 | CN779         | SF12 - BW125    | SF11 - BW125    | SF10 - BW125    | SF9  - BW125    | SF8  - BW125    |
 | EU433         | SF12 - BW125    | SF11 - BW125    | SF10 - BW125    | SF9  - BW125    | SF8  - BW125    |
@@ -17,7 +17,7 @@
 | ------        | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
 | Region        | SF - BW         | SF - BW         | SF - BW         | SF - BW         | SF - BW         |
 | AS923         | SF7  - BW125    | SF7  - BW250    | FSK             | RFU             | RFU             |
-| AU915         | RFU             | RFU             | RFU             | SF12 - BW500    | SF11 - BW500    |
+| AU915         | SF7  - BW125    | SF8  - BW500    | RFU             | SF12 - BW500    | SF11 - BW500    |
 | CN470         | SF7  - BW125    | RFU             | SF12 - BW125    | RFU             | RFU             |
 | CN779         | SF7  - BW125    | SF7  - BW250    | FSK             | RFU             | RFU             |
 | EU433         | SF7  - BW125    | SF7  - BW250    | FSK             | RFU             | RFU             |
@@ -31,7 +31,7 @@
 | ------        | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
 | Region        | SF - BW         | SF - BW         | SF - BW         | SF - BW         | SF - BW         |
 | AS923         | RFU             | RFU             | RFU             | RFU             | RFU             |
-| AU915         | SF10 - BW500    | SF9  - BW500    | SF8  - BW500    | SF7  - BW500    | RFU             |
+| AU915         | SF10 - BW500    | SF9  - BW500    | SF8  - BW500    | RFU             | RFU             |
 | CN470         | RFU             | RFU             | RFU             | RFU             | RFU             |
 | CN779         | RFU             | RFU             | RFU             | RFU             | RFU             |
 | EU433         | RFU             | RFU             | RFU             | RFU             | RFU             |
