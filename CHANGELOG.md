@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.12 Fix crash when library debug is enabled
+  - Fix crash when library debug is enabled in AS923 region.
+  
 ## V2.0.11 Fix RAK11310 problem
   - Fix the timer problem for the RP2040 (hanging after 1h50 minutes)
   
