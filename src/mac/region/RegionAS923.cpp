@@ -687,7 +687,7 @@ bool RegionAS923TxConfig(TxConfigParams_t *txConfig, int8_t *txPower, TimerTime_
 
 	// Setup the radio frequency
 	Radio.SetChannel(Channels[txConfig->Channel].Frequency);
-	LOG_LIB("AS923", "Using TX Frequency %ld", Channels[txConfig->Channel].Frequency);
+	LOG_LIB("AS923", "Using TX Frequency %.1f", Channels[txConfig->Channel].Frequency/1000000.0);
 	if (txConfig->Datarate == DR_7)
 	{ // High Speed FSK channel
 		modem = MODEM_FSK;
