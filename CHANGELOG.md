@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.13 Fix RX2 freuency
+  - Fix wrong RX2 frequency in AS923-2, AS923-3, AS923-4
+
 ## V2.0.12 Fix crash when library debug is enabled
   - Fix crash when library debug is enabled in AS923 region.
   

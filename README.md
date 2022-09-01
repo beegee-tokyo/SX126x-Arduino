@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2022-09-01
+  - Fix wrong RX2 frequency in AS923-2, AS923-3, AS923-4
 - 2022-07-13
   - Fix crash when library debug is enabled in AS923 region.
 - 2022-03-21

@@ -1518,6 +1518,28 @@ static void OnRxWindow2TimerEvent(void)
 	RxWindow2Config.RepeaterSupport = RepeaterSupport;
 	RxWindow2Config.Window = 1;
 
+	// Make channel shifts for AS923-2, AS923-3 and AS923-4
+	switch (LoRaMacRegion)
+	{
+	case LORAMAC_REGION_AS923:
+		LOG_LIB("LM", "Using AS923-1");
+		break;
+	case LORAMAC_REGION_AS923_2:
+		RxWindow2Config.Frequency = RxWindow2Config.Frequency - 1800000;
+		LOG_LIB("LM", "Using AS923-2");
+		break;
+	case LORAMAC_REGION_AS923_3:
+		RxWindow2Config.Frequency = RxWindow2Config.Frequency - 6600000;
+		LOG_LIB("LM", "Using AS923-3");
+		break;
+	case LORAMAC_REGION_AS923_4:
+		RxWindow2Config.Frequency = RxWindow2Config.Frequency - 5900000;
+		LOG_LIB("LM", "Using AS923-4");
+		break;
+	default:
+		break;
+	}
+
 	if (LoRaMacDeviceClass != CLASS_C)
 	{
 		RxWindow2Config.RxContinuous = false;
@@ -2169,7 +2191,7 @@ LoRaMacStatus_t PrepareFrame(LoRaMacHeader_t *macHdr, LoRaMacFrameCtrl_t *fCtrl,
 		break;
 	case FRAME_TYPE_DATA_CONFIRMED_UP:
 		NodeAckRequested = true;
-		//Intentional fallthrough
+		// Intentional fallthrough
 	case FRAME_TYPE_DATA_UNCONFIRMED_UP:
 		if (IsLoRaMacNetworkJoined != JOIN_OK)
 		{
