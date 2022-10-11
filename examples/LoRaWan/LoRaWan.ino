@@ -156,12 +156,6 @@ void setup()
 	initBLE();
 #endif
 
-	// Initialize Scheduler and timer
-	uint32_t err_code = timers_init();
-	if (err_code != 0)
-	{
-		Serial.printf("timers_init failed - %d\n", err_code);
-	}
 
 #ifndef RAK4630
 	// Initialize LoRa chip.
@@ -178,6 +172,13 @@ void setup()
 		Serial.printf("lora_hardware_init failed - %d\n", err_code);
 	}
 #endif
+	
+	// Initialize Scheduler and timer (Must be after lora_hardware_init)
+	uint32_t err_code = timers_init();
+	if (err_code != 0)
+	{
+		Serial.printf("timers_init failed - %d\n", err_code);
+	}
 
 	// Setup the EUIs and Keys
 	lmh_setDevEui(nodeDeviceEUI);
