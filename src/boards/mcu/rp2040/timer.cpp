@@ -79,7 +79,7 @@ void cb_timer_8(void);
 void cb_timer_9(void);
 void cb_timer_10(void);
 
-void (*cb_callback[])() = {cb_timer_1, cb_timer_2, cb_timer_3, cb_timer_5, cb_timer_5, cb_timer_6, cb_timer_7, cb_timer_8, cb_timer_9, cb_timer_10};
+void (*cb_callback[])() = {cb_timer_1, cb_timer_2, cb_timer_3, cb_timer_4, cb_timer_5, cb_timer_6, cb_timer_7, cb_timer_8, cb_timer_9, cb_timer_10};
 
 /** Thread id for timer thread */
 osThreadId timer_event_thread = NULL;

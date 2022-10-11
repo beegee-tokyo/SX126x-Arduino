@@ -83,7 +83,7 @@ uint32_t lora_hardware_init(hw_config hwConfig)
 
 	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 	{
-#if defined NRF52_SERIES || defined ESP32
+#if defined NRF52_SERIES || defined ESP32 || ARDUINO_ARCH_RP2040
 		if (start_lora_task())
 		{
 			return 0;
