@@ -814,7 +814,7 @@ void RadioSetRxConfig(RadioModems_t modem, uint32_t bandwidth,
 		// WORKAROUND END
 
 		// Timeout Max, Timeout handled directly in SetRx function
-		RxTimeout = 0xFA0;
+		RxTimeout = 0x380; // 0xFA0;
 
 		break;
 	}

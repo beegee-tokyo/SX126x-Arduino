@@ -4,6 +4,10 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.14 Fix timer and RX timeouts
+  - Fix RP2040 timers, thanks to @kisChang
+  - Fix RX window timeouts, thanks to @battosai30
+  
 ## V2.0.13 Fix RX2 freuency
   - Fix wrong RX2 frequency in AS923-2, AS923-3, AS923-4
 

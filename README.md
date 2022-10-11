@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2022-10-11
+  - Fix RP2040 timers, thanks to @kisChang
 - 2022-09-01
   - Fix wrong RX2 frequency in AS923-2, AS923-3, AS923-4
 - 2022-07-13
