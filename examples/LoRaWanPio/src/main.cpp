@@ -140,7 +140,7 @@ void setup()
 #endif
 
 	// Initialize LoRa chip.
-	err_code = lora_hardware_init(hwConfig);
+	uint32_t err_code = lora_hardware_init(hwConfig);
 	if (err_code != 0)
 	{
 		Serial.printf("lora_hardware_init failed - %d\n", err_code);
@@ -148,7 +148,7 @@ void setup()
 
 
 	// Initialize Scheduler and timer (Must be after lora_hardware_init)
-	uint32_t err_code = timers_init();
+	err_code = timers_init();
 	if (err_code != 0)
 	{
 		Serial.printf("timers_init failed - %d\n", err_code);
