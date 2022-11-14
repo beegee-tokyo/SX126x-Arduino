@@ -26,9 +26,18 @@
 #define SX1261 1
 #define SX1262 2
 
+
 /*!
-     * Radio complete Wake-up Time with TCXO stabilisation time
-     */
+ * Radio Rx Timeout On Lora MODE, can using platformio.ini change this: -DRXTIMEOUT_LORA_MAX=0xFFFF
+ * RxTimeout = 0x380; // 0xFA0;
+ */
+#ifndef RXTIMEOUT_LORA_MAX
+#define RXTIMEOUT_LORA_MAX 0x380
+#endif
+
+/*!
+ * Radio complete Wake-up Time with TCXO stabilisation time
+ */
 #define RADIO_TCXO_SETUP_TIME 50 // [ms]
 
 /*!
