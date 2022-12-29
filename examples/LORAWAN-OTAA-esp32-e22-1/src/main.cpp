@@ -252,7 +252,6 @@ static void lorawan_unconfirm_tx_finished(void)
 
 /**
  * @brief Called after confirmed packet was sent
- * 
  * @param result Result of sending true = ACK received false = No ACK
  */
 static void lorawan_confirm_tx_finished(bool result)
@@ -291,13 +290,6 @@ static void send_lora_frame(void)
 	m_lora_app_data.buffer[i++] = 'i';
 	m_lora_app_data.buffer[i++] = '"';
 	m_lora_app_data.buffer[i++] = ':';
-	// m_lora_app_data.buffer[i++] = '\"';
-	// m_lora_app_data.buffer[i++] = 'E';
-	// m_lora_app_data.buffer[i++] = 'S';
-	// m_lora_app_data.buffer[i++] = 'P';
-	// m_lora_app_data.buffer[i++] = '3';
-	// m_lora_app_data.buffer[i++] = '2';
-
 	m_lora_app_data.buffer[i++] = ',';
 	m_lora_app_data.buffer[i++] = '"';
 	m_lora_app_data.buffer[i++] = 'n';
