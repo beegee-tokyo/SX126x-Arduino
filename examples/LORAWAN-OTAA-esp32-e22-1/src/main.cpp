@@ -137,7 +137,7 @@ void setup()
 	}
 
 	// For Helium and US915, you need as well to select subband 2 after you called lmh_init(), 
-	// For US915 you need to use subban 1. Other subbands configurations can be found here
+	// For US816 you need to use subband . Other subbands configurations can be found here
 	// https://github.com/beegee-tokyo/SX126x-Arduino/blob/1c28c6e769cca2b7d699a773e737123fc74c47c7/src/mac/LoRaMacHelper.cpp
 
 	lmh_setSubBandChannels(2);
