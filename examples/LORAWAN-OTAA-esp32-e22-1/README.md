@@ -7,7 +7,7 @@ Required steps before compiling the example code
 ---
 In order to get this code working you need an reacheable to a LoRaWan gateway. This could be either of    
 - [Helium](https://www.helium.com)
-- [TheThingsNetwork](https://thethingsnetwork.org/).
+- [TheThingsNetwork](https://thethingsnetwork.org/)
 
 In addition you need an account to any of both services and create a device or application:
 - For Helium you can follow [this guide](https://docs.helium.com/use-the-network/console/quickstart/)
@@ -21,7 +21,7 @@ resource](https://docs.helium.com/lorawan-on-helium/frequency-plans/).
 ```
 build_flags = -DREGION_US915
 ```
-Valid regions in this librearie are:
+Valid regions in this library are:
 ```
 REGION_AS923 -> Asia 923 MHz
 REGION_AU915 -> Australia 915 MHz
@@ -69,8 +69,8 @@ Some additional defines are need to get the LoRaWan setup
 
 #define LORAWAN_APP_DATA_BUFF_SIZE 256  /**< Size of the data to be transmitted. */
 #define LORAWAN_APP_TX_DUTYCYCLE 5000 /**< Defines the application data transmission duty cycle. 10s, value in [ms]. */
-#define APP_TX_DUTYCYCLE_RND 1000	  /**< Defines a random delay for application data transmission duty cycle. 1s, value in [ms]. */
-#define JOINREQ_NBTRIALS 3			   /**< Number of trials for the join request. */
+#define APP_TX_DUTYCYCLE_RND 1000   /**< Defines a random delay for application data transmission duty cycle. 1s, value in [ms]. */
+#define JOINREQ_NBTRIALS 3/**< Number of trials for the join request. */
 
 ```
 The LoRaWan application works with callbacks. So you do not need to poll the status from your `loop()`. Instead on different events these callbacks are are used to handle the events
@@ -96,9 +96,9 @@ static uint32_t timers_init(void);
 To setup the device buffers, structures and EUIs and keys need to be defined
 
 ```cpp
-TimerEvent_t appTimer;														  ///< LoRa tranfer timer instance.
-static uint8_t m_lora_app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE];			  ///< Lora user application data buffer.
-static lmh_app_data_t m_lora_app_data = {m_lora_app_data_buffer, 0, 0, 0, 0}; ///< Lora user application data structure.
+TimerEvent_t appTimer;  ///< LoRa tranfer timer instance.
+static uint8_t m_lora_app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE];  ///< Lora user application data buffer.
+static lmh_app_data_t m_lora_app_data = {m_lora_app_data_buffer, 0, 0, 0, 0};   ///< Lora user application data structure.
 
 /**@brief Structure containing LoRaWan parameters, needed for lmh_init()
  */
@@ -129,8 +129,12 @@ lmh_setDevEui(nodeDeviceEUI);
 lmh_setAppEui(nodeAppEUI);
 lmh_setAppKey(nodeAppKey);
 
+```
+err_code = lmh_init(&lora_callbacks, lora_param_init, doOTAA, CLASS_C, LORAMAC_REGION_US915);
+if (err_code != 0)
+```cpp
  
-    // For Helium us915 region you need to select subband 2. Other subbands configurations can be found in the [LoRaMacHelper file](https://github.com/beegee-tokyo/SX126x-Arduino/blob/1c28c6e769cca2b7d699a773e737123fc74c47c7/src/mac/LoRaMacHelper.cpp) The `lmh_setSingleChannelGateway` functions tells the library to disable frequency hoping. The parameters given are the channel number to use and the datarate. Check the [README.md/LoRaWan single channel gateway](https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README.md) section of this library to learn more about it.
+// For Helium us915 region you need to select subband 2. Other subbands configurations can be found in the [LoRaMacHelper file](https://github.com/beegee-tokyo/SX126x-Arduino/blob/1c28c6e769cca2b7d699a773e737123fc74c47c7/src/mac/LoRaMacHelper.cpp) The `lmh_setSingleChannelGateway` functions tells the library to disable frequency hoping. The parameters given are the channel number to use and the datarate. Check the [README.md/LoRaWan single channel gateway](https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README.md) section of this library to learn more about it.
 
 `lorawan_has_joined_handler()`
 This function is called after the device has joined the LoRaWan network.
