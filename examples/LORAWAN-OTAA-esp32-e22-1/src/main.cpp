@@ -3,12 +3,13 @@
 #include <SPI.h>
 
 // LoRaWan setup definitions
-#define SCHED_MAX_EVENT_DATA_SIZE APP_TIMER_SCHED_EVENT_DATA_SIZE /**< Maximum size of scheduler events. */
-#define SCHED_QUEUE_SIZE 60										  /**< Maximum number of events in the scheduler queue. */
-/**< Maximum number of events in the scheduler queue. */
-#define LORAWAN_APP_DATA_BUFF_SIZE 256  /**< Size of the data to be transmitted. */
-#define LORAWAN_APP_TX_DUTYCYCLE 5000 /**< Defines the application data transmission duty cycle. 30s, value in [ms]. */
-#define APP_TX_DUTYCYCLE_RND 1000	  /**< Defines a random delay for application data transmission duty cycle. 1s, value in [ms]. */
+#define SCHED_MAX_EVENT_DATA_SIZE APP_TIMER_SCHED_EVENT_DATA_SIZE // Maximum size of scheduler events
+#define SCHED_QUEUE_SIZE 60	// Maximum number of events in the scheduler queue
+
+/**< Maximum number of events in the scheduler queue  */
+#define LORAWAN_APP_DATA_BUFF_SIZE 256 // Size of the data to be transmitted
+#define LORAWAN_APP_TX_DUTYCYCLE 5000 // Defines the application data transmission duty cycle. 30s, value in [ms]
+#define APP_TX_DUTYCYCLE_RND 1000 // Defines a random delay for application data transmission duty cycle. 1s, value in [ms]
 #define JOINREQ_NBTRIALS 3	
 
 bool doOTAA = true;
@@ -28,9 +29,9 @@ int RADIO_RXEN = 27;	 // LORA ANTENNA RX ENABLE
 #endif
 
 // Define Helium or TTN OTAA keys. All msb (big endian).
-uint8_t nodeDeviceEUI[8] = {0x60, 0x81, 0xF9, 0x8C, 0x17, 0x62, 0xA5, 0xBA};
-uint8_t nodeAppEUI[8] = {0x60, 0x81, 0xF9, 0xB9, 0x27, 0x76, 0xBE, 0xEE};
-uint8_t nodeAppKey[16] = {0x40, 0x67, 0xE1, 0xF5, 0x98, 0x2F, 0x0E, 0xB6, 0x0F, 0xFD, 0x29, 0x8C, 0x51, 0x85, 0xF1, 0xB4};
+uint8_t nodeDeviceEUI[8] = {0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60};
+uint8_t nodeAppEUI[8] = {0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60};
+uint8_t nodeAppKey[16] = {0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x0F, 0xFD, 0x29, 0x8C, 0x51, 0x85, 0xF1, 0xB4};
 
 // Foward declaration
 /** LoRaWAN callback when join network finished */
@@ -49,10 +50,10 @@ static void lorawan_confirm_tx_finished(bool result);
 static void send_lora_frame(void);
 static uint32_t timers_init(void);
 
-// APP_TIMER_DEF(lora_tx_timer_id);                                              ///< LoRa tranfer timer instance.
-TimerEvent_t appTimer;														  ///< LoRa tranfer timer instance.
-static uint8_t m_lora_app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE];			  ///< Lora user application data buffer.
-static lmh_app_data_t m_lora_app_data = {m_lora_app_data_buffer, 0, 0, 0, 0}; ///< Lora user application data structure.
+// APP_TIMER_DEF(lora_tx_timer_id);	 // LoRa tranfer timer instance.
+TimerEvent_t appTimer;	 // LoRa tranfer timer instance.
+static uint8_t m_lora_app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE]; // Lora user application data buffer.
+static lmh_app_data_t m_lora_app_data = {m_lora_app_data_buffer, 0, 0, 0, 0};	 // Lora user application data structure.
 
 /**@brief Structure containing LoRaWan parameters, needed for lmh_init()
  */
@@ -85,7 +86,7 @@ void setup()
 	digitalWrite(LED_BUILTIN, LOW);
 
 	// Define the HW configuration between MCU and SX126x
-	hwConfig.CHIP_TYPE = SX1262_CHIP;		  // Example uses an eByte E22 module with an SX1262
+	hwConfig.CHIP_TYPE = SX1262_CHIP;	// Example uses an eByte E22 module with an SX1262
 	hwConfig.PIN_LORA_RESET = PIN_LORA_RESET; // LORA RESET
 	hwConfig.PIN_LORA_NSS = PIN_LORA_NSS;	  // LORA SPI CS
 	hwConfig.PIN_LORA_SCLK = PIN_LORA_SCLK;	  // LORA SPI CLK
@@ -93,11 +94,11 @@ void setup()
 	hwConfig.PIN_LORA_DIO_1 = PIN_LORA_DIO_1; // LORA DIO_1
 	hwConfig.PIN_LORA_BUSY = PIN_LORA_BUSY;	  // LORA SPI BUSY
 	hwConfig.PIN_LORA_MOSI = PIN_LORA_MOSI;	  // LORA SPI MOSI
-	hwConfig.RADIO_TXEN = RADIO_TXEN;              // LORA ANTENNA TX ENABLE (e.g. eByte E22 module)
-	hwConfig.RADIO_RXEN = RADIO_RXEN;              // LORA ANTENNA RX ENABLE (e.g. eByte E22 module)
+	hwConfig.RADIO_TXEN = RADIO_TXEN;	// LORA ANTENNA TX ENABLE (e.g. eByte E22 module)
+	hwConfig.RADIO_RXEN = RADIO_RXEN;	// LORA ANTENNA RX ENABLE (e.g. eByte E22 module)
 	hwConfig.USE_DIO2_ANT_SWITCH = false;	// LORA DIO2 does not control antenna
-	hwConfig.USE_DIO3_TCXO = true;  // LORA DIO3 controls oscillator voltage (e.g. eByte E22 module)
-	hwConfig.USE_DIO3_ANT_SWITCH = false;                         // LORA DIO3 does not control antenna
+	hwConfig.USE_DIO3_TCXO = true;	// LORA DIO3 controls oscillator voltage (e.g. eByte E22 module)
+	hwConfig.USE_DIO3_ANT_SWITCH = false;	// LORA DIO3 does not control antenna
 
 
 	// Initialize Serial for debug output
