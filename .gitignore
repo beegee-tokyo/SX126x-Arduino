@@ -20,3 +20,4 @@ examples/DeepSleepPio/lib/
 examples/DeepSleepPio/.vscode
 
 *.DB
+.DS_Store
