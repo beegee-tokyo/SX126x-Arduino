@@ -1,7 +1,7 @@
 LORAWAN OTAA esp32+e22 for PlatformIO
 ===    
 Example to be used with PlatformIO. This examples is to show how to connect to the Helium network or TTN
-by using an OTAA activation. It is written only for the ESP32 and will not work without changes on the ESP8266 nor nRF52. The LoRa module used is the e22 90030s but it can be used with any e22 module with minor changes.
+by using an OTAA activation. It is written only for the ESP32 and will not work without changes on the ESP8266 nor nRF52. The LoRa module used is the e22-900m30s but it can be used with any e22 module with minor changes.
 
 Required steps before compiling the example code
 ---
@@ -18,9 +18,6 @@ From both services you will need 3 keys for linking your lora device: nodeDevice
 The region you live in defines the frequency your LoRaWan gateways will use. So you need to setup your device to work on the correct frequency. You can searh for the frequencies used in your region in [this 
 resource](https://docs.helium.com/lorawan-on-helium/frequency-plans/).
 
-```
-build_flags = -DREGION_US915
-```
 Valid regions in this library are:
 ```
 REGION_AS923 -> Asia 923 MHz
@@ -135,18 +132,3 @@ if (err_code != 0)
 ```cpp
  
 // For Helium us915 region you need to select subband 2. Other subbands configurations can be found in the [LoRaMacHelper file](https://github.com/beegee-tokyo/SX126x-Arduino/blob/1c28c6e769cca2b7d699a773e737123fc74c47c7/src/mac/LoRaMacHelper.cpp) The `lmh_setSingleChannelGateway` functions tells the library to disable frequency hoping. The parameters given are the channel number to use and the datarate. Check the [README.md/LoRaWan single channel gateway](https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README.md) section of this library to learn more about it.
-
-`lorawan_has_joined_handler()`
-This function is called after the device has joined the LoRaWan network.
-
-`lorawan_rx_handler()`
-This function is called after a package has been received from the gateway
-
-`lorawan_confirm_class_handler`
-This function is called after a package has been received from the gateway
-
-`tx_lora_periodic_handler()`
-This function is called by a timer to start sending a message. In this example the timer is set to 10 seconds by the `LORAWAN_APP_TX_DUTYCYCLE` define
-
-`send_lora_frame`
-This is the function that actually queues up a package to be sent over LoRaWan to the gateway.
