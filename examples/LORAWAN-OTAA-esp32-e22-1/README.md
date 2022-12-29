@@ -1,7 +1,7 @@
 LORAWAN OTAA esp32+e22 for PlatformIO
 ===    
-Example to be used with PlatformIO. This examples is to show how connect to the Helium network or TTN
- by OTAA registration. It is written only for the ESP32 and will not work without changes on the ESP8266 nor nRF52. The LoRa module used is the e22 90030s but it can be used with any e22 module with minor changes.
+Example to be used with PlatformIO. This examples is to show how to connect to the Helium network or TTN
+by using an OTAA activation. It is written only for the ESP32 and will not work without changes on the ESP8266 nor nRF52. The LoRa module used is the e22 90030s but it can be used with any e22 module with minor changes.
 
 Required steps before compiling the example code
 ---
