@@ -117,10 +117,9 @@ uint8_t nodeAppEUI[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 uint8_t nodeAppKey[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 ```
 
-The `setup()` function is very similar to the simple LoRa example. But after initializing the LoRa chip with `lora_hardware_init(hwConfig)` the next steps are to setup the devices EUIs and keys.
+The `setup()` function is very similar to the simple LoRa example. But after initializing the LoRa chip with `lora_hardware_init(hwConfig)` the next steps are to setup the devices EUIs and keys all in msb (big endian).
 
 ```cpp
-// Setup the EUIs and Keys
 lmh_setDevEui(nodeDeviceEUI);
 lmh_setAppEui(nodeAppEUI);
 lmh_setAppKey(nodeAppKey);
