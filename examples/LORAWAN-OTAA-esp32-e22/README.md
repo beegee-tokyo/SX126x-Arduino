@@ -130,7 +130,6 @@ Lastly you need to select `CLASS_C` and your region bandwith.
 
 ```cpp
 lmh_init(&lora_callbacks, lora_param_init, doOTAA, CLASS_C, LORAMAC_REGION_US915);
-if (err_code != 0)
 ```
 
 For Helium us915 region you need to select subband 2. Other subbands configurations can be found in the [LoRaMacHelper file](https://github.com/beegee-tokyo/SX126x-Arduino/blob/1c28c6e769cca2b7d699a773e737123fc74c47c7/src/mac/LoRaMacHelper.cpp)
