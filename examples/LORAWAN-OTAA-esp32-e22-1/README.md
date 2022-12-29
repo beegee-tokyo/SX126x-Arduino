@@ -61,16 +61,17 @@ You need to include the LoRaWan library
 ```
 Some additional defines are need to get the LoRaWan setup
 ```cpp
-#define SCHED_MAX_EVENT_DATA_SIZE APP_TIMER_SCHED_EVENT_DATA_SIZE /**< Maximum size of scheduler events. */
-#define SCHED_QUEUE_SIZE 60										  /**< Maximum number of events in the scheduler queue. */
+#define SCHED_MAX_EVENT_DATA_SIZE APP_TIMER_SCHED_EVENT_DATA_SIZE  // Maximum size of scheduler events
+#define SCHED_QUEUE_SIZE 60  // Maximum number of events in the scheduler queue
 
-#define LORAWAN_APP_DATA_BUFF_SIZE 256  /**< Size of the data to be transmitted. */
-#define LORAWAN_APP_TX_DUTYCYCLE 5000 /**< Defines the application data transmission duty cycle. 10s, value in [ms]. */
-#define APP_TX_DUTYCYCLE_RND 1000   /**< Defines a random delay for application data transmission duty cycle. 1s, value in [ms]. */
-#define JOINREQ_NBTRIALS 3/**< Number of trials for the join request. */
-
+#define LORAWAN_APP_DATA_BUFF_SIZE 256  // Size of the data to be transmitted
+#define LORAWAN_APP_TX_DUTYCYCLE 5000  // Defines the application data transmission duty cycle. 10s, value in [ms]
+#define APP_TX_DUTYCYCLE_RND 1000  // Defines a random delay for application data transmission duty cycle. 1s, value in [ms]
+#define JOINREQ_NBTRIALS 3  // Number of trials for the join request
 ```
-The LoRaWan application works with callbacks. So you do not need to poll the status from your `loop()`. Instead on different events these callbacks are are used to handle the events
+
+The LoRaWan application works with callbacks. So you do not need to poll the status from your `loop()`. Instead on different events these callbacks are are used to handle the events.
+
 ```cpp
 // Foward declaration
 /** LoRaWAN callback when join network finished */
@@ -93,42 +94,43 @@ static uint32_t timers_init(void);
 To setup the device buffers, structures and EUIs and keys need to be defined
 
 ```cpp
-TimerEvent_t appTimer;  ///< LoRa tranfer timer instance.
-static uint8_t m_lora_app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE];  ///< Lora user application data buffer.
-static lmh_app_data_t m_lora_app_data = {m_lora_app_data_buffer, 0, 0, 0, 0};   ///< Lora user application data structure.
+TimerEvent_t appTimer;  // LoRa tranfer timer instance
+static uint8_t m_lora_app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE];  // Lora user application data buffer
+static lmh_app_data_t m_lora_app_data = {m_lora_app_data_buffer, 0, 0, 0, 0};  // Lora user application data structure
 
-/**@brief Structure containing LoRaWan parameters, needed for lmh_init()
- */
+/**@brief Structure containing LoRaWan parameters, needed for lmh_init() */
 static lmh_param_t lora_param_init = {LORAWAN_ADR_OFF, DR_3, LORAWAN_PUBLIC_NETWORK, 
                                         JOINREQ_NBTRIALS, LORAWAN_DEFAULT_TX_POWER,
                                         LORAWAN_DUTYCYCLE_OFF};
 
-/**@brief Structure containing LoRaWan callback functions, needed for lmh_init()
-*/
+/**@brief Structure containing LoRaWan callback functions, needed for lmh_init() */
 static lmh_callback_t lora_callbacks = {BoardGetBatteryLevel, BoardGetUniqueId, BoardGetRandomSeed,
 										lorawan_rx_handler, lorawan_has_joined_handler, 
 										lorawan_confirm_class_handler, lorawan_join_fail_handler,
 										lorawan_unconfirm_tx_finished, lorawan_confirm_tx_finished};
-
-/** The EUI and keys need to be in msb (big endian)   */
-uint8_t nodeDeviceEUI[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-
-uint8_t nodeAppEUI[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-
-uint8_t nodeAppKey[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-
-
 ```
+
+The EUI and keys need to be in msb (big endian).
+```cpp
+
+uint8_t nodeDeviceEUI[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+uint8_t nodeAppEUI[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+uint8_t nodeAppKey[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+```
+
 The `setup()` function is very similar to the simple LoRa example. But after initializing the LoRa chip with `lora_hardware_init(hwConfig)` the next steps are to setup the devices EUIs and keys.
+
 ```cpp
 // Setup the EUIs and Keys
 lmh_setDevEui(nodeDeviceEUI);
 lmh_setAppEui(nodeAppEUI);
 lmh_setAppKey(nodeAppKey);
+```
 
 ```
 err_code = lmh_init(&lora_callbacks, lora_param_init, doOTAA, CLASS_C, LORAMAC_REGION_US915);
 if (err_code != 0)
 ```cpp
  
-// For Helium us915 region you need to select subband 2. Other subbands configurations can be found in the [LoRaMacHelper file](https://github.com/beegee-tokyo/SX126x-Arduino/blob/1c28c6e769cca2b7d699a773e737123fc74c47c7/src/mac/LoRaMacHelper.cpp) The `lmh_setSingleChannelGateway` functions tells the library to disable frequency hoping. The parameters given are the channel number to use and the datarate. Check the [README.md/LoRaWan single channel gateway](https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README.md) section of this library to learn more about it.
+For Helium us915 region you need to select subband 2. Other subbands configurations can be found in the [LoRaMacHelper file](https://github.com/beegee-tokyo/SX126x-Arduino/blob/1c28c6e769cca2b7d699a773e737123fc74c47c7/src/mac/LoRaMacHelper.cpp)
+ The `lmh_setSingleChannelGateway` functions tells the library to disable frequency hoping. The parameters given are the channel number to use and the datarate. Check the [README.md/LoRaWan single channel gateway](https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README.md) section of this library to learn more about it.
