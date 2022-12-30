@@ -131,5 +131,5 @@ Lastly you need to select `CLASS_C` and your region bandwith.
 lmh_init(&lora_callbacks, lora_param_init, doOTAA, CLASS_C, LORAMAC_REGION_US915);
 ```
 
-For Helium us915 region you need to select subband 2. Other subbands configurations can be found in the [LoRaMacHelper file](https://github.com/beegee-tokyo/SX126x-Arduino/blob/1c28c6e769cca2b7d699a773e737123fc74c47c7/src/mac/LoRaMacHelper.cpp)
+For Helium US915 region you need to select subband 2. Other subbands configurations can be found in the [LoRaMacHelper file](https://github.com/beegee-tokyo/SX126x-Arduino/blob/1c28c6e769cca2b7d699a773e737123fc74c47c7/src/mac/LoRaMacHelper.cpp)
  The `lmh_setSingleChannelGateway` functions tells the library to disable frequency hoping. The parameters given are the channel number to use and the datarate. Check the [README.md/LoRaWan single channel gateway](https://github.com/beegee-tokyo/SX126x-Arduino/blob/master/README.md) section of this library to learn more about it.
