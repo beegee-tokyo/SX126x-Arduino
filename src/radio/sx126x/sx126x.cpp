@@ -92,7 +92,7 @@ void SX126xInit(DioIrqHandler dioIrq)
 	{
 		CalibrationParams_t calibParam;
 
-		SX126xSetDio3AsTcxoCtrl(TCXO_CTRL_3_3V, RADIO_TCXO_SETUP_TIME << 6);
+		SX126xSetDio3AsTcxoCtrl(_hwConfig.TCXO_CTRL_VOLTAGE, RADIO_TCXO_SETUP_TIME << 6);
 		calibParam.Value = 0x7F;
 		SX126xCalibrate(calibParam);
 	}

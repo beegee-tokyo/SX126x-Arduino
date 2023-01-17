@@ -74,6 +74,7 @@ struct hw_config
 	bool USE_DIO3_ANT_SWITCH = false; // Whether DIO2 is used to control the antenna
 	bool USE_LDO = false;			  // Whether SX126x uses LDO or DCDC power regulator
 	bool USE_RXEN_ANT_PWR = false;	  // Whether RX_EN is used as antenna power
+	RadioTcxoCtrlVoltage_t TCXO_CTRL_VOLTAGE = TCXO_CTRL_3_3V;
 };
 
 #ifdef ARDUINO_ARCH_RP2040
