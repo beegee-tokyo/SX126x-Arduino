@@ -299,4 +299,13 @@ bool lmh_setAS923Version(uint8_t version);
  */
 bool lmh_setConfRetries(uint8_t retries);
 
+/**
+ * @brief Get max retries for confirmed messages
+ * LoRaMac will resend confirmed message if no ACK was received until number of retries are exhausted
+ * Limited to max of 8 retries
+ *
+ * \retval Number of retries
+ */
+uint8_t lmh_getConfRetries(void);
+
 #endif

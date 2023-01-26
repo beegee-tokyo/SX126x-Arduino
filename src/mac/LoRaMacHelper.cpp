@@ -1179,3 +1179,8 @@ bool lmh_setConfRetries(uint8_t retries)
 	}
 	return false;
 }
+
+uint8_t lmh_getConfRetries(void)
+{
+	return max_ack_retries;
+}
