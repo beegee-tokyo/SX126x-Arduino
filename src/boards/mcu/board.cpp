@@ -4,7 +4,7 @@
  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
  _____) ) ____| | | || |_| ____( (___| | | |
 (______/|_____)_|_|_| \__)_____)\____)_| |_|
-    (C)2013 Semtech
+	(C)2013 Semtech
 
 Description: Target board general functions implementation
 
@@ -200,12 +200,13 @@ uint32_t lora_rak4630_init(void)
 	_hwConfig.PIN_LORA_DIO_1 = 47;		   // LORA DIO_1
 	_hwConfig.PIN_LORA_BUSY = 46;		   // LORA SPI BUSY
 	_hwConfig.PIN_LORA_MOSI = 44;		   // LORA SPI MOSI
-	_hwConfig.RADIO_TXEN = 39;			   // LORA ANTENNA TX ENABLE (e.g. eByte E22 module)
-	_hwConfig.RADIO_RXEN = 37;			   // LORA ANTENNA RX ENABLE (e.g. eByte E22 module)
+	_hwConfig.RADIO_TXEN = -1;			   // LORA ANTENNA TX ENABLE
+	_hwConfig.RADIO_RXEN = 37;			   // LORA ANTENNA RX ENABLE (power for antenna switch)
 	_hwConfig.USE_DIO2_ANT_SWITCH = true;  // LORA DIO2 controls antenna
-	_hwConfig.USE_DIO3_TCXO = true;		   // LORA DIO3 controls oscillator voltage (e.g. eByte E22 module)
-	_hwConfig.USE_DIO3_ANT_SWITCH = false; // LORA DIO3 controls antenna (e.g. Insight SIP ISP4520 module)
+	_hwConfig.USE_DIO3_TCXO = true;		   // LORA DIO3 controls oscillator voltage
+	_hwConfig.USE_DIO3_ANT_SWITCH = false; // LORA DIO3 controls antenna
 	_hwConfig.USE_RXEN_ANT_PWR = true;	   // RXEN is used as power for antenna switch
+	_hwConfig.USE_LDO = false;			   // LORA usage of LDO or DCDC power regulator (defaults to DCDC)
 
 	TimerConfig();
 
