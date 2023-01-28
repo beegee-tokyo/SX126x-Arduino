@@ -410,7 +410,7 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 			break;
 		}
 	}
-	if ((mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_RX1_TIMEOUT) || (mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_RX2_TIMEOUT))
+	if ((mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_RX1_TIMEOUT) || (mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_RX2_TIMEOUT) || (mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_TX_DR_PAYLOAD_SIZE_ERROR))
 	{
 		LoRaMacState &= ~LORAMAC_TX_RUNNING;
 		switch (mcpsConfirm->McpsRequest)
