@@ -79,6 +79,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2023-01-28
+  - Update examples, thanks to _**@DanielBustillos**_    
+  - Cleanup RAK4630 initialization    
+  - Add lmh_getConfRetries() to readback the confirmed package retry setting    
+  - Make RX timeout configurable with `#define RXTIMEOUT_LORA_MAX`, thanks to _**@kisChang**_     
+  - Add set default RX gain in SX126xSertRx, thanks to _**@kisChang**_
+  - Allow change of TCXO control with hwConfig structure, thanks to _**@dberlin**_
+  - Add confirmed failed callback if the degraded datarate becomes insufficient to transmit the payload length, thanks to _**@avillacis**_
+  - Fix RX window timeouts, thanks to _**@battosai30**_
 - 2022-10-11
   - Fix RP2040 timers, thanks to @kisChang
 - 2022-09-01
