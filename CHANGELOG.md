@@ -4,9 +4,18 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.15 Several fixes
+  - Update examples, thanks to _**@DanielBustillos**_    
+  - Cleanup RAK4630 initialization    
+  - Add lmh_getConfRetries() to readback the confirmed package retry setting    
+  - Make RX timeout configurable with `#define RXTIMEOUT_LORA_MAX`, thanks to _**@kisChang**_     
+  - Add set default RX gain in SX126xSertRx, thanks to _**@kisChang**_
+  - Allow change of TCXO control with hwConfig structure, thanks to _**@dberlin**_
+  - Add confirmed failed callback if the degraded datarate becomes insufficient to transmit the payload length, thanks to _**@avillacis**_
+  
 ## V2.0.14 Fix timer and RX timeouts
-  - Fix RP2040 timers, thanks to @kisChang
-  - Fix RX window timeouts, thanks to @battosai30
+  - Fix RP2040 timers, thanks to _**@kisChang**_
+  - Fix RX window timeouts, thanks to _**@battosai30**_
   
 ## V2.0.13 Fix RX2 freuency
   - Fix wrong RX2 frequency in AS923-2, AS923-3, AS923-4
