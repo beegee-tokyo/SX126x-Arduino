@@ -69,6 +69,7 @@ uint32_t lora_hardware_init(hw_config hwConfig)
 	_hwConfig.USE_DIO3_ANT_SWITCH = hwConfig.USE_DIO3_ANT_SWITCH; // LORA DIO3 controls antenna (e.g. Insight SIP ISP4520 module)
 	_hwConfig.USE_LDO = hwConfig.USE_LDO;						  // LORA usage of LDO or DCDC power regulator (defaults to DCDC)
 	_hwConfig.USE_RXEN_ANT_PWR = hwConfig.USE_RXEN_ANT_PWR;		  // RXEN used as power for antenna switch
+	_hwConfig.TCXO_CTRL_VOLTAGE = hwConfig.TCXO_CTRL_VOLTAGE;
 
 	TimerConfig();
 
