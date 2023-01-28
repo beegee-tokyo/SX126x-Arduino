@@ -814,7 +814,7 @@ void RadioSetRxConfig(RadioModems_t modem, uint32_t bandwidth,
 		// WORKAROUND END
 
 		// Timeout Max, Timeout handled directly in SetRx function
-		RxTimeout = 0x380; // 0xFA0;
+		RxTimeout = RXTIMEOUT_LORA_MAX;
 
 		break;
 	}
@@ -1032,14 +1032,14 @@ void RadioRx(uint32_t timeout)
 						  IRQ_RADIO_NONE);
 
 	LOG_LIB("RADIO", "RX window timeout = %ld", timeout);
+    // Even Continous mode is selected, put a timeout here
+    if (timeout != 0)
+    {
+        TimerSetValue(&RxTimeoutTimer, timeout);
+        TimerStart(&RxTimeoutTimer);
+    }
 	if (RxContinuous == true)
 	{
-		// Even Continous mode is selected, put a timeout here
-		if (timeout != 0)
-		{
-			TimerSetValue(&RxTimeoutTimer, timeout);
-			TimerStart(&RxTimeoutTimer);
-		}
 		SX126xSetRx(0xFFFFFF); // Rx Continuous
 	}
 	else

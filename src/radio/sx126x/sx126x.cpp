@@ -270,6 +270,8 @@ void SX126xSetRx(uint32_t timeout)
 
 	SX126xSetOperatingMode(MODE_RX);
 
+    SX126xWriteRegister( REG_RX_GAIN, 0x94 ); // default gain
+
 	buf[0] = (uint8_t)((timeout >> 16) & 0xFF);
 	buf[1] = (uint8_t)((timeout >> 8) & 0xFF);
 	buf[2] = (uint8_t)(timeout & 0xFF);
