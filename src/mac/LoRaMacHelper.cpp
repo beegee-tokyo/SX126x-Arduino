@@ -370,82 +370,46 @@ static void OnComplianceTestTxNextPacketTimerEvent(void)
  */
 static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 {
-	if (mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_OK)
+	bool statusOk = (mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_OK);
+
+	LoRaMacState &= ~LORAMAC_TX_RUNNING;
+	switch (mcpsConfirm->McpsRequest)
 	{
-		LoRaMacState &= ~LORAMAC_TX_RUNNING;
-		switch (mcpsConfirm->McpsRequest)
+	case MCPS_UNCONFIRMED:
+	{
+		// Check Datarate
+		// Check TxPower
+		// Report unconfirmed TX finished
+		if (!statusOk) LOG_LIB("LMH", "Timeout TX + RX finished");
+		if (m_callbacks->lmh_unconf_finished != 0)
 		{
-		case MCPS_UNCONFIRMED:
-		{
-			// Check Datarate
-			// Check TxPower
-			// Report unconfirmed TX finished
-			if (m_callbacks->lmh_unconf_finished != 0)
-			{
-				m_callbacks->lmh_unconf_finished();
-			}
-			break;
+			m_callbacks->lmh_unconf_finished();
 		}
-
-		case MCPS_CONFIRMED:
-		{
-			// Check Datarate
-			// Check TxPower
-			// Check NbTrials
-
-			// Report confirmed TX finished with result
-			if (m_callbacks->lmh_conf_result != 0)
-			{
-				m_callbacks->lmh_conf_result(mcpsConfirm->AckReceived);
-			}
-			break;
-		}
-
-		case MCPS_PROPRIETARY:
-		{
-			break;
-		}
-
-		default:
-			break;
-		}
+		break;
 	}
-	if ((mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_RX1_TIMEOUT) || (mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_RX2_TIMEOUT) || (mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_TX_DR_PAYLOAD_SIZE_ERROR))
+
+	case MCPS_CONFIRMED:
 	{
-		LoRaMacState &= ~LORAMAC_TX_RUNNING;
-		switch (mcpsConfirm->McpsRequest)
-		{
-		case MCPS_UNCONFIRMED:
-		{
-			// Check Datarate
-			// Check TxPower
-			// Report unconfirmed TX finished
-			LOG_LIB("LMH", "Timeout TX + RX finished");
-			if (m_callbacks->lmh_unconf_finished != 0)
-			{
-				m_callbacks->lmh_unconf_finished();
-			}
-			break;
-		}
+		// Check Datarate
+		// Check TxPower
+		// Check NbTrials
 
-		case MCPS_CONFIRMED:
+		// Report confirmed TX finished with result
+		if (!statusOk) LOG_LIB("LMH", "Timeout Conf TX finished %s", mcpsConfirm->AckReceived ? "SUCC" : "FAIL");
+		if (m_callbacks->lmh_conf_result != 0)
 		{
-			// Check Datarate
-			// Check TxPower
-			// Check NbTrials
-
-			// Report confirmed TX finished with result
-			LOG_LIB("LMH", "Timeout Conf TX finished %s", mcpsConfirm->AckReceived ? "SUCC" : "FAIL");
-			if (m_callbacks->lmh_conf_result != 0)
-			{
-				m_callbacks->lmh_conf_result(mcpsConfirm->AckReceived);
-			}
-			break;
+			m_callbacks->lmh_conf_result(mcpsConfirm->AckReceived);
 		}
+		break;
+	}
 
-		default:
-			break;
-		}
+	case MCPS_PROPRIETARY:
+	{
+		break;
+	}
+
+	default:
+		break;
 	}
 }
 
