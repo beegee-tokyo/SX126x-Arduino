@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.16 Fix Confirmed message bug
+  - Fix runtime problem in LoRaMacHelper, thanks to _**@avillacis**_
+
 ## V2.0.15 Several fixes and improvements
   - Update examples, thanks to _**@DanielBustillos**_    
   - Cleanup RAK4630 initialization    
