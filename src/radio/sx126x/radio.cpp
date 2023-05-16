@@ -961,7 +961,7 @@ uint32_t RadioTimeOnAir(RadioModems_t modem, uint8_t pktLen)
 		{
 			crcLength = 0;
 		}
-		airTime = rint((8 * (SX126x.PacketParams.Params.Gfsk.PreambleLength + (SX126x.PacketParams.Params.Gfsk.SyncWordLength >> 3) + ((SX126x.PacketParams.Params.Gfsk.HeaderType == RADIO_PACKET_FIXED_LENGTH) ? 0.0 : 1.0) + pktLen + (_crcLength)) /
+		airTime = rint((8 * (SX126x.PacketParams.Params.Gfsk.PreambleLength + (SX126x.PacketParams.Params.Gfsk.SyncWordLength >> 3) + ((SX126x.PacketParams.Params.Gfsk.HeaderType == RADIO_PACKET_FIXED_LENGTH) ? 0.0 : 1.0) + pktLen + (crcLength)) /
 						SX126x.ModulationParams.Params.Gfsk.BitRate) *
 					   1e3);
 	}
