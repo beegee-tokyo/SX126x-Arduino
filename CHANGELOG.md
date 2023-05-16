@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.18 Fix typo
+  - Fix typo in RadioTimeOnAir for FSK
+  
 ## V2.0.17 Enhancement
   - Improve RadioTimeOnAir for FSK, thanks to _**@mikedupi**_
 
