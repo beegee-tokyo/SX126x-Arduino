@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2023-05-16
+  - Improve RadioTimeOnAir for FSK, thanks to _**@mikedupi**_
 - 2023-04-17
   - Fix runtime problem in LoRaMacHelper, thanks to _**@avillacis**_
 - 2023-01-28
