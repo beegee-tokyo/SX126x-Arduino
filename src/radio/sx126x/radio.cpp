@@ -949,7 +949,19 @@ uint32_t RadioTimeOnAir(RadioModems_t modem, uint8_t pktLen)
 	{
 	case MODEM_FSK:
 	{
-		airTime = rint((8 * (SX126x.PacketParams.Params.Gfsk.PreambleLength + (SX126x.PacketParams.Params.Gfsk.SyncWordLength >> 3) + ((SX126x.PacketParams.Params.Gfsk.HeaderType == RADIO_PACKET_FIXED_LENGTH) ? 0.0 : 1.0) + pktLen + ((SX126x.PacketParams.Params.Gfsk.CrcLength == RADIO_CRC_2_BYTES) ? 2.0 : 0)) /
+		// CRC Length calculation, catering for each type of CRC Calc offered in libary
+		uint8_t crcLength = (uint8_t)(SX126x.PacketParams.Params.Gfsk.CrcLength);
+		if((crcLength == RADIO_CRC_2_BYTES) || (crcLength == RADIO_CRC_2_BYTES_INV) || (crcLength == RADIO_CRC_2_BYTES_IBM)  || (crcLength == RADIO_CRC_2_BYTES_CCIT))
+		{
+			crcLength = 2;
+		} else if ((crcLength == RADIO_CRC_1_BYTES) || (crcLength == RADIO_CRC_1_BYTES_INV))
+		{
+			crcLength = 1;
+		} else
+		{
+			crcLength = 0;
+		}
+		airTime = rint((8 * (SX126x.PacketParams.Params.Gfsk.PreambleLength + (SX126x.PacketParams.Params.Gfsk.SyncWordLength >> 3) + ((SX126x.PacketParams.Params.Gfsk.HeaderType == RADIO_PACKET_FIXED_LENGTH) ? 0.0 : 1.0) + pktLen + (_crcLength)) /
 						SX126x.ModulationParams.Params.Gfsk.BitRate) *
 					   1e3);
 	}
