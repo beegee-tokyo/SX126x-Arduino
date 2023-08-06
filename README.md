@@ -22,10 +22,10 @@ _**This requires some code changes in your existing applications. Please read [W
 | [Changelog](#changelog) | &nbsp;&nbsp;&nbsp;&nbsp;[GPIO definitions](#gpio-definitions) |  &nbsp;&nbsp;&nbsp;&nbsp;[Initialize](#initialize) |
 | [Features](#features) | &nbsp;&nbsp;&nbsp;&nbsp;[Example HW configuration](#example-hw-configuration) | &nbsp;&nbsp;&nbsp;&nbsp;[Callbacks](#callbacks) |
 | [Functions](#functions) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the LoRa HW](#initialize-the-lora-hw) | &nbsp;&nbsp;&nbsp;&nbsp;[Join](#join) |
-| &nbsp;&nbsp;[Module specific setup](#module-specific-setup) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialization for specific modules](#simplified-lora-hw-initialization-for-specific-modules) | &nbsp;&nbsp;&nbsp;&nbsp;[LoRaWan single channel gateway](#lolawan-single-channel-gateway) |
+| &nbsp;&nbsp;[Module specific setup](#module-specific-setup) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialization for specific modules](#simplified-lora-hw-initialization-for-specific-modules) | &nbsp;&nbsp;&nbsp;&nbsp;[LoRaWan single channel gateway](#lorawan-single-channel-gateway) |
 | &nbsp;&nbsp;[Chip selection](#chip-selection) | &nbsp;&nbsp;&nbsp;&nbsp;[Setup the callbacks for LoRa events](#setup-the-callbacks-for-lora-events) | &nbsp;&nbsp;&nbsp;&nbsp;[Limit frequency hopping to a sub band](#limit-frequency-hopping-to-a-sub-band) |
 | &nbsp;&nbsp;[LoRa parameters](#lora-parameters) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) |   |
-| &nbsp;&nbsp;[SPI definition](#mcu-to-sx126x-spi-definition) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio](#initialize-the-radio) | [Examples](./examples/README.md) | 
+| &nbsp;&nbsp;[SPI definition](#mcu-to-sx126x-spi-definition) | &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the radio after CPU woke up from deep sleep](#initialize-the-radio-after-cpu-woke-up-from-deep-sleep) | [Examples](./examples/README.md) | 
 | &nbsp;&nbsp;[TXCO and antenna control](#explanation-for-txco-and-antenna-control) | &nbsp;&nbsp;&nbsp;&nbsp;[Start listening for packets](#start-listening-for-packets) | [Installation](#installation) |
 
 ----
@@ -295,11 +295,20 @@ int RADIO_RXEN = 27;     // LORA ANTENNA RX ENABLE
 ----
 #### LoRa definitions
 Check the SX126x datasheet for explanations    
+The bandwidth can be set to any bandwidth supported by the SX126x:    
+| Index | Bandwidth | Index | Bandwidth |
+| --- | --- | --- | --- |
+| 0 | 125 kHz | 5 | 31.25 kHz |
+| 1 | 250 kHz | 6 | 20.83 kHz |
+| 2 | 500 kHz | 7 | 15.63 kHz |
+| 3 | 62.5 kHz | 8 | 10.42 kHz |
+| 4 | 41.67 kHz | 9 | 7.81 kHz |
+
 ```cpp
 // Define LoRa parameters
 #define RF_FREQUENCY 868000000  // Hz
 #define TX_OUTPUT_POWER 22      // dBm
-#define LORA_BANDWIDTH 0        // [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved]
+#define LORA_BANDWIDTH 0        // [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3 ... 9 see table]
 #define LORA_SPREADING_FACTOR 7 // [SF7..SF12]
 #define LORA_CODINGRATE 1       // [1: 4/5, 2: 4/6,  3: 4/7,  4: 4/8]
 #define LORA_PREAMBLE_LENGTH 8  // Same for Tx and Rx
@@ -366,9 +375,15 @@ The RAK4630/4631 module has the nRF52840 and SX1262 chips integrated in a module
 ```
 ----
 #### Simplified LoRa HW initialization for RAK11300/11310 module
-The RAK11300/11310 module has the Rp2040 and SX1262 chips integrated in a module. Therefore the hardware configuration is fixed.    
+The RAK11300/11310 module has the RP2040 and SX1262 chips integrated in a module. Therefore the hardware configuration is fixed.    
 ```cpp
   lora_rak11300_init();
+```
+----
+#### Simplified LoRa HW initialization for RAK13300 module
+The RAK13300 module is an IO module that has a LoRa SX1262 LoRa transceiver. It is made for the RAK11200 ESP32 module and the hardware configuration is fixed.    
+```cpp
+  lora_rak13300_init();
 ```
 ----
 #### Initialize the LoRa HW after CPU woke up from deep sleep
@@ -470,20 +485,9 @@ In addition you must define several LoRaWan parameters.
 You can find a lot of information about LoRaWan on the [LoRa Alliance](https://lora-alliance.org/) website.
 
 ----
-#### ArduinoIDE LoRaWan region definitions 
-_**Region definition has changed since library version 2.0.0**_    
-~~If you are using ArduinoIDE you need to edit the file ```/src/mac/Commissioning.h``` and define the region there.~~    
- 
-~~In Arduino IDE you can find the file in _**`<arduinosketchfolder>/libraries/SX126x-Arduino/src/mac`**_    
-In PlatformIO this is usually _**`<user>/.platformio/lib/SX126x-Arduino/src/mac`**_~~    
 
-----
-#### PlatformIO LoRaWan region definitions 
-_**Region definition has changed since library version 2.0.0**_    
-~~If you are using PlatformIO you must define the region in the platformio.ini file of your project.~~     
-
-#### LoRaWAN region definitions
-Since V2.0.0 the LoRaWAN region is selected during the initialization. It is no longer required to change any header files.
+#### LoRaWan region definitions 
+The LoRaWAN region is set during the lmh_init() call.    
 See [lmh_init()](#initialize) for details.
 
 ----
