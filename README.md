@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2023-08-27
+  - Add function to reset MAC counters
 - 2023-05-16
   - Fix typo in RadioTimeOnAir for FSK
   - Improve RadioTimeOnAir for FSK, thanks to _**@mikedupi**_

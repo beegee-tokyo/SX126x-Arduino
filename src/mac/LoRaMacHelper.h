@@ -308,4 +308,10 @@ bool lmh_setConfRetries(uint8_t retries);
  */
 uint8_t lmh_getConfRetries(void);
 
+/**
+ * @brief Reset MAC counters
+ * 
+ */
+void lmh_reset_mac(void);
+
 #endif

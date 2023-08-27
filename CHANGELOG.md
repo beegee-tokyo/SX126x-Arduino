@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.20 Add MAC parameter reset function
+  - Add option to reset the MAC counters
+
 ## V2.0.19 Fix the release mess
   - Sorry released the wrong branch
   

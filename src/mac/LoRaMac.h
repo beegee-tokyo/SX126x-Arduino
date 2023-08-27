@@ -1958,4 +1958,6 @@ LoRaMacStatus_t LoRaMacMlmeRequest(MlmeReq_t *mlmeRequest);
  */
 LoRaMacStatus_t LoRaMacMcpsRequest(McpsReq_t *mcpsRequest);
 
+void ResetMacCounters(void);
+
 #endif // __LORAMAC_H__

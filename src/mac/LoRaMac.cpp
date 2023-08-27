@@ -2094,6 +2094,29 @@ static void CalculateBackOff(uint8_t channel)
 	AggregatedTimeOff = AggregatedTimeOff + (TxTimeOnAir * AggregatedDCycle - TxTimeOnAir);
 }
 
+void ResetMacCounters(void)
+{
+
+	// Counters
+	UpLinkCounter = 0;
+	DownLinkCounter = 0;
+	AdrAckCounter = 0;
+
+	ChannelsNbRepCounter = 0;
+
+	AckTimeoutRetries = 1;
+	AckTimeoutRetriesCounter = 1;
+	AckTimeoutRetry = false;
+
+	MaxDCycle = 0;
+	AggregatedDCycle = 1;
+
+	MacCommandsBufferIndex = 0;
+	MacCommandsBufferToRepeatIndex = 0;
+
+	IsRxWindowsEnabled = true;
+}
+
 static void ResetMacParameters(void)
 {
 	// Counters

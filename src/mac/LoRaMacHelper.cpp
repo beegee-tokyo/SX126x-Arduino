@@ -1114,6 +1114,11 @@ lmh_error_status lmh_class_request(DeviceClass_t newClass)
 	return Errorstatus;
 }
 
+/**
+ * @brief Get the device class
+ * 
+ * @param currentClass 0 or 2 for Class A or C (Class B is not supported)
+ */
 void lmh_class_get(DeviceClass_t *currentClass)
 {
 	MibRequestConfirm_t mibReq;
@@ -1124,16 +1129,35 @@ void lmh_class_get(DeviceClass_t *currentClass)
 	*currentClass = mibReq.Param.Class;
 }
 
+/**
+ * @brief Get device LoRaWAN address
+ * 
+ * @return uint32_t device address
+ */
 uint32_t lmh_getDevAddr(void)
 {
 	return LoRaMacGetOTAADevId();
 }
 
+/**
+ * @brief Set the AS923 frequency variant
+ * 
+ * @param version 1, 2, 3 or 4 for AS923-1 (default), AS923-2, AS923-3 or AS923-4
+ * @return true 
+ * @return false 
+ */
 bool lmh_setAS923Version(uint8_t version)
 {
 	return RegionAS923SetVersion(version);
 }
 
+/**
+ * @brief Set number of retries for confirmed packages
+ * 
+ * @param retries number of retries
+ * @return true if success
+ * @return false if failed (number of retries to small or large)
+ */
 bool lmh_setConfRetries(uint8_t retries)
 {
 	if ((retries > 0) && (retries < 8))
@@ -1144,7 +1168,21 @@ bool lmh_setConfRetries(uint8_t retries)
 	return false;
 }
 
+/**
+ * @brief Get number of retries
+ * 
+ * @return uint8_t number of retries
+ */
 uint8_t lmh_getConfRetries(void)
 {
 	return max_ack_retries;
+}
+
+/**
+ * @brief Reset MAC parameters
+ * 
+ */
+void lmh_reset_mac(void)
+{
+	ResetMacCounters();
 }
