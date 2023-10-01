@@ -4,6 +4,10 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.21 Some fixes
+  - Fix public/private network always public
+  - Add option to restart MAC stack to change e.g. region without re-init timers
+
 ## V2.0.20 Add MAC parameter reset function
   - Add option to reset the MAC counters
 

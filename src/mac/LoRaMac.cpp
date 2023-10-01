@@ -4,7 +4,7 @@
  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
  _____) ) ____| | | || |_| ____( (___| | | |
 (______/|_____)_|_|_| \__)_____)\____)_| |_|
-    (C)2013 Semtech
+	(C)2013 Semtech
  ___ _____ _   ___ _  _____ ___  ___  ___ ___
 / __|_   _/_\ / __| |/ / __/ _ \| _ \/ __| __|
 \__ \ | |/ _ \ (__| ' <| _| (_) |   / (__| _|
@@ -126,7 +126,7 @@ static DeviceClass_t LoRaMacDeviceClass;
 /*!
  * Indicates if the node is connected to a private or public network
  */
-static bool PublicNetwork;
+bool PublicNetwork;
 
 /*!
  * Indicates if the node supports repeaters
@@ -1479,8 +1479,8 @@ static void OnTxDelayedTimerEvent(void)
 		fCtrl.Bits.Adr = AdrCtrlOn;
 
 		/* In case of join request retransmissions, the stack must prepare
-         * the frame again, because the network server keeps track of the random
-         * LoRaMacDevNonce values to prevent reply attacks. */
+		 * the frame again, because the network server keeps track of the random
+		 * LoRaMacDevNonce values to prevent reply attacks. */
 		PrepareFrame(&macHdr, &fCtrl, 0, NULL, 0);
 	}
 
@@ -2098,8 +2098,8 @@ void ResetMacCounters(void)
 {
 
 	// Counters
-	UpLinkCounter = 0;
-	DownLinkCounter = 0;
+	// UpLinkCounter = 0;
+	// DownLinkCounter = 0;
 	AdrAckCounter = 0;
 
 	ChannelsNbRepCounter = 0;
@@ -2115,6 +2115,34 @@ void ResetMacCounters(void)
 	MacCommandsBufferToRepeatIndex = 0;
 
 	IsRxWindowsEnabled = true;
+
+	LoRaMacParams.ChannelsTxPower = LoRaMacParamsDefaults.ChannelsTxPower;
+	LoRaMacParams.ChannelsDatarate = LoRaMacParamsDefaults.ChannelsDatarate;
+	LoRaMacParams.Rx1DrOffset = LoRaMacParamsDefaults.Rx1DrOffset;
+	LoRaMacParams.Rx2Channel = LoRaMacParamsDefaults.Rx2Channel;
+	LoRaMacParams.UplinkDwellTime = LoRaMacParamsDefaults.UplinkDwellTime;
+	LoRaMacParams.DownlinkDwellTime = LoRaMacParamsDefaults.DownlinkDwellTime;
+	LoRaMacParams.MaxEirp = LoRaMacParamsDefaults.MaxEirp;
+	LoRaMacParams.AntennaGain = LoRaMacParamsDefaults.AntennaGain;
+
+	// Reset to application defaults
+	RegionInitDefaults(LoRaMacRegion, INIT_TYPE_APP_DEFAULTS);
+
+	NodeAckRequested = false;
+	SrvAckRequested = false;
+	MacCommandsInNextTx = false;
+
+	// Reset Multicast downlink counters
+	MulticastParams_t *cur = MulticastChannels;
+	while (cur != NULL)
+	{
+		cur->DownLinkCounter = 0;
+		cur = cur->Next;
+	}
+
+	// Initialize channel index.
+	Channel = 0;
+	LastTxChannel = Channel;
 }
 
 static void ResetMacParameters(void)
@@ -2415,7 +2443,7 @@ LoRaMacStatus_t SetTxContinuousWave1(uint16_t timeout, uint32_t frequency, uint8
 	return LORAMAC_STATUS_OK;
 }
 
-LoRaMacStatus_t LoRaMacInitialization(LoRaMacPrimitives_t *primitives, LoRaMacCallback_t *callbacks, LoRaMacRegion_t region, eDeviceClass nodeClass)
+LoRaMacStatus_t LoRaMacInitialization(LoRaMacPrimitives_t *primitives, LoRaMacCallback_t *callbacks, LoRaMacRegion_t region, eDeviceClass nodeClass, bool region_change)
 {
 	GetPhyParams_t getPhy;
 	PhyParam_t phyParam;
@@ -2533,17 +2561,20 @@ LoRaMacStatus_t LoRaMacInitialization(LoRaMacPrimitives_t *primitives, LoRaMacCa
 
 	ResetMacParameters();
 
-	// Initialize timers
-	TimerInit(&MacStateCheckTimer, OnMacStateCheckTimerEvent);
-	TimerSetValue(&MacStateCheckTimer, MAC_STATE_CHECK_TIMEOUT);
+	if (!region_change)
+	{
+		// Initialize timers
+		TimerInit(&MacStateCheckTimer, OnMacStateCheckTimerEvent);
+		TimerSetValue(&MacStateCheckTimer, MAC_STATE_CHECK_TIMEOUT);
 
-	TimerInit(&TxDelayedTimer, OnTxDelayedTimerEvent);
-	TimerInit(&RxWindowTimer1, OnRxWindow1TimerEvent);
-	TimerInit(&RxWindowTimer2, OnRxWindow2TimerEvent);
-	TimerInit(&AckTimeoutTimer, OnAckTimeoutTimerEvent);
+		TimerInit(&TxDelayedTimer, OnTxDelayedTimerEvent);
+		TimerInit(&RxWindowTimer1, OnRxWindow1TimerEvent);
+		TimerInit(&RxWindowTimer2, OnRxWindow2TimerEvent);
+		TimerInit(&AckTimeoutTimer, OnAckTimeoutTimerEvent);
 
-	// Store the current initialization time
-	LoRaMacInitializationTime = TimerGetCurrentTime();
+		// Store the current initialization time
+		LoRaMacInitializationTime = TimerGetCurrentTime();
+	}
 
 	// Initialize Radio driver
 	RadioEvents.TxDone = OnRadioTxDone;
@@ -2556,7 +2587,7 @@ LoRaMacStatus_t LoRaMacInitialization(LoRaMacPrimitives_t *primitives, LoRaMacCa
 	// Random seed initialization
 	srand1(Radio.Random());
 
-	PublicNetwork = true;
+	// PublicNetwork = true;
 	Radio.SetPublicNetwork(PublicNetwork);
 
 	// Putting the RegionTxConfig here makes the OTAA join more stable

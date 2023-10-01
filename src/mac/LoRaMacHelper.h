@@ -154,7 +154,7 @@ typedef struct LoraMacHelper_ComplianceTest_s
  * @retval error status
  */
 lmh_error_status lmh_init(lmh_callback_t *callbacks, lmh_param_t lora_param,
-						  bool otaa, eDeviceClass nodeClass = CLASS_A, LoRaMacRegion_t region = LORAMAC_REGION_EU868);
+						  bool otaa, eDeviceClass nodeClass = CLASS_A, LoRaMacRegion_t region = LORAMAC_REGION_EU868, bool region_change = false);
 
 /**@brief Send data
  *
