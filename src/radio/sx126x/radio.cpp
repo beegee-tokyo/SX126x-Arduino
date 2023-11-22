@@ -1412,9 +1412,9 @@ void RadioBgIrqProcess(void)
 				//!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
 				SX126xSetOperatingMode(MODE_STDBY_RC);
 			}
-			if ((RadioEvents != NULL) && (RadioEvents->RxTimeout != NULL))
+			if ((RadioEvents != NULL) && (RadioEvents->RxError != NULL))
 			{
-				RadioEvents->RxTimeout();
+				RadioEvents->RxError();
 			}
 		}
 	}

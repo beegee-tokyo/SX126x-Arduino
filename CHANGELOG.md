@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.22 IRQ_HEADER_ERROR should issue RX error, not RX timeout
+  - Change behaviour of IRQ_HEADER_ERROR, thanks to _**@JeromeBriot**_
+  
 ## V2.0.21 Some fixes
   - Fix public/private network always public
   - Add option to restart MAC stack to change e.g. region without re-init timers
