@@ -954,10 +954,12 @@ uint32_t RadioTimeOnAir(RadioModems_t modem, uint8_t pktLen)
 		if((crcLength == RADIO_CRC_2_BYTES) || (crcLength == RADIO_CRC_2_BYTES_INV) || (crcLength == RADIO_CRC_2_BYTES_IBM)  || (crcLength == RADIO_CRC_2_BYTES_CCIT))
 		{
 			crcLength = 2;
-		} else if ((crcLength == RADIO_CRC_1_BYTES) || (crcLength == RADIO_CRC_1_BYTES_INV))
+		}
+		else if ((crcLength == RADIO_CRC_1_BYTES) || (crcLength == RADIO_CRC_1_BYTES_INV))
 		{
 			crcLength = 1;
-		} else
+		}
+		else
 		{
 			crcLength = 0;
 		}
@@ -1246,7 +1248,7 @@ void RadioOnRxTimeoutIrq(void)
 	TimerStop(&RxTimeoutTimer);
 }
 
-#if defined NRF52_SERIES || defined ESP32
+#if defined NRF52_SERIES || defined ESP32 || defined RAK11300
 /** Semaphore used by SX126x IRQ handler to wake up LoRaWAN task */
 extern SemaphoreHandle_t _lora_sem;
 static BaseType_t xHigherPriorityTaskWoken = pdTRUE;
@@ -1263,16 +1265,17 @@ void RadioOnDioIrq(void)
 	BoardDisableIrq();
 	IrqFired = true;
 	BoardEnableIrq();
-#if defined NRF52_SERIES || defined ESP32
+#if defined NRF52_SERIES || defined ESP32 || defined RAK11300
 	// Wake up LoRa event handler on nRF52 and ESP32
 	xSemaphoreGiveFromISR(_lora_sem, &xHigherPriorityTaskWoken);
-#endif
-#ifdef ARDUINO_ARCH_RP2040
+#elif defined (ARDUINO_ARCH_RP2040)
 	// Wake up LoRa event handler on RP2040
 	if (_lora_task_thread != NULL)
 	{
 		osSignalSet(_lora_task_thread, 0x1);
 	}
+#else
+#pragma error "Board not supported"
 #endif
 }
 

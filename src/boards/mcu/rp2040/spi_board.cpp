@@ -1,5 +1,5 @@
 // #define ARDUINO_ARCH_RP2040
-#ifdef ARDUINO_ARCH_RP2040
+#if defined ARDUINO_ARCH_RP2040 && not defined RAK11300
 #include <SPI.h>
 #include "boards/mcu/board.h"
 

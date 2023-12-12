@@ -77,7 +77,7 @@ struct hw_config
 	RadioTcxoCtrlVoltage_t TCXO_CTRL_VOLTAGE = TCXO_CTRL_3_3V;
 };
 
-#ifdef ARDUINO_ARCH_RP2040
+#if defined ARDUINO_ARCH_RP2040 && not defined RAK11300
 #include <mbed.h>
 #include <rtos.h>
 // Wake up LoRa event handler on RP2040

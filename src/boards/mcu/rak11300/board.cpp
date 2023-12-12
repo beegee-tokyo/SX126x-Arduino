@@ -4,7 +4,7 @@
  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
  _____) ) ____| | | || |_| ____( (___| | | |
 (______/|_____)_|_|_| \__)_____)\____)_| |_|
-    (C)2013 Semtech
+	(C)2013 Semtech
 
 Description: Target board general functions implementation
 
@@ -34,40 +34,35 @@ Maintainer: Miguel Luis and Gregory Cristian
  *
  *****************************************************************************/
 // #define ARDUINO_ARCH_RP2040
-#if defined ARDUINO_ARCH_RP2040 && not defined RAK11300
+#if defined RAK11300
 #include "boards/mcu/board.h"
 // #include "pico/unique_id.h"
 
 uint32_t BoardGetRandomSeed(void)
 {
-	/// \todo find matching function for RP2040
-	// return random(255);
-	return 128;
+	return random(255);
 }
 
 void BoardGetUniqueId(uint8_t *id)
 {
-	uint8_t name[32];
-	getUniqueSerialNumber(name);
+	pico_unique_board_id_t brd_id; // uint8_t[8]
+	pico_get_unique_board_id(&brd_id);
 
-	// 	pico_unique_board_id_t brd_id;
-	// pico_get_unique_board_id(&brd_id);
-
-	id[7] = name[7] + name[15] + name[23] + name[31];
-	id[6] = name[6] + name[14] + name[22] + name[30];
-	id[5] = name[5] + name[13] + name[21] + name[29];
-	id[4] = name[4] + name[12] + name[20] + name[28];
-	id[3] = name[3] + name[11] + name[19] + name[27];
-	id[2] = name[2] + name[10] + name[18] + name[26];
-	id[1] = name[1] + name[9] + name[17] + name[25];
-	id[0] = name[0] + name[8] + name[16] + name[24];
+	id[7] = brd_id.id[7];
+	id[6] = brd_id.id[6];
+	id[5] = brd_id.id[5];
+	id[4] = brd_id.id[4];
+	id[3] = brd_id.id[3];
+	id[2] = brd_id.id[2];
+	id[1] = brd_id.id[1];
+	id[0] = brd_id.id[0];
 }
 
 uint8_t BoardGetBatteryLevel(void)
 {
 	uint8_t batteryLevel = 0;
 
-	//TO BE IMPLEMENTED
+	// TO BE IMPLEMENTED
 
 	return batteryLevel;
 }

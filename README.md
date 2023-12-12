@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2023-12-12
+  - Added support for the RAK11300 in [arduino-pico](https://github.com/earlephilhower/arduino-pico) BSP  _**still experimental**_
 - 2023-11-22
   - Change behaviour of IRQ_HEADER_ERROR, thanks to _**@JeromeBriot**_
 - 2023-10-01

@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+## V2.0.23 Add support for the Arduino Pico BSP
+  - Added support for the RAK11300 in [arduino-pico](https://github.com/earlephilhower/arduino-pico) BSP  _**still experimental**_
+
 ## V2.0.22 IRQ_HEADER_ERROR should issue RX error, not RX timeout
   - Change behaviour of IRQ_HEADER_ERROR, thanks to _**@JeromeBriot**_
   

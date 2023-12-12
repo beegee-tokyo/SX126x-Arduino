@@ -1233,6 +1233,8 @@ static void OnRadioRxTimeout(void)
 			LoRaMacFlags.Bits.MacDone = 1;
 		}
 	}
+	TimerSetValue(&MacStateCheckTimer, MAC_STATE_CHECK_TIMEOUT);
+	TimerStart(&MacStateCheckTimer);
 }
 
 static void OnMacStateCheckTimerEvent(void)
@@ -1243,6 +1245,7 @@ static void OnMacStateCheckTimerEvent(void)
 
 	TimerStop(&MacStateCheckTimer);
 
+	LOG_LIB("LM", "OnMacStateCheckTimerEvent");
 	if (LoRaMacFlags.Bits.MacDone == 1)
 	{
 		if ((LoRaMacState & LORAMAC_RX_ABORT) == LORAMAC_RX_ABORT)
@@ -1417,7 +1420,8 @@ static void OnMacStateCheckTimerEvent(void)
 		{
 			LoRaMacPrimitives->MacMlmeConfirm(&MlmeConfirm);
 			if (MlmeConfirm.MlmeRequest == MLME_JOIN && IsLoRaMacNetworkJoined != JOIN_OK)
-			{ // fix the bug: When the number of join times is used up, if call lmh_join() in callback function again cannot work
+			{
+				// fix the bug: When the number of join times is used up, if call lmh_join() in callback function again cannot work
 				LoRaMacFlags.Bits.MlmeReq = 1;
 			}
 			else
