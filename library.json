@@ -22,7 +22,8 @@
 		"nordicnrf52",
 		"espressif8266",
 		"nordicnrf52",
-		"mbed_rp2040"
+		"mbed_rp2040",
+		"rp2040"
 	],
 	"license": "MIT",
 	"authors": [
@@ -37,5 +38,12 @@
 		"type": "git",
 		"url": "https://github.com/beegee-tokyo/SX126x-Arduino"
 	},
+	"dependencies": [
+		{
+			"owner": "khoih-prog",
+			"name": "RPI_PICO_TimerInterrupt",
+			"version": "*"
+		}
+	],
 	"homepage": "https://github.com/beegee-tokyo/SX126x-Arduino"
 }
