@@ -77,7 +77,7 @@ struct hw_config
 	RadioTcxoCtrlVoltage_t TCXO_CTRL_VOLTAGE = TCXO_CTRL_3_3V;
 };
 
-#if defined ARDUINO_ARCH_RP2040 && not defined RAK11300
+#if defined ARDUINO_ARCH_RP2040 && not defined ARDUINO_RAKWIRELESS_RAK11300
 #include <mbed.h>
 #include <rtos.h>
 // Wake up LoRa event handler on RP2040
@@ -108,7 +108,7 @@ uint32_t lora_isp4520_init(int chipType);
  */
 uint32_t lora_rak4630_init(void);
 
-/**@brief Initializes the RAK11300 board peripherals.
+/**@brief Initializes the ARDUINO_RAKWIRELESS_RAK11300 board peripherals.
  */
 uint32_t lora_rak11300_init(void);
 

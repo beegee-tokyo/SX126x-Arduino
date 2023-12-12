@@ -34,7 +34,7 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
  *
  *****************************************************************************/
 // #define ARDUINO_ARCH_RP2040
-#if defined ARDUINO_ARCH_RP2040 && not defined RAK11300
+#if defined ARDUINO_ARCH_RP2040 && not defined ARDUINO_RAKWIRELESS_RAK11300
 
 #include "boards/mcu/timer.h"
 #include "boards/mcu/board.h"

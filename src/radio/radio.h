@@ -23,7 +23,7 @@
 #ifndef __RADIO_H__
 #define __RADIO_H__
 
-#if defined RAK11300
+#if defined ARDUINO_RAKWIRELESS_RAK11300
 #include <FreeRTOS.h>
 #include <semphr.h>
 #include <task.h>

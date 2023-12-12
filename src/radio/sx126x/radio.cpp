@@ -1248,7 +1248,7 @@ void RadioOnRxTimeoutIrq(void)
 	TimerStop(&RxTimeoutTimer);
 }
 
-#if defined NRF52_SERIES || defined ESP32 || defined RAK11300
+#if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_RAKWIRELESS_RAK11300
 /** Semaphore used by SX126x IRQ handler to wake up LoRaWAN task */
 extern SemaphoreHandle_t _lora_sem;
 static BaseType_t xHigherPriorityTaskWoken = pdTRUE;
@@ -1265,7 +1265,7 @@ void RadioOnDioIrq(void)
 	BoardDisableIrq();
 	IrqFired = true;
 	BoardEnableIrq();
-#if defined NRF52_SERIES || defined ESP32 || defined RAK11300
+#if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_RAKWIRELESS_RAK11300
 	// Wake up LoRa event handler on nRF52 and ESP32
 	xSemaphoreGiveFromISR(_lora_sem, &xHigherPriorityTaskWoken);
 #elif defined (ARDUINO_ARCH_RP2040)

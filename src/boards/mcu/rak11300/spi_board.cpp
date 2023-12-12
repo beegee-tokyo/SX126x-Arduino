@@ -1,5 +1,5 @@
 // #define ARDUINO_ARCH_RP2040
-#if defined RAK11300
+#if defined ARDUINO_RAKWIRELESS_RAK11300
 #include <SPI.h>
 #include "boards/mcu/board.h"
 
@@ -13,4 +13,4 @@ void initSPI(void)
 	SPI_LORA.setTX(_hwConfig.PIN_LORA_MOSI);
 	SPI_LORA.begin();
 }
-#endif // RAK11300
+#endif // ARDUINO_RAKWIRELESS_RAK11300

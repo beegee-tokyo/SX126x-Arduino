@@ -34,7 +34,7 @@ Maintainer: Miguel Luis and Gregory Cristian
  *
  *****************************************************************************/
 // #define ARDUINO_ARCH_RP2040
-#if defined ARDUINO_ARCH_RP2040 && not defined RAK11300
+#if defined ARDUINO_ARCH_RP2040 && not defined ARDUINO_RAKWIRELESS_RAK11300
 #include "boards/mcu/board.h"
 // #include "pico/unique_id.h"
 

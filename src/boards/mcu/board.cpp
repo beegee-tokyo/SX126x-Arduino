@@ -35,7 +35,7 @@ Maintainer: Miguel Luis and Gregory Cristian
  *****************************************************************************/
 #include "board.h"
 
-#if defined RAK11300
+#if defined ARDUINO_RAKWIRELESS_RAK11300
 #include <FreeRTOS.h>
 #include <semphr.h>
 #include <task.h>
@@ -45,7 +45,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 #define TASK_PRIO_NORMAL 1
 #endif
 
-#if defined NRF52_SERIES || defined ESP32 || defined RAK11300
+#if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_RAKWIRELESS_RAK11300
 /** Semaphore used by SX126x IRQ handler to wake up LoRaWAN task */
 SemaphoreHandle_t _lora_sem = NULL;
 
@@ -346,7 +346,7 @@ uint32_t lora_rak13300_init(void)
 
 	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
 	{
-#if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_ARCH_RP2040 || defined RAK11300
+#if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_ARCH_RP2040 || defined ARDUINO_RAKWIRELESS_RAK11300
 		if (start_lora_task())
 		{
 			return 0;
@@ -362,7 +362,7 @@ uint32_t lora_rak13300_init(void)
 	return 1;
 }
 
-#if defined NRF52_SERIES || defined ESP32 || defined RAK11300
+#if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_RAKWIRELESS_RAK11300
 void _lora_task(void *pvParameters)
 {
 	LOG_LIB("BRD", "LoRa Task started");
@@ -395,7 +395,7 @@ bool start_lora_task(void)
 }
 #endif
 
-#if defined ARDUINO_ARCH_RP2040 && not defined RAK11300
+#if defined ARDUINO_ARCH_RP2040 && not defined ARDUINO_RAKWIRELESS_RAK11300
 #include <mbed.h>
 #include <rtos.h>
 using namespace rtos;
@@ -436,7 +436,7 @@ bool start_lora_task(void)
 
 void lora_hardware_uninit(void)
 {
-#if defined NRF52_SERIES || defined ESP32 || defined RAK11300
+#if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_RAKWIRELESS_RAK11300
 	vTaskSuspend(_loraTaskHandle);
 
 #endif

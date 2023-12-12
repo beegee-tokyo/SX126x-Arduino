@@ -33,8 +33,8 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
  *	OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  *****************************************************************************/
-// #define RAK11300
-#if defined RAK11300
+// #define ARDUINO_RAKWIRELESS_RAK11300
+#if defined ARDUINO_RAKWIRELESS_RAK11300
 
 #include "boards/mcu/timer.h"
 #include "boards/mcu/board.h"
@@ -335,4 +335,4 @@ TimerTime_t TimerGetElapsedTime(TimerTime_t past)
 	return diff;
 }
 
-#endif // RAK11300
+#endif // ARDUINO_RAKWIRELESS_RAK11300
