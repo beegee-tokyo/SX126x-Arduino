@@ -381,7 +381,8 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 		// Check Datarate
 		// Check TxPower
 		// Report unconfirmed TX finished
-		if (!statusOk) LOG_LIB("LMH", "Timeout TX + RX finished");
+		if (!statusOk)
+			LOG_LIB("LMH", "Timeout TX + RX finished");
 		if (m_callbacks->lmh_unconf_finished != 0)
 		{
 			m_callbacks->lmh_unconf_finished();
@@ -396,10 +397,13 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 		// Check NbTrials
 
 		// Report confirmed TX finished with result
-		if (!statusOk) LOG_LIB("LMH", "Timeout Conf TX finished %s", mcpsConfirm->AckReceived ? "SUCC" : "FAIL");
+		if (!statusOk)
+			LOG_LIB("LMH", "Timeout Conf TX finished %s", mcpsConfirm->AckReceived ? "SUCC" : "FAIL");
 		if (m_callbacks->lmh_conf_result != 0)
 		{
 			m_callbacks->lmh_conf_result(mcpsConfirm->AckReceived);
+			// Workaround, reset MAC state
+			lmh_reset_mac();
 		}
 		break;
 	}
@@ -662,6 +666,8 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
 			if (m_callbacks->lmh_has_joined_failed != NULL)
 			{
 				m_callbacks->lmh_has_joined_failed();
+				// Workaround, reset MAC state
+				lmh_reset_mac();
 			}
 
 			// Join was not successful. Try to join again
@@ -997,7 +1003,7 @@ lmh_error_status lmh_send(lmh_app_data_t *app_data, lmh_confirm is_tx_confirmed)
 			// 	(region == LORAMAC_REGION_AS923_4))
 			if (region == LORAMAC_REGION_AS923)
 			{
-				mcpsReq.Req.Confirmed.NbTrials = 1; //8;
+				mcpsReq.Req.Confirmed.NbTrials = 1; // 8;
 			}
 			else
 			{
@@ -1119,7 +1125,7 @@ lmh_error_status lmh_class_request(DeviceClass_t newClass)
 
 /**
  * @brief Get the device class
- * 
+ *
  * @param currentClass 0 or 2 for Class A or C (Class B is not supported)
  */
 void lmh_class_get(DeviceClass_t *currentClass)
@@ -1134,7 +1140,7 @@ void lmh_class_get(DeviceClass_t *currentClass)
 
 /**
  * @brief Get device LoRaWAN address
- * 
+ *
  * @return uint32_t device address
  */
 uint32_t lmh_getDevAddr(void)
@@ -1144,10 +1150,10 @@ uint32_t lmh_getDevAddr(void)
 
 /**
  * @brief Set the AS923 frequency variant
- * 
+ *
  * @param version 1, 2, 3 or 4 for AS923-1 (default), AS923-2, AS923-3 or AS923-4
- * @return true 
- * @return false 
+ * @return true
+ * @return false
  */
 bool lmh_setAS923Version(uint8_t version)
 {
@@ -1156,7 +1162,7 @@ bool lmh_setAS923Version(uint8_t version)
 
 /**
  * @brief Set number of retries for confirmed packages
- * 
+ *
  * @param retries number of retries
  * @return true if success
  * @return false if failed (number of retries to small or large)
@@ -1173,7 +1179,7 @@ bool lmh_setConfRetries(uint8_t retries)
 
 /**
  * @brief Get number of retries
- * 
+ *
  * @return uint8_t number of retries
  */
 uint8_t lmh_getConfRetries(void)
@@ -1183,7 +1189,7 @@ uint8_t lmh_getConfRetries(void)
 
 /**
  * @brief Reset MAC parameters
- * 
+ *
  */
 void lmh_reset_mac(void)
 {

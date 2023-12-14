@@ -68,15 +68,12 @@ struct s_timer
 	void (*callback)();
 };
 
-/** Array to hold the timers */
-volatile s_timer timer_obj[10];
-
 /** Skip ISR timer check call */
 volatile bool skip_timer = false;
 
 /**
  * @brief ISR function to check if any SimpleTimer needs attention
- * 
+ *
  * @param t unused
  * @return true keep timer running
  * @return false stop timer (maybe, not tried)
@@ -89,18 +86,15 @@ bool TimerHandler(struct repeating_timer *t)
 	int value = 0;
 	if (!skip_timer)
 	{
-	if (_simpleTimer.check())
-	{
 		xQueueSendFromISR(_timer_queue, &value, &_xHigherPriorityTaskWoken);
-			value++;
-		}
+		value++;
 	}
 	return true;
 }
 
 /**
  * @brief Task to handle the SimpleTimer tickers. Called by ISR handler through FreeRTOS queue
- * 
+ *
  * @param pvParameters unused
  */
 void _timer_task(void *pvParameters)
@@ -113,7 +107,7 @@ void _timer_task(void *pvParameters)
 		// Read from queue (wait max time if queue is empty)
 		if (xQueueReceive(_timer_queue, &val, portMAX_DELAY) == pdTRUE)
 		{
-			_simpleTimer.handle_cb();
+			_simpleTimer.run();
 		}
 	}
 }
@@ -134,7 +128,7 @@ void TimerConfig(void)
 	}
 
 	// Initialize the timer task
-	if (xTaskCreate(_timer_task, "TIMER", 4096, NULL, 1, &_timerTaskHandle))
+	if (xTaskCreate(_timer_task, "TIMER", 4096, NULL, 8, &_timerTaskHandle))
 	{
 		LOG_LIB("TIM", "Timer task start success");
 	}
@@ -209,37 +203,10 @@ void TimerConfig(void)
  */
 void TimerInit(TimerEvent_t *obj, void (*callback)(void))
 {
-	skip_timer = true;
-
-	int idx = -1;
-	// Look for an available Ticker
-	if (obj->oneShot)
-	{
-		idx = _simpleTimer.setTimer(obj->ReloadValue, callback, 1);
-		LOG_LIB("TIM", "setTimer %d as one shot", idx);
-	}
-	else
-	{
-		idx = _simpleTimer.setTimer(obj->ReloadValue, callback, 0);
-		LOG_LIB("TIM", "setTimer %d as recurring", idx);
-	}
-
-	if (idx < 0)
-	{
-		LOG_LIB("TIM", "setTimer failed with %d", idx);
-		LOG_LIB("TIM", "No more timers available!");
-	}
-	else
-	{
-		_simpleTimer.disable(idx);
-		timer_obj[idx].callback = callback;
-		timer_obj[idx].duration = obj->ReloadValue;
-		obj->timerNum = idx;
-		obj->Callback = callback;
-		LOG_LIB("TIM", "Timer %d assigned cb %ld", idx, timer_obj[idx].callback);
-	}
-
-	skip_timer = false;
+	// Save the callback pointer
+	obj->Callback = callback;
+	// Timers are assigned during start
+	// Timers are deleted once expired
 }
 
 /**
@@ -251,11 +218,17 @@ void TimerInit(TimerEvent_t *obj, void (*callback)(void))
 void TimerStart(TimerEvent_t *obj)
 {
 	skip_timer = true;
-	int idx = obj->timerNum;
-	_simpleTimer.changeTime(idx, obj->ReloadValue);
-	_simpleTimer.restartTimer(idx);
-	_simpleTimer.enable(idx);
-	LOG_LIB("TIM", "Timer %d started",idx);
+	int idx;
+	if (obj->oneShot)
+	{
+		idx = _simpleTimer.setTimer(obj->ReloadValue, obj->Callback, 1);
+	}
+	else
+	{
+		idx = _simpleTimer.setTimer(obj->ReloadValue, obj->Callback, 0);
+	}
+	obj->timerNum = idx;
+	LOG_LIB("TIM", "Timer %d started as %s with %d ms", idx, obj->oneShot ? "OneShot" : "Recurring", obj->ReloadValue);
 	skip_timer = false;
 }
 
@@ -269,7 +242,7 @@ void TimerStop(TimerEvent_t *obj)
 {
 	skip_timer = true;
 	int idx = obj->timerNum;
-	_simpleTimer.disable(idx);
+	_simpleTimer.deleteTimer(idx);
 	LOG_LIB("TIM", "Timer %d stopped manually", idx);
 	skip_timer = false;
 }
@@ -284,10 +257,16 @@ void TimerReset(TimerEvent_t *obj)
 {
 	skip_timer = true;
 	int idx = obj->timerNum;
-	_simpleTimer.disable(idx);
-	_simpleTimer.changeTime(idx, obj->ReloadValue);
-	_simpleTimer.restartTimer(idx);
-	_simpleTimer.enable(idx);
+	_simpleTimer.deleteTimer(idx);
+	if (obj->oneShot)
+	{
+		idx = _simpleTimer.setTimer(obj->ReloadValue, obj->Callback, 1);
+	}
+	else
+	{
+		idx = _simpleTimer.setTimer(obj->ReloadValue, obj->Callback, 0);
+	}
+	obj->timerNum = idx;
 	// LOG_LIB("TIM", "Timer %d reset with %d ms as %s", idx, obj->ReloadValue, obj->oneShot ? "Oneshot" : "Interval");
 	skip_timer = false;
 }

@@ -79,6 +79,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2023-12-14
+  - Seems RAK11300 and arduino-pico BSP is working now.   _**still experimental**_
 - 2023-12-12
   - Added support for the RAK11300 in [arduino-pico](https://github.com/earlephilhower/arduino-pico) BSP  _**still experimental**_
 - 2023-11-22

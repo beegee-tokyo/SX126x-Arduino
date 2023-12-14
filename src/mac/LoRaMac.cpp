@@ -1471,8 +1471,6 @@ static void OnTxDelayedTimerEvent(void)
 
 	if ((LoRaMacFlags.Bits.MlmeReq == 1) && (MlmeConfirm.MlmeRequest == MLME_JOIN))
 	{
-		ResetMacParameters();
-
 		altDr.NbTrials = JoinRequestTrials + 1;
 		LoRaMacParams.ChannelsDatarate = RegionAlternateDr(LoRaMacRegion, &altDr);
 
@@ -1568,11 +1566,14 @@ static void OnAckTimeoutTimerEvent(void)
 	{
 		AckTimeoutRetry = true;
 		LoRaMacState &= ~LORAMAC_ACK_REQ;
+		LoRaMacState &= ~LORAMAC_TX_RUNNING;
 	}
 	if (LoRaMacDeviceClass == CLASS_C)
 	{
 		LoRaMacFlags.Bits.MacDone = 1;
 	}
+	TimerStop(&MacStateCheckTimer);
+	OnMacStateCheckTimerEvent();
 }
 
 static void RxWindowSetup(bool rxContinuous, uint32_t maxRxWindow)
@@ -2270,7 +2271,7 @@ LoRaMacStatus_t PrepareFrame(LoRaMacHeader_t *macHdr, LoRaMacFrameCtrl_t *fCtrl,
 			fCtrl->Bits.Ack = 1;
 		}
 
-		LoRaMacBuffer[pktHeaderLen++] = (LoRaMacDevAddr)&0xFF;
+		LoRaMacBuffer[pktHeaderLen++] = (LoRaMacDevAddr) & 0xFF;
 		LoRaMacBuffer[pktHeaderLen++] = (LoRaMacDevAddr >> 8) & 0xFF;
 		LoRaMacBuffer[pktHeaderLen++] = (LoRaMacDevAddr >> 16) & 0xFF;
 		LoRaMacBuffer[pktHeaderLen++] = (LoRaMacDevAddr >> 24) & 0xFF;

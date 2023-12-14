@@ -79,14 +79,12 @@ void SimpleTimer::run()
 					if (maxNumRuns[i] == RUN_FOREVER)
 					{
 						toBeCalled[i] = DEFCALL_RUNONLY;
-						// Serial.printf("Timer %d cb scheduled\n", i);
 					}
 					// other timers get executed the specified number of times
 					else if (numRuns[i] < maxNumRuns[i])
 					{
 						toBeCalled[i] = DEFCALL_RUNONLY;
 						numRuns[i]++;
-						// Serial.printf("Timer %d cb scheduled\n", i);
 
 						// after the last run, delete the timer
 						if (numRuns[i] >= maxNumRuns[i])
@@ -113,7 +111,7 @@ void SimpleTimer::run()
 
 		case DEFCALL_RUNANDDEL:
 			(*callbacks[i])();
-			disable(i);
+			deleteTimer(i);
 			break;
 		}
 	}
@@ -200,13 +198,13 @@ void SimpleTimer::handle_cb()
 			// after the last run, delete the timer
 			if (numRuns[i] >= maxNumRuns[i])
 			{
-				disable(i);
+				deleteTimer(i);
 			}
 			break;
 
 		case DEFCALL_RUNANDDEL:
 			(*callbacks[i])();
-			disable(i);
+			deleteTimer(i);
 			break;
 		}
 	}
