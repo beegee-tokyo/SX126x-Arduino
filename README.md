@@ -1,9 +1,18 @@
 # SX126x-Arduino [![Build Status](https://github.com/beegee-tokyo/SX126x-Arduino/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/beegee-tokyo/SX126x-Arduino/actions)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](https://beegee-tokyo.github.io/SX126x-Arduino/)
 ----
-Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266 and nRF52832. It will not work with other uC's like AVR.    
+Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266, nRF52832 and RP2040. It will not work with other uC's like AVR.    
 LoRaWAN version: **`MAC V1.0.2`** and Regional Parameters version: **`PHY V1.0.2 REV B`**    
 
-# _**IMPORTANT: RAK11300 module (RP2040) support is only tested with the [ArduinoCore Mbed BSP](https://github.com/arduino/ArduinoCore-mbed). It will not work with other BSP's for the Raspberry RP2040.**_
+----
+----
+
+# _**IMPORTANT:**_ 
+_**RAK11300 module (RP2040) support is only tested with the [ArduinoCore Mbed BSP](https://github.com/arduino/ArduinoCore-mbed). It will not work with other BSP's for the Raspberry RP2040.**_
+# _**NEWS:**_ 
+_**Current testing RAK11300/RAK11310 with the [Arduino Pico BSP](https://github.com/earlephilhower/arduino-pico), still experimental, but promising.**_
+
+----
+----
 
 _**IMPORTANT: READ [WHAT'S NEW IN V2](./README_V2.md)**_
 _**Some major changes are made in V2 of the SX126x-Arduino library:**_    
@@ -35,7 +44,7 @@ For now the library is tested with an [eByte E22-900M22S](http://www.ebyte.com/e
 
 __**Check out the example provided with this library to learn the basic functions.**__
 
-Especially for the deep sleep support on the ESP32 check out the example DeepSleep.    
+For the deep sleep support on the ESP32 check out the example DeepSleep.    
 ===
 
 THIS IS WORK IN PROGRESS AND NOT ALL FUNCTIONS ARE INCLUDED NOR TESTED. USE IT AT YOUR OWN RISK!
