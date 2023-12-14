@@ -1,17 +1,29 @@
+/**
+ * @file RAK11310-Earl.ino
+ * @author Bernd Giesecke (bernd@giesecke.tk)
+ * @brief Simple example to use RAK11300/RAK11310 with Arduino-Pico BSP
+ *
+ * By default it is using LoRaWAN. Uncommenting
+ * #define LORAWAN
+ * enables LoRa P2P functionality
+ *
+ * @version 0.1
+ * @date 2023-12-14
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
 #include <Arduino.h>
-#define RAK11300 1
 #include <SX126x-Arduino.h>
 #include <LoRaWan-Arduino.h>
+#include <task.h>
+#include <map>
 
+void task_list(void);
+
+// Comment to switch to LoRa P2P
 #define LORAWAN
-
-#ifndef LED_BLUE
-#define LED_BLUE (24)
-#endif
-
-#ifndef LED_GREEN
-#define LED_GREEN (23)
-#endif
 
 // Function declarations
 void OnTxDone(void);
@@ -66,38 +78,51 @@ static lmh_callback_t lora_callbacks = {BoardGetBatteryLevel, BoardGetUniqueId, 
 										lorawan_confirm_class_handler, lorawan_join_failed_handler,
 										lorawan_unconf_finished, lorawan_conf_finished};
 
-uint8_t nodeDeviceEUI[8] = {0xAC, 0x1F, 0x09, 0xFF, 0xFE, 0x06, 0x40, 0x80};
+uint8_t nodeDeviceEUI[8] = {0xAF, 0x1F, 0x09, 0xFF, 0xFE, 0x06, 0x40, 0x80}; // AF1F09FFFE064080
 
-uint8_t nodeAppEUI[8] = {0xAC, 0x1F, 0x09, 0xFF, 0xFE, 0x01, 0x42, 0xC8};
+uint8_t nodeAppEUI[8] = {0xAF, 0x1F, 0x09, 0xFF, 0xFE, 0x06, 0x40, 0x80}; // AF1F09FFFE064080
 
-uint8_t nodeAppKey[16] = {0x2B, 0x84, 0xE0, 0xB0, 0x9B, 0x68, 0xE5, 0xCB, 0x42, 0x17, 0x6F, 0xE7, 0x53, 0xDC, 0xEE, 0x79};
+uint8_t nodeAppKey[16] = {0x2B, 0x84, 0xE0, 0xB0, 0x9B, 0x68, 0xE5, 0xCB, 0x42, 0x17, 0x6F, 0xE7, 0x53, 0xDC, 0xEE, 0x79}; // 2B84E0B09B68E5CB42176FE753DCEE79
 
 bool network_joined = false;
 
 static TimerEvent_t timer1_struct;
 static TimerEvent_t timer2_struct;
 
+SemaphoreHandle_t app1_sem;
+SemaphoreHandle_t app2_sem;
+static BaseType_t xHigherPriorityTaskWoken = pdTRUE;
+
 void timer1_cb(void)
 {
-	digitalWrite(LED_BLUE, !digitalRead(LED_BLUE));
+	xSemaphoreGiveFromISR(app1_sem, &xHigherPriorityTaskWoken);
 }
+
 void timer2_cb(void)
 {
-	digitalWrite(LED_GREEN, !digitalRead(LED_GREEN));
+	xSemaphoreGiveFromISR(app2_sem, &xHigherPriorityTaskWoken);
 }
 
-// void setup1()
-// {
-// }
+void setup1()
+{
+	pinMode(LED_BLUE, OUTPUT);
+	digitalWrite(LED_BLUE, LOW);
 
-// void loop1()
-// {
-// 	delay(250);
-// 	digitalWrite(LED_BLUE, !digitalRead(LED_BLUE));
-// 	// Serial.println("Core 2 wakeup");
-// }
+	// Create the app event semaphore
+	app2_sem = xSemaphoreCreateBinary();
+	// Initialize semaphore
+	xSemaphoreGive(app2_sem);
+	xSemaphoreTake(app2_sem, 10);
+}
 
-time_t send_wait;
+void loop1()
+{
+	if (xSemaphoreTake(app2_sem, portMAX_DELAY) == pdTRUE)
+	{
+		digitalWrite(LED_BLUE, !digitalRead(LED_BLUE));
+		// task_list();
+	}
+}
 
 void setup()
 {
@@ -108,6 +133,7 @@ void setup()
 	digitalWrite(LED_BLUE, HIGH);
 
 	time_t serial_timeout = millis();
+	Serial.begin(230400);
 	// On nRF52840 the USB serial is not available immediately
 	while (!Serial)
 	{
@@ -123,8 +149,11 @@ void setup()
 		}
 	}
 	digitalWrite(LED_GREEN, LOW);
-
+#ifdef NRF52_SERIES
+	if (lora_rak4630_init() != 0)
+#else
 	if (lora_rak11300_init() != 0)
+#endif
 	{
 		Serial.println("Failed initialization of SX1262");
 	}
@@ -138,7 +167,7 @@ void setup()
 		lmh_setAppKey(nodeAppKey);
 
 		// Initialize LoRaWan
-		uint32_t err_code = lmh_init(&lora_callbacks, lora_param_init, true, CLASS_A, LORAMAC_REGION_KR920);
+		uint32_t err_code = lmh_init(&lora_callbacks, lora_param_init, true, CLASS_A, LORAMAC_REGION_EU868);
 		if (err_code != 0)
 		{
 			Serial.printf("lmh_init failed - %d\n", err_code);
@@ -178,49 +207,57 @@ void setup()
 		Serial.println("Starting Radio.Rx");
 		Radio.Sleep();
 		Radio.Rx(RX_TIMEOUT_VALUE);
+
+		digitalWrite(LED_BLUE, LOW);
 #endif
-		// timer1_struct.oneShot = false;
-		// TimerInit(&timer1_struct, timer1_cb);
-		// TimerSetValue(&timer1_struct, 5000);
-		// timer2_struct.oneShot = false;
-		// TimerInit(&timer2_struct, timer2_cb);
-		// TimerSetValue(&timer2_struct, 10000);
 
-		// TimerStart(&timer1_struct);
-		// TimerStart(&timer2_struct);
+		// Create the app event semaphore
+		app1_sem = xSemaphoreCreateBinary();
+		// Initialize semaphore
+		xSemaphoreGive(app1_sem);
+		xSemaphoreTake(app1_sem, 10);
+
+		timer1_struct.oneShot = false;
+		timer1_struct.ReloadValue = 20000;
+		TimerInit(&timer1_struct, timer1_cb);
+		TimerStart(&timer1_struct);
+
+		// Create timer for second core (Blue LED blinking)
+		timer2_struct.oneShot = false;
+		timer2_struct.ReloadValue = 50;
+		timer2_struct.Callback = timer2_cb;
+		TimerInit(&timer2_struct, timer2_cb);
+		TimerStart(&timer2_struct);
 	}
-
-	send_wait = millis();
 }
 
 bool tx_active = false;
 
 void loop()
 {
-	// vTaskDelay(20000);
-	if ((millis() - send_wait) >= 20000)
+	if (xSemaphoreTake(app1_sem, portMAX_DELAY) == pdTRUE)
 	{
-		send_wait = millis();
-
+		task_list();
 #ifdef LORAWAN
 		if (lmh_join_status_get() != LMH_SET)
 		{
 			// Not joined, try again later
 			Serial.println("Did not join network, skip sending frame");
-			// Start Join procedure
-			lmh_join();
 			return;
 		}
 
-	if (tx_active)
-	{
-		Serial.println("Last TX still active, do not send yet");
-		return;
-	}
+		if (tx_active)
+		{
+			Serial.println("Last TX still active, do not send yet");
+			// error_flag = true;
+			return;
+		}
+
+		digitalWrite(LED_GREEN, HIGH);
 		uint32_t i = 0;
 		m_lora_app_data.port = LORAWAN_APP_PORT;
 		// 02683c036701d3237d0399288a0001298a00012a8a0001108a0179017401a7306601
-		// 
+		//
 		m_lora_app_data.buffer[i++] = 0x02;
 		m_lora_app_data.buffer[i++] = 0x68;
 		m_lora_app_data.buffer[i++] = 0x3c;
@@ -261,6 +298,11 @@ void loop()
 		if (error == LMH_SUCCESS)
 		{
 			tx_active = true;
+		}
+		else if (error == LMH_ERROR)
+		{
+			/// \todo Workaround. After missing ACK's the DR is reset
+			// lmh_datarate_set(DR_3, false);
 		}
 		Serial.printf("lmh_send result %d\n", error);
 
@@ -416,6 +458,7 @@ static void lorawan_join_failed_handler(void)
 	Serial.println("OVER_THE_AIR_ACTIVATION failed!");
 	Serial.println("Check your EUI's and Keys's!");
 	Serial.println("Check if a Gateway is in range!");
+	lmh_join();
 }
 
 /**@brief LoRa function for handling HasJoined event.
@@ -424,6 +467,7 @@ static void lorawan_has_joined_handler(void)
 {
 	Serial.println("Network Joined");
 	network_joined = true;
+	digitalWrite(LED_BLUE, LOW);
 }
 
 /**@brief Function for handling LoRaWan received data from Gateway
@@ -432,6 +476,7 @@ static void lorawan_has_joined_handler(void)
  */
 static void lorawan_rx_handler(lmh_app_data_t *app_data)
 {
+	digitalWrite(LED_GREEN, LOW);
 	Serial.printf("LoRa Packet received on port %d, size:%d, rssi:%d, snr:%d\n",
 				  app_data->port, app_data->buffsize, app_data->rssi, app_data->snr);
 
@@ -473,6 +518,7 @@ static void lorawan_rx_handler(lmh_app_data_t *app_data)
 
 static void lorawan_confirm_class_handler(DeviceClass_t Class)
 {
+	digitalWrite(LED_GREEN, LOW);
 	Serial.printf("switch to class %c done\n", "ABC"[Class]);
 
 	// Informs the server that switch has occurred ASAP
@@ -483,12 +529,30 @@ static void lorawan_confirm_class_handler(DeviceClass_t Class)
 
 static void lorawan_unconf_finished(void)
 {
+	digitalWrite(LED_GREEN, LOW);
 	Serial.println("TX unconfirmed finished");
 	tx_active = false;
 }
 
 static void lorawan_conf_finished(bool result)
 {
+	digitalWrite(LED_GREEN, LOW);
 	Serial.printf("TX confirmed finished with %s\n", result ? "ACK" : "NAK");
 	tx_active = false;
+}
+
+std::map<eTaskState, const char *> eTaskStateName{{eReady, "Ready"}, {eRunning, "Running"}, {eBlocked, "Blocked"}, {eSuspended, "Suspended"}, {eDeleted, "Deleted"}};
+void task_list(void)
+{
+	int tasks = uxTaskGetNumberOfTasks();
+	TaskStatus_t *pxTaskStatusArray = new TaskStatus_t[tasks];
+	unsigned long runtime;
+	tasks = uxTaskGetSystemState(pxTaskStatusArray, tasks, &runtime);
+	Serial.printf("# Tasks: %d\n", tasks);
+	Serial.println("ID, NAME,            STATE,        PRIO,  CYCLES");
+	for (int i = 0; i < tasks; i++)
+	{
+		Serial.printf("%02d: %-16s %-10s      %d    %lu\n", i, pxTaskStatusArray[i].pcTaskName, eTaskStateName[pxTaskStatusArray[i].eCurrentState], (int)pxTaskStatusArray[i].uxCurrentPriority, pxTaskStatusArray[i].ulRunTimeCounter);
+	}
+	delete[] pxTaskStatusArray;
 }
