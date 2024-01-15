@@ -414,7 +414,7 @@ void OnRxError(void)
 	}
 }
 
-/**@brief Function to be executed on Radio Rx Error event
+/**@brief Function to be executed on CAD Done event
  */
 void OnCadDone(bool cadResult)
 {
