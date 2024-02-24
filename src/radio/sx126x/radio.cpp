@@ -1040,8 +1040,8 @@ void RadioStandby(void)
 void RadioRx(uint32_t timeout)
 {
 	SX126xRXena();
-	SX126xSetDioIrqParams(IRQ_RADIO_ALL, // IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT,
-						  IRQ_RADIO_ALL, // IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT,
+	SX126xSetDioIrqParams(IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT | IRQ_HEADER_ERROR | IRQ_CRC_ERROR, // IRQ_RADIO_ALL
+						  IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT | IRQ_HEADER_ERROR | IRQ_CRC_ERROR, // IRQ_RADIO_ALL
 						  IRQ_RADIO_NONE,
 						  IRQ_RADIO_NONE);
 
@@ -1064,8 +1064,8 @@ void RadioRx(uint32_t timeout)
 
 void RadioRxBoosted(uint32_t timeout)
 {
-	SX126xSetDioIrqParams(IRQ_RADIO_ALL, // IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT,
-						  IRQ_RADIO_ALL, // IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT,
+	SX126xSetDioIrqParams(IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT | IRQ_HEADER_ERROR | IRQ_CRC_ERROR, // IRQ_RADIO_ALL
+						  IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT | IRQ_HEADER_ERROR | IRQ_CRC_ERROR, // IRQ_RADIO_ALL
 						  IRQ_RADIO_NONE,
 						  IRQ_RADIO_NONE);
 
@@ -1234,6 +1234,10 @@ void RadioOnTxTimeoutIrq(void)
 	TimerTxTimeout = true;
 	BoardEnableIrq();
 	TimerStop(&TxTimeoutTimer);
+
+	RadioBgIrqProcess();
+	RadioStandby();
+	RadioSleep();
 }
 
 void RadioOnRxTimeoutIrq(void)
@@ -1246,6 +1250,10 @@ void RadioOnRxTimeoutIrq(void)
 	TimerRxTimeout = true;
 	BoardEnableIrq();
 	TimerStop(&RxTimeoutTimer);
+
+	RadioBgIrqProcess();
+	RadioStandby();
+	RadioSleep();
 }
 
 #if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_RAKWIRELESS_RAK11300

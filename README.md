@@ -88,6 +88,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2024-02-24
+  - Fix callbacks for P2P RX and TX timeout not being called
 - 2023-12-14
   - Seems RAK11300 and arduino-pico BSP is working now.   _**still experimental**_
 - 2023-12-12
