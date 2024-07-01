@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+# V2.0.25 Fix DR reset with ADR enabled
+  - With ADR enabled, fix the DR reset to default when confirmed/unconfirmed packets are sent.
+  
 ## V2.0.24 Fix P2P RX timeout callback fails
   - Fix callbacks for P2P RX and TX timeout not being called
 

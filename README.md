@@ -88,6 +88,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2024-06-26 
+  - With ADR enabled, fix the DR reset to default when confirmed/unconfirmed packets are sent.
 - 2024-02-24
   - Fix callbacks for P2P RX and TX timeout not being called
 - 2023-12-14

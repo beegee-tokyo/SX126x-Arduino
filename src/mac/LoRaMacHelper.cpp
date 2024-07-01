@@ -403,7 +403,10 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 		{
 			m_callbacks->lmh_conf_result(mcpsConfirm->AckReceived);
 			// Workaround, reset MAC state
+			// Workaround for DR reset when ADR is active
+			int8_t preserve_dr = LoRaMacParams.ChannelsDatarate;
 			lmh_reset_mac();
+			LoRaMacParams.ChannelsDatarate = preserve_dr;
 		}
 		break;
 	}
