@@ -1245,7 +1245,7 @@ static void OnMacStateCheckTimerEvent(void)
 
 	TimerStop(&MacStateCheckTimer);
 
-	LOG_LIB("LM", "OnMacStateCheckTimerEvent");
+	// LOG_LIB("LM", "OnMacStateCheckTimerEvent");
 	if (LoRaMacFlags.Bits.MacDone == 1)
 	{
 		if ((LoRaMacState & LORAMAC_RX_ABORT) == LORAMAC_RX_ABORT)

@@ -24,6 +24,8 @@
 #include "system/utilities.h"
 
 #include "mac/LoRaMacTest.h"
+#include "mac/LoRaMac.h"
+extern LoRaMacParams_t LoRaMacParams;
 
 uint16_t ChannelsMask[6];
 uint16_t ChannelsDefaultMask[6];

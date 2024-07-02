@@ -88,6 +88,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2024-07-02 Add missing header file
+  - Fix compilation error
 - 2024-06-26 
   - With ADR enabled, fix the DR reset to default when confirmed/unconfirmed packets are sent.
 - 2024-02-24
