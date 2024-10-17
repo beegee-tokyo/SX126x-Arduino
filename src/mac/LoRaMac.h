@@ -1960,4 +1960,8 @@ LoRaMacStatus_t LoRaMacMcpsRequest(McpsReq_t *mcpsRequest);
 
 void ResetMacCounters(void);
 
+extern uint8_t LoRaMacNwkSKey[];
+extern uint8_t LoRaMacAppSKey[];
+extern uint32_t LoRaMacDevAddr;
+
 #endif // __LORAMAC_H__

@@ -111,7 +111,7 @@ private:
 	volatile timer_callback callbacks[MAX_TIMERS];
 
 	// delay values
-	volatile unsigned long delays[MAX_TIMERS];
+	volatile long delays[MAX_TIMERS];
 
 	// number of runs to be executed for each timer
 	volatile int maxNumRuns[MAX_TIMERS];

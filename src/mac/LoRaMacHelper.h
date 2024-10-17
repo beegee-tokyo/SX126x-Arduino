@@ -314,4 +314,7 @@ uint8_t lmh_getConfRetries(void);
  */
 void lmh_reset_mac(void);
 
+void lmh_getNwSkey(uint8_t *key);
+void lmh_getAppSkey(uint8_t *key);
+
 #endif

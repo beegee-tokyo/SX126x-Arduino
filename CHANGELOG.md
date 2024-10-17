@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+# V2.0.27 Access to NWsKey and AppsKey
+  - Add functions to get network session key and app session key after join
+  
 # V2.0.26 Add missing header file
   - Fix compilation error
   

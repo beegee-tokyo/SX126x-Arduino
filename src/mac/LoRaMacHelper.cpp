@@ -1153,6 +1153,22 @@ uint32_t lmh_getDevAddr(void)
 	return LoRaMacGetOTAADevId();
 }
 
+void lmh_getNwSkey(uint8_t * key)
+{
+	for (int idx=0; idx<16; idx++)
+	{
+		key[idx] = LoRaMacNwkSKey[idx];
+	}
+}
+
+void lmh_getAppSkey(uint8_t *key)
+{
+	for (int idx = 0; idx < 16; idx++)
+	{
+		key[idx] = LoRaMacAppSKey[idx];
+	}
+}
+
 /**
  * @brief Set the AS923 frequency variant
  *

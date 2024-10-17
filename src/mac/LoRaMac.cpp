@@ -84,7 +84,7 @@ static uint8_t *LoRaMacAppKey;
 /*!
  * AES encryption/decryption cipher network session key
  */
-static uint8_t LoRaMacNwkSKey[] =
+uint8_t LoRaMacNwkSKey[] =
 	{
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -92,7 +92,7 @@ static uint8_t LoRaMacNwkSKey[] =
 /*!
  * AES encryption/decryption cipher application session key
  */
-static uint8_t LoRaMacAppSKey[] =
+uint8_t LoRaMacAppSKey[] =
 	{
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -111,7 +111,7 @@ static uint32_t LoRaMacNetID;
 /*!
  * Mote Address
  */
-static uint32_t LoRaMacDevAddr;
+uint32_t LoRaMacDevAddr;
 
 /*!
  * Multicast channels linked list
