@@ -877,6 +877,7 @@ void RadioSetTxConfig(RadioModems_t modem, int8_t power, uint32_t fdev,
 		SX126x.ModulationParams.Params.LoRa.SpreadingFactor = (RadioLoRaSpreadingFactors_t)datarate;
 		SX126x.ModulationParams.Params.LoRa.Bandwidth = Bandwidths[bandwidth];
 		SX126x.ModulationParams.Params.LoRa.CodingRate = (RadioLoRaCodingRates_t)coderate;
+
 		if (((bandwidth == 0) && ((datarate == 11) || (datarate == 12))) ||
 			((bandwidth == 1) && (datarate == 12)) || (bandwidth >= 3 && (datarate == 11 || datarate == 12)))
 		{
@@ -886,6 +887,7 @@ void RadioSetTxConfig(RadioModems_t modem, int8_t power, uint32_t fdev,
 		{
 			SX126x.ModulationParams.Params.LoRa.LowDatarateOptimize = 0x00;
 		}
+
 		SX126x.PacketParams.PacketType = PACKET_TYPE_LORA;
 
 		if ((SX126x.ModulationParams.Params.LoRa.SpreadingFactor == LORA_SF5) ||
