@@ -351,6 +351,14 @@ struct Radio_s
      * \param  enable if true, it enables a public network
      */
 	void (*SetPublicNetwork)(bool enable);
+     /*!
+     * \brief Sets a custom Sync-Word. Updates the sync byte.
+     *
+     * \remark Applies to LoRa modem only
+     *
+     * \param  syncword 2 byte custom Sync-Word to be used
+     */
+	void (*SetCustomSyncWord)(uint16_t syncword);
 	/*!
      * \brief Gets the time required for the board plus radio to get out of sleep.[ms]
      *
