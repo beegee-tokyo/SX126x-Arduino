@@ -326,7 +326,7 @@ void RadioSetPublicNetwork(bool enable);
  *
  * \param  syncword 2 byte custom Sync-Word to be used
  */
-void SetCustomSyncWord(uint16_t syncword);
+void RadioSetCustomSyncWord(uint16_t syncword);
 
 /*!
  * @brief Gets the time required for the board plus radio to get out of sleep.[ms]
@@ -395,7 +395,7 @@ const struct Radio_s Radio =
 		RadioReadBuffer,
 		RadioSetMaxPayloadLength,
 		RadioSetPublicNetwork,
-		SetCustomSyncWord,
+		RadioSetCustomSyncWord,
 		RadioGetWakeupTime,
 		RadioBgIrqProcess,
 		RadioIrqProcess,
@@ -1230,7 +1230,7 @@ void RadioSetPublicNetwork(bool enable)
 	}
 }
 
-void SetCustomSyncWord(uint16_t syncword){
+void RadioSetCustomSyncWord(uint16_t syncword){
 	hasCustomSyncWord = true;
 	RadioSetModem(MODEM_LORA);
 	SX126xWriteRegister(REG_LR_SYNCWORD, (syncword >> 8) & 0xFF);
