@@ -33,6 +33,9 @@
 TimerEvent_t TxTimeoutTimer;
 TimerEvent_t RxTimeoutTimer;
 
+/** Enforce low datarate optimization */
+bool force_low_dr_opt = false;
+
 /*!
  * @brief Initializes the radio
  *
@@ -366,6 +369,13 @@ void RadioRxBoosted(uint32_t timeout);
 void RadioSetRxDutyCycle(uint32_t rxTime, uint32_t sleepTime);
 
 /*!
+ * @brief Enforce usage of Low Datarate optimization
+ *
+ * @param   enforce       True = Enforce usage of Low Datarate optimization
+ */
+void RadioEnforceLowDRopt(bool enforce);
+
+/*!
  * Radio driver structure initialization
  */
 const struct Radio_s Radio =
@@ -402,7 +412,9 @@ const struct Radio_s Radio =
 		RadioIrqProcessAfterDeepSleep,
 		// Available on SX126x only
 		RadioRxBoosted,
-		RadioSetRxDutyCycle};
+		RadioEnforceLowDRopt,
+		RadioSetRxDutyCycle,
+};
 
 /*
  * Local types definition
@@ -779,7 +791,7 @@ void RadioSetRxConfig(RadioModems_t modem, uint32_t bandwidth,
 		SX126x.ModulationParams.Params.LoRa.CodingRate = (RadioLoRaCodingRates_t)coderate;
 
 		if (((bandwidth == 0) && ((datarate == 11) || (datarate == 12))) ||
-			((bandwidth == 1) && (datarate == 12)))
+			((bandwidth == 1) && (datarate == 12)) || force_low_dr_opt)
 		{
 			SX126x.ModulationParams.Params.LoRa.LowDatarateOptimize = 0x01;
 		}
@@ -896,7 +908,7 @@ void RadioSetTxConfig(RadioModems_t modem, int8_t power, uint32_t fdev,
 		SX126x.ModulationParams.Params.LoRa.CodingRate = (RadioLoRaCodingRates_t)coderate;
 
 		if (((bandwidth == 0) && ((datarate == 11) || (datarate == 12))) ||
-			((bandwidth == 1) && (datarate == 12)))
+			((bandwidth == 1) && (datarate == 12)) || force_low_dr_opt)
 		{
 			SX126x.ModulationParams.Params.LoRa.LowDatarateOptimize = 0x01;
 		}
@@ -1230,7 +1242,8 @@ void RadioSetPublicNetwork(bool enable)
 	}
 }
 
-void RadioSetCustomSyncWord(uint16_t syncword){
+void RadioSetCustomSyncWord(uint16_t syncword)
+{
 	hasCustomSyncWord = true;
 	RadioSetModem(MODEM_LORA);
 	SX126xWriteRegister(REG_LR_SYNCWORD, (syncword >> 8) & 0xFF);
@@ -1279,6 +1292,18 @@ void RadioOnRxTimeoutIrq(void)
 	RadioBgIrqProcess();
 	RadioStandby();
 	RadioSleep();
+}
+
+void RadioEnforceLowDRopt(bool enforce)
+{
+	if (enforce)
+	{
+		force_low_dr_opt = true;
+	}
+	else
+	{
+		force_low_dr_opt = false;
+	}
 }
 
 #if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_RAKWIRELESS_RAK11300

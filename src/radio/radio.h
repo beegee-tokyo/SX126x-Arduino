@@ -351,19 +351,19 @@ struct Radio_s
      * \param  enable if true, it enables a public network
      */
 	void (*SetPublicNetwork)(bool enable);
-     /*!
-     * \brief Sets a custom Sync-Word. Updates the sync byte.
-     *
-     * \remark Applies to LoRa modem only
-     *
-     * \param  syncword 2 byte custom Sync-Word to be used
-     */
+	/*!
+	 * \brief Sets a custom Sync-Word. Updates the sync byte.
+	 *
+	 * \remark Applies to LoRa modem only
+	 *
+	 * \param  syncword 2 byte custom Sync-Word to be used
+	 */
 	void (*SetCustomSyncWord)(uint16_t syncword);
 	/*!
-     * \brief Gets the time required for the board plus radio to get out of sleep.[ms]
-     *
-     * \retval time Radio plus board wakeup time in ms.
-     */
+	 * \brief Gets the time required for the board plus radio to get out of sleep.[ms]
+	 *
+	 * \retval time Radio plus board wakeup time in ms.
+	 */
 	uint32_t (*GetWakeupTime)(void);
 	/*!
      * \brief Process radio irq in background task (nRF52 & ESP32)
@@ -390,13 +390,21 @@ struct Radio_s
      */
 	void (*RxBoosted)(uint32_t timeout);
 	/*!
-     * \brief Sets the Rx duty cycle management parameters
-     *
-     * \remark Available on SX126x radios only.
-     *
-     * \param   rxTime        Structure describing reception timeout value
-     * \param   sleepTime     Structure describing sleep timeout value
-     */
+	 * \brief Enforce use of Low Datarate Optimization
+	 *
+	 * \remark Available on SX126x radios only.
+	 *
+	 * \param   enforce       True = Enforce Low DR optimization
+	 */
+	void (*EnforceLowDRopt)(bool enforce);
+	/*!
+	 * \brief Sets the Rx duty cycle management parameters
+	 *
+	 * \remark Available on SX126x radios only.
+	 *
+	 * \param   rxTime        Structure describing reception timeout value
+	 * \param   sleepTime     Structure describing sleep timeout value
+	 */
 	void (*SetRxDutyCycle)(uint32_t rxTime, uint32_t sleepTime);
 };
 

@@ -29,6 +29,8 @@
 #include "mac/region/Region.h"
 #include "mac/region/RegionAS923.h"
 
+extern bool force_low_dr_opt;
+
 #define LORAWAN_CONFIRMED_MSG_ON 0			/**< LoRaWAN confirmed messages */
 #define LORAWAN_CERTIF_PORT 224				/**< LoRaWAN certification port */
 #define LORAWAN_APP_PORT 2					/**< LoRaWAN application port, do not use 224. It is reserved for certification */
@@ -314,7 +316,18 @@ uint8_t lmh_getConfRetries(void);
  */
 void lmh_reset_mac(void);
 
+/**
+ * @brief Get Network Session Key
+ * 
+ * @param key Buffer where the key is stored
+ */
 void lmh_getNwSkey(uint8_t *key);
+
+/**
+ * @brief Get Application Sesssion Key
+ * 
+ * @param key Buffer where the key is stored
+ */
 void lmh_getAppSkey(uint8_t *key);
 
 #endif

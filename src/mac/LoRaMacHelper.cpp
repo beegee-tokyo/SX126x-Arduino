@@ -1153,9 +1153,9 @@ uint32_t lmh_getDevAddr(void)
 	return LoRaMacGetOTAADevId();
 }
 
-void lmh_getNwSkey(uint8_t * key)
+void lmh_getNwSkey(uint8_t *key)
 {
-	for (int idx=0; idx<16; idx++)
+	for (int idx = 0; idx < 16; idx++)
 	{
 		key[idx] = LoRaMacNwkSKey[idx];
 	}
