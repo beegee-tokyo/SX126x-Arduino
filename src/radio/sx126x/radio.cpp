@@ -320,6 +320,15 @@ void RadioSetMaxPayloadLength(RadioModems_t modem, uint8_t max);
 void RadioSetPublicNetwork(bool enable);
 
 /*!
+ * \brief Sets a custom Sync-Word. Updates the sync byte.
+ *
+ * \remark Applies to LoRa modem only
+ *
+ * \param  syncword 2 byte custom Sync-Word to be used
+ */
+void RadioSetCustomSyncWord(uint16_t syncword);
+
+/*!
  * @brief Gets the time required for the board plus radio to get out of sleep.[ms]
  *
  * @retval time Radio plus board wakeup time in ms.
@@ -386,6 +395,7 @@ const struct Radio_s Radio =
 		RadioReadBuffer,
 		RadioSetMaxPayloadLength,
 		RadioSetPublicNetwork,
+		RadioSetCustomSyncWord,
 		RadioGetWakeupTime,
 		RadioBgIrqProcess,
 		RadioIrqProcess,
@@ -464,6 +474,8 @@ bool TimerRxTimeout = false;
 bool TimerTxTimeout = false;
 
 RadioModems_t _modem;
+
+bool hasCustomSyncWord = false;
 
 /*
  * SX126x DIO IRQ callback functions prototype
@@ -612,12 +624,17 @@ void RadioSetModem(RadioModems_t modem)
 		break;
 	case MODEM_LORA:
 		SX126xSetPacketType(PACKET_TYPE_LORA);
-		// Public/Private network register is reset when switching modems
-		if (RadioPublicNetwork.Current != RadioPublicNetwork.Previous)
+		// check first if a custom SyncWord is set
+		if (!hasCustomSyncWord)
 		{
-			RadioPublicNetwork.Current = RadioPublicNetwork.Previous;
-			RadioSetPublicNetwork(RadioPublicNetwork.Current);
+			// Public/Private network register is reset when switching modems
+			if (RadioPublicNetwork.Current != RadioPublicNetwork.Previous)
+			{
+				RadioPublicNetwork.Current = RadioPublicNetwork.Previous;
+				RadioSetPublicNetwork(RadioPublicNetwork.Current);
+			}
 		}
+
 		_modem = modem;
 		break;
 	}
@@ -1195,6 +1212,7 @@ void RadioSetMaxPayloadLength(RadioModems_t modem, uint8_t max)
 
 void RadioSetPublicNetwork(bool enable)
 {
+	hasCustomSyncWord = false;
 	RadioPublicNetwork.Current = RadioPublicNetwork.Previous = enable;
 
 	RadioSetModem(MODEM_LORA);
@@ -1210,6 +1228,13 @@ void RadioSetPublicNetwork(bool enable)
 		SX126xWriteRegister(REG_LR_SYNCWORD, (LORA_MAC_PRIVATE_SYNCWORD >> 8) & 0xFF);
 		SX126xWriteRegister(REG_LR_SYNCWORD + 1, LORA_MAC_PRIVATE_SYNCWORD & 0xFF);
 	}
+}
+
+void RadioSetCustomSyncWord(uint16_t syncword){
+	hasCustomSyncWord = true;
+	RadioSetModem(MODEM_LORA);
+	SX126xWriteRegister(REG_LR_SYNCWORD, (syncword >> 8) & 0xFF);
+	SX126xWriteRegister(REG_LR_SYNCWORD + 1, syncword & 0xFF);
 }
 
 uint32_t RadioGetWakeupTime(void)
