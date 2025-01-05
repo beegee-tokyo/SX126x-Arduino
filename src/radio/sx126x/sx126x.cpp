@@ -160,6 +160,12 @@ uint8_t SX126xSetSyncWord(uint8_t *syncWord)
 	return 0;
 }
 
+uint8_t SX126xGetSyncWord(uint8_t *syncWord)
+{
+	SX126xReadRegisters(REG_LR_SYNCWORDBASEADDRESS, syncWord, 8);
+	return 0;
+}
+
 void SX126xSetCrcSeed(uint16_t seed)
 {
 	uint8_t buf[2];

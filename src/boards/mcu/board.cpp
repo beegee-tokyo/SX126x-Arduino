@@ -92,7 +92,9 @@ uint32_t lora_hardware_init(hw_config hwConfig)
 
 	LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
 
-	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	// There could be a custom syncword, better test for 0xFFFF
+	// if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	if (readSyncWord != 0xFFFF)
 	{
 #if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_ARCH_RP2040
 		if (start_lora_task())
@@ -138,7 +140,9 @@ uint32_t lora_hardware_re_init(hw_config hwConfig)
 
 	LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
 
-	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	// There could be a custom syncword, better test for 0xFFFF
+	// if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	if (readSyncWord != 0xFFFF)
 	{
 #if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_ARCH_RP2040
 		if (start_lora_task())
@@ -183,7 +187,9 @@ uint32_t lora_isp4520_init(int chipType)
 
 	LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
 
-	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	// There could be a custom syncword, better test for 0xFFFF
+	// if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	if (readSyncWord != 0xFFFF)
 	{
 #if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_ARCH_RP2040
 		if (start_lora_task())
@@ -230,7 +236,9 @@ uint32_t lora_rak4630_init(void)
 
 	LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
 
-	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	// There could be a custom syncword, better test for 0xFFFF
+	// if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	if (readSyncWord != 0xFFFF)
 	{
 #if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_ARCH_RP2040
 		if (start_lora_task())
@@ -283,7 +291,9 @@ uint32_t lora_rak11300_init(void)
 
 	LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
 
-	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	// There could be a custom syncword, better test for 0xFFFF
+	// if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	if (readSyncWord != 0xFFFF)
 	{
 		// If we are compiling for ESP32, nRF52 or RP2040 we start background task
 #if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_ARCH_RP2040
@@ -344,7 +354,9 @@ uint32_t lora_rak13300_init(void)
 
 	LOG_LIB("BRD", "SyncWord = %04X", readSyncWord);
 
-	if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	// There could be a custom syncword, better test for 0xFFFF
+	// if ((readSyncWord == 0x2414) || (readSyncWord == 0x4434))
+	if (readSyncWord != 0xFFFF)
 	{
 #if defined NRF52_SERIES || defined ESP32 || defined ARDUINO_ARCH_RP2040 || defined ARDUINO_RAKWIRELESS_RAK11300
 		if (start_lora_task())

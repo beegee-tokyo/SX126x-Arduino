@@ -325,11 +325,18 @@ void RadioSetPublicNetwork(bool enable);
 /*!
  * \brief Sets a custom Sync-Word. Updates the sync byte.
  *
- * \remark Applies to LoRa modem only
+ * \remark ATTENTION, changes the LoRaWAN sync word as well. Use with care.
  *
  * \param  syncword 2 byte custom Sync-Word to be used
  */
 void RadioSetCustomSyncWord(uint16_t syncword);
+
+/*!
+ * \brief Get current Sync-Word.
+ *
+ * \param  syncword 2 byte custom Sync-Word in use
+ */
+uint16_t RadioGetSyncWord(void);
 
 /*!
  * @brief Gets the time required for the board plus radio to get out of sleep.[ms]
@@ -406,6 +413,7 @@ const struct Radio_s Radio =
 		RadioSetMaxPayloadLength,
 		RadioSetPublicNetwork,
 		RadioSetCustomSyncWord,
+		RadioGetSyncWord,
 		RadioGetWakeupTime,
 		RadioBgIrqProcess,
 		RadioIrqProcess,
@@ -1248,6 +1256,16 @@ void RadioSetCustomSyncWord(uint16_t syncword)
 	RadioSetModem(MODEM_LORA);
 	SX126xWriteRegister(REG_LR_SYNCWORD, (syncword >> 8) & 0xFF);
 	SX126xWriteRegister(REG_LR_SYNCWORD + 1, syncword & 0xFF);
+}
+
+uint16_t RadioGetSyncWord(void)
+{
+	uint8_t syncWord[8];
+	RadioSetModem(MODEM_LORA);
+	syncWord[0] = SX126xReadRegister(REG_LR_SYNCWORD);
+	syncWord[1] = SX126xReadRegister(REG_LR_SYNCWORD + 1);
+
+	return (uint16_t)(syncWord[0] << 8) + (uint16_t)(syncWord[1]);
 }
 
 uint32_t RadioGetWakeupTime(void)

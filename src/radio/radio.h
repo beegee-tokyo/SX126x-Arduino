@@ -354,11 +354,17 @@ struct Radio_s
 	/*!
 	 * \brief Sets a custom Sync-Word. Updates the sync byte.
 	 *
-	 * \remark Applies to LoRa modem only
+	 * \remark ATTENTION, changes the LoRaWAN sync word as well. Use with care.
 	 *
 	 * \param  syncword 2 byte custom Sync-Word to be used
 	 */
 	void (*SetCustomSyncWord)(uint16_t syncword);
+	/*!
+	 * \brief Get Sync-Word.
+	 *
+	 * \retval  syncword current 2 byte custom Sync-Word
+	 */
+	uint16_t (*GetSyncWord)(void);
 	/*!
 	 * \brief Gets the time required for the board plus radio to get out of sleep.[ms]
 	 *

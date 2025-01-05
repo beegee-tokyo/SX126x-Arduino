@@ -785,6 +785,13 @@ void SX126xSendPayload(uint8_t *payload, uint8_t size, uint32_t timeout);
 uint8_t SX126xSetSyncWord(uint8_t *syncWord);
 
 /*!
+ * \brief Gets the current Sync Word given by index used in GFSK
+ *
+ * \retval      2 byte syncword
+ */
+uint16_t SX126xGetSyncWord(void);
+
+/*!
  * \brief Sets the seed value for the LFSR used for the CRC calculation
  *
  * \param   seed          Initial LFSR value ( 2 bytes )
