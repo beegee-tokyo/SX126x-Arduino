@@ -88,6 +88,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----
 ## Changelog
 [Code releases](CHANGELOG.md)
+- 2025-01-16 Fix RP2040 assert issue
+  - Set timer priority correct, thanks to _**@EdisonAgudelo**_
 - 2025-01-05 Add function to read the Syncword
   - Add radio function to read the radio syncword uint16_t syncword = Radio.GetSyncWord(void);
 - 2025-01-01 Add custom Syncword and Low DataRate optimization

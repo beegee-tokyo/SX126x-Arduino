@@ -4,6 +4,9 @@ Arduino library for LoRa communication with Semtech SX126x chips. It is based on
 
 # Release Notes
 
+# V2.0.30 Fix RP2040 assert issue
+  - Set timer priority correct, thanks to _**@EdisonAgudelo**_
+
 # V2.0.29 Add read the Syncword function
   - Add radio function to read the radio syncword uint16_t syncword = Radio.GetSyncWord(void);
   
