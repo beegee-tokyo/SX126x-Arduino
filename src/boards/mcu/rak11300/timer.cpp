@@ -128,7 +128,7 @@ void TimerConfig(void)
 	}
 
 	// Initialize the timer task
-	if (xTaskCreate(_timer_task, "TIMER", 4096, NULL, 8, &_timerTaskHandle))
+	if (xTaskCreate(_timer_task, "TIMER", 4096, NULL, configMAX_PRIORITIES - 1, &_timerTaskHandle))
 	{
 		LOG_LIB("TIM", "Timer task start success");
 	}
