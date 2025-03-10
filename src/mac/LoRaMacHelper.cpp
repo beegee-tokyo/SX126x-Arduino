@@ -1102,7 +1102,7 @@ lmh_error_status lmh_class_request(DeviceClass_t newClass)
 
 		case CLASS_C:
 		{
-			if (currentClass != CLASS_A)
+			if (currentClass != CLASS_C)
 			{
 				Errorstatus = LMH_ERROR;
 			}
