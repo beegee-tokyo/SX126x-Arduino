@@ -112,6 +112,10 @@ uint32_t lora_rak4630_init(void);
  */
 uint32_t lora_rak11300_init(void);
 
+/**@brief Initializes the RAK3112 board peripherals.
+ */
+uint32_t lora_rak3112_init(void);
+
 /**@brief Initializes the RAK13300 board peripherals.
  */
 uint32_t lora_rak13300_init(void);
