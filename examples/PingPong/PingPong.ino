@@ -61,13 +61,19 @@ extern BLEUart bleuart;
 
 // Check if the board has an LED port defined
 #ifdef ESP32
+#ifndef LED_BUILTIN
 #define LED_BUILTIN 2
+#endif
 #endif
 #ifdef ESP8266
+#ifndef LED_BUILTIN
 #define LED_BUILTIN 2
 #endif
+#endif
 #ifdef NRF52_SERIES
+#ifndef LED_BUILTIN
 #define LED_BUILTIN 17
+#endif
 #endif
 
 // Define LoRa parameters
@@ -282,7 +288,12 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
 				}
 #endif
 				isMaster = false;
-				Radio.Rx(RX_TIMEOUT_VALUE);
+				// Check if our channel is available for sending
+				Radio.Sleep();
+				Radio.SetCadParams(LORA_CAD_08_SYMBOL, LORA_SPREADING_FACTOR + 13, 10, LORA_CAD_ONLY, 0);
+				cadTime = millis();
+				Radio.StartCad();
+				// Sending next Pong will be started when the channel is free
 			}
 			else // valid reception but neither a PING or a PONG message
 			{	// Set device as master and start again
