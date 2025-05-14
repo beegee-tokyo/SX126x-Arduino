@@ -381,8 +381,8 @@ uint32_t lora_rak3112_init(void)
 	_hwConfig.PIN_LORA_NSS = 7;			   // LORA SPI CS
 	_hwConfig.PIN_LORA_SCLK = 5;		   // LORA SPI CLK
 	_hwConfig.PIN_LORA_MISO = 3;		   // LORA SPI MISO
-	_hwConfig.PIN_LORA_DIO_1 = 33;		   // LORA DIO_1
-	_hwConfig.PIN_LORA_BUSY = 34;		   // LORA SPI BUSY
+	_hwConfig.PIN_LORA_DIO_1 = 33;		   // LORA DIO_1 ==> GPIO47 in V2 boards
+	_hwConfig.PIN_LORA_BUSY = 34;		   // LORA SPI BUSY ==> GPIO48 in V2 boards
 	_hwConfig.PIN_LORA_MOSI = 6;		   // LORA SPI MOSI
 	_hwConfig.RADIO_TXEN = -1;			   // LORA ANTENNA TX ENABLE (e.g. eByte E22 module)
 	_hwConfig.RADIO_RXEN = 4;			   // LORA ANTENNA RX ENABLE (e.g. eByte E22 module)
