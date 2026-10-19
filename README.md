@@ -1,4 +1,10 @@
 # SX126x-Arduino [![Build Status](https://github.com/beegee-tokyo/SX126x-Arduino/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/beegee-tokyo/SX126x-Arduino/actions)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](https://beegee-tokyo.github.io/SX126x-Arduino/)
+
+# ⚠️ INFO
+This library is no longer maintained. It will be kept accessible through this repository and and the library managers of Arduino IDE and PlatformIO.      
+No more bug fixes will be applied to this library.      
+For an updated LoRaWAN library supporting LoRaWAN stack V1.0.4 and regional parameters RP2-1.0.3 please use the successor of this library, [WisBlockLoRaWAN](https://github.com/beegee-tokyo/WisBlockLoRaWAN)     
+
 ----
 Arduino library for LoRa communication with Semtech SX126x chips. It is based on Semtech's SX126x libraries and adapted to the Arduino framework for ESP32, ESP8266, nRF52832 and RP2040. It will not work with other uC's like AVR.    
 LoRaWAN version: **`MAC V1.0.2`** and Regional Parameters version: **`PHY V1.0.2 REV B`**    
